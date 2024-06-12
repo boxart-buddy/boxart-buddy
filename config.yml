@@ -1,0 +1,6 @@
+rom_folder: ~/Documents/Roms/test_romset
+romset_name: custom
+screenscraper_user: 'user'
+screenscraper_pass: 'pass'
+sftp:
+  ip: 192.168.1.135

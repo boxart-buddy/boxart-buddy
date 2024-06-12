@@ -1,0 +1,10 @@
+base_path: /home/user/roms
+screenscraper_user: 'user'
+screenscraper_password: 'password'
+skyscraper_config_folder_path: ~
+romset_name: custom
+# sftp details only required to auto transfer to/from device
+sftp_ip: ~
+sftp_user: muos
+sftp_pass: muos
+sftp_port: 2022

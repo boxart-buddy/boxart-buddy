@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <meta author="Boxart Buddy" notes="A system logo aligned to the right"></meta>
+    <output type="cover" width="640" height="480">
+        <layer resource="system-logos/{{ 'logo-type'|trans({}, 'general', locale) }}/{{ 'logo'|trans({}, 'logo', locale) }}"
+               x="-100" y="0" width="150" align="right" valign="middle">
+        </layer>
+    </output>
+</artwork>

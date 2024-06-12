@@ -1,0 +1,99 @@
+{
+  "name": "boxart-buddy/boxart-buddy",
+  "description": "An outer layer for skyscraper making it easy to generate boxart for SBC devices. Written in PHP",
+  "type": "project",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "support": {
+    "issues": "https://github.com/boxart-buddy/boxart-buddy/issues",
+    "source": "https://github.com/boxart-buddy/boxart-buddy"
+  },
+  "require": {
+    "php": ">=8.2",
+    "ext-ctype": "*",
+    "ext-iconv": "*",
+    "ext-simplexml": "*",
+    "illuminate/collections": "^11.10",
+    "intervention/image": "^3.6",
+    "league/flysystem": "^3.28",
+    "league/flysystem-sftp-v3": "^3.28",
+    "nelexa/zip": "^4.0",
+    "spatie/image-optimizer": "^1.7",
+    "symfony/console": "7.1.*",
+    "symfony/dotenv": "7.1.*",
+    "symfony/flex": "^2",
+    "symfony/framework-bundle": "7.1.*",
+    "symfony/http-client": "7.1.*",
+    "symfony/monolog-bundle": "*",
+    "symfony/process": "7.1.*",
+    "symfony/property-access": "7.1.*",
+    "symfony/runtime": "7.1.*",
+    "symfony/translation": "7.1.*",
+    "symfony/twig-bundle": "7.1.*",
+    "symfony/yaml": "7.1.*",
+    "twig/extra-bundle": "^2.12|^3.0",
+    "twig/twig": "^2.12|^3.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true,
+      "symfony/flex": true,
+      "symfony/runtime": true
+    },
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\Tests\\": "tests/"
+    }
+  },
+  "replace": {
+    "symfony/polyfill-ctype": "*",
+    "symfony/polyfill-iconv": "*",
+    "symfony/polyfill-php72": "*",
+    "symfony/polyfill-php73": "*",
+    "symfony/polyfill-php74": "*",
+    "symfony/polyfill-php80": "*",
+    "symfony/polyfill-php81": "*",
+    "symfony/polyfill-php82": "*"
+  },
+  "scripts": {
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install %PUBLIC_DIR%": "symfony-cmd"
+    },
+    "post-install-cmd": [
+      "@auto-scripts"
+    ],
+    "post-update-cmd": [
+      "@auto-scripts"
+    ]
+  },
+  "conflict": {
+    "symfony/symfony": "*"
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "7.1.*"
+    }
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "*",
+    "phpstan/phpstan": "^1.11",
+    "phpunit/phpunit": "^11.2",
+    "symfony/browser-kit": "7.1.*",
+    "symfony/css-selector": "7.1.*",
+    "symfony/debug-bundle": "7.1.*",
+    "symfony/maker-bundle": "*",
+    "symfony/phpunit-bridge": "^7.1",
+    "symfony/stopwatch": "7.1.*",
+    "symfony/web-profiler-bundle": "7.1.*"
+  }
+}

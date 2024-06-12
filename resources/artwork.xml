@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Default Artwork.xml -->
+<artwork>
+    <meta author="Your Name" notes="Type your notes here"></meta>
+
+    <output type="cover" width="640" height="480">
+        <layer resource="wheel" width="150" align="right" valign="bottom" x="-50" y="-80">
+            <stroke width="4" red="255" green="255" blue="255"/>
+        </layer>
+    </output>
+
+    <output type="screenshot" width="515" height="275">
+        <layer resource="screenshot" height="275" align="center" valign="middle"/>
+    </output>
+</artwork>

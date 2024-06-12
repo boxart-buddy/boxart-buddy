@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Right aligned game logo and system logo on a transparent background -->
+<artwork>
+    <meta author="Boxart Buddy"
+          notes="System logo centralized. Works well for folder art with full screen boxart."></meta>
+    <output type="cover" width="640" height="480">
+        <layer resource="system-logos/{{ 'logo-type'|trans({}, 'general', locale) }}/{{ 'logo'|trans({}, 'logo', locale) }}"
+               width="300" align="center" valign="middle">
+        </layer>
+    </output>
+</artwork>

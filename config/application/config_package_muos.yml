@@ -1,0 +1,125 @@
+'3do': ~
+'3ds': ~
+'actionmax': ~
+'ags': ~
+'amiga': 'Commodore Amiga'
+'amstradcpc': 'Amstrad'
+'apple2': ~
+'apple2gs': ~
+'arcade': 'Arcade'
+'arcadia': ~
+'arduboy': 'Arduboy'
+'astrocade': ~
+'atari2600': 'Atari 2600'
+'atari5200': 'Atari 5200'
+'atari7800': 'Atari 7800'
+'atari800': ~
+'atarijaguar': ' Atari Jaguar'
+'atarijaguarcd': ~
+'atarilynx': 'Atari Lynx'
+'atarist': 'Atari ST-STE-TT-Falcon'
+'atomiswave': ~
+'c128': 'Commodore C128'
+'c64': 'Commodore C64'
+'cd32': ~
+'cdi': 'Philips CDi'
+'cdtv': ~
+'channelf': ~
+'coco': ~
+'coleco': 'ColecoVision'
+'crvision': ~
+'daphne': ~
+'dragon32': ~
+'dreamcast': 'Sega Dreamcast - Naomi'
+'easyrpg': ~
+'fba': ~
+'fds': ~
+'fm7': ~
+'gameandwatch': ~
+'gamecom': ~
+'gamegear': 'Sega Game Gear'
+'gb': 'Nintendo Game Boy'
+'gba': 'Nintendo Game Boy Advance'
+'gbc': 'Nintendo Game Boy Color'
+'gc': ~
+'gmaster': ~
+'intellivision': ~
+'j2me': ~
+'love': ~
+'macintosh': ~
+'mame': 'Arcade'
+'mame-advmame': 'Arcade'
+'mame-libretro': 'Arcade'
+'mame-mame4all': 'Arcade'
+'mastersystem': 'Sega Master System'
+'megadrive': 'Sega Mega Drive - Genesis'
+'megaduck': ~
+'moto': ~
+'msx': ~
+'msx2': ~
+'n64': 'Nintendo N64'
+'n64dd': 'Nintendo N64'
+'naomi': ~
+'naomi2': ~
+'nds': 'Nintendo DS'
+'neogeo': 'SNK Neo Geo'
+'neogeocd': 'SNK Neo Geo CD'
+'nes': 'Nintendo NES-Famicom'
+'ngp': 'SNK Neo Geo Pocket - Color'
+'ngpc': 'SNK Neo Geo Pocket - Color'
+'openbor': ~
+'oric': ~
+'palm': 'Palm OS'
+'pc': ~
+'pc88': 'NEC PC-8000 - PC-8800 series'
+'pc98': 'NEC PC98'
+'pcengine': 'NEC PC Engine'
+'pcenginecd': 'NEC PC Engine'
+'pcfx': 'NEC PC-FX'
+'pico8': 'PICO-8'
+'plus4': ~
+'pokemini': 'Nintendo Pokemon Mini'
+'ports': ~
+'ps2': ~
+'ps3': ~
+'ps4': ~
+'ps5': ~
+'psp': 'Sony Playstation Portable'
+'psvita': ~
+'psx': 'Sony PlayStation'
+'pv1000': ~
+'samcoupe': ~
+'saturn': 'Sega Saturn'
+'scummvm': 'ScummVM'
+'scv': ~
+'sega32x': 'Sega 32X'
+'segacd': 'Sega Mega CD - Sega CD'
+'sg-1000': ~
+'solarus': ~
+'snes': 'Nintendo SNES-SFC'
+'steam': ~
+'stratagus': ~
+'supervision': 'Watara Supervision'
+'switch': ~
+'symbian': ~
+'ti99': ~
+'tic80': ~
+'trs-80': ~
+'vectrex': ~
+'vic20': ~
+'videopac': ~
+'virtualboy': 'Nintendo Virtual Boy'
+'vsmile': ~
+'wii': ~
+'wiiu': ~
+'wonderswan': 'Bandai WonderSwan-Color'
+'wonderswancolor': 'Bandai WonderSwan-Color'
+'x1': 'Sharp X1'
+'x68000': 'Sharp X68000'
+'xbox': ~
+'xbox360': ~
+'zmachine': ~
+'zx81': 'Sinclair ZX 81'
+'zxspectrum': 'Sinclair ZX Spectrum'
+
+

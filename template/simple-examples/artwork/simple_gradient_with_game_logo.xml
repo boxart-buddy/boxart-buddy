@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <meta author="tokumeino"
+          notes="Shared on the muOS discord. See template pack `tokumeino-gradients` for more. https://discord.com/invite/USS5ybVtDz"></meta>
+
+    <output type="cover" width="640" height="480">
+
+        <layer resource="screenshot" height="396" align="center" valign="middle" x="198">
+            <blur softness="1"/>
+            <opacity value="95"/>
+        </layer>
+
+        <mask file="mask/simple-gradient.png" width="640" height="480" x="56"/>
+
+        <!-- Wheel after the mask to cover it -->
+        <!-- (it is larger than the 100% plain but should not be faded by the mask) -->
+        <layer resource="wheel" width="220" align="center" valign="middle" x="193" y="-90">
+            <stroke width="2" red="0" green="0" blue="0"/>
+            <shadow distance="8" softness="5" opacity="50"/>
+        </layer>
+
+    </output>
+
+    <output type="screenshot" width="515" height="275">
+        <layer resource="screenshot" height="275" align="center" valign="middle"/>
+    </output>
+</artwork>

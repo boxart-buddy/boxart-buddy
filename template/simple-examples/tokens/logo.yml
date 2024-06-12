@@ -1,0 +1,249 @@
+'3do':
+  logo: 'Consoles/3DO Interactive Multiplayer.png'
+'3ds':
+  logo: 'Handhelds/Nintendo 3DS.png'
+'actionmax':
+  logo: ~
+'ags':
+  logo: 'Computers/Atari XEGS.png'
+'amiga':
+  logo: 'Computers/Commodore Amiga.png'
+'amstradcpc':
+  logo: 'Computers/Amstrad CPC.png'
+'apple2':
+  logo: 'Computers/Apple II.png'
+'apple2gs':
+  logo: 'Computers/Apple IIGS.png'
+'arcade':
+  logo: 'Arcade/MAME.png'
+'arcadia':
+  logo: 'Consoles/Emerson Arcadia 2001.png'
+'arduboy':
+  logo: ~
+'astrocade':
+  logo: 'Consoles/Bally Astrocade.png'
+'atari2600':
+  logo: 'Consoles/Atari 2600.png'
+'atari5200':
+  logo: 'Consoles/Atari 5200.png'
+'atari7800':
+  logo: 'Consoles/Atari 7800.png'
+'atari800':
+  logo: 'Computers/Atari 800.png'
+'atarijaguar':
+  logo: 'Consoles/Atari Jaguar.png'
+'atarijaguarcd':
+  logo: 'Consoles/Atari Jaguar CD.png'
+'atarilynx':
+  logo: 'Handhelds/Atari Lynx.png'
+'atarist':
+  logo: 'Computers/Atari ST.png'
+'atomiswave':
+  logo: 'Arcade/Sammy Atomiswave.png'
+'c128':
+  logo: 'Computers/Commodore 128.png'
+'c64':
+  logo: 'Computers/Commodore 64.png'
+'cd32':
+  logo: 'Consoles/Commodore Amiga CD32.png'
+'cdi':
+  logo: 'Consoles/Philips CD-i.png'
+'cdtv':
+  logo: 'Consoles/Commodore CDTV.png'
+'channelf':
+  logo: 'Consoles/Fairchild Channel F.png'
+'coco':
+  logo: 'Consoles/ColecoVision.png'
+'coleco':
+  logo: 'Consoles/ColecoVision.png'
+'crvision':
+  logo: 'Consoles/VTech CreatiVision.png'
+'daphne':
+  logo: 'Arcade/Daphne.png'
+'dragon32':
+  logo: 'Computers/Dragon 32 64.png'
+'dreamcast':
+  logo: 'Consoles/Sega Dreamcast.png'
+'easyrpg':
+  logo: ~
+'fba':
+  logo: 'Arcade/Final Burn Alpha.png'
+'fds':
+  logo: 'Consoles/Nintendo Famicom Disk System.png'
+'fm7':
+  logo: 'Computers/Fujitsu FM-7.png'
+'gameandwatch':
+  logo: 'Handhelds/Nintendo Game & Watch.png'
+'gamecom':
+  logo: 'Handhelds/Tiger Game.com.png'
+'gamegear':
+  logo: 'Handhelds/Sega Game Gear.png'
+'gb':
+  logo: 'Handhelds/Nintendo Game Boy.png'
+'gba':
+  logo: 'Handhelds/Nintendo Game Boy Advance.png'
+'gbc':
+  logo: 'Handhelds/Nintendo Game Boy Color.png'
+'gc':
+  logo: 'Consoles/Nintendo GameCube.png'
+'gmaster':
+  logo: 'Handhelds/Hartung Game Master.png'
+'intellivision':
+  logo: 'Consoles/Mattel Intellivision.png'
+'j2me':
+  logo: 'missing.png'
+'love':
+  logo: 'missing.png'
+'macintosh':
+  logo: 'Computers/Apple Mac OS.png'
+'mame':
+  logo: 'Arcade/MAME.png'
+'mame-advmame':
+  logo: 'Arcade/MAME.png'
+'mame-libretro':
+  logo: 'Arcade/MAME.png'
+'mame-mame4all':
+  logo: 'Arcade/MAME.png'
+'mastersystem':
+  logo: 'Consoles/Sega Master System.png'
+'megadrive':
+  logo: 'Consoles/Sega Mega Drive.png'
+'megaduck':
+  logo: 'Handhelds/Mega Duck.png'
+'moto':
+  logo: 'Computers/Thomson MO5.png'
+'msx':
+  logo: 'Computers/Microsoft MSX.png'
+'msx2':
+  logo: 'Computers/Microsoft MSX2.png'
+'n64':
+  logo: 'Consoles/Nintendo 64.png'
+'n64dd':
+  logo: 'Consoles/Nintendo 64 DD.png'
+'naomi':
+  logo: 'Arcade/Sega Naomi.png'
+'naomi2':
+  logo: 'Arcade/Sega Naomi 2.png'
+'nds':
+  logo: 'Handhelds/Nintendo DS.png'
+'neogeo':
+  logo: 'Consoles/SNK Neo Geo.png'
+'neogeocd':
+  logo: 'Consoles/SNK Neo Geo CD.png'
+'nes':
+  logo: 'Consoles/Nintendo Entertainment System.png'
+'ngp':
+  logo: 'Handhelds/SNK Neo Geo Pocket.png'
+'ngpc':
+  logo: 'Handhelds/SNK Neo Geo Pocket Color.png'
+'openbor':
+  logo: 'Consoles/OpenBOR.png'
+'oric':
+  logo: 'Computers/Oric Atmos.png'
+'palm':
+  logo: ~
+'pc':
+  logo: 'Computers/Windows.png'
+'pc88':
+  logo: 'Computers/NEC PC-8801.png'
+'pc98':
+  logo: 'Computers/NEC PC-9801.png'
+'pcengine':
+  logo: 'Consoles/NEC PC Engine.png'
+'pcenginecd':
+  logo: 'Consoles/NEC PC Engine CD.png'
+'pcfx':
+  logo: 'Consoles/NEC PC-FX.png'
+'pico8':
+  logo: 'Consoles/Pico-8.png'
+'plus4':
+  logo: 'Computers/Commodore Plus 4.png'
+'pokemini':
+  logo: 'Handhelds/Nintendo Pokémon Mini.png'
+'ports':
+  logo: ~
+'ps2':
+  logo: 'Consoles/Sony Playstation 2.png'
+'ps3':
+  logo: 'Consoles/Sony Playstation 3.png'
+'ps4':
+  logo: 'Consoles/Sony Playstation 4.png'
+'ps5':
+  logo: 'Consoles/Sony Playstation 5.png'
+'psp':
+  logo: 'Handhelds/Sony PSP.png'
+'psvita':
+  logo: 'Handhelds/Sony PS Vita.png'
+'psx':
+  logo: 'Consoles/Sony Playstation.png'
+'pv1000':
+  logo: 'Consoles/Casio PV-1000.png'
+'samcoupe':
+  logo: 'Computers/SAM Coupé.png'
+'saturn':
+  logo: 'Consoles/Sega Saturn.png'
+'scummvm':
+  logo: 'Computers/ScummVM.png'
+'scv':
+  logo: 'Consoles/Epoch Super Cassette Vision.png'
+'sega32x':
+  logo: 'Consoles/Sega 32X.png'
+'segacd':
+  logo: 'Consoles/Sega CD.png'
+'sg-1000':
+  logo: 'Consoles/Sega SG-1000.png'
+'snes':
+  logo: 'Consoles/Super Nintendo Entertainment System.png'
+'solarus':
+  logo: ~
+'steam':
+  logo: 'Computers/Steam.png'
+'stratagus':
+  logo: ~
+'supervision':
+  logo: 'Handhelds/Watara Supervision.png'
+'switch':
+  logo: 'Consoles/Nintendo Switch.png'
+'symbian':
+  logo: 'Handhelds/Nokia N-Gage.png'
+'ti99':
+  logo: 'Computers/Texas Instruments TI 99 4A.png'
+'tic80':
+  logo: 'Computers/TIC-80.png'
+'trs-80':
+  logo: 'Computers/Tandy TRS-80.png'
+'vectrex':
+  logo: 'Consoles/GCE Vectrex.png'
+'vic20':
+  logo: 'Computers/Commodore VIC-20.png'
+'videopac':
+  logo: 'Consoles/Phillips Videopac+.png'
+'virtualboy':
+  logo: 'Consoles/Nintendo Virtual Boy.png'
+'vsmile':
+  logo: ~
+'wii':
+  logo: 'Consoles/Nintendo Wii.png'
+'wiiu':
+  logo: 'Consoles/Nintendo Wii U.png'
+'wonderswan':
+  logo: 'Handhelds/WonderSwan.png'
+'wonderswancolor':
+  logo: 'Handhelds/Wonderswan Color.png'
+'x1':
+  logo: 'Computers/Sharp X1.png'
+'x68000':
+  logo: 'Computers/Sharp X68000.png'
+'xbox':
+  logo: 'Consoles/Microsoft Xbox.png'
+'xbox360':
+  logo: 'Consoles/Microsoft Xbox 360.png'
+'zmachine':
+  logo: ~
+'zx81':
+  logo: 'Computers/Sinclair ZX81.png'
+'zxspectrum':
+  logo: 'Computers/Sinclair ZX Spectrum.png'
+'default':
+  logo: 'missing.png'
+  logo-type: 'dark-color'
