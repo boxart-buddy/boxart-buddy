@@ -57,7 +57,7 @@ class BootstrapCommand extends Command
         // config bootstrap
         $this->createNewFileFromDist(
             ApplicationConfigurationProcessor::CONFIG_FILENAME,
-            'config.yml.dist',
+            'config/config.yml.dist',
             $overwrite
         );
 
@@ -76,7 +76,14 @@ class BootstrapCommand extends Command
 
         $this->createNewFileFromDist(
             ApplicationConfigurationProcessor::CONFIG_PLATFORM_FILENAME,
-            $platformConfigFilename,
+            'config/'.$platformConfigFilename,
+            $overwrite
+        );
+
+        // name_extra
+        $this->createNewFileFromDist(
+            'name_extra.json',
+            'name_extra.json',
             $overwrite
         );
 
@@ -106,12 +113,12 @@ class BootstrapCommand extends Command
     {
         $filesystem = new Filesystem();
 
-        if (!$overwrite && $filesystem->exists($this->path->joinWithBase($filename))) {
+        if (!$overwrite && $filesystem->exists($this->path->joinWithBase(FolderNames::USER_CONFIG->value, $filename))) {
             return;
         }
 
         $filesystem->copy(
-            $this->path->joinWithBase('resources', 'config', $distFilename),
+            $this->path->joinWithBase('resources', $distFilename),
             $this->path->joinWithBase(FolderNames::USER_CONFIG->value, $filename),
             $overwrite
         );

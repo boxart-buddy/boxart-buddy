@@ -2,6 +2,7 @@
 
 namespace App\Provider;
 
+use App\FolderNames;
 use App\Util\Path;
 
 class NamesProvider
@@ -41,7 +42,7 @@ class NamesProvider
             'name.json',
         );
         $extraNamesFilePath = $this->path->joinWithBase(
-            'resources',
+            FolderNames::USER_CONFIG->value,
             'name_extra.json',
         );
 
