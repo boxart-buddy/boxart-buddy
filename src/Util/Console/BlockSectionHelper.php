@@ -7,6 +7,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * A facade that allows simpler styling of sections/blocks of console output.
@@ -19,8 +20,13 @@ class BlockSectionHelper
 
     public function __construct(
         readonly private InputInterface $input,
-        readonly private ConsoleOutput $consoleOutput
+        readonly private OutputInterface $consoleOutput
     ) {
+    }
+
+    public function style(): CustomSymfonyStyle
+    {
+        return $this->getStyleForCurrentSection();
     }
 
     private function getStyleForCurrentSection(): CustomSymfonyStyle
@@ -65,6 +71,9 @@ class BlockSectionHelper
             $this->currentSection = $name;
 
             return $this;
+        }
+        if (!$this->consoleOutput instanceof ConsoleOutput) {
+            throw new \RuntimeException();
         }
         $this->sections[$name] = $this->consoleOutput->section();
         $this->currentSection = $name;

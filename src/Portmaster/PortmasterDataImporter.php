@@ -3,17 +3,16 @@
 namespace App\Portmaster;
 
 use App\ApplicationConstant;
-use App\Builder\SkyscraperCommandDirector;
 use App\Config\Reader\ConfigReader;
 use App\FolderNames;
+use App\Generator\ManualImportXMLGenerator;
+use App\Importer\SkyscraperManualDataImporter;
 use App\Provider\PathProvider;
 use App\Util\DateTimeFile;
 use App\Util\Path;
 use PhpZip\Exception\ZipException;
 use PhpZip\ZipFile;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -28,11 +27,11 @@ readonly class PortmasterDataImporter
 {
     public function __construct(
         private HttpClientInterface $client,
-        private SkyscraperCommandDirector $skyscraperCommandDirector,
         private ConfigReader $configReader,
         private Path $path,
         private PathProvider $pathProvider,
-        private LoggerInterface $logger
+        private ManualImportXMLGenerator $manualImportXMLGenerator,
+        private SkyscraperManualDataImporter $skyscraperManualDataImporter
     ) {
     }
 
@@ -49,6 +48,14 @@ readonly class PortmasterDataImporter
         }
     }
 
+    /**
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws ZipException
+     * @throws ServerExceptionInterface
+     */
     public function importPortmasterData(): void
     {
         // Download and unzip latest images if needed
@@ -64,10 +71,21 @@ readonly class PortmasterDataImporter
         // then create and import 'fake' resources
         $fakeRomPath = $this->pathProvider->getPortmasterRomPath();
         $this->makeFakeRoms($meta, $fakeRomPath);
-        $this->copyDefinitionsDat();
         $this->writeTextualDataToImportLocation($meta);
         $this->copyScreenshotsToImportLocation($meta);
-        $this->importResources($this->configReader->getConfig()->skyscraperConfigFolderPath);
+        $this->import();
+    }
+
+    private function import(): void
+    {
+        $importIn = $this->path->joinWithBase(
+            FolderNames::TEMP->value,
+            'portmaster',
+            'import',
+            ApplicationConstant::FAKE_PORTMASTER_PLATFORM
+        );
+
+        $this->skyscraperManualDataImporter->importResources($importIn, ApplicationConstant::FAKE_PORTMASTER_PLATFORM);
     }
 
     private function makeFakeRoms(array $metadata, string $fakeRomPath): void
@@ -79,14 +97,6 @@ readonly class PortmasterDataImporter
         }
     }
 
-    private function copyDefinitionsDat(): void
-    {
-        $definitionsIn = $this->path->joinWithBase('resources', 'definitions.dat');
-        $definitionsOut = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'import', 'definitions.dat');
-        $filesystem = new Filesystem();
-        $filesystem->copy($definitionsIn, $definitionsOut);
-    }
-
     private function writeTextualDataToImportLocation(array $metadata): void
     {
         $tmpFolder = $this->path->joinWithBase(
@@ -96,19 +106,10 @@ readonly class PortmasterDataImporter
             ApplicationConstant::FAKE_PORTMASTER_PLATFORM,
             'textual/'
         );
-        $filesystem = new Filesystem();
 
         foreach ($metadata as $name => $attr) {
-            $xml = new \SimpleXMLElement('<game/>');
-
-            $xml->addChild('title', htmlspecialchars($attr['title']));
-            $xml->addChild('description', htmlspecialchars($attr['description']));
-            $xml->addChild('genre', htmlspecialchars($attr['genre']));
-
-            $filesystem->appendToFile(
-                Path::join($tmpFolder, $name.'.xml'),
-                $xml->asXML() ?: ''
-            );
+            $path = Path::join($tmpFolder, $name.'.xml');
+            $this->manualImportXMLGenerator->generateXML($path, $attr['title'], $attr['description'], $attr['genre']);
         }
     }
 
@@ -136,31 +137,6 @@ readonly class PortmasterDataImporter
                 );
             }
         }
-    }
-
-    private function importResources(string $skyscraperConfigFolderPath): void
-    {
-        // copy all files from temp to skyscraper first
-        $filesystem = new Filesystem();
-        $importIn = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'import/');
-        $importOut = Path::join($skyscraperConfigFolderPath, 'import/');
-        $filesystem->mirror(
-            $importIn,
-            $importOut
-        );
-
-        // run import command to import into cache
-        $command = $this->skyscraperCommandDirector->getImportLocalDataCommand(
-            ApplicationConstant::FAKE_PORTMASTER_PLATFORM,
-            $this->pathProvider->getPortmasterRomPath()
-        );
-
-        $process = new Process($command);
-        $process->setTimeout(3600);
-
-        $process->run(function ($type, $buffer): void {
-            $this->logger->info($buffer);
-        });
     }
 
     /**

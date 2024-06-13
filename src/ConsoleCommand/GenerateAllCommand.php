@@ -11,6 +11,7 @@ use App\Command\Handler\CentralHandler;
 use App\Command\PackageCommand;
 use App\Command\TransferCommand;
 use App\FolderNames;
+use App\Generator\SkippedRomImportDataGenerator;
 use App\Portmaster\PortmasterDataImporter;
 use App\Util\CommandUtility;
 use App\Util\Console\BlockSectionHelper;
@@ -36,7 +37,8 @@ class GenerateAllCommand extends Command
         readonly private CommandFactory $commandFactory,
         readonly private CentralHandler $centralHandler,
         readonly private PortmasterDataImporter $portmasterDataImporter,
-        readonly private Path $path
+        readonly private Path $path,
+        readonly private SkippedRomImportDataGenerator $skippedRomImportDataGenerator
     ) {
         parent::__construct();
     }
@@ -44,18 +46,19 @@ class GenerateAllCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption('artwork', 'a', InputOption::VALUE_REQUIRED, 'Filename for artwork.xml or mapping.yml you want to use to generate ROM artwork')
-            ->addOption('folder', 'f', InputOption::VALUE_REQUIRED, 'Filename for artwork.xml or mapping.yml you want to use to generate FOLDER artwork')
-            ->addOption('portmaster', 'pm', InputOption::VALUE_REQUIRED, 'Filename for artwork.xml you want to use to generate PORTMASTER artwork')
+            ->addOption('artwork', null, InputOption::VALUE_REQUIRED, 'Filename for artwork.xml or mapping.yml you want to use to generate ROM artwork')
+            ->addOption('folder', null, InputOption::VALUE_REQUIRED, 'Filename for artwork.xml or mapping.yml you want to use to generate FOLDER artwork')
+            ->addOption('portmaster', null, InputOption::VALUE_REQUIRED, 'Filename for artwork.xml you want to use to generate PORTMASTER artwork')
             ->addOption('zip', 'z', InputOption::VALUE_NONE, 'Creates a zip archive of the generated package')
-            ->addOption('transfer', 'trns', InputOption::VALUE_NONE, 'Attempts to transfer the generated artwork to your device using sftp')
-            ->addOption('package-name', 'pkg', InputOption::VALUE_REQUIRED, 'A name for the output package. Will be appended with the configured `romset_name`. If not set will default to the same name as the artwork used.')
-            ->addOption('preview-theme', 'pt', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Name of theme used during preview generation')
-            ->addOption('preview-grid-size', 'pgs', InputOption::VALUE_REQUIRED, 'Size of the preview grid', 3)
-            ->addOption('token', 'tkn', InputOption::VALUE_REQUIRED, 'Pass translations to artwork templates at runtime. Accepts a JSON string or key/value pairs in the format: key:value|key2:value2|key3:value3')
-            ->addOption('post-process-artwork', 'ppa', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated rom artwork')
-            ->addOption('post-process-folder', 'ppf', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated folder artwork')
-            ->addOption('post-process-portmaster', 'ppp', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated portmaster artwork')
+            ->addOption('transfer', 't', InputOption::VALUE_NONE, 'Attempts to transfer the generated artwork to your device using sftp')
+            ->addOption('skip-optimize', 'x', InputOption::VALUE_NONE, 'Skips the image optimization step')
+            ->addOption('package-name', 'p', InputOption::VALUE_REQUIRED, 'A name for the output package. Will be appended with the configured `romset_name`. If not set will default to the same name as the artwork used.')
+            ->addOption('preview-theme', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Name of theme used during preview generation')
+            ->addOption('preview-grid-size', null, InputOption::VALUE_REQUIRED, 'Size of the preview grid', 3)
+            ->addOption('token', null, InputOption::VALUE_REQUIRED, 'Pass translations to artwork templates at runtime. Accepts a JSON string or key/value pairs in the format: key:value|key2:value2|key3:value3')
+            ->addOption('post-process-artwork', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated rom artwork')
+            ->addOption('post-process-folder', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated folder artwork')
+            ->addOption('post-process-portmaster', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated portmaster artwork')
         ;
     }
 
@@ -67,13 +70,13 @@ class GenerateAllCommand extends Command
 
         // dump out the current command string so that it can be used later during asset packaging
         $this->writeCommandStringToFile($input);
-        $outputHelper = new BlockSectionHelper($input, $output);
+        $io = new BlockSectionHelper($input, $output);
         $stopwatch = (new Stopwatch())->start('all');
         $this->deleteOutputFolder();
 
         // copy resources
         $command = new CopyResourcesCommand($this->getArtworkPackageNamesFromInput($input));
-        $outputHelper->waitOrFail('copy-resources', 'Copying Custom Resources to Skyscraper Folder', function () use ($command) {
+        $io->waitOrFail('copy-resources', 'Copying Custom Resources to Skyscraper Folder', function () use ($command) {
             $this->centralHandler->handle($command);
         });
 
@@ -81,7 +84,7 @@ class GenerateAllCommand extends Command
         $commands = $this->getArtworkCommands($input);
 
         if ($commands) {
-            $outputHelper->waitOrFailTargetableCommandsWithProgressBar(
+            $io->waitOrFailTargetableCommandsWithProgressBar(
                 'generate-rom-artwork',
                 'Generating Rom Artwork',
                 $commands,
@@ -95,7 +98,7 @@ class GenerateAllCommand extends Command
         $commands = $this->getFolderCommands($input);
 
         if ($commands) {
-            $outputHelper->waitOrFailTargetableCommandsWithProgressBar(
+            $io->waitOrFailTargetableCommandsWithProgressBar(
                 'generate-folder-artwork',
                 'Generating Folder Artwork',
                 $commands,
@@ -110,11 +113,11 @@ class GenerateAllCommand extends Command
         if ($command) {
             // ensure portmaster data is up to date
             $portmasterDataImporter = $this->portmasterDataImporter;
-            $outputHelper->waitOrFail('import-portmaster-data', 'Importing Portmaster Data', function () use ($portmasterDataImporter) {
+            $io->waitOrFail('import-portmaster-data', 'Importing Portmaster Data', function () use ($portmasterDataImporter) {
                 $portmasterDataImporter->importPortmasterDataIfNotImportedSince(new \DateInterval('P1D'));
             });
 
-            $outputHelper->waitOrFail('generate-portmaster-artwork', 'Generating Portmaster Artwork', function () use ($command) {
+            $io->waitOrFail('generate-portmaster-artwork', 'Generating Portmaster Artwork', function () use ($command) {
                 $this->centralHandler->handle($command);
             });
         }
@@ -123,14 +126,14 @@ class GenerateAllCommand extends Command
 
         // package
         $command = new PackageCommand($packageName);
-        $outputHelper->waitOrFail('package', 'Packaging', function () use ($command) {
+        $io->waitOrFail('package', 'Packaging', function () use ($command) {
             $this->centralHandler->handle($command);
         });
 
         // post process
         $commands = $this->getPostProcessCommands($packageName, $input);
         if ($commands) {
-            $outputHelper->waitOrFailTargetableCommandsWithProgressBar(
+            $io->waitOrFailTargetableCommandsWithProgressBar(
                 'post-process',
                 'Post Processing (SLOW) be patient',
                 $commands,
@@ -143,7 +146,7 @@ class GenerateAllCommand extends Command
         // Preview generation
         $commands = $this->getPreviewCommands($packageName, $input);
         if ($commands) {
-            $outputHelper->waitOrFailTargetableCommandsWithProgressBar(
+            $io->waitOrFailTargetableCommandsWithProgressBar(
                 'generate-previews',
                 'Generating Previews',
                 $commands,
@@ -154,15 +157,17 @@ class GenerateAllCommand extends Command
         }
 
         // optimize
-        $command = $this->commandFactory->createOptimizeCommand($packageName);
-        $outputHelper->waitOrFail('optimize', 'Optimizing Images', function () use ($command) {
-            $this->centralHandler->handle($command);
-        });
+        if (!$input->getOption('skip-optimize')) {
+            $command = $this->commandFactory->createOptimizeCommand($packageName);
+            $io->waitOrFail('optimize', 'Optimizing Images (SLOW)', function () use ($command) {
+                $this->centralHandler->handle($command);
+            });
+        }
 
         // zip
         if ($input->getOption('zip')) {
             $command = new CompressPackageCommand($packageName);
-            $outputHelper->waitOrFail('compress-package', 'Compressing Package', function () use ($command) {
+            $io->waitOrFail('compress-package', 'Compressing Package', function () use ($command) {
                 $this->centralHandler->handle($command);
             });
         }
@@ -170,16 +175,42 @@ class GenerateAllCommand extends Command
         // transfer
         if ($input->getOption('transfer')) {
             $command = new TransferCommand($packageName);
-            $outputHelper->waitOrFail('transfer-package', 'Transferring Package', function () use ($command) {
+            $io->waitOrFail('transfer-package', 'Transferring Package', function () use ($command) {
                 $this->centralHandler->handle($command);
             });
         }
 
         $event = $stopwatch->stop();
 
-        $outputHelper->complete(sprintf('Build complete in %s', CommandUtility::formatStopwatchEvent($event)));
+        $io->complete(sprintf('Build complete in %s', CommandUtility::formatStopwatchEvent($event)));
+
+        // skipped roms
+        $this->generateSkippedRoms($io);
 
         return Command::SUCCESS;
+    }
+
+    private function generateSkippedRoms(BlockSectionHelper $io): void
+    {
+        $report = $this->skippedRomImportDataGenerator->generate();
+
+        if (!empty($report)) {
+            $importCommandName = 'import-skipped';
+            $io->style()->help(
+                sprintf("Some roms were missing information.\nBlank templates have been generated for you in folder `./%s`. \nFill in missing information and images then import the data with command \n`php bin/console %s` and re-run this generation process", FolderNames::SKIPPED->value, $importCommandName)
+            );
+
+            $tableHeader = ['Platform', 'Roms Skipped (Missing)'];
+            $tableBody = [];
+            foreach ($report as $platform => $count) {
+                $tableBody[] = [$platform, $count];
+            }
+
+            $io->style()->table(
+                $tableHeader,
+                $tableBody
+            );
+        }
     }
 
     private function getPostProcessCommands(string $packageName, InputInterface $input): array

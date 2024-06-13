@@ -19,6 +19,7 @@
 'nds': 'DS'
 'mame': 'ARCADE'
 'gb': 'GB'
+'gba': 'GBA'
 'nes': 'NES'
 'n64': 'NINTENDO 64'
 'snes': 'SUPER NES'

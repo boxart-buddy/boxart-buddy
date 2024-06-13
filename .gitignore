@@ -34,6 +34,7 @@ temp/*
 zipped/*
 package/*
 themes/*
+skipped/*
 
 .idea/*
 *.DS_Store

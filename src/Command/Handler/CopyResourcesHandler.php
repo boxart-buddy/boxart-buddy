@@ -43,8 +43,13 @@ readonly class CopyResourcesHandler implements CommandHandlerInterface
 
         // removes existing resources to reduce chances of filename collisions
         // and reduce amount of files loaded into skyscraper memory
-        $skyscraperResourcesDirectory = Path::join($skyscraperConfigFolderPath, 'resources/');
+        $skyscraperResourcesDirectory = Path::join($skyscraperConfigFolderPath, 'resources');
         if ($filesystem->exists($skyscraperResourcesDirectory)) {
+            // create a backup of it the first time this code is run
+            // in case user is unaware it is going to be removed
+            if (!$filesystem->exists($skyscraperResourcesDirectory.'-bak')) {
+                $filesystem->mirror($skyscraperResourcesDirectory, $skyscraperResourcesDirectory.'-bak');
+            }
             $filesystem->remove($skyscraperResourcesDirectory);
         }
         $filesystem->mkdir($skyscraperResourcesDirectory);
