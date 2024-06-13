@@ -1,10 +1,16 @@
-base_path: /home/user/roms
+rom_folder: /home/user/roms
 screenscraper_user: 'user'
-screenscraper_password: 'password'
+screenscraper_pass: 'password'
+# if left null (~), will default to the default location (i.e ~/.skyscraper)
 skyscraper_config_folder_path: ~
 romset_name: custom
+
+# if set will convert images to jpg at the defined quality (creates png files by default)
+# optimize_jpg: 85
+
 # sftp details only required to auto transfer to/from device
-sftp_ip: ~
-sftp_user: muos
-sftp_pass: muos
-sftp_port: 2022
+#sftp:
+#  ip: 192.168.1.135
+#  user: muos
+#  pass: muos
+#  port: 2022

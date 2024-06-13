@@ -35,6 +35,7 @@ zipped/*
 package/*
 themes/*
 skipped/*
+user_config/*
 
 .idea/*
 *.DS_Store

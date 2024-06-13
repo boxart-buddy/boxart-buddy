@@ -4,6 +4,7 @@ namespace App\ConsoleCommand;
 
 use App\Command\Factory\CommandFactory;
 use App\Command\Handler\CentralHandler;
+use App\Config\Validator\ConfigValidator;
 use App\Util\Console\BlockSectionHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -18,9 +19,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class PrimeCacheCommand extends Command
 {
+    use PlatformOverviewTrait;
+
     public function __construct(
         readonly private CommandFactory $commandFactory,
-        readonly private CentralHandler $centralHandler
+        readonly private CentralHandler $centralHandler,
+        readonly private ConfigValidator $configValidator
     ) {
         parent::__construct();
     }
@@ -36,14 +40,16 @@ class PrimeCacheCommand extends Command
         }
 
         $commands = $this->commandFactory->createPrimeCacheCommandsForAllPlatforms();
-        $outputHelper = new BlockSectionHelper($input, $output);
+        $io = new BlockSectionHelper($input, $output);
+        $io->heading();
+        $this->getPlatformOverview($io, $this->configValidator);
 
         if ($commands) {
-            $outputHelper->section('prime-cache');
+            $io->section('prime-cache');
 
-            $outputHelper->wait('Priming Cache');
+            $io->wait('Priming Cache (using screenscraper) (SLOW ON FIRST RUN)');
 
-            $progressBar = $outputHelper->getProgressBar();
+            $progressBar = $io->getProgressBar();
 
             foreach ($progressBar->iterate($commands) as $command) {
                 $progressBar->setMessage($command->platform);
@@ -51,7 +57,7 @@ class PrimeCacheCommand extends Command
                 $this->centralHandler->handle($command);
             }
 
-            $outputHelper->done('Priming Cache', true);
+            $io->complete('Priming Cache Complete', true);
         }
 
         return Command::SUCCESS;

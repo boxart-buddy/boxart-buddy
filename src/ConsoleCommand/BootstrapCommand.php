@@ -43,14 +43,15 @@ class BootstrapCommand extends Command
             throw new \RuntimeException();
         }
 
-        $outputHelper = new BlockSectionHelper($input, $output);
+        $io = new BlockSectionHelper($input, $output);
+        $io->heading();
 
-        $outputHelper->section('configs');
-        $outputHelper->wait('Creating config files and folders');
+        $io->section('configs');
+        $io->wait('Creating config files and folders');
 
         $overwrite = $input->getOption('overwrite');
         if ($overwrite) {
-            $outputHelper->wait('Creating config files and folders (using overwrite mode)', true);
+            $io->wait('Creating config files and folders (using overwrite mode)', true);
         }
 
         // config bootstrap
@@ -65,7 +66,7 @@ class BootstrapCommand extends Command
 
         // check is valid platform config name
         if (!PlatformDists::exists($platformConfig)) {
-            $outputHelper->failure(
+            $io->failure(
                 sprintf('Preset option `%s` unknown, use one of `%s` ', $platformConfig, implode(', ', PlatformDists::names()))
             );
             exit;
@@ -87,16 +88,16 @@ class BootstrapCommand extends Command
             }
             $filesystem->mkdir($this->path->joinWithBase($folder));
         }
-        $outputHelper->done('Creating config files and folders', true);
+        $io->done('Creating config files and folders', true);
 
-        $outputHelper->section('portmaster')->wait('Importing Portmaster data');
+        $io->section('portmaster')->wait('Importing Portmaster data');
         $this->portmasterDataImporter->importPortmasterDataIfNotImportedSince(new \DateInterval('PT5M'));
 
-        $outputHelper->done('Importing Portmaster data', true);
+        $io->done('Importing Portmaster data', true);
 
-        $outputHelper->section('end')->complete(
-            'Bootstrap complete. Edit config.yml & config_platform.yml to set credentials and preferences
-        ');
+        $io->section('end')->complete(
+            'Bootstrap complete. Edit config.yml & config_platform.yml to set credentials and preferences'
+        );
 
         return Command::SUCCESS;
     }
@@ -111,7 +112,7 @@ class BootstrapCommand extends Command
 
         $filesystem->copy(
             $this->path->joinWithBase('resources', 'config', $distFilename),
-            $this->path->joinWithBase($filename),
+            $this->path->joinWithBase(FolderNames::USER_CONFIG->value, $filename),
             $overwrite
         );
     }

@@ -10,6 +10,7 @@ use App\Command\GenerateArtworkCommand;
 use App\Command\Handler\CentralHandler;
 use App\Command\PackageCommand;
 use App\Command\TransferCommand;
+use App\Config\Validator\ConfigValidator;
 use App\FolderNames;
 use App\Generator\SkippedRomImportDataGenerator;
 use App\Portmaster\PortmasterDataImporter;
@@ -33,12 +34,15 @@ use Symfony\Component\Stopwatch\Stopwatch;
 )]
 class GenerateAllCommand extends Command
 {
+    use PlatformOverviewTrait;
+
     public function __construct(
         readonly private CommandFactory $commandFactory,
         readonly private CentralHandler $centralHandler,
         readonly private PortmasterDataImporter $portmasterDataImporter,
         readonly private Path $path,
-        readonly private SkippedRomImportDataGenerator $skippedRomImportDataGenerator
+        readonly private SkippedRomImportDataGenerator $skippedRomImportDataGenerator,
+        readonly private ConfigValidator $configValidator
     ) {
         parent::__construct();
     }
@@ -71,6 +75,10 @@ class GenerateAllCommand extends Command
         // dump out the current command string so that it can be used later during asset packaging
         $this->writeCommandStringToFile($input);
         $io = new BlockSectionHelper($input, $output);
+        $io->heading();
+
+        $this->getPlatformOverview($io, $this->configValidator);
+
         $stopwatch = (new Stopwatch())->start('all');
         $this->deleteOutputFolder();
 
@@ -244,6 +252,17 @@ class GenerateAllCommand extends Command
         }
 
         // @todo portmaster
+        $postProcessPortmaster = $input->getOption('post-process-portmaster');
+
+        foreach ($postProcessPortmaster as $ppp) {
+            $argAndOptions = TokenUtility::splitArgumentAndOptions($ppp);
+            $commands = array_merge($commands, $this->commandFactory->createPostProcessCommands(
+                $packageName,
+                $argAndOptions['argument'],
+                CommandNamespace::PORTMASTER->value,
+                $argAndOptions['options'],
+            ));
+        }
 
         return $commands;
     }

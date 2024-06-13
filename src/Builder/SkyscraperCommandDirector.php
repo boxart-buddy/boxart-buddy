@@ -58,11 +58,10 @@ readonly class SkyscraperCommandDirector
 
         $config = $this->configReader->getConfig();
 
-        $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
-
         // hack for portmaster
-        if (ApplicationConstant::FAKE_PORTMASTER_PLATFORM === $platform) {
-            $inFolder = $this->pathProvider->getPortmasterRomPath();
+        $inFolder = $this->pathProvider->getPortmasterRomPath();
+        if (ApplicationConstant::FAKE_PORTMASTER_PLATFORM !== $platform) {
+            $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
         }
 
         $commandBuilder = new SkyscraperCommandBuilder();

@@ -3,7 +3,7 @@
 namespace App\ConsoleCommand;
 
 use App\FolderNames;
-use App\Util\Console\CustomSymfonyStyle;
+use App\Util\Console\BlockSectionHelper;
 use App\Util\Path;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -32,7 +32,8 @@ class NewTemplateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new CustomSymfonyStyle($input, $output);
+        $io = new BlockSectionHelper($input, $output);
+        $io->heading();
 
         $filesystem = new Filesystem();
 
@@ -68,7 +69,7 @@ class NewTemplateCommand extends Command
 
         $io->done(sprintf('Template folder `%s` created', $templateName));
 
-        $io->help(sprintf('Edit the artwork file at `%s` and run `make %s` to generate artwork', Path::join($templateName, 'artwork', 'artwork.xml'), $exampleCommandName));
+        $io->style()->help(sprintf('Edit the artwork file at `%s` and run `make %s` to generate artwork', Path::join($templateName, 'artwork', 'artwork.xml'), $exampleCommandName));
 
         return Command::SUCCESS;
     }

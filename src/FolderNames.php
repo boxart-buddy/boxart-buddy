@@ -14,4 +14,5 @@ enum FolderNames: string
     case THEME = 'themes';
     case TEMP = 'temp';
     case SKIPPED = 'skipped';
+    case USER_CONFIG = 'user_config';
 }

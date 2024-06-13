@@ -14,7 +14,7 @@ readonly class PostProcessCommand implements TargetableCommandInterface
     public function getTarget(): string
     {
         return sprintf(
-            '%s (%s)',
+            '%s: `%s`',
             $this->strategy,
             basename(dirname($this->target))
         );

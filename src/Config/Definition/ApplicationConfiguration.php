@@ -56,7 +56,6 @@ class ApplicationConfiguration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('platforms')
                     ->isRequired()
-                    ->requiresAtLeastOneElement()
                     ->scalarPrototype()
                         ->validate()
                         ->ifEmpty()

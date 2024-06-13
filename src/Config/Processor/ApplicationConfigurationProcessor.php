@@ -3,6 +3,7 @@
 namespace App\Config\Processor;
 
 use App\Config\Definition\ApplicationConfiguration;
+use App\FolderNames;
 use App\Util\Path;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Yaml\Yaml;
@@ -19,8 +20,8 @@ readonly class ApplicationConfigurationProcessor
 
     public function process(): array
     {
-        $config = Yaml::parseFile($this->path->joinWithBase(self::CONFIG_FILENAME));
-        $platformConfig = Yaml::parseFile($this->path->joinWithBase(self::CONFIG_PLATFORM_FILENAME));
+        $config = Yaml::parseFile($this->path->joinWithBase(FolderNames::USER_CONFIG->value, self::CONFIG_FILENAME));
+        $platformConfig = Yaml::parseFile($this->path->joinWithBase(FolderNames::USER_CONFIG->value, self::CONFIG_PLATFORM_FILENAME));
         $packageConfig = Yaml::parseFile($this->path->joinWithBase('config/application/', self::CONFIG_PACKAGE_FILENAME));
 
         $processor = new Processor();

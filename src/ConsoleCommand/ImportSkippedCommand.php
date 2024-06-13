@@ -34,6 +34,7 @@ class ImportSkippedCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new BlockSectionHelper($input, $output);
+        $io->heading();
         $filesystem = new Filesystem();
 
         $config = $this->configReader->getConfig();

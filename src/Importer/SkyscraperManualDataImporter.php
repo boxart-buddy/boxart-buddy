@@ -42,11 +42,11 @@ readonly class SkyscraperManualDataImporter
         );
 
         // get input rom path for platform
-        $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
-
         // hack for portmaster
-        if (ApplicationConstant::FAKE_PORTMASTER_PLATFORM === $platform) {
-            $inFolder = $this->pathProvider->getPortmasterRomPath();
+        $inFolder = $this->pathProvider->getPortmasterRomPath();
+
+        if (ApplicationConstant::FAKE_PORTMASTER_PLATFORM !== $platform) {
+            $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
         }
 
         // run import command to import into cache

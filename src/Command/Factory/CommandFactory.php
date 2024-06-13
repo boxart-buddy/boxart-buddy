@@ -59,7 +59,6 @@ readonly class CommandFactory
         }
 
         foreach ($config->platforms as $platform => $folder) {
-            // convert folder to package
             $target = Path::join($targetBase, $config->package[$platform], 'box');
             $options['sort_order'] = $this->orderedListProvider->getOrderedList(CommandNamespace::ARTWORK, $target);
             $commands[] = new PostProcessCommand($target, $strategy, $options);
