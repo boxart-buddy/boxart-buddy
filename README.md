@@ -120,11 +120,11 @@ brew install jpegoptim optipng pngquant
    <summary>Ubuntu/Debian</summary>
 
 Install PHP 8.2+ using a guide relevant to your
-system [from php.watch for example](https://php.watch/articles/install-php82-ubuntu-debian)
+system [from php.watch](https://php.watch/articles/install-php82-ubuntu-debian) for example
 
-Install (Composer)[https://getcomposer.org/download/]
+Install [Composer](https://getcomposer.org/download/)
 
-install remaining dependencies
+Install remaining dependencies
 
 ```sh
 sudo apt install p7zip-full imagemagick php-imagick
