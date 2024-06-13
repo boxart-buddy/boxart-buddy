@@ -50,9 +50,9 @@ class GenerateAllCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption('artwork', null, InputOption::VALUE_REQUIRED, 'Filename for artwork.xml or mapping.yml you want to use to generate ROM artwork')
-            ->addOption('folder', null, InputOption::VALUE_REQUIRED, 'Filename for artwork.xml or mapping.yml you want to use to generate FOLDER artwork')
-            ->addOption('portmaster', null, InputOption::VALUE_REQUIRED, 'Filename for artwork.xml you want to use to generate PORTMASTER artwork')
+            ->addOption('artwork', null, InputOption::VALUE_REQUIRED, 'Colon delimited pair of {template-folder}:{artwork.xml} or {template-folder}:{artwork.yml} used to generate ROM artwork')
+            ->addOption('folder', null, InputOption::VALUE_REQUIRED, 'Colon delimited pair of {template-folder}:{artwork.xml} or {template-folder}:{artwork.yml} used to generate FOLDER artwork')
+            ->addOption('portmaster', null, InputOption::VALUE_REQUIRED, 'Colon delimited pair of {template-folder}:{artwork.xml} or {template-folder}:{artwork.yml} used to generate PORTMASTER artwork')
             ->addOption('zip', 'z', InputOption::VALUE_NONE, 'Creates a zip archive of the generated package')
             ->addOption('transfer', 't', InputOption::VALUE_NONE, 'Attempts to transfer the generated artwork to your device using sftp')
             ->addOption('skip-optimize', 'x', InputOption::VALUE_NONE, 'Skips the image optimization step')

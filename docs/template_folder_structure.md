@@ -1,4 +1,0 @@
-artwork
-mapping
-resources
-tokens

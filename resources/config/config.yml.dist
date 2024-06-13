@@ -1,11 +1,17 @@
+# absolute path to the root of you rom folder (required)
 rom_folder: /home/user/roms
+# credentials for your account on screenscraper.fr (required)
 screenscraper_user: 'user'
 screenscraper_pass: 'password'
+
 # if left null (~), will default to the default location (i.e ~/.skyscraper)
 skyscraper_config_folder_path: ~
+
+# the name of the romset you are generating against. Is used in naming packages
 romset_name: custom
 
-# if set will convert images to jpg at the defined quality (creates png files by default)
+# if set will convert images to jpg at the defined quality
+# if null then will create png files (default)
 # optimize_jpg: 85
 
 # sftp details only required to auto transfer to/from device
