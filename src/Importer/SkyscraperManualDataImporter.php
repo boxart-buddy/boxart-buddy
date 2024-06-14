@@ -32,6 +32,9 @@ readonly class SkyscraperManualDataImporter
         // definitions copy
         $definitionsIn = $this->path->joinWithBase('resources', 'definitions.dat');
         $definitionsOut = Path::join($skyscraperConfigFolderPath, 'import', 'definitions.dat');
+        if ($filesystem->exists($definitionsOut)) {
+            $filesystem->remove($definitionsOut);
+        }
         $filesystem->copy($definitionsIn, $definitionsOut);
 
         // copy all files from temp to skyscraper first
