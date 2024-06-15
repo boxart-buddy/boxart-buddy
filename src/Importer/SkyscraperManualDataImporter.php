@@ -7,10 +7,12 @@ use App\Builder\SkyscraperCommandDirector;
 use App\Config\Reader\ConfigReader;
 use App\Provider\PathProvider;
 use App\Util\Path;
+use Monolog\Attribute\WithMonologChannel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 
+#[WithMonologChannel('skyscraper')]
 readonly class SkyscraperManualDataImporter
 {
     public function __construct(
@@ -61,9 +63,9 @@ readonly class SkyscraperManualDataImporter
         $process = new Process($command);
         $process->setTimeout(3600);
 
-        $process->run(function ($type, $buffer): void {
-            $this->logger->info($buffer);
-        });
+        $process->run();
+
+        $this->logger->info($process->getOutput());
 
         // remove from ss import
         $filesystem->remove($importOut);

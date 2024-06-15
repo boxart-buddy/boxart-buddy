@@ -54,7 +54,6 @@ readonly class PreviewGenerator
         $finder->files()->path($pattern)->name('*.png');
 
         if (!$finder->hasResults()) {
-            var_dump('we ded');
             exit;
         }
         // randomize the screenshots
@@ -63,7 +62,7 @@ readonly class PreviewGenerator
             $files[$screenshot->getRealPath()] = $screenshot->getFilename();
         }
         // shuffle but preserves keys
-        uksort($files, function ($k, $v) { return rand() > rand(); });
+        uksort($files, function ($k, $v) { return rand() > rand() ? 1 : -1; });
 
         $screenshotCount = 0;
         $screenshotLimit = $gridSize * $gridSize;

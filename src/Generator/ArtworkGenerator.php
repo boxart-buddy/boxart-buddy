@@ -9,11 +9,13 @@ use App\Provider\PathProvider;
 use App\Reader\ArtworkXMLReader;
 use App\Translator\ArtworkTranslator;
 use App\Util\Path;
+use Monolog\Attribute\WithMonologChannel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
+#[WithMonologChannel('skyscraper')]
 readonly class ArtworkGenerator
 {
     public function __construct(
@@ -56,9 +58,11 @@ readonly class ArtworkGenerator
         $process->setTimeout(3600);
 
         try {
-            $process->run(function ($type, $buffer): void {
-                $this->logger->info($buffer);
-            });
+            $process->run();
+
+            $output = $process->getOutput();
+
+            $this->logger->info($output);
         } catch (\Exception $e) {
             $this->logger->debug($e->getMessage());
             throw new \RuntimeException('Unable to generate Artwork. Check debug log (/var/log) for more information.');
