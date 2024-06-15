@@ -69,5 +69,9 @@ readonly class SkyscraperManualDataImporter
 
         // remove from ss import
         $filesystem->remove($importOut);
+
+        if (!$process->isSuccessful()) {
+            throw new \RuntimeException('Error on importing data to skyscraper cache. Check `var/log/skyscraper*.log` log file');
+        }
     }
 }

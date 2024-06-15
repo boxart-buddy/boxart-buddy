@@ -90,6 +90,10 @@ readonly class PreviewGenerator
         $this->logger->info($process->getOutput());
 
         $filesystem->remove(Path::join($outFolder, 'gif-frames'));
+
+        if (!$process->isSuccessful()) {
+            throw new \RuntimeException('Error while generating preview. Check `var/log/preview*.log` log file');
+        }
     }
 
     private function addThemeToGifFrames(string $gifFrameFolder, array $themeImages): void

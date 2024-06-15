@@ -61,11 +61,13 @@ readonly class ArtworkGenerator
             $process->run();
 
             $output = $process->getOutput();
-
             $this->logger->info($output);
+            if (!$process->isSuccessful()) {
+                throw new \RuntimeException('The artwork generation process failed. Check `var/log/skyscraper*.log` log file');
+            }
         } catch (\Exception $e) {
-            $this->logger->debug($e->getMessage());
-            throw new \RuntimeException('Unable to generate Artwork. Check debug log (/var/log) for more information.');
+            $this->logger->error($e->getMessage());
+            throw new \RuntimeException('The artwork generation process failed. Check `var/log/skyscraper*.log` log file');
         }
 
         if ($single) {
