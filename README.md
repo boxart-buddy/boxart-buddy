@@ -139,6 +139,30 @@ sudo apt install jpegoptim optipng pngquant
 
 </details>
 
+<details>
+   <summary>Fedora/RHEL/Centos/Rocky Linux</summary>
+
+Install PHP 8.2+ using a guide relevant to your
+system [from php.watch](https://php.watch/articles/php-8.3-install-upgrade-on-fedora-rhel-el) for example
+
+Install [Composer](https://getcomposer.org/download/)
+
+Install remaining dependencies
+
+```sh
+sudo dnf install php composer
+sudo dnf install p7zip p7zip-plugins ImageMagick php-pecl-imagick
+```
+
+Image optimization steps require additional packages to be installed for best
+results. [See here](https://github.com/spatie/image-optimizer?tab=readme-ov-file#optimization-tools)
+
+```sh
+sudo dnf install jpegoptim optipng pngquant
+```
+
+</details>
+
 Once requirements are installed clone this repo and run `composer install` dependencies
 
 ```sh
