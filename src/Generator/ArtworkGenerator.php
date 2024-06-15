@@ -55,7 +55,7 @@ readonly class ArtworkGenerator
         );
 
         $process = new Process($command);
-        $process->setTimeout(3600);
+        $process->setTimeout(60 * 60 * 3);
 
         try {
             $process->run();

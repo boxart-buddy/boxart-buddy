@@ -2,6 +2,8 @@ monolog:
   channels:
     - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
     - skyscraper
+    - postprocessing
+    - preview
 
 when@dev:
   monolog:
@@ -10,13 +12,27 @@ when@dev:
         type: rotating_file
         path: "%kernel.logs_dir%/%kernel.environment%.log"
         level: debug
-        channels: [ "!event", "!skyscraper" ]
+        channels: [ "!event", "!skyscraper", "!preview", "!postprocessing" ]
         max_files: 7
       skyscraper:
         type: rotating_file
         path: "%kernel.logs_dir%/skyscraper.log"
         level: debug
         channels: [ "skyscraper" ]
+        max_files: 7
+        formatter: 'App\Log\MonologLineFormatter'
+      preview:
+        type: rotating_file
+        path: "%kernel.logs_dir%/preview.log"
+        level: debug
+        channels: [ "preview" ]
+        max_files: 7
+        formatter: 'App\Log\MonologLineFormatter'
+      postprocessing:
+        type: rotating_file
+        path: "%kernel.logs_dir%/postprocessing.log"
+        level: debug
+        channels: [ "postprocessing" ]
         max_files: 7
         formatter: 'App\Log\MonologLineFormatter'
       console:

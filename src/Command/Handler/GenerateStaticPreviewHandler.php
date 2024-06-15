@@ -3,10 +3,10 @@
 namespace App\Command\Handler;
 
 use App\Command\CommandInterface;
-use App\Command\GeneratePreviewCommand;
+use App\Command\GenerateStaticPreviewCommand;
 use App\Preview\PreviewGenerator;
 
-readonly class GeneratePreviewHandler implements CommandHandlerInterface
+readonly class GenerateStaticPreviewHandler implements CommandHandlerInterface
 {
     public function __construct(
         private PreviewGenerator $previewGenerator,
@@ -15,10 +15,10 @@ readonly class GeneratePreviewHandler implements CommandHandlerInterface
 
     public function handle(CommandInterface $command): void
     {
-        if (!$command instanceof GeneratePreviewCommand) {
+        if (!$command instanceof GenerateStaticPreviewCommand) {
             throw new \InvalidArgumentException();
         }
 
-        $this->previewGenerator->generatePreview($command->target, $command->gridSize, $command->previewName, $command->theme);
+        $this->previewGenerator->generateStaticPreview($command->target, $command->previewName, $command->theme);
     }
 }

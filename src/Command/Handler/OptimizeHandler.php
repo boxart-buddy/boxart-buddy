@@ -26,7 +26,7 @@ readonly class OptimizeHandler implements CommandHandlerInterface
         $optimizeBase = Path::join($command->target, 'MUOS');
 
         $filesystem = new Filesystem();
-        if ($command->optimizeJpg) {
+        if ($command->convertToJpg) {
             $manager = ImageManager::imagick();
             // find all
             $finder = new Finder();
@@ -34,7 +34,7 @@ readonly class OptimizeHandler implements CommandHandlerInterface
             $finder->files()->name('*.png');
             foreach ($finder as $file) {
                 $image = $manager->read($file->getRealPath());
-                $encoded = $image->encode(new JpegEncoder((int) $command->optimizeJpg));
+                $encoded = $image->encode(new JpegEncoder((int) $command->jpgQuality));
                 $old = $file->getRealPath();
                 $new = substr($old, 0, -4).'.jpg';
                 $encoded->save($new);

@@ -10,7 +10,9 @@ use App\PostProcess\PostProcessMissingOptionException;
 use App\PostProcess\PostProcessOptionException;
 use App\PostProcess\VerticalDotScrollbarPostProcess;
 use App\PostProcess\VerticalScrollbarPostProcess;
+use Monolog\Attribute\WithMonologChannel;
 
+#[WithMonologChannel('postprocessing')]
 readonly class PostProcessHandler implements CommandHandlerInterface
 {
     public function __construct(

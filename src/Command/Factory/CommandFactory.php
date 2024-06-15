@@ -4,8 +4,9 @@ namespace App\Command\Factory;
 
 use App\ApplicationConstant;
 use App\Command\CommandNamespace;
+use App\Command\GenerateAnimatedPreviewCommand;
 use App\Command\GenerateArtworkCommand;
-use App\Command\GeneratePreviewCommand;
+use App\Command\GenerateStaticPreviewCommand;
 use App\Command\OptimizeCommand;
 use App\Command\PostProcessCommand;
 use App\Command\PrimeCacheCommand;
@@ -16,20 +17,22 @@ use App\Util\Path;
 
 readonly class CommandFactory
 {
-    public function __construct(private ConfigReader $configReader, private Path $path, private OrderedListProvider $orderedListProvider)
-    {
+    public function __construct(
+        private ConfigReader $configReader,
+        private Path $path,
+        private OrderedListProvider $orderedListProvider
+    ) {
     }
 
     public function createOptimizeCommand(string $package): OptimizeCommand
     {
         $config = $this->configReader->getConfig();
-        $optimizeJpg = $config->optimizeJpg;
         $targetBase = $this->path->joinWithBase(
             FolderNames::PACKAGE->value,
             sprintf('%s_%s', $package, $config->romsetName),
         );
 
-        return new OptimizeCommand($targetBase, $optimizeJpg);
+        return new OptimizeCommand($targetBase, $config->convertToJpg, $config->jpgQuality);
     }
 
     public function createPostProcessCommands(string $package, string $strategy, string $targetNamespace, array $options): array
@@ -67,7 +70,7 @@ readonly class CommandFactory
         return $commands;
     }
 
-    public function createGeneratePreviewCommands(string $package, string $previewName, array $themes, int $gridSize): array
+    public function createGeneratePreviewCommands(string $package, string $previewName, array $themes): array
     {
         // always generate a 'no-theme' version
         if (!array_search(false, $themes, true)) {
@@ -83,7 +86,12 @@ readonly class CommandFactory
 
         $commands = [];
         foreach ($themes as $theme) {
-            $commands[] = new GeneratePreviewCommand($target, $previewName, $theme, $gridSize);
+            if (in_array($this->configReader->getConfig()->previewType, ['static', 'both'])) {
+                $commands[] = new GenerateStaticPreviewCommand($target, $previewName, $theme);
+            }
+            if (in_array($this->configReader->getConfig()->previewType, ['animated', 'both'])) {
+                $commands[] = new GenerateAnimatedPreviewCommand($target, $previewName, $theme);
+            }
         }
 
         return $commands;

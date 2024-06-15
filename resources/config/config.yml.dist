@@ -10,9 +10,11 @@ skyscraper_config_folder_path: ~
 # the name of the romset you are generating against. Is used in naming packages
 romset_name: custom
 
-# if set will convert images to jpg at the defined quality
-# if null then will create png files (default)
-# optimize_jpg: 85
+#optimize:
+#  enabled: true
+#  convert_to_jpg: false
+#  jpg_quality: 85
+
 
 # sftp details only required to auto transfer to/from device
 #sftp:

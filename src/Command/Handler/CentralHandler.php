@@ -5,8 +5,9 @@ namespace App\Command\Handler;
 use App\Command\CommandInterface;
 use App\Command\CompressPackageCommand;
 use App\Command\CopyResourcesCommand;
+use App\Command\GenerateAnimatedPreviewCommand;
 use App\Command\GenerateArtworkCommand;
-use App\Command\GeneratePreviewCommand;
+use App\Command\GenerateStaticPreviewCommand;
 use App\Command\OptimizeCommand;
 use App\Command\PackageCommand;
 use App\Command\PostProcessCommand;
@@ -19,7 +20,8 @@ readonly class CentralHandler
         private CopyResourcesHandler $copyResourcesHandler,
         private GenerateArtworkHandler $generateArtworkHandler,
         private PrimeCacheHandler $primeCacheHandler,
-        private GeneratePreviewHandler $generatePreviewHandler,
+        private GenerateStaticPreviewHandler $generateStaticPreviewHandler,
+        private GenerateAnimatedPreviewHandler $generateAnimatedPreviewHandler,
         private PackageHandler $packageHandler,
         private CompressPackageHandler $compressPackageHandler,
         private TransferHandler $transferHandler,
@@ -43,8 +45,11 @@ readonly class CentralHandler
             case PrimeCacheCommand::class:
                 $this->primeCacheHandler->handle($command);
                 break;
-            case GeneratePreviewCommand::class:
-                $this->generatePreviewHandler->handle($command);
+            case GenerateStaticPreviewCommand::class:
+                $this->generateStaticPreviewHandler->handle($command);
+                break;
+            case GenerateAnimatedPreviewCommand::class:
+                $this->generateAnimatedPreviewHandler->handle($command);
                 break;
             case PackageCommand::class:
                 $this->packageHandler->handle($command);

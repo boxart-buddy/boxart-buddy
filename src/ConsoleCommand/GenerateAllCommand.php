@@ -10,6 +10,7 @@ use App\Command\GenerateArtworkCommand;
 use App\Command\Handler\CentralHandler;
 use App\Command\PackageCommand;
 use App\Command\TransferCommand;
+use App\Config\Reader\ConfigReader;
 use App\Config\Validator\ConfigValidator;
 use App\FolderNames;
 use App\Generator\SkippedRomImportDataGenerator;
@@ -42,7 +43,8 @@ class GenerateAllCommand extends Command
         readonly private PortmasterDataImporter $portmasterDataImporter,
         readonly private Path $path,
         readonly private SkippedRomImportDataGenerator $skippedRomImportDataGenerator,
-        readonly private ConfigValidator $configValidator
+        readonly private ConfigValidator $configValidator,
+        readonly private ConfigReader $configReader,
     ) {
         parent::__construct();
     }
@@ -55,10 +57,8 @@ class GenerateAllCommand extends Command
             ->addOption('portmaster', null, InputOption::VALUE_REQUIRED, 'Colon delimited pair of {template-folder}:{artwork.xml} or {template-folder}:{artwork.yml} used to generate PORTMASTER artwork')
             ->addOption('zip', 'z', InputOption::VALUE_NONE, 'Creates a zip archive of the generated package')
             ->addOption('transfer', 't', InputOption::VALUE_NONE, 'Attempts to transfer the generated artwork to your device using sftp')
-            ->addOption('skip-optimize', 'x', InputOption::VALUE_NONE, 'Skips the image optimization step')
             ->addOption('package-name', 'p', InputOption::VALUE_REQUIRED, 'A name for the output package. Will be appended with the configured `romset_name`. If not set will default to the same name as the artwork used.')
             ->addOption('preview-theme', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Name of theme used during preview generation')
-            ->addOption('preview-grid-size', null, InputOption::VALUE_REQUIRED, 'Size of the preview grid', 3)
             ->addOption('token', null, InputOption::VALUE_REQUIRED, 'Pass translations to artwork templates at runtime. Accepts a JSON string or key/value pairs in the format: key:value|key2:value2|key3:value3')
             ->addOption('post-process-artwork', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated rom artwork')
             ->addOption('post-process-folder', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated folder artwork')
@@ -165,7 +165,7 @@ class GenerateAllCommand extends Command
         }
 
         // optimize
-        if (!$input->getOption('skip-optimize')) {
+        if ($this->configReader->getConfig()->shouldOptimize) {
             $command = $this->commandFactory->createOptimizeCommand($packageName);
             $io->waitOrFail('optimize', 'Optimizing Images (SLOW)', function () use ($command) {
                 $this->centralHandler->handle($command);
@@ -288,13 +288,12 @@ class GenerateAllCommand extends Command
 
     private function getPreviewCommands(string $packageName, InputInterface $input): array
     {
-        $gridSize = $input->getOption('preview-grid-size');
         $themes = $input->getOption('preview-theme');
 
         // get package name
         $previewName = $input->getOption('package-name') ?: basename($input->getOption('artwork'), '.xml');
 
-        return $this->commandFactory->createGeneratePreviewCommands($packageName, $previewName, $themes, $gridSize);
+        return $this->commandFactory->createGeneratePreviewCommands($packageName, $previewName, $themes);
     }
 
     private function getArtworkCommands(InputInterface $input): array

@@ -2,13 +2,12 @@
 
 namespace App\Command;
 
-readonly class GeneratePreviewCommand implements TargetableCommandInterface
+readonly class GenerateAnimatedPreviewCommand implements TargetableCommandInterface
 {
     public function __construct(
         public string $target,
         public string $previewName,
         public string $theme,
-        public int $gridSize
     ) {
     }
 

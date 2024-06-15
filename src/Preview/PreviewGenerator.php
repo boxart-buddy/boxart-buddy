@@ -2,6 +2,7 @@
 
 namespace App\Preview;
 
+use App\Config\Reader\ConfigReader;
 use App\Theme\ThemePaths;
 use App\Theme\ThemeReader;
 use App\Util\Path;
@@ -9,26 +10,117 @@ use Intervention\Image\Geometry\Factories\RectangleFactory;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Typography\FontFactory;
+use Monolog\Attribute\WithMonologChannel;
 use PhpZip\Exception\ZipException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Process\Process;
 
+#[WithMonologChannel('preview')]
 readonly class PreviewGenerator
 {
     public function __construct(
         private ThemeReader $themeReader,
         private Path $path,
-        private LoggerInterface $logger
+        private LoggerInterface $logger,
+        private ConfigReader $configReader
     ) {
     }
 
-    public function generatePreview(string $target, int $gridSize, string $previewName, ?string $theme): void
+    public function generateAnimatedPreview(string $target, string $previewName, ?string $theme): void
     {
-        if ($gridSize < 1) {
-            throw new \InvalidArgumentException('Grid size must be greater than 0');
+        $inFolder = Path::join($target, 'MUOS');
+        $outFolder = Path::join($target, 'extra', 'preview');
+        $filesystem = new Filesystem();
+
+        $filesystem->mkDir($outFolder);
+
+        $finder = new Finder();
+        $finder->in($inFolder);
+        $pattern = '#/box/#';
+        $finder->files()->path($pattern)->name('*.png');
+
+        if (!$finder->hasResults()) {
+            return;
         }
 
+        $gifFrames = [];
+        $limit = $this->configReader->getConfig()->animationFrames;
+        $i = 0;
+        foreach ($finder as $file) {
+            ++$i;
+            $frameOut = Path::join($outFolder, 'gif-frames', $file->getFilename());
+            $gifFrames[] = $frameOut;
+            $filesystem->copy(
+                $file->getRealPath(),
+                $frameOut
+            );
+            if ($i === $limit) {
+                break;
+            }
+        }
+
+        // add theme bg/overlay
+        if ($theme) {
+            try {
+                $themeImages = $this->themeReader->getImagePaths($theme);
+                if (!empty($themeImages)) {
+                    $gifFrameFolder = Path::join($outFolder, 'gif-frames');
+                    $this->addThemeToGifFrames($gifFrameFolder, $themeImages);
+                }
+            } catch (ZipException $e) {
+                $this->logger->error(
+                    $e->getMessage(),
+                );
+            }
+        }
+
+        $delay = 30;
+        $generatedOutPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'transparent').'.webp');
+
+        $generateGifCommand = array_merge(array_merge(['magick', '-delay', $delay], $gifFrames), ['-loop', 1, 'WEBP:'.$generatedOutPath]);
+
+        $this->logger->info(
+            sprintf("creating gif with command:\n%s", implode(' ', $generateGifCommand))
+        );
+
+        $process = new Process($generateGifCommand);
+        $process->run();
+        $this->logger->info($process->getOutput());
+
+        $filesystem->remove(Path::join($outFolder, 'gif-frames'));
+    }
+
+    private function addThemeToGifFrames(string $gifFrameFolder, array $themeImages): void
+    {
+        $finder = new Finder();
+        $finder->in($gifFrameFolder);
+        $finder->files()->name('*.png');
+
+        $bgImage = $themeImages[ThemePaths::DEFAULT->name] ?? null;
+        $overlayImage = $themeImages[ThemePaths::OVERLAY->name] ?? null;
+
+        foreach ($finder as $file) {
+            $manager = ImageManager::imagick();
+
+            $canvas = $manager->create(640, 480);
+
+            if ($bgImage) {
+                $canvas->place($bgImage);
+            }
+            $canvas->place($file->getRealPath());
+            if ($overlayImage) {
+                $canvas->place($overlayImage);
+            }
+
+            $canvas->save($file->getRealPath());
+        }
+    }
+
+    public function generateStaticPreview(string $target, string $previewName, ?string $theme): void
+    {
+        $gridSize = $this->configReader->getConfig()->previewGridSize;
         $themeImages = [];
         if ($theme) {
             try {
@@ -136,12 +228,6 @@ readonly class PreviewGenerator
                     $y
                 );
             }
-
-            // draw an rectangle with a border
-            // $this->canvas->drawRectangle($x - 2, $y - 2, function (RectangleFactory $rectangle) use ($dimensions) {
-            //     $rectangle->size($dimensions['screenX'], $dimensions['screenY']); // width & height of rectangle
-            //     $rectangle->border('black', 2); // border color & size of rectangle
-            // });
 
             /**
              * Add title.
