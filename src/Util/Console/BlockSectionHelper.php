@@ -110,6 +110,11 @@ class BlockSectionHelper
         $this->callBlockMethodOnStyle($message, $overwrite, 'failure');
     }
 
+    public function help(string $message, bool $overwrite = false): void
+    {
+        $this->callBlockMethodOnStyle($message, $overwrite, 'help');
+    }
+
     public function newLine(): void
     {
         $this->getStyleForCurrentSection()->newLine();

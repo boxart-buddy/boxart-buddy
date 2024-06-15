@@ -39,7 +39,7 @@ readonly class PreviewGenerator
         $finder = new Finder();
         $finder->in($inFolder);
         $pattern = '#/box/#';
-        $finder->files()->path($pattern)->name('*.png');
+        $finder->files()->path($pattern)->name('*.png')->sortByCaseInsensitiveName();
 
         if (!$finder->hasResults()) {
             return;

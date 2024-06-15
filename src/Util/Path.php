@@ -33,4 +33,37 @@ readonly class Path
     {
         return preg_replace('/\.[^.]*$/', '', $filename) ?? $filename;
     }
+
+    public static function getDirectorySize(string $directory): string
+    {
+        $size = self::getOneDirectorySize($directory);
+
+        return self::formatBytes($size);
+    }
+
+    private static function getOneDirectorySize(string $directory): int
+    {
+        $size = 0;
+
+        $paths = glob(rtrim($directory, '/').'/*', GLOB_NOSORT);
+        if (false === $paths) {
+            return 0;
+        }
+        foreach ($paths as $each) {
+            $size += is_file($each) ? filesize($each) : self::getOneDirectorySize($each);
+        }
+
+        return $size;
+    }
+
+    public static function formatBytes(int $bytes): string
+    {
+        if ($bytes > 1000 * 1000) {
+            return round($bytes / 1000 / 1000, 2).' MB';
+        } elseif ($bytes > 1000) {
+            return round($bytes / 1000, 2).' KB';
+        }
+
+        return $bytes.' B';
+    }
 }

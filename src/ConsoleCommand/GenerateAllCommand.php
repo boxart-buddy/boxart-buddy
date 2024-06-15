@@ -190,7 +190,10 @@ class GenerateAllCommand extends Command
 
         $event = $stopwatch->stop();
 
-        $io->complete(sprintf('Build complete in %s', CommandUtility::formatStopwatchEvent($event)));
+        $packageRoot = $this->path->joinWithBase(FolderNames::PACKAGE->value, sprintf('%s_%s', $packageName, $this->configReader->getConfig()->romsetName));
+        $size = Path::getDirectorySize($packageRoot);
+
+        $io->complete(sprintf("Build complete in %s\n\n(Package Size %s): %s", CommandUtility::formatStopwatchEvent($event), $size, $packageRoot));
 
         // skipped roms
         $this->generateSkippedRoms($io);
@@ -204,7 +207,7 @@ class GenerateAllCommand extends Command
 
         if (!empty($report)) {
             $importCommandName = 'import-skipped';
-            $io->style()->help(
+            $io->help(
                 sprintf("Some roms were missing information.\nBlank templates have been generated for you in folder `./%s`. \nFill in missing information and images then import the data with command \n`php bin/console %s` and re-run this generation process", FolderNames::SKIPPED->value, $importCommandName)
             );
 
