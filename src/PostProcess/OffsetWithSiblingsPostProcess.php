@@ -114,8 +114,7 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
                 }
 
                 $effects = $options[OffsetWithSiblingsPostProcessOptions::EFFECT];
-                //                var_dump($effects);
-                //                exit;
+
                 if ($effects) {
                     foreach ($effects as $effect) {
                         match ($effect) {

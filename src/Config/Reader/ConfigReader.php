@@ -27,4 +27,9 @@ class ConfigReader
 
         return $this->config;
     }
+
+    public function getConfigHash(): string
+    {
+        return hash('xxh3', serialize($this->getConfig()));
+    }
 }

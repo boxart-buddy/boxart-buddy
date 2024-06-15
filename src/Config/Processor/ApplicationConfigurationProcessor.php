@@ -12,6 +12,7 @@ readonly class ApplicationConfigurationProcessor
 {
     public const CONFIG_FILENAME = 'config.yml';
     public const CONFIG_PLATFORM_FILENAME = 'config_platform.yml';
+    public const CONFIG_PORTMASTER_FILENAME = 'config_portmaster.yml';
     public const CONFIG_PACKAGE_FILENAME = 'config_package_muos.yml';
 
     public function __construct(private Path $path)
@@ -23,13 +24,14 @@ readonly class ApplicationConfigurationProcessor
         $config = Yaml::parseFile($this->path->joinWithBase(FolderNames::USER_CONFIG->value, self::CONFIG_FILENAME));
         $platformConfig = Yaml::parseFile($this->path->joinWithBase(FolderNames::USER_CONFIG->value, self::CONFIG_PLATFORM_FILENAME));
         $packageConfig = Yaml::parseFile($this->path->joinWithBase('config/application/', self::CONFIG_PACKAGE_FILENAME));
+        $portmaster = Yaml::parseFile($this->path->joinWithBase(FolderNames::USER_CONFIG->value, self::CONFIG_PORTMASTER_FILENAME));
 
         $processor = new Processor();
         $applicationConfiguration = new ApplicationConfiguration();
 
         return $processor->processConfiguration(
             $applicationConfiguration,
-            [$config, ['platforms' => $platformConfig], ['package' => $packageConfig]]
+            [$config, ['platforms' => $platformConfig], ['package' => $packageConfig], ['portmaster' => $portmaster]]
         );
     }
 }

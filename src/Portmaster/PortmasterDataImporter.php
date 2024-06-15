@@ -35,16 +35,31 @@ readonly class PortmasterDataImporter
     ) {
     }
 
+    /**
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws \Throwable
+     * @throws ZipException
+     * @throws ServerExceptionInterface
+     */
     public function importPortmasterDataIfNotImportedSince(\DateInterval $dateInterval): void
     {
         $folder = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster/');
         $lastAttempted = DateTimeFile::readDatetimeValueFromFile($folder, 'LASTIMPORTATTEMPTED');
         $compare = new \DateTime();
         $compare->sub($dateInterval);
+        $outofDate = !$lastAttempted || $lastAttempted < $compare;
 
-        if (!$lastAttempted || $lastAttempted < $compare) {
-            $this->importPortmasterData();
-            DateTimeFile::writeDatetimeValueToFile($folder, 'LASTIMPORTATTEMPTED');
+        if ($outofDate || $this->hasConfigHashChanged()) {
+            try {
+                $this->importPortmasterData();
+                DateTimeFile::writeDatetimeValueToFile($folder, 'LASTIMPORTATTEMPTED');
+                $this->writeConfigHash();
+            } catch (\Throwable $t) {
+                throw $t;
+            }
         }
     }
 
@@ -91,8 +106,17 @@ readonly class PortmasterDataImporter
     private function makeFakeRoms(array $metadata, string $fakeRomPath): void
     {
         $filesystem = new Filesystem();
+        $romList = $this->configReader->getConfig()->portmaster;
+
+        if ($filesystem->exists($fakeRomPath)) {
+            $filesystem->remove($fakeRomPath);
+        }
 
         foreach ($metadata as $name => $attr) {
+            if (!empty($romList) && !in_array($name, $romList)) {
+                // skips roms not explicitly set in config
+                continue;
+            }
             $filesystem->appendToFile(Path::join($fakeRomPath, $name.'.zip'), 'fake');
         }
     }
@@ -262,5 +286,33 @@ readonly class PortmasterDataImporter
         $tmpFolder = $this->path->joinWithBase(FolderNames::TEMP->value, '/portmaster');
 
         return DateTimeFile::readDatetimeValueFromFile($tmpFolder, 'LASTPUBLISHED');
+    }
+
+    private function hasConfigHashChanged(): bool
+    {
+        $filesystem = new Filesystem();
+        $configHash = $this->configReader->getConfigHash();
+        $lastConfigHashPath = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'CONFIGHASH');
+
+        if ($filesystem->exists($lastConfigHashPath)) {
+            $lastConfigHash = $filesystem->readFile($lastConfigHashPath);
+            if ($lastConfigHash === $configHash) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function writeConfigHash(): void
+    {
+        $filesystem = new Filesystem();
+        $lastConfigHashPath = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'CONFIGHASH');
+
+        if ($filesystem->exists($lastConfigHashPath)) {
+            $filesystem->remove($lastConfigHashPath);
+        }
+
+        $filesystem->appendToFile($lastConfigHashPath, $this->configReader->getConfigHash());
     }
 }

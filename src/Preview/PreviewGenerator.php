@@ -50,11 +50,11 @@ readonly class PreviewGenerator
         // jump into each folder and get random screenshots
         $finder = new Finder();
         $finder->in($inFolder);
-        $pattern = '#^(?!.*\/Ports\/).*\/box/#';
+        $pattern = '#/box/#';
         $finder->files()->path($pattern)->name('*.png');
 
         if (!$finder->hasResults()) {
-            exit;
+            return;
         }
         // randomize the screenshots
         $files = [];

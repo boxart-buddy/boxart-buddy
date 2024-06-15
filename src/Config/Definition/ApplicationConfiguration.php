@@ -73,6 +73,14 @@ class ApplicationConfiguration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('portmaster')
+                    ->scalarPrototype()
+                        ->validate()
+                        ->ifEmpty()
+                        ->thenUnset()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

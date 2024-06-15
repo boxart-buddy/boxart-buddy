@@ -1,0 +1,9 @@
+# name roms the same way as here: https://github.com/PortsMaster/PortMaster-New/tree/main/ports
+
+# supply rom names in this format
+#[balatro, stardewvalley, duke.nukem.3d]
+
+# or this format
+#  - balatro
+#  - stardewvalley
+#  - duke.nukem.3d

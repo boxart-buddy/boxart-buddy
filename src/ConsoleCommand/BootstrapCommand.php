@@ -69,7 +69,8 @@ class BootstrapCommand extends Command
             $io->failure(
                 sprintf('Preset option `%s` unknown, use one of `%s` ', $platformConfig, implode(', ', PlatformDists::names()))
             );
-            exit;
+
+            return Command::FAILURE;
         }
 
         $platformConfigFilename = PlatformDists::fromName($platformConfig);
@@ -77,6 +78,12 @@ class BootstrapCommand extends Command
         $this->createNewFileFromDist(
             ApplicationConfigurationProcessor::CONFIG_PLATFORM_FILENAME,
             'config/'.$platformConfigFilename,
+            $overwrite
+        );
+
+        $this->createNewFileFromDist(
+            ApplicationConfigurationProcessor::CONFIG_PORTMASTER_FILENAME,
+            'config/'.ApplicationConfigurationProcessor::CONFIG_PORTMASTER_FILENAME.'.dist',
             $overwrite
         );
 
