@@ -30,6 +30,7 @@ class TokenUtility
         $runtimeTokens = [];
 
         $tokens = explode('|', $token);
+
         foreach ($tokens as $t) {
             $t = trim($t);
             if (strpos($t, ':')) {

@@ -35,12 +35,15 @@ readonly class GenerateArtworkHandler implements CommandHandlerInterface
         if (!$artwork) {
             throw new \InvalidArgumentException('Generate artwork command must have a valid mapping or artwork file property');
         }
+
         $this->artworkGenerator->generateArtwork(
             $command->namespace,
             $artwork,
             $command->platform,
             $command->single,
+            $command->folderMode,
             $command->tokens,
+            $command->romName
         );
     }
 }

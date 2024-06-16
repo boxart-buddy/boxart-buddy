@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <meta author="Boxart Buddy"
+          notes="Companion Boxart for Art Book Next v2 (https://discord.com/channels/1152022492001603615/1229813758172598343)"></meta>
+    <output type="cover" width="640" height="480">
+
+        <!-- to be adjusted -->
+        <layer resource="screenshot" height="{{ 'screenshot-height'|trans({}, 'general', locale) }}" align="center"
+               valign="middle" x="{{ rom|trans({}, 'screenshot-offset-x', locale)|default('0') }}">
+            <!--            <blur softness="0.5"/>-->
+            <!--            <opacity value="20"/>-->
+        </layer>
+
+        <mask file="{{ 'mask'|trans({}, 'general', locale) }}" width="640" height="480"/>
+    </output>
+
+    <output type="screenshot" width="515" height="275">
+        <layer resource="screenshot" height="275" align="center" valign="middle"/>
+    </output>
+</artwork>

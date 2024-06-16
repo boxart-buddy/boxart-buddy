@@ -5,7 +5,6 @@ namespace App\Translator;
 use App\FolderNames;
 use App\Model\Artwork;
 use App\Util\Path;
-use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\DataCollectorTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -70,18 +69,23 @@ class ArtworkTranslator
         $this->runtimeTokenMemoization[$hash] = true;
     }
 
-    public function translateArtwork(Artwork $artwork, string $locale): string
+    public function translateArtwork(Artwork $artwork, string $locale, ?string $romName): string
     {
         $t = ['template' => $artwork->read()];
 
         $twig = new TwigEnvironment(
             new TwigArrayLoader($t)
         );
-        $twig->addExtension(new TranslationExtension($this->translator));
+        $twig->addExtension(new EmptyTranslatingTwigExtension($this->translator));
+
+        $vars = ['locale' => $locale];
+        if ($romName) {
+            $vars['rom'] = $romName;
+        }
 
         return $twig->render(
             'template',
-            ['locale' => $locale]
+            $vars
         );
     }
 }

@@ -14,6 +14,7 @@ use App\Config\Reader\ConfigReader;
 use App\FolderNames;
 use App\Provider\OrderedListProvider;
 use App\Util\Path;
+use Symfony\Component\Finder\Finder;
 
 readonly class CommandFactory
 {
@@ -109,6 +110,7 @@ readonly class CommandFactory
             null,
             ApplicationConstant::FAKE_PORTMASTER_PLATFORM,
             $tokens,
+            false,
             false
         );
     }
@@ -127,10 +129,11 @@ readonly class CommandFactory
         CommandNamespace $namespace,
         string $artworkPackage,
         string $filename,
-        array $tokens
+        array $tokens,
+        bool $perRom
     ): array {
         $single = false;
-        if (CommandNamespace::FOLDER === $namespace) {
+        if (CommandNamespace::FOLDER === $namespace || $perRom) {
             $single = true;
         }
 
@@ -140,6 +143,29 @@ readonly class CommandFactory
         $mapping = 'yml' === pathinfo($filename, PATHINFO_EXTENSION) ? $filename : null;
 
         foreach ($this->configReader->getConfig()->platforms as $platform => $romFolder) {
+            if ($perRom) {
+                // if 'per rom' mode then need to return one command PER ROM rather than per platform
+                $config = $this->configReader->getConfig();
+                $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
+                $finder = new Finder();
+                $finder->in($inFolder)->files()->notName(ApplicationConstant::EXCLUDE_FROM_ROM_SEARCH);
+                foreach ($finder as $file) {
+                    $commands[] = new GenerateArtworkCommand(
+                        $namespace->value,
+                        $artworkPackage,
+                        $artwork,
+                        $mapping,
+                        $platform,
+                        $tokens,
+                        $single,
+                        CommandNamespace::FOLDER === $namespace,
+                        $file->getFilename()
+                    );
+                }
+                // next platform
+                continue;
+            }
+
             $commands[] = new GenerateArtworkCommand(
                 $namespace->value,
                 $artworkPackage,
@@ -147,7 +173,8 @@ readonly class CommandFactory
                 $mapping,
                 $platform,
                 $tokens,
-                $single
+                $single,
+                CommandNamespace::FOLDER === $namespace
             );
         }
 

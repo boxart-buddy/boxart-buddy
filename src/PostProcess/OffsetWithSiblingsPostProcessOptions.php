@@ -18,7 +18,7 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
         $options[] = new PostProcessOption(
             self::OFFSET_Y,
             null,
-            '50',
+            '0',
             'The number of pixels to offset from siblings on the Y axis',
         );
         $options[] = new PostProcessOption(
@@ -44,7 +44,7 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
             self::EFFECT,
             ['greyscale', 'blur', 'pixelate'],
             null,
-            'Scale parameter will resize siblings using a logarithmic scale. A float between 0-1 (e.g 0.8)',
+            'Effect parameter will apply a graphical effect to siblings, can use more than one',
             false,
             true
         );

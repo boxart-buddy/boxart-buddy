@@ -79,7 +79,7 @@ readonly class PreviewGenerator
         $delay = 30;
         $generatedOutPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.webp');
 
-        $generateGifCommand = array_merge(array_merge(['magick', '-delay', $delay], $gifFrames), ['-loop', 0, 'WEBP:'.$generatedOutPath]);
+        $generateGifCommand = array_merge(array_merge(['magick', '-dispose', '3', '-delay', $delay], $gifFrames), ['-loop', 0, 'WEBP:'.$generatedOutPath]);
 
         $this->logger->info(
             sprintf("creating gif with command:\n%s", implode(' ', $generateGifCommand))

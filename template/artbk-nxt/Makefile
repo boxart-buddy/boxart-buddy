@@ -1,0 +1,2 @@
+artbk-nxt-full-height-flat: ## Template: Artbook Next Look 1
+	php bin/console build --per-rom --artwork='artbk-nxt:masked-screenshot.xml' --token='mask:mask/full-flat.png' --post-process-artwork='offset_with_siblings|offset-x:146|sibling-count:3|effect:blur|effect:greyscale'

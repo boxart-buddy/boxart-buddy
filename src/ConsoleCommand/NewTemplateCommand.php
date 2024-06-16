@@ -56,7 +56,7 @@ class NewTemplateCommand extends Command
 
         // copy basic artwork.xml and Makefile
         $exampleCommandName = sprintf('%s-example-one', $templateName);
-        $makefileContents = sprintf("%s: ## Describe this recipe\n\tphp bin/console --artwork=artwork.xml", $exampleCommandName);
+        $makefileContents = sprintf("%s: ## Describe this recipe\n\tphp bin/console build --artwork=artwork.xml", $exampleCommandName);
         $filesystem->appendToFile(
             Path::join($base, 'Makefile'),
             $makefileContents

@@ -65,6 +65,7 @@ class GenerateAllCommand extends Command
             ->addOption('post-process-artwork', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated rom artwork')
             ->addOption('post-process-folder', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated folder artwork')
             ->addOption('post-process-portmaster', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'A post processing strategy to use on generated portmaster artwork')
+            ->addOption('per-rom', null, InputOption::VALUE_NONE, 'If set then skyscraper will run one command per rom, rather than per platform. This allows artwork to be translated differently for every rom, required for some templates')
         ;
     }
 
@@ -306,6 +307,7 @@ class GenerateAllCommand extends Command
     private function getArtworkCommands(InputInterface $input): array
     {
         $artwork = $input->getOption('artwork');
+        $perRom = $input->getOption('per-rom');
 
         if (!$artwork) {
             return [];
@@ -317,13 +319,15 @@ class GenerateAllCommand extends Command
             CommandNamespace::ARTWORK,
             $split['artworkPackage'],
             $split['filename'],
-            $this->parseToken($input->getOption('token'))
+            $this->parseToken($input->getOption('token')),
+            $perRom
         );
     }
 
     private function getFolderCommands(InputInterface $input): array
     {
         $artwork = $input->getOption('folder');
+        $perRom = $input->getOption('per-rom');
 
         if (!$artwork) {
             return [];
@@ -335,7 +339,8 @@ class GenerateAllCommand extends Command
             CommandNamespace::FOLDER,
             $split['artworkPackage'],
             $split['filename'],
-            $this->parseToken($input->getOption('token'))
+            $this->parseToken($input->getOption('token')),
+            $perRom
         );
     }
 

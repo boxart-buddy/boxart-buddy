@@ -100,7 +100,7 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
                 $totalOffsetY = $options[OffsetWithSiblingsPostProcessOptions::OFFSET_Y] * $offsetIndex;
                 $totalOffsetX = $options[OffsetWithSiblingsPostProcessOptions::OFFSET_X] * $offsetIndex;
 
-                $scale = $options[OffsetWithSiblingsPostProcessOptions::SCALE];
+                $scale = $options[OffsetWithSiblingsPostProcessOptions::SCALE] ?? null;
 
                 if ($scale) {
                     $targetWidth = $this->getTargetWidth($canvasX, $scale, $offsetIndex, (float) $totalSiblingCount);
@@ -114,7 +114,6 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
                 }
 
                 $effects = $options[OffsetWithSiblingsPostProcessOptions::EFFECT];
-
                 if ($effects) {
                     foreach ($effects as $effect) {
                         match ($effect) {

@@ -52,7 +52,8 @@ readonly class SkyscraperCommandDirector
         string $platform,
         string $namespace,
         string $artworkPath,
-        bool $singleRomOnly = false
+        bool $singleRomOnly = false,
+        ?string $romName = null
     ): array {
         $outFolder = $this->pathProvider->getOutputPathForGeneratedArtwork($namespace, $platform);
 
@@ -76,7 +77,7 @@ readonly class SkyscraperCommandDirector
             ->setVerbosity(3);
 
         if ($singleRomOnly) {
-            $rom = $this->getSingleRom($inFolder);
+            $rom = $romName ?? $this->getSingleRom($inFolder);
             $commandBuilder->setRomName($rom);
         }
 
@@ -89,7 +90,7 @@ readonly class SkyscraperCommandDirector
         $finder->in($folder);
 
         // some allowances for dirty rom folders
-        $finder->files()->notName(['*.txt', '*.jpg', '*.png', 'README', '*.md', 'NOTES']);
+        $finder->files()->notName(ApplicationConstant::EXCLUDE_FROM_ROM_SEARCH);
 
         if (!$finder->hasResults()) {
             throw new \RuntimeException(sprintf('Cannot get single ROM from `%s`, no files in this location', $folder));

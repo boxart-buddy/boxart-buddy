@@ -8,11 +8,11 @@ use App\Model\Artwork;
 use App\Provider\PathProvider;
 use App\Reader\ArtworkXMLReader;
 use App\Translator\ArtworkTranslator;
+use App\Util\Finder;
 use App\Util\Path;
 use Monolog\Attribute\WithMonologChannel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
 #[WithMonologChannel('skyscraper')]
@@ -34,20 +34,23 @@ readonly class ArtworkGenerator
         Artwork $artwork,
         string $platform,
         bool $single,
-        array $runtimeTranslationTokens
+        bool $folderMode,
+        array $runtimeTranslationTokens,
+        ?string $romName,
     ): void {
         // add runtime translations, maybe the wrong place to do this as it seems redundant doing it over and over again
         if (count($runtimeTranslationTokens) > 0) {
             $this->artworkTranslator->addRuntimeTranslationTokens($runtimeTranslationTokens);
         }
 
-        $tempArtworkPath = $this->getTmpArtworkPath($artwork, $namespace, $platform);
+        $tempArtworkPath = $this->getTmpArtworkPath($artwork, $namespace, $platform, $single, $romName ? Path::removeExtension($romName) : null);
 
         $command = $this->skyscraperCommandDirector->getBoxartGenerateCommand(
             $platform,
             $namespace,
             $tempArtworkPath,
-            $single
+            $single,
+            $romName
         );
 
         $this->logger->debug(
@@ -70,20 +73,19 @@ readonly class ArtworkGenerator
             throw new \RuntimeException('The artwork generation process failed. Check `var/log/skyscraper*.log` log file');
         }
 
-        if ($single) {
-            // for 'single' the output filename needs to be renamed to the platform name instead of rom name
+        if ($folderMode) {
+            // for 'folderMode' the output filename needs to be renamed to the platform name instead of rom name
             // this breaks SOC a lot because it's fairly specific to muos
             $finder = new Finder();
             $base = $this->pathProvider->getOutputPathForGeneratedArtwork($namespace, $platform);
             $finder->in($base);
             $finder->files()->name('*.png');
-            foreach ($finder as $file) {
-                $fileSystem = new Filesystem();
-                $fileSystem->rename(
-                    $file->getRealPath(),
-                    Path::join($file->getPath(), $platform.'.png')
-                );
-            }
+            $file = $finder->first();
+            $fileSystem = new Filesystem();
+            $fileSystem->rename(
+                $file->getRealPath(),
+                Path::join($file->getPath(), $platform.'.png')
+            );
         }
 
         if (!$single) {
@@ -100,6 +102,8 @@ readonly class ArtworkGenerator
         Artwork $artwork,
         string $namespace,
         string $platform,
+        bool $single,
+        ?string $romName
     ): string {
         $filesystem = new Filesystem();
 
@@ -110,13 +114,24 @@ readonly class ArtworkGenerator
             $platform.'.xml'
         );
 
+        // if $romName is provided then the artwork needs retranslated every time
+        if ($single && $romName) {
+            $tempArtworkPath = $this->path->joinWithBase(
+                FolderNames::TEMP->value,
+                'artwork_tmp',
+                $namespace,
+                sprintf('%s-%s.xml', $platform, $romName)
+            );
+        }
+
         if ($filesystem->exists($tempArtworkPath)) {
             return $tempArtworkPath;
         }
 
         $artworkTranslated = $this->artworkTranslator->translateArtwork(
             $artwork,
-            $platform
+            $platform,
+            $romName
         );
 
         $filesystem->appendToFile(
