@@ -49,6 +49,7 @@ class ApplicationConfiguration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('skyscraper_config_folder_path')
                     ->defaultValue('~/.skyscraper')
+                    ->validate()->ifNull()->then(function () { return '~/.skyscraper'; })->end()
                 ->end()
                 ->arrayNode('preview')
                     ->addDefaultsIfNotSet()
