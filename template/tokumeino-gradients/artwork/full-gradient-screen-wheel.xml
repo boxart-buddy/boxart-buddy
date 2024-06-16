@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <!-- Author : @Tokumeino (Discord)
+         There are multiple outputs, not only the cover
+         The boxart is full screen (VGA) with the left part beeing mostly transparent
+         and room let to the top and bottom 42 pixels MuOS UI bars  -->
+    <output type="cover" width="640" height="480">
+
+        <!-- Gradient PNG starts at x=320 and end at x=400 (middle is x=360)
+             The mix accomodates up to 2:3 vertical screenshots (this is the worst case DS screenshots) -->
+        <layer resource="screenshot" height="480" align="center" valign="middle" x="160">
+            <blur softness="1"/>
+            <opacity value="100"/>
+        </layer>
+
+        <mask file="{{ 'mask'|trans({}, 'general', locale) }}" width="640" height="480" x="0"/>
+
+        <!-- Wheel after the mask to cover it
+            (it is larger than the 100% plain area but should not be faded by the mask) -->
+
+        <!-- The X offset is shifted by 10 wrt center to compensate the terasparent part a bit, center would be 188
+             The Y offset is shifted so the wheel is be centererd at 1/4 height of the screenshot -->
+        <layer resource="wheel" width="204" align="center" valign="middle" x="170" y="-120">
+            <stroke width="2" red="0" green="0" blue="0"/>
+            <shadow distance="8" softness="5" opacity="50"/>
+        </layer>
+
+    </output>
+
+    <output type="screenshot" width="515" height="275">
+        <layer resource="screenshot" height="275" align="center" valign="middle"/>
+    </output>
+</artwork>
+
+        <!--
+        muos-dithering-bw.png
+        muos-dithering-gray.png
+        muos-gradient-dither.png
+        muos-gradient-soft.png
+        muos-grain-high.png
+        muos-grain-low.png
+        muos-grain-mid.png
+        muos-halftone-dots.png
+        -->

@@ -77,7 +77,7 @@ readonly class PreviewGenerator
         }
 
         $delay = 30;
-        $generatedOutPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'transparent').'.webp');
+        $generatedOutPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.webp');
 
         $generateGifCommand = array_merge(array_merge(['magick', '-delay', $delay], $gifFrames), ['-loop', 1, 'WEBP:'.$generatedOutPath]);
 
@@ -187,7 +187,7 @@ readonly class PreviewGenerator
             ++$i;
         }
 
-        $canvas->save(Path::join($outFolder, $previewName.'-'.($theme ?: 'transparent').'.png'));
+        $canvas->save(Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.png'));
     }
 
     private function addScreenshotsToImage(

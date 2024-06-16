@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <!-- Author : @Tokumeino (Discord)
+         There are multiple outputs, not only the cover
+         The boxart is simple, without gradient,
+         but it attemps to balance the size of boxes with different aspect ratios  -->
+
+    <output type="cover" width="640" height="480">
+
+        <!-- The widest boxes are N64 and SNES with 340x249 aspect ratio
+             There is a 42 pix footer on MuOS screen
+             These boxes shouldn't cover the middle text line at Y=237 (238pix)
+             and we take a 28 pix margin bottom and right
+             There is 172 height left, which is 235 wide, thus 40396 pixels -->
+        <layer resource="cover" mpixels="0.040396" align="right" valign="bottom" x="-25" y="-67"/>
+
+        <layer resource="texture" mpixels="0.006" align="right" valign="bottom" x="-7" y="-50"/>
+
+        <shadow distance="0" softness="6" opacity="66"/>
+
+    </output>
+
+    <output type="screenshot" width="515" height="275">
+        <layer resource="screenshot" height="275" align="center" valign="middle"/>
+    </output>
+
+</artwork>

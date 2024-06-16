@@ -72,9 +72,8 @@ class ArtworkTranslator
 
     public function translateArtwork(Artwork $artwork, string $locale): string
     {
-        $artworkBasepath = $this->path->joinWithBase(FolderNames::TEMPLATE->value, 'artwork');
-
         $t = ['template' => $artwork->read()];
+
         $twig = new TwigEnvironment(
             new TwigArrayLoader($t)
         );

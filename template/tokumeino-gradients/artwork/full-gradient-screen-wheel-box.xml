@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <!-- Author : @Tokumeino (Discord)
+         There are multiple outputs, not only the cover
+         The boxart is full screen (VGA) with the left part beeing mostly transparent
+         and room let to the top and bottom 42 pixels MuOS UI bars  -->
+    <output type="cover" width="640" height="480">
+
+        <!-- Gradient PNG starts at x=320 and end at x=400 (middle is x=360)
+             The mix accomodates up to 2:3 vertical screenshots (this is the worst case DS screenshots) -->
+        <layer resource="screenshot" height="480" align="center" valign="middle" x="160">
+            <blur softness="2"/>
+            <opacity value="100"/>
+        </layer>
+
+        <mask file="{{ 'mask'|trans({}, 'general', locale) }}" width="640" height="480" x="0"/>
+
+
+        <!-- Horizontally aligned with the wheel
+             Vertically, 42 above the bottom (MuOS bottom bar) plus a small margin plus the shadow
+             38400 pixels is 240x160 : it still fits the screen by some margin with aspect ratios up tp 3:2 -->
+        <layer resource="cover" mpixels="0.0384" align="center" valign="bottom" x="170" y="-54">
+            <shadow distance="6" softness="5" opacity="50"/>
+        </layer>
+
+        <!-- Wheel after the mask and box to cover them just in case
+             (it is larger than the 100% plain area but should not be faded by the mask)
+             The X offset is shifted by 10 wrt center to compensate the terasparent part a bit, center would be 188
+             Vertically, 42 below the top (MuOS top bar) plus a small margin
+             Size in MPIXELS. To accomodate super wide wheels (Quake II Arena on DC for instance, set to 0.008)
+             But other wheels render very small in this case. Adjust at will (trial and error) -->
+        <layer resource="wheel" mpixels="0.0135" align="center" valign="top" x="170" y="48">
+            <stroke width="2" red="0" green="0" blue="0"/>
+            <shadow distance="6" softness="5" opacity="50"/>
+        </layer>
+
+    </output>
+
+    <output type="screenshot" width="515" height="275">
+        <layer resource="screenshot" height="275" align="center" valign="middle"/>
+    </output>
+</artwork>

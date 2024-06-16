@@ -15,6 +15,7 @@ use App\Config\Validator\ConfigValidator;
 use App\FolderNames;
 use App\Generator\SkippedRomImportDataGenerator;
 use App\Portmaster\PortmasterDataImporter;
+use App\Translator\CachedTranslationEraser;
 use App\Util\CommandUtility;
 use App\Util\Console\BlockSectionHelper;
 use App\Util\Path;
@@ -45,6 +46,7 @@ class GenerateAllCommand extends Command
         readonly private SkippedRomImportDataGenerator $skippedRomImportDataGenerator,
         readonly private ConfigValidator $configValidator,
         readonly private ConfigReader $configReader,
+        readonly private CachedTranslationEraser $cachedTranslationEraser,
     ) {
         parent::__construct();
     }
@@ -68,6 +70,9 @@ class GenerateAllCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // delete translation cache folder
+        $this->cachedTranslationEraser->erase();
+
         if (!$output instanceof ConsoleOutput) {
             throw new \RuntimeException();
         }
@@ -294,9 +299,8 @@ class GenerateAllCommand extends Command
         $themes = $input->getOption('preview-theme');
 
         // get package name
-        $previewName = $input->getOption('package-name') ?: basename($input->getOption('artwork'), '.xml');
 
-        return $this->commandFactory->createGeneratePreviewCommands($packageName, $previewName, $themes);
+        return $this->commandFactory->createGeneratePreviewCommands($packageName, $packageName, $themes);
     }
 
     private function getArtworkCommands(InputInterface $input): array
@@ -448,8 +452,12 @@ class GenerateAllCommand extends Command
             throw new \LogicException('Cannot get package name - no artwork generation params provided');
         }
 
-        $filename = $this->splitStringIntoArtworkPackageAndFileName(reset($vals))['filename'];
+        $packageAndFilename = $this->splitStringIntoArtworkPackageAndFileName(reset($vals));
 
-        return basename(basename($filename, '.xml'), '.yml');
+        return sprintf(
+            '%s-%s',
+            $packageAndFilename['artworkPackage'],
+            basename(basename($packageAndFilename['filename'], '.xml'), '.yml')
+        );
     }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <!-- Author : @Tokumeino (Discord) - THIS ONE IS JUST FOR FUN TO DEMONSTRATE NESTED LAYERS
+         There are multiple outputs, not only the cover
+         The boxart is full screen (VGA) with the left part beeing mostly transparent
+         and room let to the top and bottom 42 pixels MuOS UI bars  -->
+    <output type="cover" width="640" height="480">
+
+        <layer resource="screenshot" height="480" align="center" valign="middle" x="160">
+            <blur softness="1"/>
+            <opacity value="100"/>
+            <scanlines file="scanlines2.png" scale="1.0" opacity="10" mode="overlay"/>
+        </layer>
+
+        <mask file="{{ 'mask'|trans({}, 'general', locale) }}" width="640" height="480" x="0"/>
+
+        <layer opacity="80" height="240" width="320" align="center" valign="top" x="170" y="48">
+
+            <layer opacity="80" resource="cover" mpixels="0.0225" align="center" valign="bottom">
+                <stroke width="3" red="0" green="0" blue="0"/>
+            </layer>
+
+            <layer resource="wheel" mpixels="0.013" align="center" valign="top">
+                <stroke width="3" red="0" green="0" blue="0"/>
+            </layer>
+
+            <!-- <stroke width="1" red="255" green="255" blue="255"/> -->
+            <shadow distance="0" softness="5" opacity="50"/>
+            <rotate degrees="60" axis="x"/>
+
+        </layer>
+
+    </output>
+
+    <output type="screenshot" width="515" height="275">
+        <layer resource="screenshot" height="275" align="center" valign="middle"/>
+    </output>
+</artwork>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <artwork>
-    <meta author="tokumeino"
-          notes="Shared on the muOS discord. See template pack `tokumeino-gradients` for more. https://discord.com/invite/USS5ybVtDz"></meta>
+    <meta author="Boxart Buddy"
+          notes="Simple gradient mask with screenshots and game logos. See the tokumeino-gradients templates for better versions"></meta>
 
     <output type="cover" width="640" height="480">
 
