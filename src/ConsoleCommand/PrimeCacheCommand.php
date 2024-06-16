@@ -6,6 +6,7 @@ use App\Command\Factory\CommandFactory;
 use App\Command\Handler\CentralHandler;
 use App\Config\Validator\ConfigValidator;
 use App\Util\Console\BlockSectionHelper;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,7 +25,8 @@ class PrimeCacheCommand extends Command
     public function __construct(
         readonly private CommandFactory $commandFactory,
         readonly private CentralHandler $centralHandler,
-        readonly private ConfigValidator $configValidator
+        readonly private ConfigValidator $configValidator,
+        readonly private LoggerInterface $logger
     ) {
         parent::__construct();
     }
@@ -40,7 +42,7 @@ class PrimeCacheCommand extends Command
         }
 
         $commands = $this->commandFactory->createPrimeCacheCommandsForAllPlatforms();
-        $io = new BlockSectionHelper($input, $output);
+        $io = new BlockSectionHelper($input, $output, $this->logger);
         $io->heading();
         $this->getPlatformOverview($io, $this->configValidator);
 

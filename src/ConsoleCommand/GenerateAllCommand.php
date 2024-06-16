@@ -20,6 +20,7 @@ use App\Util\CommandUtility;
 use App\Util\Console\BlockSectionHelper;
 use App\Util\Path;
 use App\Util\TokenUtility;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -47,6 +48,7 @@ class GenerateAllCommand extends Command
         readonly private ConfigValidator $configValidator,
         readonly private ConfigReader $configReader,
         readonly private CachedTranslationEraser $cachedTranslationEraser,
+        readonly private LoggerInterface $logger
     ) {
         parent::__construct();
     }
@@ -80,7 +82,7 @@ class GenerateAllCommand extends Command
 
         // dump out the current command string so that it can be used later during asset packaging
         $this->writeCommandStringToFile($input);
-        $io = new BlockSectionHelper($input, $output);
+        $io = new BlockSectionHelper($input, $output, $this->logger);
         $io->heading();
 
         $this->getPlatformOverview($io, $this->configValidator);
@@ -313,7 +315,7 @@ class GenerateAllCommand extends Command
             return [];
         }
 
-        $split = $this->splitStringIntoArtworkPackageAndFileName($artwork);
+        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
 
         return $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
             CommandNamespace::ARTWORK,
@@ -333,7 +335,7 @@ class GenerateAllCommand extends Command
             return [];
         }
 
-        $split = $this->splitStringIntoArtworkPackageAndFileName($artwork);
+        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
 
         return $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
             CommandNamespace::FOLDER,
@@ -352,7 +354,7 @@ class GenerateAllCommand extends Command
             return null;
         }
 
-        $split = $this->splitStringIntoArtworkPackageAndFileName($artwork);
+        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
 
         return $this->commandFactory->createGenerateArtworkCommandForPortmaster(
             $split['artworkPackage'],
@@ -402,31 +404,11 @@ class GenerateAllCommand extends Command
 
         $folders = [];
         foreach ($vals as $v) {
-            $t = $this->splitStringIntoArtworkPackageAndFileName($v);
+            $t = TokenUtility::splitStringIntoArtworkPackageAndFileName($v);
             $folders[] = $t['artworkPackage'];
         }
 
         return array_unique($folders);
-    }
-
-    private function splitStringIntoArtworkPackageAndFileName(string $input): array
-    {
-        $token = TokenUtility::parseRuntimeTokens($input);
-        if (1 !== count($token)) {
-            throw new \InvalidArgumentException(sprintf('Argument must be of form `your-template:artwork-name.xml` or `your-template:mapping-name.yml`. Given value was `%s`', $input));
-        }
-
-        $packageName = key($token);
-        $filename = reset($token);
-
-        if (!in_array(pathinfo($filename, PATHINFO_EXTENSION), ['yml', 'xml'])) {
-            throw new \InvalidArgumentException(sprintf('Argument must end with `.xml` or `.yml`. `%s` given', $filename));
-        }
-
-        return [
-            'artworkPackage' => $packageName,
-            'filename' => $filename,
-        ];
     }
 
     /**
@@ -457,7 +439,7 @@ class GenerateAllCommand extends Command
             throw new \LogicException('Cannot get package name - no artwork generation params provided');
         }
 
-        $packageAndFilename = $this->splitStringIntoArtworkPackageAndFileName(reset($vals));
+        $packageAndFilename = TokenUtility::splitStringIntoArtworkPackageAndFileName(reset($vals));
 
         return sprintf(
             '%s-%s',

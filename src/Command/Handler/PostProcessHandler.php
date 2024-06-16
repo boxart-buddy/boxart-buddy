@@ -6,6 +6,7 @@ use App\Command\CommandInterface;
 use App\Command\PostProcessCommand;
 use App\PostProcess\BackgroundImagePostProcess;
 use App\PostProcess\OffsetWithSiblingsPostProcess;
+use App\PostProcess\OverlayArtworkGenerationPostProcess;
 use App\PostProcess\PostProcessMissingOptionException;
 use App\PostProcess\PostProcessOptionException;
 use App\PostProcess\VerticalDotScrollbarPostProcess;
@@ -19,7 +20,8 @@ readonly class PostProcessHandler implements CommandHandlerInterface
         private VerticalScrollbarPostProcess $verticalScrollbarPostProcess,
         private VerticalDotScrollbarPostProcess $verticalDotScrollbarPostProcess,
         private BackgroundImagePostProcess $backgroundImagePostProcess,
-        private OffsetWithSiblingsPostProcess $offsetWithSiblingsPostProcess
+        private OffsetWithSiblingsPostProcess $offsetWithSiblingsPostProcess,
+        private OverlayArtworkGenerationPostProcess $overlayArtworkGenerationPostProcess,
     ) {
     }
 
@@ -38,6 +40,7 @@ readonly class PostProcessHandler implements CommandHandlerInterface
             $this->verticalDotScrollbarPostProcess->getName() => $this->verticalDotScrollbarPostProcess->process($command),
             $this->backgroundImagePostProcess->getName() => $this->backgroundImagePostProcess->process($command),
             $this->offsetWithSiblingsPostProcess->getName() => $this->offsetWithSiblingsPostProcess->process($command),
+            $this->overlayArtworkGenerationPostProcess->getName() => $this->overlayArtworkGenerationPostProcess->process($command),
             default => throw new \RuntimeException(sprintf('Cannot handle unknown strategy "%s"', $command->strategy))
         };
     }

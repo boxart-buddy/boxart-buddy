@@ -143,7 +143,7 @@ readonly class CommandFactory
         $mapping = 'yml' === pathinfo($filename, PATHINFO_EXTENSION) ? $filename : null;
 
         foreach ($this->configReader->getConfig()->platforms as $platform => $romFolder) {
-            if ($perRom) {
+            if ($perRom && CommandNamespace::ARTWORK === $namespace) {
                 // if 'per rom' mode then need to return one command PER ROM rather than per platform
                 $config = $this->configReader->getConfig();
                 $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));

@@ -80,12 +80,14 @@ readonly class ArtworkGenerator
             $base = $this->pathProvider->getOutputPathForGeneratedArtwork($namespace, $platform);
             $finder->in($base);
             $finder->files()->name('*.png');
-            $file = $finder->first();
-            $fileSystem = new Filesystem();
-            $fileSystem->rename(
-                $file->getRealPath(),
-                Path::join($file->getPath(), $platform.'.png')
-            );
+
+            foreach ($finder as $file) {
+                $filesystem = new Filesystem();
+                $filesystem->rename(
+                    $file->getRealPath(),
+                    Path::join($file->getPath(), $platform.'.png')
+                );
+            }
         }
 
         if (!$single) {

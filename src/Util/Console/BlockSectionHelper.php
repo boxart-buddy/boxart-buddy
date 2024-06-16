@@ -3,6 +3,7 @@
 namespace App\Util\Console;
 
 use App\Command\TargetableCommandInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -20,7 +21,8 @@ class BlockSectionHelper
 
     public function __construct(
         readonly private InputInterface $input,
-        readonly private OutputInterface $consoleOutput
+        readonly private OutputInterface $consoleOutput,
+        readonly private LoggerInterface $logger,
     ) {
     }
 
@@ -42,6 +44,7 @@ class BlockSectionHelper
             $callable();
             $this->done($message, true);
         } catch (\Exception $e) {
+            $this->logger->critical($e->getMessage());
             $this->failure(sprintf("$message: %s", $e->getMessage()), true);
         }
     }
@@ -61,6 +64,7 @@ class BlockSectionHelper
             }
             $this->done($message, true);
         } catch (\Exception $e) {
+            $this->logger->critical($e->getMessage());
             $this->failure(sprintf("$message: %s", $e->getMessage()), true);
         }
     }

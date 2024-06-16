@@ -32,7 +32,7 @@ class NewTemplateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new BlockSectionHelper($input, $output);
+        $io = new BlockSectionHelper($input, $output, $this->logger);
         $io->heading();
 
         $filesystem = new Filesystem();

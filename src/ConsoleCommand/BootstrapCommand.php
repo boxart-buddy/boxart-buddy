@@ -8,6 +8,7 @@ use App\PlatformDists;
 use App\Portmaster\PortmasterDataImporter;
 use App\Util\Console\BlockSectionHelper;
 use App\Util\Path;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,6 +26,7 @@ class BootstrapCommand extends Command
     public function __construct(
         readonly private Path $path,
         readonly private PortmasterDataImporter $portmasterDataImporter,
+        readonly private LoggerInterface $logger,
     ) {
         parent::__construct();
     }
@@ -43,7 +45,7 @@ class BootstrapCommand extends Command
             throw new \RuntimeException();
         }
 
-        $io = new BlockSectionHelper($input, $output);
+        $io = new BlockSectionHelper($input, $output, $this->logger);
         $io->heading();
 
         $io->section('configs');

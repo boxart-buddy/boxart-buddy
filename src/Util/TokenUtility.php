@@ -34,7 +34,7 @@ class TokenUtility
         foreach ($tokens as $t) {
             $t = trim($t);
             if (strpos($t, ':')) {
-                $tokenParts = explode(':', $t);
+                $tokenParts = explode(':', $t, 2);
                 if (1 === count($tokenParts)) {
                     throw new \InvalidArgumentException(sprintf('Cannot parse runtime token (parsing as pipe seperated): `%s`, double check the format (must be a colon seperated pair)', $token));
                 }
@@ -71,5 +71,25 @@ class TokenUtility
         }
 
         return $runtimeTokens;
+    }
+
+    public static function splitStringIntoArtworkPackageAndFileName(string $input): array
+    {
+        $token = self::parseRuntimeTokens($input);
+        if (1 !== count($token)) {
+            throw new \InvalidArgumentException(sprintf('Argument must be of form `your-template:artwork-name.xml` or `your-template:mapping-name.yml`. Given value was `%s`', $input));
+        }
+
+        $packageName = key($token);
+        $filename = reset($token);
+
+        if (!in_array(pathinfo($filename, PATHINFO_EXTENSION), ['yml', 'xml'])) {
+            throw new \InvalidArgumentException(sprintf('Argument must end with `.xml` or `.yml`. `%s` given', $filename));
+        }
+
+        return [
+            'artworkPackage' => $packageName,
+            'filename' => $filename,
+        ];
     }
 }
