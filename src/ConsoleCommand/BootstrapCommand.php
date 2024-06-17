@@ -63,6 +63,13 @@ class BootstrapCommand extends Command
             $overwrite
         );
 
+        // folder roms
+        $this->createNewFileFromDist(
+            ApplicationConfigurationProcessor::CONFIG_FOLDER_ROMS,
+            'config/folder_roms.yml.dist',
+            $overwrite
+        );
+
         // platform config bootstrap
         $platformConfig = strtoupper($input->getOption('preset'));
 

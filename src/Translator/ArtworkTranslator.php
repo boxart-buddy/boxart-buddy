@@ -2,37 +2,44 @@
 
 namespace App\Translator;
 
-use App\FolderNames;
 use App\Model\Artwork;
 use App\Util\Path;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Translation\DataCollectorTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Translator;
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment as TwigEnvironment;
 use Twig\Loader\ArrayLoader as TwigArrayLoader;
 
 class ArtworkTranslator
 {
     private array $runtimeTokenMemoization = [];
+    private array $translationAddedForArtwork = [];
+    private Translator $translator;
 
     public function __construct(
-        readonly private TranslatorInterface $translator,
-        readonly private Path $path
+        readonly private LoggerInterface $logger
     ) {
-        if (!$this->translator instanceof DataCollectorTranslator) {
-            throw new \RuntimeException(get_class($this->translator));
+        $this->translator = new Translator('default');
+        $this->translator->setFallbackLocales(['default']);
+        $this->translator->addLoader('array', new ArrayLoader());
+    }
+
+    private function loadTranslations(Artwork $artwork): void
+    {
+        // only loads for a given artwork one time
+        if (isset($this->translationAddedForArtwork[$artwork->absoluteFilepath])) {
+            return;
         }
 
+        // sketchy - relies on artwork template structure
+        $tokenPath = dirname($artwork->absoluteFilepath, 2);
         // setup and load translations
         $finder = new Finder();
 
-        $finder->in($this->path->joinWithBase(FolderNames::TEMPLATE->value));
-        $finder->files()->path("#[^\/]+\/tokens\/#")->name('*.yml');
-
-        $this->translator->setFallbackLocales(['default']);
-        $this->translator->addLoader('array', new ArrayLoader());
+        $finder->in(Path::join($tokenPath, 'tokens'));
+        $finder->files()->name('*.yml');
 
         foreach ($finder as $file) {
             $translationData = Yaml::parseFile($file->getRealPath());
@@ -47,16 +54,20 @@ class ArtworkTranslator
                 );
             }
         }
+
+        $this->translationAddedForArtwork[$artwork->absoluteFilepath] = true;
     }
 
     public function addRuntimeTranslationTokens(array $tokens): void
     {
         // ensure identical tokens only added once
-
         $hash = hash('xxh3', serialize($tokens));
         if (isset($this->runtimeTokenMemoization[$hash])) {
             return;
         }
+
+        $this->logger->debug('Adding runtime translations to general catalogue');
+        $this->logger->debug(json_encode($tokens));
 
         $this->translator->addResource(
             'array',
@@ -71,6 +82,8 @@ class ArtworkTranslator
 
     public function translateArtwork(Artwork $artwork, string $locale, ?string $romName): string
     {
+        $this->loadTranslations($artwork);
+
         $t = ['template' => $artwork->read()];
 
         $twig = new TwigEnvironment(

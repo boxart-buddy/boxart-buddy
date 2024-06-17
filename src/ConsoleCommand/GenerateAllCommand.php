@@ -322,6 +322,7 @@ class GenerateAllCommand extends Command
             $split['artworkPackage'],
             $split['filename'],
             $this->parseToken($input->getOption('token')),
+            false,
             $perRom
         );
     }
@@ -342,6 +343,7 @@ class GenerateAllCommand extends Command
             $split['artworkPackage'],
             $split['filename'],
             $this->parseToken($input->getOption('token')),
+            false,
             $perRom
         );
     }

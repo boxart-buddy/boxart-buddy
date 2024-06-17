@@ -11,6 +11,7 @@ readonly class GenerateArtworkCommand implements TargetableCommandInterface
         public ?string $mapping,
         public string $platform,
         public array $tokens,
+        public bool $generateDescriptions,
         public bool $single,
         public bool $folderMode,
         public ?string $romName = null

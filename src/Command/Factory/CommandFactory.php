@@ -62,10 +62,19 @@ readonly class CommandFactory
             return [new PostProcessCommand($target, $strategy, $options)];
         }
 
+        // some platforms share an output/package folder, so we combine those to reduce the number of
+        // post processing passes where the 'target' is the same
+        $targets = [];
+        $targetPlatforms = [];
         foreach ($config->platforms as $platform => $folder) {
             $target = Path::join($targetBase, $config->package[$platform], 'box');
+            $targets[] = $target;
+            $targetPlatforms[$target][] = $platform;
+        }
+
+        foreach ($targets as $target) {
             $options['sort_order'] = $this->orderedListProvider->getOrderedList(CommandNamespace::ARTWORK, $target);
-            $commands[] = new PostProcessCommand($target, $strategy, $options);
+            $commands[] = new PostProcessCommand($target, $strategy, $options, $targetPlatforms[$target]);
         }
 
         return $commands;
@@ -110,6 +119,7 @@ readonly class CommandFactory
             null,
             ApplicationConstant::FAKE_PORTMASTER_PLATFORM,
             $tokens,
+            true,
             false,
             false
         );
@@ -130,7 +140,57 @@ readonly class CommandFactory
         string $artworkPackage,
         string $filename,
         array $tokens,
+        bool $generateDescriptions,
         bool $perRom
+    ): array {
+        return $this->createGenerateArtworkCommandsForPlatforms(
+            $namespace,
+            $artworkPackage,
+            $filename,
+            $tokens,
+            $generateDescriptions,
+            $perRom,
+            array_keys($this->configReader->getConfig()->platforms)
+        );
+    }
+
+    public function createGenerateArtworkCommandsForPlatforms(
+        CommandNamespace $namespace,
+        string $artworkPackage,
+        string $filename,
+        array $tokens,
+        bool $generateDescriptions,
+        bool $perRom,
+        array $platforms
+    ): array {
+        $commands = [];
+
+        foreach ($platforms as $platform) {
+            $commands = array_merge(
+                $commands,
+                $this->createGenerateArtworkCommandsForOnePlatform(
+                    $namespace,
+                    $artworkPackage,
+                    $filename,
+                    $tokens,
+                    $generateDescriptions,
+                    $perRom,
+                    $platform
+                )
+            );
+        }
+
+        return $commands;
+    }
+
+    public function createGenerateArtworkCommandsForOnePlatform(
+        CommandNamespace $namespace,
+        string $artworkPackage,
+        string $filename,
+        array $tokens,
+        bool $generateDescriptions,
+        bool $perRom,
+        string $platform
     ): array {
         $single = false;
         if (CommandNamespace::FOLDER === $namespace || $perRom) {
@@ -142,42 +202,43 @@ readonly class CommandFactory
         $artwork = 'xml' === pathinfo($filename, PATHINFO_EXTENSION) ? $filename : null;
         $mapping = 'yml' === pathinfo($filename, PATHINFO_EXTENSION) ? $filename : null;
 
-        foreach ($this->configReader->getConfig()->platforms as $platform => $romFolder) {
-            if ($perRom && CommandNamespace::ARTWORK === $namespace) {
-                // if 'per rom' mode then need to return one command PER ROM rather than per platform
-                $config = $this->configReader->getConfig();
-                $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
-                $finder = new Finder();
-                $finder->in($inFolder)->files()->notName(ApplicationConstant::EXCLUDE_FROM_ROM_SEARCH);
-                foreach ($finder as $file) {
-                    $commands[] = new GenerateArtworkCommand(
-                        $namespace->value,
-                        $artworkPackage,
-                        $artwork,
-                        $mapping,
-                        $platform,
-                        $tokens,
-                        $single,
-                        CommandNamespace::FOLDER === $namespace,
-                        $file->getFilename()
-                    );
-                }
-                // next platform
-                continue;
+        if ($perRom && CommandNamespace::ARTWORK === $namespace) {
+            // if 'per rom' mode then need to return one command PER ROM rather than per platform
+            $config = $this->configReader->getConfig();
+            $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
+            $finder = new Finder();
+            // only look at roms one level down in the folder, this may or may not be acceptable to the way people organise roms
+            // this is required as the subsequent 'skyscraper' command expects the filename to be at the folder root
+            $finder->in($inFolder)->files()->depth('== 0')->notName(ApplicationConstant::EXCLUDE_FROM_ROM_SEARCH);
+
+            foreach ($finder as $file) {
+                $commands[] = new GenerateArtworkCommand(
+                    $namespace->value,
+                    $artworkPackage,
+                    $artwork,
+                    $mapping,
+                    $platform,
+                    $tokens,
+                    $generateDescriptions,
+                    $single,
+                    false,
+                    $file->getFilename()
+                );
             }
 
-            $commands[] = new GenerateArtworkCommand(
-                $namespace->value,
-                $artworkPackage,
-                $artwork,
-                $mapping,
-                $platform,
-                $tokens,
-                $single,
-                CommandNamespace::FOLDER === $namespace
-            );
+            return $commands;
         }
 
-        return $commands;
+        return [new GenerateArtworkCommand(
+            $namespace->value,
+            $artworkPackage,
+            $artwork,
+            $mapping,
+            $platform,
+            $tokens,
+            $generateDescriptions,
+            $single,
+            CommandNamespace::FOLDER === $namespace
+        )];
     }
 }

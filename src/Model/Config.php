@@ -18,6 +18,7 @@ readonly class Config
             $c['skyscraper_config_folder_path'],
             $c['platforms'],
             $c['package'],
+            $c['folder_roms'],
             $c['portmaster'],
             $propertyAccessor->getValue($c, '[optimize][enabled]'),
             $propertyAccessor->getValue($c, '[optimize][convert_to_jpg]'),
@@ -40,6 +41,7 @@ readonly class Config
         public string $skyscraperConfigFolderPath,
         public array $platforms,
         public array $package,
+        public array $folderRoms,
         public array $portmaster,
         public bool $shouldOptimize,
         public bool $convertToJpg,
@@ -70,5 +72,14 @@ readonly class Config
         }
 
         return $this->platforms[$platform];
+    }
+
+    public function getSingleRomForFolder(string $platform): ?string
+    {
+        if (isset($this->folderRoms[$platform])) {
+            return $this->folderRoms[$platform];
+        }
+
+        return null;
     }
 }

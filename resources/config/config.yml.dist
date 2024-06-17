@@ -5,7 +5,7 @@ screenscraper_user: 'user'
 screenscraper_pass: 'password'
 
 # if left null (~), will default to the default location (i.e ~/.skyscraper)
-skyscraper_config_folder_path: ~
+#skyscraper_config_folder_path: ~
 
 # the name of the romset you are generating against. Is used in naming packages
 romset_name: custom

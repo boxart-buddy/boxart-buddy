@@ -7,7 +7,8 @@ readonly class PostProcessCommand implements TargetableCommandInterface
     public function __construct(
         public string $target,
         public string $strategy,
-        public array $options
+        public array $options,
+        public ?array $platforms = null
     ) {
     }
 

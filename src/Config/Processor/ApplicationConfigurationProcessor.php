@@ -12,6 +12,7 @@ readonly class ApplicationConfigurationProcessor
 {
     public const CONFIG_FILENAME = 'config.yml';
     public const CONFIG_PLATFORM_FILENAME = 'config_platform.yml';
+    public const CONFIG_FOLDER_ROMS = 'folder_roms.yml';
     public const CONFIG_PORTMASTER_FILENAME = 'config_portmaster.yml';
     public const CONFIG_PACKAGE_FILENAME = 'config_package_muos.yml';
 
@@ -25,13 +26,14 @@ readonly class ApplicationConfigurationProcessor
         $platformConfig = Yaml::parseFile($this->path->joinWithBase(FolderNames::USER_CONFIG->value, self::CONFIG_PLATFORM_FILENAME));
         $packageConfig = Yaml::parseFile($this->path->joinWithBase('config/application/', self::CONFIG_PACKAGE_FILENAME));
         $portmaster = Yaml::parseFile($this->path->joinWithBase(FolderNames::USER_CONFIG->value, self::CONFIG_PORTMASTER_FILENAME));
+        $folderRoms = Yaml::parseFile($this->path->joinWithBase(FolderNames::USER_CONFIG->value, self::CONFIG_FOLDER_ROMS));
 
         $processor = new Processor();
         $applicationConfiguration = new ApplicationConfiguration();
 
         return $processor->processConfiguration(
             $applicationConfiguration,
-            [$config, ['platforms' => $platformConfig], ['package' => $packageConfig], ['portmaster' => $portmaster]]
+            [$config, ['platforms' => $platformConfig], ['package' => $packageConfig], ['portmaster' => $portmaster], ['folder_roms' => $folderRoms]]
         );
     }
 }

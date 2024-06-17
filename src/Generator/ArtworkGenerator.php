@@ -36,6 +36,7 @@ readonly class ArtworkGenerator
         bool $single,
         bool $folderMode,
         array $runtimeTranslationTokens,
+        bool $generateDescriptions,
         ?string $romName,
     ): void {
         // add runtime translations, maybe the wrong place to do this as it seems redundant doing it over and over again
@@ -90,7 +91,7 @@ readonly class ArtworkGenerator
             }
         }
 
-        if (!$single) {
+        if ($generateDescriptions) {
             $this->gameDescriptionGenerator->generateGameDescriptions(
                 $namespace,
                 $platform

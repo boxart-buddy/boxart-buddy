@@ -16,6 +16,10 @@ use Monolog\Attribute\WithMonologChannel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
+/**
+ * Allows you to run another skyscraper artwork generation,
+ * handy to overlay wheels and logos etc after other post processing.
+ */
 #[WithMonologChannel('postprocessing')]
 class OverlayArtworkGenerationPostProcess implements PostProcessInterface
 {
@@ -46,17 +50,44 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
         $options = $this->processOptions($command->options);
         $workset = $this->getArtwork($command->target);
 
+        $this->logger->info(
+            sprintf(
+                'Running post processor `artwork-generation` with command %s and options `%s`',
+                json_encode($command),
+                json_encode($options)
+            )
+        );
+
         $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($options['artwork']);
 
         $namespace = CommandNamespace::from($options['namespace']);
 
-        $commands = $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
-            $namespace,
-            $split['artworkPackage'],
-            $split['filename'],
-            [],
-            CommandNamespace::ARTWORK === $namespace // hardcoded - will be slow and sometimes not needed?
-        );
+        $commands = [];
+
+        if (!$command->platforms) {
+            // for folders
+            $commands = $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
+                $namespace,
+                $split['artworkPackage'],
+                $split['filename'],
+                ('' !== $options['token']) ? TokenUtility::parseRuntimeTokens($options['token']) : [],
+                false,
+                CommandNamespace::ARTWORK === $namespace // hardcoded - will be slow and sometimes not needed?
+            );
+        }
+
+        if ($command->platforms) {
+            // for artwork
+            $commands = $this->commandFactory->createGenerateArtworkCommandsForPlatforms(
+                $namespace,
+                $split['artworkPackage'],
+                $split['filename'],
+                ('' !== $options['token']) ? TokenUtility::parseRuntimeTokens($options['token']) : [],
+                false,
+                CommandNamespace::ARTWORK === $namespace, // hardcoded - will be slow and sometimes not needed?
+                $command->platforms
+            );
+        }
 
         // hack to wipe the output folder every time to ensure no clashes with earlier generations
         $filesystem = new Filesystem();
@@ -118,7 +149,6 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
 
             // folder filenames needs to be reverse mapped due to package related hack in the artworkgenerator
             if ($options['namespace'] === CommandNamespace::FOLDER->value) {
-                // $finder->name($originalFilename);
                 foreach ($this->getPlatformsByPackagedFolderName(Path::removeExtension($originalFilename)) as $p) {
                     $finder->name($p.'.png');
                 }
@@ -131,7 +161,9 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
             }
 
             if (!$finder->hasResults()) {
-                throw new \RuntimeException(sprintf('No image found matching original filename %s, probable issue when generating artwork in post process', $originalFilename));
+                $this->logger->warning(
+                    sprintf('No image found matching original filename %s, probable issue when generating artwork in post process', $originalFilename)
+                );
             }
 
             $file = $finder->first();

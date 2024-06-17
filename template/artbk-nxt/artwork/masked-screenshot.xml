@@ -5,13 +5,15 @@
     <output type="cover" width="640" height="480">
 
         <!-- to be adjusted -->
-        <layer resource="screenshot" height="{{ 'screenshot-height'|trans({}, 'general', locale) }}" align="center"
+        <layer resource="screenshot" height="{{ 'screenshot-height'|trans({}, 'general', locale)|default('480') }}"
+               align="center"
                valign="middle" x="{{ rom|trans({}, 'screenshot-offset-x', locale)|default('0') }}">
             <!--            <blur softness="0.5"/>-->
             <!--            <opacity value="20"/>-->
         </layer>
 
-        <mask file="{{ 'mask'|trans({}, 'general', locale) }}" width="640" height="480"/>
+        <mask file="{{ 'mask'|trans({}, 'general', locale)|default('mask/full-gradient.png') }}" width="640"
+              height="480"/>
     </output>
 
     <output type="screenshot" width="515" height="275">

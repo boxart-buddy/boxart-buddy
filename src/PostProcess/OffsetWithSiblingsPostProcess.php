@@ -116,7 +116,7 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
                 $effects = $options[OffsetWithSiblingsPostProcessOptions::EFFECT];
                 if ($effects) {
                     foreach ($effects as $effect) {
-                        match ($effect) {
+                        $siblingImage = match ($effect) {
                             'greyscale' => $siblingImage->greyscale(),
                             'blur' => $siblingImage->blur(3),
                             'pixelate' => $siblingImage->pixelate(4),

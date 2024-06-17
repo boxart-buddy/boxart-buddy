@@ -7,6 +7,7 @@ class OverlayArtworkGenerationPostProcessOptions implements PostProcessOptionsIn
     use PostProcessOptionsTrait;
     public const ARTWORK = 'artwork';
     public const NAMESPACE = 'namespace';
+    public const TOKEN = 'token';
 
     public static function getOptions(): array
     {
@@ -22,6 +23,12 @@ class OverlayArtworkGenerationPostProcessOptions implements PostProcessOptionsIn
             ['artwork', 'folder'],
             'artwork',
             'Is this post-process running in folder or artwork mode?',
+        );
+        $options[] = new PostProcessOption(
+            self::TOKEN,
+            null,
+            '',
+            'A token string to be used to translate artwork tokens',
         );
 
         return $options;

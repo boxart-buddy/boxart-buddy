@@ -77,15 +77,27 @@ readonly class SkyscraperCommandDirector
             ->setVerbosity(3);
 
         if ($singleRomOnly) {
-            $rom = $romName ?? $this->getSingleRom($inFolder);
+            $rom = $romName ?? $this->getSingleRom($inFolder, $platform);
             $commandBuilder->setRomName($rom);
         }
 
         return $commandBuilder->build();
     }
 
-    private function getSingleRom(string $folder): string
+    private function getSingleRom(string $folder, string $platform): string
     {
+        // try to match with the configured rom name if provided
+        $singleRom = $this->configReader->getConfig()->getSingleRomForFolder($platform);
+        $finder = new Finder();
+        $finder->in($folder);
+        $finder->files()->name($singleRom.'.*');
+
+        if ($finder->hasResults()) {
+            return $finder->first()->getFilename();
+        }
+
+        // if nothing found or configured then just return the first found
+
         $finder = new Finder();
         $finder->in($folder);
 
