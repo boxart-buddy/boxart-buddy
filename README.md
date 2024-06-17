@@ -52,6 +52,12 @@
 
 ![Standfirst](docs/images/gif/standfirst.gif)
 
+## Preamble
+
+Boxart Buddy is still under heavy development and may be unstable and subject to change prior to the 1.0 release. In
+time I hope to improve the docs and installation process, for now if you run into issues raise please raise an issue
+here on github or visit the 'Boxart-Logo' channel of the [MUOS Discord Server](https://discord.gg/USS5ybVtDz)
+
 ## Intro
 
 Boxart Buddy has the following features:
@@ -83,13 +89,6 @@ Boxart Buddy has the following features:
 
 
 <!-- GETTING STARTED -->
-
-## Preamble
-
-Boxart Buddy is still early in development. I'm developing on macOS with access to Linux
-and have tested on those platforms. In time I hope to improve the docs and installation process,for now if you run into
-issues raise an issue or seek support on the 'Boxart-Logo' channel of
-the [MUOS Discord Server](https://discord.gg/USS5ybVtDz)
 
 ## Installation
 
