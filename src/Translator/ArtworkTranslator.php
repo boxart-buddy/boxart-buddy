@@ -3,11 +3,11 @@
 namespace App\Translator;
 
 use App\Model\Artwork;
+use App\Translator\Fuzzy\FuzzyMatchingTranslator;
 use App\Util\Path;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\ArrayLoader;
-use Symfony\Component\Translation\Translator;
 use Symfony\Component\Yaml\Yaml;
 use Twig\Environment as TwigEnvironment;
 use Twig\Loader\ArrayLoader as TwigArrayLoader;
@@ -16,12 +16,12 @@ class ArtworkTranslator
 {
     private array $runtimeTokenMemoization = [];
     private array $translationAddedForArtwork = [];
-    private Translator $translator;
+    private FuzzyMatchingTranslator $translator;
 
     public function __construct(
         readonly private LoggerInterface $logger
     ) {
-        $this->translator = new Translator('default');
+        $this->translator = new FuzzyMatchingTranslator('default');
         $this->translator->setFallbackLocales(['default']);
         $this->translator->addLoader('array', new ArrayLoader());
     }
@@ -65,9 +65,6 @@ class ArtworkTranslator
         if (isset($this->runtimeTokenMemoization[$hash])) {
             return;
         }
-
-        $this->logger->debug('Adding runtime translations to general catalogue');
-        $this->logger->debug(json_encode($tokens));
 
         $this->translator->addResource(
             'array',

@@ -79,7 +79,6 @@ class TokenUtility
         if (1 !== count($token)) {
             throw new \InvalidArgumentException(sprintf('Argument must be of form `your-template:artwork-name.xml` or `your-template:mapping-name.yml`. Given value was `%s`', $input));
         }
-
         $packageName = key($token);
         $filename = reset($token);
 

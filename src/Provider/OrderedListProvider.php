@@ -4,7 +4,6 @@ namespace App\Provider;
 
 use App\Command\CommandNamespace;
 use App\Config\Reader\ConfigReader;
-use App\Util\ArrayUtil;
 use Symfony\Component\Finder\Finder;
 
 class OrderedListProvider
@@ -42,8 +41,6 @@ class OrderedListProvider
             $romName = $file->getBasename('.png');
             $artwork[$romName] = $romName;
         }
-
-        // $artwork = ArrayUtil::castToObjectWithStringKeys($artwork);
 
         $names = $this->namesProvider->getNames();
 

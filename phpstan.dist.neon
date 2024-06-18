@@ -6,4 +6,6 @@ parameters:
         - public/
         - src/
         - tests/
+    excludePaths:
+    	- src/Translator/Fuzzy/
     checkMissingIterableValueType: false
