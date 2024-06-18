@@ -20,6 +20,7 @@ readonly class Config
             $c['package'],
             $c['folder_roms'],
             $c['portmaster'],
+            $c['portmaster_alternates'],
             $propertyAccessor->getValue($c, '[optimize][enabled]'),
             $propertyAccessor->getValue($c, '[optimize][convert_to_jpg]'),
             $propertyAccessor->getValue($c, '[optimize][jpg_quality]'),
@@ -43,6 +44,7 @@ readonly class Config
         public array $package,
         public array $folderRoms,
         public array $portmaster,
+        public array $portmasterAlternates,
         public bool $shouldOptimize,
         public bool $convertToJpg,
         public int $jpgQuality,
@@ -72,6 +74,11 @@ readonly class Config
         }
 
         return $this->platforms[$platform];
+    }
+
+    public function getPlatformsByRomFolder(string $romFolder): array
+    {
+        return array_intersect_key($this->platforms, array_flip(array_keys($this->platforms, $romFolder)));
     }
 
     public function getSingleRomForFolder(string $platform): ?string

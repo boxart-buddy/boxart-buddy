@@ -46,6 +46,7 @@ class BlockSectionHelper
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage());
             $this->failure(sprintf("$message: %s", $e->getMessage()), true);
+            throw $e;
         }
     }
 
@@ -66,6 +67,7 @@ class BlockSectionHelper
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage());
             $this->failure(sprintf("$message: %s", $e->getMessage()), true);
+            throw $e;
         }
     }
 

@@ -13,6 +13,7 @@ use App\Command\PrimeCacheCommand;
 use App\Config\Reader\ConfigReader;
 use App\FolderNames;
 use App\Provider\OrderedListProvider;
+use App\Provider\PathProvider;
 use App\Util\Path;
 use Symfony\Component\Finder\Finder;
 
@@ -21,7 +22,8 @@ readonly class CommandFactory
     public function __construct(
         private ConfigReader $configReader,
         private Path $path,
-        private OrderedListProvider $orderedListProvider
+        private OrderedListProvider $orderedListProvider,
+        private PathProvider $pathProvider
     ) {
     }
 
@@ -111,18 +113,37 @@ readonly class CommandFactory
         string $artworkPackage,
         string $artworkFilename,
         array $tokens
-    ): GenerateArtworkCommand {
-        return new GenerateArtworkCommand(
-            CommandNamespace::PORTMASTER->value,
-            $artworkPackage,
-            $artworkFilename,
-            null,
-            ApplicationConstant::FAKE_PORTMASTER_PLATFORM,
-            $tokens,
-            true,
-            false,
-            false
-        );
+    ): array {
+        $portmasterAlternates = $this->configReader->getConfig()->portmasterAlternates;
+
+        // iterate roms folder
+        $commands = [];
+
+        $inFolder = $this->pathProvider->getPortmasterRomPath();
+        $finder = new Finder();
+        $finder->in($inFolder)->files();
+
+        foreach ($finder as $file) {
+            $gameName = $file->getFilenameWithoutExtension();
+
+            // change platform if alternate exists
+            $platform = $portmasterAlternates[$gameName]['platform'] ?? ApplicationConstant::FAKE_PORTMASTER_PLATFORM;
+
+            $commands[] = new GenerateArtworkCommand(
+                CommandNamespace::PORTMASTER->value,
+                $artworkPackage,
+                $artworkFilename,
+                null,
+                $platform,
+                $tokens,
+                true,
+                true,
+                false,
+                $file->getFilename()
+            );
+        }
+
+        return $commands;
     }
 
     public function createPrimeCacheCommandsForAllPlatforms(): array

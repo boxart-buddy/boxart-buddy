@@ -6,6 +6,7 @@ class BackgroundImagePostProcessOptions implements PostProcessOptionsInterface
 {
     use PostProcessOptionsTrait;
     public const BACKGROUND = 'background';
+    public const OVERLAY = 'overlay';
 
     public static function getOptions(): array
     {
@@ -15,6 +16,14 @@ class BackgroundImagePostProcessOptions implements PostProcessOptionsInterface
             null,
             null,
             'The background image file: resources/background/{image.png}',
+            false
+        );
+        $options[] = new PostProcessOption(
+            self::OVERLAY,
+            null,
+            null,
+            'The overlay image file: resources/background/{image.png}',
+            false
         );
 
         return $options;

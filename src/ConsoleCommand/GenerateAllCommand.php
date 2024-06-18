@@ -6,7 +6,6 @@ use App\Command\CommandNamespace;
 use App\Command\CompressPackageCommand;
 use App\Command\CopyResourcesCommand;
 use App\Command\Factory\CommandFactory;
-use App\Command\GenerateArtworkCommand;
 use App\Command\Handler\CentralHandler;
 use App\Command\PackageCommand;
 use App\Command\TransferCommand;
@@ -125,17 +124,22 @@ class GenerateAllCommand extends Command
         }
 
         // portmaster
-        $command = $this->getPortmasterCommand($input);
-        if ($command) {
+        $commands = $this->getPortmasterCommands($input);
+        if ($commands) {
             // ensure portmaster data is up to date
             $portmasterDataImporter = $this->portmasterDataImporter;
             $io->waitOrFail('import-portmaster-data', 'Importing Portmaster Data', function () use ($portmasterDataImporter) {
-                $portmasterDataImporter->importPortmasterDataIfNotImportedSince(new \DateInterval('P1D'));
+                $portmasterDataImporter->importPortmasterDataIfNotImportedSince(new \DateInterval('P14D'));
             });
 
-            $io->waitOrFail('generate-portmaster-artwork', 'Generating Portmaster Artwork', function () use ($command) {
-                $this->centralHandler->handle($command);
-            });
+            $io->waitOrFailTargetableCommandsWithProgressBar(
+                'generate-portmaster-artwork',
+                'Generating Portmaster Artwork',
+                $commands,
+                function ($command) {
+                    $this->centralHandler->handle($command);
+                }
+            );
         }
 
         $packageName = $this->getPackageName($input);
@@ -204,33 +208,15 @@ class GenerateAllCommand extends Command
         $io->complete(sprintf("Build complete in %s\n\n(Package Size %s): %s", CommandUtility::formatStopwatchEvent($event), $size, $packageRoot));
 
         // skipped roms
-        $this->generateSkippedRoms($io);
+        // $this->readSkippedRomReport($io);
 
         return Command::SUCCESS;
     }
 
-    private function generateSkippedRoms(BlockSectionHelper $io): void
-    {
-        $report = $this->skippedRomImportDataGenerator->generate();
-
-        if (!empty($report)) {
-            $importCommandName = 'import-skipped';
-            $io->help(
-                sprintf("Some roms were missing information.\nBlank templates have been generated for you in folder `./%s`. \nFill in missing information and images then import the data with command \n`php bin/console %s` and re-run this generation process", FolderNames::SKIPPED->value, $importCommandName)
-            );
-
-            $tableHeader = ['Platform', 'Roms Skipped (Missing)'];
-            $tableBody = [];
-            foreach ($report as $platform => $count) {
-                $tableBody[] = [$platform, $count];
-            }
-
-            $io->style()->table(
-                $tableHeader,
-                $tableBody
-            );
-        }
-    }
+    //    private function readSkippedRomReport(BlockSectionHelper $io): void
+    //    {
+    //        // read the skipped rom file and report back to use next steps to take
+    //    }
 
     private function getPostProcessCommands(string $packageName, InputInterface $input): array
     {
@@ -322,7 +308,7 @@ class GenerateAllCommand extends Command
             $split['artworkPackage'],
             $split['filename'],
             $this->parseToken($input->getOption('token')),
-            false,
+            true,
             $perRom
         );
     }
@@ -348,12 +334,12 @@ class GenerateAllCommand extends Command
         );
     }
 
-    private function getPortmasterCommand(InputInterface $input): ?GenerateArtworkCommand
+    private function getPortmasterCommands(InputInterface $input): array
     {
         $artwork = $input->getOption('portmaster');
 
         if (!$artwork) {
-            return null;
+            return [];
         }
 
         $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
@@ -385,6 +371,7 @@ class GenerateAllCommand extends Command
         $filesystem->appendToFile($lastRunCommandFile, $commandString);
     }
 
+    // Gets the template folders being used in current generation, to load tokens and resources etc
     private function getArtworkPackageNamesFromInput(InputInterface $input): array
     {
         // to some extent this will validate these arguments as well;

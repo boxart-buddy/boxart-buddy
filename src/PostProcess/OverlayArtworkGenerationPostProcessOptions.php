@@ -20,7 +20,7 @@ class OverlayArtworkGenerationPostProcessOptions implements PostProcessOptionsIn
         );
         $options[] = new PostProcessOption(
             self::NAMESPACE,
-            ['artwork', 'folder'],
+            ['artwork', 'folder', 'portmaster'],
             'artwork',
             'Is this post-process running in folder or artwork mode?',
         );

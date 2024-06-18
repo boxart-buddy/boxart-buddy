@@ -38,4 +38,14 @@ readonly class PathProvider
     {
         return $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'roms/');
     }
+
+    public function getFontPath(?string $variant = null): string
+    {
+        return match ($variant) {
+            'bold' => $this->path->joinWithBase('resources', 'font', 'Cousine-Bold.ttf'),
+            'italic' => $this->path->joinWithBase('resources', 'font', 'Cousine-Italic.ttf'),
+            'bold-italic' => $this->path->joinWithBase('resources', 'font', 'Cousine-BoldItalic.ttf'),
+            default => $this->path->joinWithBase('resources', 'font', 'Cousine-Regular.ttf')
+        };
+    }
 }

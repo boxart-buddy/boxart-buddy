@@ -15,6 +15,7 @@ class SkyscraperCommandBuilder
         private ?string $scraper = null,
         private ?int $verbosity = null,
         private ?string $romName = null,
+        private ?string $query = null,
     ) {
     }
 
@@ -47,6 +48,9 @@ class SkyscraperCommandBuilder
         }
         if (isset($this->verbosity)) {
             $parts['--verbosity'] = $this->verbosity;
+        }
+        if (isset($this->query)) {
+            $parts['--query'] = $this->query;
         }
 
         $command = ['Skyscraper'];
@@ -134,6 +138,13 @@ class SkyscraperCommandBuilder
     public function setRomName(?string $romName): SkyscraperCommandBuilder
     {
         $this->romName = $romName;
+
+        return $this;
+    }
+
+    public function setQuery(string $query): SkyscraperCommandBuilder
+    {
+        $this->query = $query;
 
         return $this;
     }

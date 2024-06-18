@@ -113,8 +113,8 @@ readonly class VerticalDotScrollbarPostProcess implements PostProcessInterface
         $totalSpace = floor($height - ($numberOfDots * $dotDiameter));
 
         $singleSpace = floor($totalSpace / $spaces);
-        $borderColor = 'white';
-        $dotColor = 'white';
+        $borderColor = $options[VerticalDotScrollbarPostProcessOptions::DOTCOLOR];
+        $dotColor = $options[VerticalDotScrollbarPostProcessOptions::DOTCOLOR];
         $activeDotBorder = 4;
 
         $scrollBar = $manager->create($width, $height + (2 * $yPadding));

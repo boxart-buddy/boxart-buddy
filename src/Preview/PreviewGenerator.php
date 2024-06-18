@@ -3,6 +3,7 @@
 namespace App\Preview;
 
 use App\Config\Reader\ConfigReader;
+use App\Provider\PathProvider;
 use App\Theme\ThemePaths;
 use App\Theme\ThemeReader;
 use App\Util\Path;
@@ -22,9 +23,9 @@ readonly class PreviewGenerator
 {
     public function __construct(
         private ThemeReader $themeReader,
-        private Path $path,
+        private PathProvider $pathProvider,
         private LoggerInterface $logger,
-        private ConfigReader $configReader
+        private ConfigReader $configReader,
     ) {
     }
 
@@ -245,7 +246,8 @@ readonly class PreviewGenerator
                 $title = substr($title, 0, 36).'…';
             }
 
-            $fontPath = $this->getFontPath('bold');
+            $fontPath = $this->pathProvider->getFontPath('bold');
+
             $canvas->text($title, $titleX, $titleY, function (FontFactory $font) use ($fontPath) {
                 $font->filename($fontPath);
                 $font->size(28);
@@ -296,7 +298,7 @@ readonly class PreviewGenerator
         });
 
         // add a title
-        $fontPath = $this->getFontPath();
+        $fontPath = $this->pathProvider->getFontPath('bold');
 
         $fontSize = min([floor($canvasX / mb_strlen($title) * 1.25), 100]);
         $canvas->text(
@@ -340,15 +342,5 @@ readonly class PreviewGenerator
             'spacerY' => 120,
             'headerY' => 200,
         ];
-    }
-
-    private function getFontPath(?string $variant = null): string
-    {
-        return match ($variant) {
-            'bold' => $this->path->joinWithBase('resources', 'font', 'Cousine-Bold.ttf'),
-            'italic' => $this->path->joinWithBase('resources', 'font', 'Cousine-Italic.ttf'),
-            'bold-italic' => $this->path->joinWithBase('resources', 'font', 'Cousine-BoldItalic.ttf'),
-            default => $this->path->joinWithBase('resources', 'font', 'Cousine-Regular.ttf')
-        };
     }
 }

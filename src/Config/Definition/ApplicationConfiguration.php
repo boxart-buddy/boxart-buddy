@@ -69,6 +69,7 @@ class ApplicationConfiguration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->variableNode('portmaster_alternates')->end()
                 ->arrayNode('sftp')
                     ->children()
                         ->scalarNode('ip')->end()

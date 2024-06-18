@@ -64,7 +64,7 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
 
         $commands = [];
 
-        if (!$command->platforms) {
+        if (CommandNamespace::FOLDER === $namespace) {
             // for folders
             $commands = $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
                 $namespace,
@@ -72,11 +72,11 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
                 $split['filename'],
                 ('' !== $options['token']) ? TokenUtility::parseRuntimeTokens($options['token']) : [],
                 false,
-                CommandNamespace::ARTWORK === $namespace // hardcoded - will be slow and sometimes not needed?
+                false
             );
         }
 
-        if ($command->platforms) {
+        if (CommandNamespace::ARTWORK === $namespace) {
             // for artwork
             $commands = $this->commandFactory->createGenerateArtworkCommandsForPlatforms(
                 $namespace,
@@ -84,8 +84,17 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
                 $split['filename'],
                 ('' !== $options['token']) ? TokenUtility::parseRuntimeTokens($options['token']) : [],
                 false,
-                CommandNamespace::ARTWORK === $namespace, // hardcoded - will be slow and sometimes not needed?
+                true, // hardcoded - will be slow and sometimes not needed?
                 $command->platforms
+            );
+        }
+
+        if (CommandNamespace::PORTMASTER === $namespace) {
+            // for portmaster
+            $commands = $this->commandFactory->createGenerateArtworkCommandForPortmaster(
+                $split['artworkPackage'],
+                $split['filename'],
+                ('' !== $options['token']) ? TokenUtility::parseRuntimeTokens($options['token']) : []
             );
         }
 
@@ -143,13 +152,17 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
 
             $finder->files()->path($pattern);
 
-            if ($options['namespace'] !== CommandNamespace::FOLDER->value) {
+            if ($options['namespace'] === CommandNamespace::ARTWORK->value) {
+                $finder->name($originalFilename);
+            }
+
+            if ($options['namespace'] === CommandNamespace::PORTMASTER->value) {
                 $finder->name($originalFilename);
             }
 
             // folder filenames needs to be reverse mapped due to package related hack in the artworkgenerator
             if ($options['namespace'] === CommandNamespace::FOLDER->value) {
-                foreach ($this->getPlatformsByPackagedFolderName(Path::removeExtension($originalFilename)) as $p) {
+                foreach ($this->configReader->getConfig()->getPlatformsByRomFolder(Path::removeExtension($originalFilename)) as $p => $rf) {
                     $finder->name($p.'.png');
                 }
             }
@@ -164,6 +177,8 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
                 $this->logger->warning(
                     sprintf('No image found matching original filename %s, probable issue when generating artwork in post process', $originalFilename)
                 );
+
+                return;
             }
 
             $file = $finder->first();
@@ -176,16 +191,5 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
             // save to original location
             $canvas->save($originalFilePath);
         }
-    }
-
-    private function getPlatformsByPackagedFolderName(string $filename): array
-    {
-        $package = $this->configReader->getConfig()->package;
-        $keys = array_keys($package, $filename);
-        if (0 === count($keys)) {
-            throw new \RuntimeException(sprintf('Cannot reverse map to platform for packed name `%s`', $filename));
-        }
-
-        return $keys;
     }
 }

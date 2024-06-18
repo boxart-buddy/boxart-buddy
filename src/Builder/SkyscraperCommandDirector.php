@@ -3,6 +3,7 @@
 namespace App\Builder;
 
 use App\ApplicationConstant;
+use App\Command\CommandNamespace;
 use App\Config\Reader\ConfigReader;
 use App\Provider\PathProvider;
 use App\Util\Finder;
@@ -35,6 +36,35 @@ readonly class SkyscraperCommandDirector
         return $commandBuilder->build();
     }
 
+    public function getScrapeCommandForSingleRomWithQuery(
+        string $platform,
+        string $romName,
+        string $query,
+        bool $forcePortmasterFolder
+    ): array {
+        $commandBuilder = new SkyscraperCommandBuilder();
+
+        $config = $this->configReader->getConfig();
+
+        // hack for portmaster
+        $inFolder = $this->pathProvider->getPortmasterRomPath();
+        if (!$forcePortmasterFolder) {
+            $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
+        }
+
+        $commandBuilder->setCredentials($config->getScreenScraperCredentials())
+            ->addFlag('unattend')
+            ->addFlag('unpack')
+            ->addFlag('nohints')
+            ->setPlatform($platform)
+            ->setScraper('screenscraper')
+            ->setInputPath($inFolder)
+            ->setQuery($query)
+            ->setRomName($romName);
+
+        return $commandBuilder->build();
+    }
+
     public function getImportLocalDataCommand(
         string $platform,
         string $inputPath
@@ -55,14 +85,16 @@ readonly class SkyscraperCommandDirector
         bool $singleRomOnly = false,
         ?string $romName = null
     ): array {
-        $outFolder = $this->pathProvider->getOutputPathForGeneratedArtwork($namespace, $platform);
+        if (CommandNamespace::PORTMASTER->value === $namespace) {
+            $inFolder = $this->pathProvider->getPortmasterRomPath();
+            $outFolder = $this->pathProvider->getOutputPathForGeneratedArtwork($namespace, ApplicationConstant::FAKE_PORTMASTER_PLATFORM);
+        }
 
-        $config = $this->configReader->getConfig();
+        if (CommandNamespace::PORTMASTER->value !== $namespace) {
+            $config = $this->configReader->getConfig();
 
-        // hack for portmaster
-        $inFolder = $this->pathProvider->getPortmasterRomPath();
-        if (ApplicationConstant::FAKE_PORTMASTER_PLATFORM !== $platform) {
             $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
+            $outFolder = $this->pathProvider->getOutputPathForGeneratedArtwork($namespace, $platform);
         }
 
         $commandBuilder = new SkyscraperCommandBuilder();

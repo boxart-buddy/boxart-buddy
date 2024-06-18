@@ -62,27 +62,44 @@ class BackgroundImagePostProcess implements PostProcessInterface
             $canvasY = 480;
             $canvas = $manager->create($canvasX, $canvasY);
 
-            if (!isset($options['background'])) {
-                throw new \RuntimeException('Background option is missing and is required');
+            if (!isset($options['background']) && !isset($options['overlay'])) {
+                throw new \RuntimeException('Background and/or Overlay options are required');
             }
 
-            // @todo check this file exists
-            $bg = $this->path->joinWithBase(
-                FolderNames::TEMP->value,
-                'post-process',
-                'resources',
-                $options['background']
-            );
+            if (isset($options['background'])) {
+                $bg = $this->path->joinWithBase(
+                    FolderNames::TEMP->value,
+                    'post-process',
+                    'resources',
+                    $options['background']
+                );
 
-            if (!$filesystem->exists($bg)) {
-                throw new \InvalidArgumentException(sprintf('Background image "%s" does not exist', $bg));
+                if (!$filesystem->exists($bg)) {
+                    throw new \InvalidArgumentException(sprintf('Background image "%s" does not exist', $bg));
+                }
+
+                $canvas->place($bg);
             }
-
-            $canvas->place($bg);
 
             // insert the image on top
             $originalImage = $manager->read($originalFilePath);
             $canvas->place($originalImage);
+
+            if (isset($options['overlay'])) {
+                // overlay
+                $overlay = $this->path->joinWithBase(
+                    FolderNames::TEMP->value,
+                    'post-process',
+                    'resources',
+                    $options['overlay']
+                );
+
+                if (!$filesystem->exists($overlay)) {
+                    throw new \InvalidArgumentException(sprintf('Overlay image "%s" does not exist', $overlay));
+                }
+
+                $canvas->place($overlay);
+            }
 
             // save to temp location
             $filesystem->mkDir($tmpFolder);

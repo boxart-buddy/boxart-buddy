@@ -5,6 +5,7 @@ namespace App\Generator;
 use App\Config\Reader\ConfigReader;
 use App\FolderNames;
 use App\Util\Path;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
@@ -13,25 +14,23 @@ use Symfony\Component\Finder\Finder;
  */
 readonly class SkippedRomImportDataGenerator
 {
+    public const ROM_MISSING_JSON = 'missing.json';
+
     public function __construct(
         private ConfigReader $configReader,
         private Path $path,
-        private ManualImportXMLGenerator $manualImportXMLGenerator
+        private ManualImportXMLGenerator $manualImportXMLGenerator,
+        private LoggerInterface $logger
     ) {
     }
 
-    public function generate(bool $idempotent = false): array
+    public function generate(bool $idempotent = false): void
     {
-        $report = $this->createSkippedRomImportData();
-        if (empty($report)) {
-            return $report;
-        }
+        $this->createSkippedRomImportData();
 
         if (!$idempotent) {
             $this->deleteSkippedCacheFiles();
         }
-
-        return $report;
     }
 
     private function deleteSkippedCacheFiles(): void
@@ -46,7 +45,7 @@ readonly class SkippedRomImportDataGenerator
         }
     }
 
-    private function createSkippedRomImportData(): array
+    private function createSkippedRomImportData(): void
     {
         $config = $this->configReader->getConfig();
         $skyscraperConfigFolder = $config->skyscraperConfigFolderPath;
@@ -58,17 +57,14 @@ readonly class SkippedRomImportDataGenerator
         $finder->in(Path::join($skyscraperConfigFolder));
         $finder->files()->name('skipped-*-cache.txt');
 
-        $report = [];
-
         if (!$finder->hasResults()) {
-            return $report;
+            return;
         }
 
         $skippedBase = $this->path->joinWithBase(FolderNames::SKIPPED->value, $romset);
 
         foreach ($finder as $file) {
             $filename = $file->getBasename();
-            // $filepath = $file->getRealPath();
             if (preg_match('/skipped-(.*?)-cache\.txt/', $filename, $matches)) {
                 $platform = $matches[1];
             } else {
@@ -85,6 +81,7 @@ readonly class SkippedRomImportDataGenerator
                     continue;
                 }
                 $title = basename($romPath, '.'.pathinfo($romPath, PATHINFO_EXTENSION));
+
                 // text
                 $this->manualImportXMLGenerator->generateXML(
                     Path::join($platformSkippedBase, 'textual', $title.'.xml'),
@@ -107,10 +104,41 @@ readonly class SkippedRomImportDataGenerator
                 );
 
                 // add to report
-                $report[$platform] = isset($report[$platform]) ? $report[$platform]++ : 1;
+                $this->addToMissingRomFile($romset, $romPath, $platform);
             }
         }
+    }
 
-        return $report;
+    private function addToMissingRomFile(string $romset, string $romAbsolutePath, string $platform): void
+    {
+        $filesystem = new Filesystem();
+        $missingJsonPath = $this->path->joinWithBase(FolderNames::SKIPPED->value, $romset, self::ROM_MISSING_JSON);
+        $missingAlready = [];
+
+        $romFilename = basename($romAbsolutePath);
+
+        try {
+            if ($filesystem->exists($missingJsonPath)) {
+                $missingAlready = json_decode($filesystem->readFile($missingJsonPath), true, 512, JSON_THROW_ON_ERROR);
+            }
+        } catch (\JsonException $e) {
+            $this->logger->critical('The missing.json file is malformed. If you have edited it manually please ensure the file contains valid json');
+            $this->logger->error($e->getMessage());
+            $this->logger->error($e->getFile());
+
+            return;
+        }
+
+        // already added
+        if (array_key_exists($romFilename, $missingAlready)) {
+            return;
+        }
+
+        $missingAlready[$romFilename] = ['platform' => $platform, 'query' => 'crc='];
+        if ($filesystem->exists($missingJsonPath)) {
+            $filesystem->remove($missingJsonPath);
+        }
+
+        $filesystem->appendToFile($missingJsonPath, json_encode([], JSON_FORCE_OBJECT) ?: '{}');
     }
 }

@@ -81,7 +81,7 @@ readonly class PackageHandler implements CommandHandlerInterface
 
             $filesystem->copy(
                 $file->getRealPath(),
-                Path::join($packageOut, 'Folder', 'box', ($packages[$platform] ?? 'generic').'.png')
+                Path::join($packageOut, 'Folder', 'box', ($config->platforms[$platform] ?? 'generic').'.png')
             );
         }
 

@@ -3,6 +3,7 @@
 namespace App\Portmaster;
 
 use App\ApplicationConstant;
+use App\Builder\SkyscraperCommandDirector;
 use App\Config\Reader\ConfigReader;
 use App\FolderNames;
 use App\Generator\ManualImportXMLGenerator;
@@ -10,9 +11,14 @@ use App\Importer\SkyscraperManualDataImporter;
 use App\Provider\PathProvider;
 use App\Util\DateTimeFile;
 use App\Util\Path;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Typography\FontFactory;
+use Monolog\Attribute\WithMonologChannel;
 use PhpZip\Exception\ZipException;
 use PhpZip\ZipFile;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Process\Process;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -23,6 +29,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * Download screenshots and metadata from portmaster git repo and import into skyscraper cache.
  */
+#[WithMonologChannel('skyscraper')]
 readonly class PortmasterDataImporter
 {
     public function __construct(
@@ -31,7 +38,9 @@ readonly class PortmasterDataImporter
         private Path $path,
         private PathProvider $pathProvider,
         private ManualImportXMLGenerator $manualImportXMLGenerator,
-        private SkyscraperManualDataImporter $skyscraperManualDataImporter
+        private SkyscraperManualDataImporter $skyscraperManualDataImporter,
+        private SkyscraperCommandDirector $skyscraperCommandDirector,
+        private LoggerInterface $logger
     ) {
     }
 
@@ -55,7 +64,7 @@ readonly class PortmasterDataImporter
         if ($outofDate || $this->hasConfigHashChanged()) {
             try {
                 $this->importPortmasterData();
-                DateTimeFile::writeDatetimeValueToFile($folder, 'LASTIMPORTATTEMPTED');
+                // DateTimeFile::writeDatetimeValueToFile($folder, 'LASTIMPORTATTEMPTED');
                 $this->writeConfigHash();
             } catch (\Throwable $t) {
                 throw $t;
@@ -80,15 +89,72 @@ readonly class PortmasterDataImporter
             $this->downloadAndUnzipLatestImages($latestPublished);
         }
 
-        // get meta
+        // get meta - exclude those already scraped
         $meta = $this->getMetaData();
 
         // then create and import 'fake' resources
-        $fakeRomPath = $this->pathProvider->getPortmasterRomPath();
-        $this->makeFakeRoms($meta, $fakeRomPath);
-        $this->writeTextualDataToImportLocation($meta);
-        $this->copyScreenshotsToImportLocation($meta);
+        $this->makeFakeRoms($meta);
+
+        // use 'alternates' list to scrape alternative data from scraper
+        $exclude = $this->scrapeUsingAlternatesList();
+
+        $this->writeTextualDataToImportLocation($meta, $exclude);
+        $this->copyImagesToImportLocation($meta, $exclude);
         $this->import();
+    }
+
+    private function scrapeUsingAlternatesList(): array
+    {
+        $scrapedAlready = [];
+
+        // read file
+        $alternates = $this->configReader->getConfig()->portmasterAlternates;
+        $romList = $this->configReader->getConfig()->portmaster;
+
+        foreach ($alternates as $game => $data) {
+            if (!empty($romList) && !in_array($game, $romList)) {
+                // skips roms not explicitly set in config
+                continue;
+            }
+
+            $queryString = '';
+            if (isset($data['romnom'])) {
+                $queryString = 'romnom='.$data['romnom'];
+            }
+            if (isset($data['crc'])) {
+                $queryString = 'crc='.$data['crc'];
+            }
+            if ('' === $queryString || !isset($data['platform'])) {
+                continue;
+            }
+
+            $command = $this->skyscraperCommandDirector->getScrapeCommandForSingleRomWithQuery(
+                $data['platform'],
+                sprintf('%s.zip', $game),
+                $queryString,
+                true
+            );
+
+            $process = new Process($command);
+            $process->setTimeout(120);
+
+            try {
+                $process->run();
+
+                $output = $process->getOutput();
+                $this->logger->info($output);
+                if (!$process->isSuccessful()) {
+                    $this->logger->error('Importing alternate data for portmaster failed');
+                }
+            } catch (\Exception $e) {
+                $this->logger->error($e->getMessage());
+                throw new \RuntimeException('Importing alternate data for portmaster failed');
+            }
+
+            $scrapedAlready[] = $game;
+        }
+
+        return $scrapedAlready;
     }
 
     private function import(): void
@@ -103,8 +169,10 @@ readonly class PortmasterDataImporter
         $this->skyscraperManualDataImporter->importResources($importIn, ApplicationConstant::FAKE_PORTMASTER_PLATFORM);
     }
 
-    private function makeFakeRoms(array $metadata, string $fakeRomPath): void
+    private function makeFakeRoms(array $metadata): void
     {
+        $fakeRomPath = $this->pathProvider->getPortmasterRomPath();
+
         $filesystem = new Filesystem();
         $romList = $this->configReader->getConfig()->portmaster;
 
@@ -121,7 +189,7 @@ readonly class PortmasterDataImporter
         }
     }
 
-    private function writeTextualDataToImportLocation(array $metadata): void
+    private function writeTextualDataToImportLocation(array $metadata, array $exclude): void
     {
         $tmpFolder = $this->path->joinWithBase(
             FolderNames::TEMP->value,
@@ -132,12 +200,16 @@ readonly class PortmasterDataImporter
         );
 
         foreach ($metadata as $name => $attr) {
+            // if scraped already then skip
+            if (in_array($name, $exclude)) {
+                continue;
+            }
             $path = Path::join($tmpFolder, $name.'.xml');
             $this->manualImportXMLGenerator->generateXML($path, $attr['title'], $attr['description'], $attr['genre']);
         }
     }
 
-    private function copyScreenshotsToImportLocation(array $metadata): void
+    private function copyImagesToImportLocation(array $metadata, array $exclude): void
     {
         $tmpFolder = $this->path->joinWithBase(
             FolderNames::TEMP->value,
@@ -149,6 +221,13 @@ readonly class PortmasterDataImporter
         $filesystem = new Filesystem();
 
         foreach ($metadata as $name => $attr) {
+            // if scraped already then skip
+            if (in_array($name, $exclude)) {
+                continue;
+            }
+
+            $this->createWheelForPortmaster($attr['title'], $name);
+
             foreach (['jpg', 'png'] as $extension) {
                 $screenshotInPath = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'images', $name.'.screenshot.'.$extension);
                 $screenshotOutPath = Path::join($tmpFolder, $name.'.'.$extension);
@@ -161,6 +240,39 @@ readonly class PortmasterDataImporter
                 );
             }
         }
+    }
+
+    private function createWheelForPortmaster(string $title, string $name): void
+    {
+        $filesystem = new Filesystem();
+        $tmpFolder = $this->path->joinWithBase(
+            FolderNames::TEMP->value,
+            'portmaster',
+            'import',
+            ApplicationConstant::FAKE_PORTMASTER_PLATFORM,
+            'wheels/'
+        );
+        if (!$filesystem->exists($tmpFolder)) {
+            $filesystem->mkDir($tmpFolder);
+        }
+
+        $manager = ImageManager::imagick();
+        $canvas = $manager->create(300, 300);
+        $fontPath = $this->pathProvider->getFontPath('bold');
+
+        $canvas->text($title, 150, 50, function (FontFactory $font) use ($fontPath) {
+            $font->filename($fontPath);
+            $font->size(28);
+            $font->color('white');
+            $font->stroke('black', 2);
+            $font->align('center');
+            $font->valign('middle');
+            $font->lineHeight(1.9);
+            $font->wrap(280);
+        });
+
+        // save wheel
+        $canvas->save(Path::join($tmpFolder, $name.'.png'));
     }
 
     /**
@@ -188,6 +300,7 @@ readonly class PortmasterDataImporter
 
         foreach ($responseArray['ports'] as $portZipName => $attrWrapper) {
             $portData = $attrWrapper['attr'];
+            $portName = basename($portZipName, '.zip');
 
             // if not supported then skip
             if (array_key_exists('avail', $portData)) {
@@ -197,7 +310,6 @@ readonly class PortmasterDataImporter
                 }
             }
 
-            $portName = basename($portZipName, '.zip');
             $metaProcessed[$portName]['title'] = $portData['title'] ?? $portName;
             $metaProcessed[$portName]['description'] = $portData['desc'] ?? $portName;
             $metaProcessed[$portName]['genre'] = isset($portData['genres']) ? reset($portData['genres']) : $portName;

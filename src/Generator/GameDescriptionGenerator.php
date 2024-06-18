@@ -6,7 +6,7 @@ use App\Provider\PathProvider;
 use App\Util\Path;
 use Symfony\Component\Filesystem\Filesystem;
 
-class GameDescriptionGenerator
+readonly class GameDescriptionGenerator
 {
     public function __construct(
         private PathProvider $pathProvider

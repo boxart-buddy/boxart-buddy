@@ -113,7 +113,7 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
                     );
                 }
 
-                $effects = $options[OffsetWithSiblingsPostProcessOptions::EFFECT];
+                $effects = $options[OffsetWithSiblingsPostProcessOptions::EFFECT] ?? null;
                 if ($effects) {
                     foreach ($effects as $effect) {
                         $siblingImage = match ($effect) {

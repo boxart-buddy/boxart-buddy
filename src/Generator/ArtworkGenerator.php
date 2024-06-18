@@ -25,7 +25,8 @@ readonly class ArtworkGenerator
         private PathProvider $pathProvider,
         private LoggerInterface $logger,
         private ArtworkXMLReader $artworkXMLReader,
-        private Path $path
+        private Path $path,
+        private SkippedRomImportDataGenerator $skippedRomImportDataGenerator
     ) {
     }
 
@@ -96,6 +97,9 @@ readonly class ArtworkGenerator
                 $namespace,
                 $platform
             );
+
+            // @todo add own flag for this rather than piggybacking on game descriptions
+            $this->skippedRomImportDataGenerator->generate();
         }
 
         $this->artworkXMLReader->writeNotesForArtwork($artwork->absoluteFilepath);

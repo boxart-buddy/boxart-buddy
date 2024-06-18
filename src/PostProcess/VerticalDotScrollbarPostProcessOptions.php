@@ -8,6 +8,7 @@ readonly class VerticalDotScrollbarPostProcessOptions implements PostProcessOpti
 
     public const POSITION = 'position';
     public const OPACITY = 'opacity';
+    public const DOTCOLOR = 'dotcolor';
 
     public static function getOptions(): array
     {
@@ -23,6 +24,12 @@ readonly class VerticalDotScrollbarPostProcessOptions implements PostProcessOpti
             null,
             '100',
             'The opacity of the scrollbar'
+        );
+        $options[] = new PostProcessOption(
+            self::DOTCOLOR,
+            null,
+            'white',
+            'The color of the dots'
         );
 
         return $options;
