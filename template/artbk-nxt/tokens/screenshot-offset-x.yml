@@ -1,3 +1,4 @@
+#some screenshots are not offset correctly on the x axis, this file allows adjustments
 'nes':
   'Excitebike*': 150
   'Batman - Return of the Joker*': 80

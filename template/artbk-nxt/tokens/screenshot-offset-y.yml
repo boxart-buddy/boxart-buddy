@@ -1,0 +1,4 @@
+#some screenshots have void areas above or below, this file allows adjustments
+'nes':
+  'Asterix*': -40
+  'Legend of Zelda*': -40

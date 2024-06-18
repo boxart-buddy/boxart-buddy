@@ -4,9 +4,11 @@
           notes="Companion Boxart for Art Book Next v2 (https://discord.com/channels/1152022492001603615/1229813758172598343)"></meta>
     <output type="cover" width="640" height="480">
 
-        <layer resource="screenshot" height="400"
+        <layer resource="screenshot"
+               height="{{ (400 * (rom|trans({}, 'screenshot-y-multiply', locale))|default(1))|round }}"
                align="center"
-               valign="middle" x="{{ ((rom|trans({}, 'screenshot-offset-x', locale)|default('0')) * 0.8333)|round }}">
+               valign="middle" y="{{ (rom|trans({}, 'screenshot-offset-y', locale))|default('0') }}"
+               x="{{ ((rom|trans({}, 'screenshot-offset-x', locale)|default(0)) * 0.8333)|round }}">
         </layer>
 
         <mask file="mask/inner-flat.png" width="640" height="480"/>

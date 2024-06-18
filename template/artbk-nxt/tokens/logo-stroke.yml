@@ -1,3 +1,4 @@
+#some wheels have outlines that dont suit the default stroke treatment, this file allows adjustments
 'nes':
   'nes': '#000000'
   'Zelda II*': '#FFFFFF'

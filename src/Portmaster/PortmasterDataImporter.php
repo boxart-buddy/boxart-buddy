@@ -64,7 +64,7 @@ readonly class PortmasterDataImporter
         if ($outofDate || $this->hasConfigHashChanged()) {
             try {
                 $this->importPortmasterData();
-                // DateTimeFile::writeDatetimeValueToFile($folder, 'LASTIMPORTATTEMPTED');
+                DateTimeFile::writeDatetimeValueToFile($folder, 'LASTIMPORTATTEMPTED');
                 $this->writeConfigHash();
             } catch (\Throwable $t) {
                 throw $t;
