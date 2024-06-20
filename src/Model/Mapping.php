@@ -17,6 +17,10 @@ class Mapping
             return $this->artworks[$key];
         }
 
+        if (array_key_exists('default', $this->artworks)) {
+            return $this->artworks['default'];
+        }
+
         return null;
     }
 

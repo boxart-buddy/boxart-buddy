@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <output type="cover" width="640" height="480">
+
+        <layer resource="wheel" width="{{ rom|trans({}, 'wheel-width', locale)|default('240') }}" align="right"
+               valign="middle" x="-200">
+        </layer>
+
+    </output>
+</artwork>

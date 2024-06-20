@@ -58,8 +58,43 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
 
                 $set[$x] = $files[$siblingKey] ?? null;
             }
+
             $workset[] = $set;
             ++$count;
+        }
+
+        // add first/last siblings to allow looping type display
+        // wrong type (=== 'true') intentional
+        if (isset($options[OffsetWithSiblingsPostProcessOptions::LOOP]) && 'true' === $options[OffsetWithSiblingsPostProcessOptions::LOOP]) {
+            for ($x = 0; $x < $totalSiblingCount; ++$x) {
+                $worksetKey = (int) $siblingsAmount - $x;
+
+                if ($worksetKey < 0) {
+                    $amendKey = $count + $worksetKey;
+                    if (!isset($workset[$amendKey])) {
+                        continue;
+                    }
+                    for ($y = 0; $y < $siblingsAmount; ++$y) {
+                        $increment = $y + 1;
+                        $newPosition = ($amendKey + $increment) % $count;
+                        $workset[$amendKey][$siblingsAmount + ($y + 1)] = $files[$newPosition] ?? null;
+                    }
+                }
+                if ($worksetKey > 0) {
+                    $amendKey = (-1) + $worksetKey;
+                    if (!isset($workset[$amendKey])) {
+                        continue;
+                    }
+                    for ($y = 0; $y < $siblingsAmount; ++$y) {
+                        $increment = ($y + 1) * -1;
+                        $newPosition = ($amendKey + $increment) % $count;
+                        if ($newPosition < 0) {
+                            $newPosition += $count;
+                        }
+                        $workset[$amendKey][$siblingsAmount - ($y + 1)] = $files[$newPosition] ?? null;
+                    }
+                }
+            }
         }
 
         $filesystem = new Filesystem();

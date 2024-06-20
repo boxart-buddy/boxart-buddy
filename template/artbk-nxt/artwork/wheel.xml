@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <artwork>
-    <meta author="Boxart Buddy"
-          notes="Companion Boxart for Art Book Next v2 (https://discord.com/channels/1152022492001603615/1229813758172598343)"></meta>
     <output type="cover" width="640" height="480">
 
-        <!--        <layer width="640" height="480">-->
-        <!--            <layer resource="inner-frame.png" x="218" align="left" valign="center"></layer>-->
-        <!--        </layer>-->
-
-        <layer resource="wheel" width="240" align="center" valign="middle">
-            <stroke width="2" color="{{ rom|trans({}, 'logo-stroke', locale)|default('#000000') }}"/>
+        <layer resource="wheel" width="{{ rom|trans({}, 'wheel-width', locale)|default('240') }}" align="center"
+               valign="middle">
+            <stroke width="2" color="{{ rom|trans({}, 'logo-stroke-white', locale)|default('#FFFFFF') }}"/>
             <shadow distance="8" softness="5" opacity="50"/>
         </layer>
 

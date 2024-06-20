@@ -6,17 +6,12 @@
 
         <layer resource="screenshot"
                height="{{ (400 * ((rom|trans({}, 'screenshot-y-multiply', locale))|default(1)) * ((locale|trans({}, 'screenshot-y-multiply', locale))|default(1))) | round }}"
-               align="center"
+               align="right"
                valign="middle"
-               y="{{ ((rom|trans({}, 'screenshot-offset-y', locale))|default('0')* 0.8333) + ((locale|trans({}, 'screenshot-offset-y', locale))|default('0')* 0.8333) }}"
-               x="{{ ((rom|trans({}, 'screenshot-offset-x', locale)|default(0)) * 0.8333)|round }}">
+               x="200">
         </layer>
 
-        <mask file="mask/inner-flat.png" width="640" height="480"/>
-
-        <layer width="200" height="396" align="left" valign="top" x="220" y="42">
-            <layer resource="inner-frame.png"></layer>
-        </layer>
+        <mask file="mask/inner-flat-portmaster.png" width="640" height="480"/>
     </output>
 
     <output type="screenshot" width="515" height="275">

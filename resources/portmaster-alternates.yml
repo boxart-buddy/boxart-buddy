@@ -25,3 +25,54 @@
 'chasm':
   'crc': 'e90c9212'
   'platform': 'switch'
+'descent2':
+  'crc': 'cdc0a7e7'
+  'platform': 'psx'
+'descent':
+  'crc': '19f8ffee'
+  'platform': 'psx'
+'doom3':
+  'crc': '1b0784a4'
+  'platform': 'xbox'
+'duke.nukem.3d':
+  'crc': '6BD2ACCB'
+  'platform': 'megadrive'
+'fade_to_black':
+  'crc': 'D51A2D79'
+  'platform': 'psx'
+'fallout':
+  'romnom': 'Fallout'
+  'platform': 'pc'
+'fallout2':
+  'romnom': 'Fallout 2'
+  'platform': 'pc'
+'freesynd':
+  'crc': '95BBF87B'
+  'platform': 'megadrive'
+'half-life':
+  'romnom': 'Half-Life'
+  'platform': 'pc'
+'sonic.1':
+  'crc': 'F9394E97'
+  'platform': 'megadrive'
+'sonic.2':
+  'crc': '24AB4C3A'
+  'platform': 'megadrive'
+'sonic.cd':
+  'romnom': 'Sonic CD'
+  'platform': 'pc'
+'sonic.mania':
+  'crc': '9FF054CB'
+  'platform': 'switch'
+'tmntsr':
+  'crc': 'A60B5ECA'
+  'platform': 'switch'
+'spelunky':
+  'romnom': 'Spelunky'
+  'platform': 'pc'
+'towerfall':
+  'crc': '0f18209d'
+  'platform': 'switch'
+#'xxx':
+#  'crc': 'xxx'
+#  'platform': 'xxxx'

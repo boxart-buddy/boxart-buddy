@@ -53,7 +53,7 @@ readonly class PortmasterDataImporter
      * @throws ZipException
      * @throws ServerExceptionInterface
      */
-    public function importPortmasterDataIfNotImportedSince(\DateInterval $dateInterval): void
+    public function importPortmasterDataIfNotImportedSince(\DateInterval $dateInterval, bool $includeScrape = false): void
     {
         $folder = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster/');
         $lastAttempted = DateTimeFile::readDatetimeValueFromFile($folder, 'LASTIMPORTATTEMPTED');
@@ -63,7 +63,7 @@ readonly class PortmasterDataImporter
 
         if ($outofDate || $this->hasConfigHashChanged()) {
             try {
-                $this->importPortmasterData();
+                $this->importPortmasterData($includeScrape);
                 DateTimeFile::writeDatetimeValueToFile($folder, 'LASTIMPORTATTEMPTED');
                 $this->writeConfigHash();
             } catch (\Throwable $t) {
@@ -80,7 +80,7 @@ readonly class PortmasterDataImporter
      * @throws ZipException
      * @throws ServerExceptionInterface
      */
-    public function importPortmasterData(): void
+    public function importPortmasterData(bool $includeScrape): void
     {
         // Download and unzip latest images if needed
         $lastDownloadedVersion = $this->getLastDownloadedVersionDateTime();
@@ -89,14 +89,18 @@ readonly class PortmasterDataImporter
             $this->downloadAndUnzipLatestImages($latestPublished);
         }
 
-        // get meta - exclude those already scraped
+        // get meta
         $meta = $this->getMetaData();
 
         // then create and import 'fake' resources
         $this->makeFakeRoms($meta);
 
         // use 'alternates' list to scrape alternative data from scraper
-        $exclude = $this->scrapeUsingAlternatesList();
+        // only do this after 'bootstrap' though because it's slow
+        $exclude = [];
+        if ($includeScrape) {
+            $exclude = $this->scrapeUsingAlternatesList();
+        }
 
         $this->writeTextualDataToImportLocation($meta, $exclude);
         $this->copyImagesToImportLocation($meta, $exclude);
@@ -258,7 +262,7 @@ readonly class PortmasterDataImporter
 
         $manager = ImageManager::imagick();
         $canvas = $manager->create(300, 300);
-        $fontPath = $this->pathProvider->getFontPath('bold');
+        $fontPath = $this->pathProvider->getRandomFontPath();
 
         $canvas->text($title, 150, 50, function (FontFactory $font) use ($fontPath) {
             $font->filename($fontPath);

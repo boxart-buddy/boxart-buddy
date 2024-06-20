@@ -19,7 +19,7 @@ readonly class MappingProvider
     {
         $finder = new Finder();
 
-        $finder->in($this->path->joinWithBase(FolderNames::TEMPLATE->value, 'mapping'));
+        $finder->in($this->path->joinWithBase(FolderNames::TEMPLATE->value, $artworkPackage, 'mapping'));
         $finder->depth('== 0')->files()->name($filename);
 
         if (!$finder->hasResults()) {

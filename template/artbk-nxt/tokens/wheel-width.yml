@@ -1,0 +1,11 @@
+# some wheels are way too big, this file allows correction
+'mame':
+  'guwange*': 80
+'gb':
+  'Final Fantasy Adventure*': 120
+'gbc':
+  "John Romero's Daikatana*": 140
+'nes':
+  "Low G Man*": 120
+'snes':
+  "Radical Rex*": 140

@@ -11,6 +11,7 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
     public const SIBLING_COUNT = 'sibling-count';
     public const SCALE = 'scale';
     public const EFFECT = 'effect';
+    public const LOOP = 'loop';
 
     public static function getOptions(): array
     {
@@ -47,6 +48,13 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
             'Effect parameter will apply a graphical effect to siblings, can use more than one',
             false,
             true
+        );
+        $options[] = new PostProcessOption(
+            self::LOOP,
+            ['true'],
+            'false',
+            'If set to true then first and last sibling will be amended to show a loop (rather than blanks)',
+            false
         );
 
         return $options;

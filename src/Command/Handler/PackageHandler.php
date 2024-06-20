@@ -128,7 +128,7 @@ readonly class PackageHandler implements CommandHandlerInterface
         if (!$filesystem->exists($noteFilename)) {
             $noteHeader = "Generated with boxart-buddy (https://github.com/boxart-buddy/boxart-buddy/) \n\n";
             // check if LASTCOMMANDRUN is set and add it to the output
-            $lastRunCommandFile = $this->path->joinWithBase(FolderNames::TEMP->value, 'output', 'LASTRUNCOMMAND');
+            $lastRunCommandFile = $this->path->joinWithBase(FolderNames::TEMP->value, 'LASTRUNCOMMAND');
 
             if ($filesystem->exists($lastRunCommandFile)) {
                 $noteHeader = $noteHeader."Generated with the following command \n";

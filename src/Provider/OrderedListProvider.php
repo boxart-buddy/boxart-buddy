@@ -19,7 +19,6 @@ class OrderedListProvider
     public function getOrderedList(CommandNamespace $namespace, ?string $target = null): array
     {
         return match ($namespace) {
-            CommandNamespace::FOLDER => $this->getOrderedListForFolders(),
             CommandNamespace::ARTWORK => $this->getOrderedListForArtwork($target),
             default => []
         };
@@ -49,20 +48,5 @@ class OrderedListProvider
         $relevant = array_flip($relevant);
 
         return $relevant;
-    }
-
-    private function getOrderedListForFolders(): array
-    {
-        $platforms = $this->configReader->getConfig()->platforms;
-        $packages = $this->configReader->getConfig()->package;
-
-        // need to reorder by value A-Z
-        asort($platforms);
-
-        $platforms = array_flip($platforms);
-
-        return array_map(function ($v) use ($packages) {
-            return $packages[$v] ?? $v;
-        }, $platforms);
     }
 }

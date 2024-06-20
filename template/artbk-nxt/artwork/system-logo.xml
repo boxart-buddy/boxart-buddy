@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <artwork>
-    <meta author="Boxart Buddy"
-          notes="Companion Boxart for Art Book Next v2 (https://discord.com/channels/1152022492001603615/1229813758172598343)"></meta>
     <output type="cover" width="640" height="480">
 
         <!--        <layer width="640" height="480">-->
@@ -9,7 +7,7 @@
         <!--        </layer>-->
 
         <layer resource="system-logos/{{ 'logo-type'|trans({}, 'general', locale)|default('dark-white') }}/{{ 'logo'|trans({}, 'logo', locale) }}"
-               width="400" align="center" valign="middle">
+               width="320" align="center" valign="middle">
             <stroke width="{{ 'logo-stroke-width'|trans({}, 'general', locale)|default('0') }}"
                     color="{{ locale|trans({}, 'logo-stroke', locale)|default('#FFFFFF') }}"/>
             <shadow distance="8" softness="5" opacity="50"/>

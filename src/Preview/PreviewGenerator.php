@@ -246,7 +246,7 @@ readonly class PreviewGenerator
                 $title = substr($title, 0, 36).'…';
             }
 
-            $fontPath = $this->pathProvider->getFontPath('bold');
+            $fontPath = $this->pathProvider->getFontPath('cousine', 'bold');
 
             $canvas->text($title, $titleX, $titleY, function (FontFactory $font) use ($fontPath) {
                 $font->filename($fontPath);
@@ -298,7 +298,7 @@ readonly class PreviewGenerator
         });
 
         // add a title
-        $fontPath = $this->pathProvider->getFontPath('bold');
+        $fontPath = $this->pathProvider->getFontPath('cousine', 'bold');
 
         $fontSize = min([floor($canvasX / mb_strlen($title) * 1.25), 100]);
         $canvas->text(
