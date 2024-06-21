@@ -46,7 +46,7 @@ skyscraper_config_folder_path: '~/.skyscraper'
 ```
 
 This is the location of the main skyscraper configuration folder. Most of the time you **don't** need to set this. If in
-any doub't **don't** set it.
+any doubt **don't** set it.
 
 ```yaml
 romset_name: custom
@@ -177,7 +177,7 @@ This configuration file is optional, even if you are generating portmaster art i
 configued.
 
 The default behaviour _without_ setting anything in this file is that portmaster artwork will be generated for _every_
-portmaster title which is compatible with RG35XX devices. Most peopel using portmaster will only have a few titles
+portmaster title which is compatible with RG35XX devices. Most people using portmaster will only have a few titles
 installed. You can set an array of port titles in this file which wil restrict art generation to only those titles. e.g.
 
 ```yaml
