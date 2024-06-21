@@ -1,3 +1,19 @@
+#'megadrive': 'Sonic The Hedgehog (USA, Europe)'
+#'mame': 'pacman'
+#'gbc': "Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible)"
+#'gamegear': 'Ninja Gaiden (USA, Europe, Brazil) (En)'
+#'neogeo': 'mslug3'
+#'pcengine': "Parasol Stars - The Story of Bubble Bobble III (USA)"
+#'pcenginecd': 'Puyo Puyo CD Tsuu (Japan)'
+#'gb': 'Contra - The Alien Wars (USA) (SGB Enhanced)'
+#'gba': 'Super Mario Advance 2 - Super Mario World (USA, Australia)'
+#'nes': 'Super Mario Bros. 2 (Japan) (En)'
+#'mastersystem': 'OutRun (World)'
+#'atari2600': 'Space Invaders (USA)'
+#'segacd': 'Snatcher (USA)'
+#'snes': 'Super Punch-Out!! (USA)'
+#'psx': 'PaRappa the Rapper (USA) (En,Fr,De,Es,It)'
+
 '3do': ~
 '3ds': ~
 'actionmax': ~

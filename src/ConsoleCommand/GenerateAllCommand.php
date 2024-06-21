@@ -12,7 +12,6 @@ use App\Command\TransferCommand;
 use App\Config\Reader\ConfigReader;
 use App\Config\Validator\ConfigValidator;
 use App\FolderNames;
-use App\Generator\SkippedRomImportDataGenerator;
 use App\Portmaster\PortmasterDataImporter;
 use App\Translator\CachedTranslationEraser;
 use App\Util\CommandUtility;
@@ -43,7 +42,6 @@ class GenerateAllCommand extends Command
         readonly private CentralHandler $centralHandler,
         readonly private PortmasterDataImporter $portmasterDataImporter,
         readonly private Path $path,
-        readonly private SkippedRomImportDataGenerator $skippedRomImportDataGenerator,
         readonly private ConfigValidator $configValidator,
         readonly private ConfigReader $configReader,
         readonly private CachedTranslationEraser $cachedTranslationEraser,
@@ -317,6 +315,10 @@ class GenerateAllCommand extends Command
     {
         $artwork = $input->getOption('folder');
         $perRom = $input->getOption('per-rom');
+        $addPortmasterPlatform = false;
+        if ($input->getOption('portmaster')) {
+            $addPortmasterPlatform = true;
+        }
 
         if (!$artwork) {
             return [];
@@ -330,7 +332,8 @@ class GenerateAllCommand extends Command
             $split['filename'],
             $this->parseToken($input->getOption('token')),
             false,
-            $perRom
+            $perRom,
+            $addPortmasterPlatform
         );
     }
 

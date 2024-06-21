@@ -4,6 +4,7 @@ namespace App\Command\Handler;
 
 use App\Command\CommandInterface;
 use App\Command\PostProcessCommand;
+use App\PostProcess\AddTextPostProcess;
 use App\PostProcess\BackgroundImagePostProcess;
 use App\PostProcess\OffsetWithSiblingsPostProcess;
 use App\PostProcess\OverlayArtworkGenerationPostProcess;
@@ -22,6 +23,7 @@ readonly class PostProcessHandler implements CommandHandlerInterface
         private BackgroundImagePostProcess $backgroundImagePostProcess,
         private OffsetWithSiblingsPostProcess $offsetWithSiblingsPostProcess,
         private OverlayArtworkGenerationPostProcess $overlayArtworkGenerationPostProcess,
+        private AddTextPostProcess $addTextPostProcess
     ) {
     }
 
@@ -41,6 +43,7 @@ readonly class PostProcessHandler implements CommandHandlerInterface
             $this->backgroundImagePostProcess->getName() => $this->backgroundImagePostProcess->process($command),
             $this->offsetWithSiblingsPostProcess->getName() => $this->offsetWithSiblingsPostProcess->process($command),
             $this->overlayArtworkGenerationPostProcess->getName() => $this->overlayArtworkGenerationPostProcess->process($command),
+            $this->addTextPostProcess->getName() => $this->addTextPostProcess->process($command),
             default => throw new \RuntimeException(sprintf('Cannot handle unknown strategy "%s"', $command->strategy))
         };
     }

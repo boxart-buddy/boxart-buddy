@@ -1,0 +1,14 @@
+#some screenshots have void areas above or below, this file allows adjustments
+#x and y are only applied within the parent layer - its not possible to position outside of this box
+'nes':
+  'Asterix*': -40
+  'Excitebike*': 40
+  'Legend of Zelda*': -40
+  "Ninja Gaiden*": -40
+'gb':
+  'Mega Man*': 40
+'segacd':
+  'Road Rash*': 40
+'snes':
+  "Super Punch-Out!!*": -40
+  "Alien Soldier*": -40

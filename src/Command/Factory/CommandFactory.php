@@ -162,8 +162,14 @@ readonly class CommandFactory
         string $filename,
         array $tokens,
         bool $generateDescriptions,
-        bool $perRom
+        bool $perRom,
+        bool $addPortmasterPlatform = false // this is a horrible hack
     ): array {
+        $platforms = $this->configReader->getConfig()->platforms;
+        if ($addPortmasterPlatform) {
+            $platforms[ApplicationConstant::FAKE_PORTMASTER_PLATFORM] = ApplicationConstant::FAKE_PORTMASTER_PLATFORM;
+        }
+
         return $this->createGenerateArtworkCommandsForPlatforms(
             $namespace,
             $artworkPackage,
@@ -171,7 +177,7 @@ readonly class CommandFactory
             $tokens,
             $generateDescriptions,
             $perRom,
-            array_keys($this->configReader->getConfig()->platforms)
+            array_keys($platforms)
         );
     }
 

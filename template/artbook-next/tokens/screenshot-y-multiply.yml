@@ -1,0 +1,17 @@
+#some screenshots have void areas above or below, this file allows adjustments
+# 1.1 = 24px play top/bottom
+# 1.2 = 48px play top/bottom
+# 1.3 = 72px play top/bottom etc
+'nes':
+  'Asterix*': 1.2
+  'Excitebike*': 1.3
+  'Legend of Zelda*': 1.3
+  "Ninja Gaiden*": 1.2
+'gb':
+  'Donkey Kong Land*': 1.3
+  'Mega Man*': 1.2
+'segacd':
+  'Road Rash*': 1.2
+'snes':
+  "Super Punch-Out!!*": 1.2
+  "Alien Soldier*": 1.2

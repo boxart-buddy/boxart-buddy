@@ -49,6 +49,23 @@ readonly class PathProvider
                 default => $this->path->joinWithBase('resources', 'font', 'cousine', 'Cousine-Regular.ttf')
             };
         }
+        if ('roboto' === $family) {
+            return match ($variant) {
+                'black' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-Black.ttf'),
+                'black-italic' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-BlackItalic.ttf'),
+                'bold' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-Bold.ttf'),
+                'bold-italic' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-BoldItalic.ttf'),
+                'italic' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-Italic.ttf'),
+                'light' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-Light.ttf'),
+                'light-italic' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-LightItalic.ttf'),
+                'medium' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-Medium.ttf'),
+                'medium-italic' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-MediumItalic.ttf'),
+                'regular' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-Regular.ttf'),
+                'thin' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-Thin.ttf'),
+                'thin-italic' => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-ThinItalic.ttf'),
+                default => $this->path->joinWithBase('resources', 'font', 'roboto', 'Roboto-Regular.ttf'),
+            };
+        }
 
         return match ($family) {
             'AKDPixel' => $this->path->joinWithBase('resources', 'font', 'pixel', 'AKDPixel.ttf'),

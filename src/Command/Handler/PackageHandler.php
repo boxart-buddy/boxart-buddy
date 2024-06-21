@@ -2,6 +2,7 @@
 
 namespace App\Command\Handler;
 
+use App\ApplicationConstant;
 use App\Command\CommandInterface;
 use App\Command\PackageCommand;
 use App\Config\Reader\ConfigReader;
@@ -79,9 +80,15 @@ readonly class PackageHandler implements CommandHandlerInterface
         foreach ($finder as $file) {
             $platform = basename(dirname($file->getRelativePath()));
 
+            $packagedFilename = ($config->platforms[$platform] ?? 'generic').'.png';
+
+            if (ApplicationConstant::FAKE_PORTMASTER_PLATFORM === $file->getFilenameWithoutExtension()) {
+                $packagedFilename = 'Ports.png';
+            }
+
             $filesystem->copy(
                 $file->getRealPath(),
-                Path::join($packageOut, 'Folder', 'box', ($config->platforms[$platform] ?? 'generic').'.png')
+                Path::join($packageOut, 'Folder', 'box', $packagedFilename)
             );
         }
 

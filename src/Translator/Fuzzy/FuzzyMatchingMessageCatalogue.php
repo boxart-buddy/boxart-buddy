@@ -142,7 +142,7 @@ class FuzzyMatchingMessageCatalogue implements MessageCatalogueInterface, Metada
         return $id;
     }
 
-    private function getFuzzyMatch(string $id, array $messages): ?string
+    public static function getFuzzyMatch(string $id, array $messages): ?string
     {
         $wildcardMessages = array_intersect_key(
             $messages,

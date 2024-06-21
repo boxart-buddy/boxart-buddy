@@ -40,7 +40,6 @@ readonly class ArtworkGenerator
         bool $generateDescriptions,
         ?string $romName,
     ): void {
-        // add runtime translations, maybe the wrong place to do this as it seems redundant doing it over and over again
         if (count($runtimeTranslationTokens) > 0) {
             $this->artworkTranslator->addRuntimeTranslationTokens($runtimeTranslationTokens);
         }

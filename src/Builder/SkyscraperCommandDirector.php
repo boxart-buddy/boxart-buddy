@@ -85,12 +85,12 @@ readonly class SkyscraperCommandDirector
         bool $singleRomOnly = false,
         ?string $romName = null
     ): array {
-        if (CommandNamespace::PORTMASTER->value === $namespace) {
+        if (CommandNamespace::PORTMASTER->value === $namespace || ApplicationConstant::FAKE_PORTMASTER_PLATFORM === $platform) {
             $inFolder = $this->pathProvider->getPortmasterRomPath();
             $outFolder = $this->pathProvider->getOutputPathForGeneratedArtwork($namespace, ApplicationConstant::FAKE_PORTMASTER_PLATFORM);
         }
 
-        if (CommandNamespace::PORTMASTER->value !== $namespace) {
+        if (CommandNamespace::PORTMASTER->value !== $namespace && ApplicationConstant::FAKE_PORTMASTER_PLATFORM !== $platform) {
             $config = $this->configReader->getConfig();
 
             $inFolder = Path::join($config->romFolder, $config->getRomFolderForPlatform($platform));
