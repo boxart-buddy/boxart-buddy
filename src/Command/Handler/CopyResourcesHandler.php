@@ -30,16 +30,7 @@ readonly class CopyResourcesHandler implements CommandHandlerInterface
     {
         $skyscraperConfigFolderPath = $this->configReader->getConfig()->skyscraperConfigFolderPath;
 
-        $finder = new Finder();
         $filesystem = new Filesystem();
-
-        $finder->in($this->path->joinWithBase(FolderNames::TEMPLATE->value));
-        $finder->directories();
-
-        foreach ($command->artworkFolders as $folder) {
-            $pattern = sprintf('#%s$#', Path::join($folder, 'resources/'));
-            $finder->path($pattern);
-        }
 
         // removes existing resources to reduce chances of filename collisions
         // and reduce amount of files loaded into skyscraper memory
@@ -52,7 +43,33 @@ readonly class CopyResourcesHandler implements CommandHandlerInterface
             }
             $filesystem->remove($skyscraperResourcesDirectory);
         }
+
+        $filesystem = new Filesystem();
         $filesystem->mkdir($skyscraperResourcesDirectory);
+
+        // COPY FROM Templates
+        $finder = new Finder();
+
+        $finder->in($this->path->joinWithBase(FolderNames::TEMPLATE->value));
+        $finder->directories();
+
+        foreach ($command->artworkFolders as $folder) {
+            $pattern = sprintf('#%s$#', Path::join($folder, 'resources/'));
+            $finder->path($pattern);
+        }
+
+        foreach ($finder as $directory) {
+            $filesystem->mirror(
+                $directory->getRealPath(),
+                $skyscraperResourcesDirectory
+            );
+        }
+
+        // COPY FROM resources/common
+        $finder = new Finder();
+
+        $finder->in($this->path->joinWithBase('resources'));
+        $finder->directories()->name('skyscraper');
 
         foreach ($finder as $directory) {
             $filesystem->mirror(
@@ -64,9 +81,16 @@ readonly class CopyResourcesHandler implements CommandHandlerInterface
 
     private function copyPostProcessResourcesToTemp(CopyResourcesCommand $command): void
     {
-        $finder = new Finder();
         $filesystem = new Filesystem();
 
+        $postProcessTemp = $this->path->joinWithBase(FolderNames::TEMP->value, 'post-process', 'resources');
+        if ($filesystem->exists($postProcessTemp)) {
+            $filesystem->remove($postProcessTemp);
+        }
+        $filesystem->mkdir($postProcessTemp);
+
+        // COPY FROM templates
+        $finder = new Finder();
         $finder->in($this->path->joinWithBase(FolderNames::TEMPLATE->value));
         $finder->directories();
 
@@ -75,13 +99,18 @@ readonly class CopyResourcesHandler implements CommandHandlerInterface
             $finder->path($pattern);
         }
 
-        $postProcessTemp = $this->path->joinWithBase(FolderNames::TEMP->value, 'post-process', 'resources');
-
-        if ($filesystem->exists($postProcessTemp)) {
-            $filesystem->remove($postProcessTemp);
+        foreach ($finder as $directory) {
+            $filesystem->mirror(
+                $directory->getRealPath(),
+                $postProcessTemp
+            );
         }
 
-        $filesystem->mkdir($postProcessTemp);
+        // COPY FROM resources/common
+        $finder = new Finder();
+
+        $finder->in($this->path->joinWithBase('resources'));
+        $finder->directories()->name('post-process');
 
         foreach ($finder as $directory) {
             $filesystem->mirror(

@@ -69,7 +69,7 @@ class NewTemplateCommand extends Command
 
         $io->done(sprintf('Template folder `%s` created', $templateName));
 
-        $io->style()->help(sprintf('Edit the artwork file at `%s` and run `make %s` to generate artwork', Path::join($templateName, 'artwork', 'artwork.xml'), $exampleCommandName));
+        $io->help(sprintf('Edit the artwork file at `%s` and run `make %s` to generate artwork', Path::join($templateName, 'artwork', 'artwork.xml'), $exampleCommandName));
 
         return Command::SUCCESS;
     }
