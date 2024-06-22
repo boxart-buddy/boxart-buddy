@@ -16,7 +16,8 @@ class CachedTranslationEraser
 
     public function erase(): void
     {
-        $filesystem = new Filesystem();
-        $filesystem->remove(Path::join($this->cacheDir, 'translations'));
+        // @todo remove this class I dont think it's needed
+        //        $filesystem = new Filesystem();
+        //        $filesystem->remove(Path::join($this->cacheDir, 'translations'));
     }
 }

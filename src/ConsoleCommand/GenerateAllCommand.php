@@ -13,7 +13,6 @@ use App\Config\Reader\ConfigReader;
 use App\Config\Validator\ConfigValidator;
 use App\FolderNames;
 use App\Portmaster\PortmasterDataImporter;
-use App\Translator\CachedTranslationEraser;
 use App\Util\CommandUtility;
 use App\Util\Console\BlockSectionHelper;
 use App\Util\Path;
@@ -44,7 +43,6 @@ class GenerateAllCommand extends Command
         readonly private Path $path,
         readonly private ConfigValidator $configValidator,
         readonly private ConfigReader $configReader,
-        readonly private CachedTranslationEraser $cachedTranslationEraser,
         readonly private LoggerInterface $logger
     ) {
         parent::__construct();
@@ -70,8 +68,8 @@ class GenerateAllCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // delete translation cache folder
-        $this->cachedTranslationEraser->erase();
+        // wipe temp folder to keep clean
+        $this->wipeTempFolders();
 
         if (!$output instanceof ConsoleOutput) {
             throw new \RuntimeException();
@@ -438,5 +436,11 @@ class GenerateAllCommand extends Command
             $packageAndFilename['artworkPackage'],
             basename(basename($packageAndFilename['filename'], '.xml'), '.yml')
         );
+    }
+
+    private function wipeTempFolders(): void
+    {
+        $filesystem = new Filesystem();
+        $filesystem->remove($this->path->joinWithBase(FolderNames::TEMP->value, 'output', 'post-process'));
     }
 }
