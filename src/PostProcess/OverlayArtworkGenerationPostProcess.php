@@ -24,6 +24,7 @@ use Symfony\Component\Filesystem\Filesystem;
 class OverlayArtworkGenerationPostProcess implements PostProcessInterface
 {
     use ArtworkTrait;
+    use SaveImageTrait;
 
     public const NAME = 'artwork-generation';
 
@@ -47,6 +48,8 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
      */
     public function process(PostProcessCommand $command): void
     {
+        $this->setupSaveBehaviour(false);
+
         $options = $this->processOptions($command->options);
         $workset = $this->getArtwork($command->target);
 
@@ -85,7 +88,7 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
                 ('' !== $options['token']) ? TokenUtility::parseRuntimeTokens($options['token']) : [],
                 false,
                 true, // hardcoded - will be slow and sometimes not needed?
-                $command->platforms
+                $command->platforms ?? [] // should probably throw an exception if platforms null
             );
         }
 
@@ -189,7 +192,9 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
             $canvas->place($generatedImage);
 
             // save to original location
-            $canvas->save($originalFilePath);
+            $canvas->save($this->getSavePath($originalFilePath));
         }
+
+        $this->mirrorTemporaryFolderIfRequired($target);
     }
 }

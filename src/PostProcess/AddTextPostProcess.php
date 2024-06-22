@@ -19,11 +19,15 @@ use Symfony\Component\Yaml\Yaml;
 class AddTextPostProcess implements PostProcessInterface
 {
     use ArtworkTrait;
+    use SaveImageTrait;
 
     public const NAME = 'add-text';
 
-    public function __construct(readonly private Path $path, readonly private PathProvider $pathProvider, readonly private LoggerInterface $logger)
-    {
+    public function __construct(
+        readonly private Path $path,
+        readonly private PathProvider $pathProvider,
+        readonly private LoggerInterface $logger
+    ) {
     }
 
     public function getName(): string
@@ -37,6 +41,8 @@ class AddTextPostProcess implements PostProcessInterface
      */
     public function process(PostProcessCommand $command): void
     {
+        $this->setupSaveBehaviour(false);
+
         $options = $this->processOptions($command->options);
         $workset = $this->getArtwork($command->target);
         $this->processWorkset($workset, $command->target, $options, $command->platforms);
@@ -61,13 +67,6 @@ class AddTextPostProcess implements PostProcessInterface
 
         $filesystem = new Filesystem();
 
-        $tmpFolder = $this->path->joinWithBase(
-            FolderNames::TEMP->value,
-            'post-process',
-            self::NAME,
-            hash('xxh3', (string) mt_rand())
-        );
-
         // read text in
         $mappingFilePath = $this->path->joinWithBase(
             FolderNames::TEMP->value,
@@ -87,6 +86,7 @@ class AddTextPostProcess implements PostProcessInterface
         }
 
         $addedAtLeastOneText = false;
+
         foreach ($files as $originalFilePath) {
             $originalFilename = basename($originalFilePath);
 
@@ -122,26 +122,12 @@ class AddTextPostProcess implements PostProcessInterface
             $canvas->place($text, 'center', 0, $yOffset, $textBgOpacity);
 
             // save to temp location
-            if (!$filesystem->exists($tmpFolder)) {
-                $filesystem->mkDir($tmpFolder);
-            }
-            $canvas->save(Path::join($tmpFolder, $originalFilename));
+            $canvas->save($this->getSavePath($originalFilename));
             $addedAtLeastOneText = true;
         }
 
-        // bug where canvas saving appears to be too slow, and subsequent mirroring fails ?!
-        sleep(5);
-
-        try {
-            if ($addedAtLeastOneText) {
-                // once all processed the copy them all back into the original folder
-                $filesystem->mirror(
-                    $tmpFolder,
-                    $target
-                );
-            }
-        } catch (\Throwable $t) {
-            $this->logger->error($t->getMessage());
+        if ($addedAtLeastOneText) {
+            $this->mirrorTemporaryFolderIfRequired($target);
         }
     }
 

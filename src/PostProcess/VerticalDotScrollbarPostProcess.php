@@ -3,22 +3,23 @@
 namespace App\PostProcess;
 
 use App\Command\PostProcessCommand;
-use App\FolderNames;
 use App\Util\Path;
 use Intervention\Image\Geometry\Factories\CircleFactory;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
-readonly class VerticalDotScrollbarPostProcess implements PostProcessInterface
+class VerticalDotScrollbarPostProcess implements PostProcessInterface
 {
     use ArtworkTrait;
+    use SaveImageTrait;
 
     public const NAME = 'vertical_dot_scrollbar';
 
-    public function __construct(private Path $path, private LoggerInterface $logger)
-    {
+    public function __construct(
+        readonly private Path $path,
+        readonly private LoggerInterface $logger
+    ) {
     }
 
     public function getName(): string
@@ -39,6 +40,8 @@ readonly class VerticalDotScrollbarPostProcess implements PostProcessInterface
      */
     public function process(PostProcessCommand $command): void
     {
+        $this->setupSaveBehaviour(true);
+
         $options = $this->processOptions($command->options);
         $workset = $this->getSortedArtwork($command->target, $options, $this->logger);
         $this->processWorkset($workset, $command->target, $options);
@@ -46,15 +49,6 @@ readonly class VerticalDotScrollbarPostProcess implements PostProcessInterface
 
     private function processWorkset(array $files, string $target, array $options): void
     {
-        $filesystem = new Filesystem();
-
-        $tmpFolder = $this->path->joinWithBase(
-            FolderNames::TEMP->value,
-            'post-process',
-            self::NAME,
-            hash('xxh3', (string) mt_rand())
-        );
-
         foreach ($files as $originalFilePath) {
             $originalFilename = basename($originalFilePath);
             $manager = ImageManager::imagick();
@@ -83,19 +77,10 @@ readonly class VerticalDotScrollbarPostProcess implements PostProcessInterface
                 $options[VerticalScrollbarPostProcessOptions::OPACITY]
             );
 
-            // save to temp location
-            $filesystem->mkDir($tmpFolder);
-            $canvas->save(Path::join($tmpFolder, $originalFilename));
+            $canvas->save($this->getSavePath($originalFilePath));
         }
 
-        // bug where canvas saving appears to be too slow, and subsequent mirroring fails ?!
-        sleep(5);
-
-        // once all processed the copy them all back into the original folder
-        $filesystem->mirror(
-            $tmpFolder,
-            $target
-        );
+        $this->mirrorTemporaryFolderIfRequired($target);
     }
 
     private function getDotsScrollBar(array $files, array $options, string $currentFile, ImageManager $manager): ImageInterface

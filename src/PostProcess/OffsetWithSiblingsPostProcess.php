@@ -3,20 +3,21 @@
 namespace App\PostProcess;
 
 use App\Command\PostProcessCommand;
-use App\FolderNames;
 use App\Util\Path;
 use Intervention\Image\ImageManager;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
-readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
+class OffsetWithSiblingsPostProcess implements PostProcessInterface
 {
     use ArtworkTrait;
+    use SaveImageTrait;
 
     public const NAME = 'offset_with_siblings';
 
-    public function __construct(private Path $path, private LoggerInterface $logger)
-    {
+    public function __construct(
+        readonly private Path $path,
+        readonly private LoggerInterface $logger
+    ) {
     }
 
     public function getName(): string
@@ -37,6 +38,8 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
      */
     public function process(PostProcessCommand $command): void
     {
+        $this->setupSaveBehaviour(true);
+
         $options = $this->processOptions($command->options);
         $workset = $this->getSortedArtwork($command->target, $options, $this->logger);
         $this->processWorkset($workset, $command->target, $options);
@@ -97,15 +100,6 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
             }
         }
 
-        $filesystem = new Filesystem();
-
-        $tmpFolder = $this->path->joinWithBase(
-            FolderNames::TEMP->value,
-            'post-process',
-            self::NAME,
-            hash('xxh3', (string) mt_rand())
-        );
-
         $iteration = 0;
         foreach ($workset as $set) {
             ++$iteration;
@@ -113,10 +107,6 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
             $canvasY = 480;
             $manager = ImageManager::imagick();
             $canvas = $manager->create($canvasX, $canvasY);
-
-            //            $logoWidth = 220;
-            //            $outerSize = 40;
-            //            $innerSize = 120;
 
             $middleKey = floor(count($set) / 2);
 
@@ -171,22 +161,10 @@ readonly class OffsetWithSiblingsPostProcess implements PostProcessInterface
             // insert the original 'middle' image on top
             $canvas->place($originalImage);
 
-            // save to temp location
-            if (!$filesystem->exists($tmpFolder)) {
-                $filesystem->mkDir($tmpFolder);
-            }
-
-            $canvas->save(Path::join($tmpFolder, $originalFilename));
+            $canvas->save($this->getSavePath($originalImage));
         }
 
-        // bug where canvas saving appears to be too slow, and subsequent mirroring fails ?!
-        sleep(5);
-
-        // once all processed the copy them all back into the original folder
-        $filesystem->mirror(
-            $tmpFolder,
-            $target
-        );
+        $this->mirrorTemporaryFolderIfRequired($target);
     }
 
     private function getTargetWidth(int $originalWidth, float $scale, int $offsetIndex, float $logScale): int

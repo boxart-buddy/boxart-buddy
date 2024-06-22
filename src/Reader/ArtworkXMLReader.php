@@ -44,10 +44,6 @@ class ArtworkXMLReader
             FolderNames::TEMP->value, 'output', 'notes', basename($artwork, '.xml').'.txt'
         );
 
-        if ($filesystem->exists($noteFilepath)) {
-            $filesystem->remove($noteFilepath);
-        }
-
         if (0 === count($meta)) {
             return;
         }
@@ -63,6 +59,6 @@ class ArtworkXMLReader
 
                 EOT;
 
-        $filesystem->appendToFile($noteFilepath, $note);
+        $filesystem->dumpFile($noteFilepath, $note);
     }
 }
