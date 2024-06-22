@@ -110,7 +110,7 @@ readonly class PackageHandler implements CommandHandlerInterface
 
             $filesystem->mirror(
                 $directory->getRealPath(),
-                Path::join($packageOut, 'Ports', $folderRewrite)
+                Path::join($packageOut, 'External - Ports', $folderRewrite)
             );
         }
 

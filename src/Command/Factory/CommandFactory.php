@@ -59,7 +59,7 @@ readonly class CommandFactory
         }
 
         if ($targetNamespace === CommandNamespace::PORTMASTER->value) {
-            $target = Path::join($targetBase, 'Ports', 'box');
+            $target = Path::join($targetBase, 'External - Ports', 'box');
 
             return [new PostProcessCommand($target, $strategy, $options)];
         }
@@ -138,7 +138,6 @@ readonly class CommandFactory
                 $tokens,
                 true,
                 true,
-                false,
                 $file->getFilename()
             );
         }
@@ -248,7 +247,6 @@ readonly class CommandFactory
                     $tokens,
                     $generateDescriptions,
                     $single,
-                    false,
                     $file->getFilename()
                 );
             }
@@ -265,7 +263,6 @@ readonly class CommandFactory
             $tokens,
             $generateDescriptions,
             $single,
-            CommandNamespace::FOLDER === $namespace
         )];
     }
 }

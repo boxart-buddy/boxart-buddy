@@ -2,9 +2,12 @@
 
 namespace App\Generator;
 
+use App\ApplicationConstant;
 use App\Builder\SkyscraperCommandDirector;
+use App\Command\CommandNamespace;
 use App\FolderNames;
 use App\Model\Artwork;
+use App\Portmaster\PortmasterDataImporter;
 use App\Provider\PathProvider;
 use App\Reader\ArtworkXMLReader;
 use App\Translator\ArtworkTranslator;
@@ -26,7 +29,8 @@ readonly class ArtworkGenerator
         private LoggerInterface $logger,
         private ArtworkXMLReader $artworkXMLReader,
         private Path $path,
-        private SkippedRomImportDataGenerator $skippedRomImportDataGenerator
+        private SkippedRomImportDataGenerator $skippedRomImportDataGenerator,
+        private PortmasterDataImporter $portmasterDataImporter
     ) {
     }
 
@@ -35,7 +39,6 @@ readonly class ArtworkGenerator
         Artwork $artwork,
         string $platform,
         bool $single,
-        bool $folderMode,
         array $runtimeTranslationTokens,
         bool $generateDescriptions,
         ?string $romName,
@@ -74,9 +77,10 @@ readonly class ArtworkGenerator
             throw new \RuntimeException('The artwork generation process failed. Check `var/log/skyscraper*.log` log file');
         }
 
-        if ($folderMode) {
+        if (CommandNamespace::FOLDER->value === $namespace) {
             // for 'folderMode' the output filename needs to be renamed to the platform name instead of rom name
             // this breaks SOC a lot because it's fairly specific to muos
+            // @todo should this be moved to the package step?
             $finder = new Finder();
             $base = $this->pathProvider->getOutputPathForGeneratedArtwork($namespace, $platform);
             $finder->in($base);
@@ -87,6 +91,34 @@ readonly class ArtworkGenerator
                 $filesystem->rename(
                     $file->getRealPath(),
                     Path::join($file->getPath(), $platform.'.png')
+                );
+            }
+        }
+
+        if (CommandNamespace::PORTMASTER->value === $namespace) {
+            // for 'portmaster' the output filename needs to be renamed to the same name as the port
+            // this breaks SOC a lot because it's fairly specific to muos
+            // @todo should this be moved to the package step?
+            $finder = new Finder();
+            $base = $this->pathProvider->getOutputPathForGeneratedArtwork($namespace, ApplicationConstant::FAKE_PORTMASTER_PLATFORM);
+
+            $finder->in($base);
+            $gameName = basename($romName, '.zip');
+            $finder->files()->name($gameName.'.png');
+
+            $metadata = $this->portmasterDataImporter->getMetaData();
+
+            foreach ($finder as $file) {
+                $gameFileName = $file->getFilename();
+                if (array_key_exists($gameName, $metadata)) {
+                    $gameFileName = basename($metadata[$gameName]['script'], '.sh').'.'.$file->getExtension();
+                }
+                $filesystem = new Filesystem();
+
+                $filesystem->rename(
+                    $file->getRealPath(),
+                    Path::join($file->getPath(), $gameFileName),
+                    true
                 );
             }
         }

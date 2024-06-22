@@ -13,7 +13,6 @@ readonly class GenerateArtworkCommand implements TargetableCommandInterface
         public array $tokens,
         public bool $generateDescriptions,
         public bool $single,
-        public bool $folderMode,
         public ?string $romName = null
     ) {
     }

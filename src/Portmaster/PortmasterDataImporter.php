@@ -30,17 +30,19 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * Download screenshots and metadata from portmaster git repo and import into skyscraper cache.
  */
 #[WithMonologChannel('skyscraper')]
-readonly class PortmasterDataImporter
+class PortmasterDataImporter
 {
+    private ?array $metadata = null;
+
     public function __construct(
-        private HttpClientInterface $client,
-        private ConfigReader $configReader,
-        private Path $path,
-        private PathProvider $pathProvider,
-        private ManualImportXMLGenerator $manualImportXMLGenerator,
-        private SkyscraperManualDataImporter $skyscraperManualDataImporter,
-        private SkyscraperCommandDirector $skyscraperCommandDirector,
-        private LoggerInterface $logger
+        readonly private HttpClientInterface $client,
+        readonly private ConfigReader $configReader,
+        readonly private Path $path,
+        readonly private PathProvider $pathProvider,
+        readonly private ManualImportXMLGenerator $manualImportXMLGenerator,
+        readonly private SkyscraperManualDataImporter $skyscraperManualDataImporter,
+        readonly private SkyscraperCommandDirector $skyscraperCommandDirector,
+        readonly private LoggerInterface $logger
     ) {
     }
 
@@ -53,7 +55,7 @@ readonly class PortmasterDataImporter
      * @throws ZipException
      * @throws ServerExceptionInterface
      */
-    public function importPortmasterDataIfNotImportedSince(\DateInterval $dateInterval, bool $includeScrape = false): void
+    public function importPortmasterDataIfNotImportedSince(\DateInterval $dateInterval): void
     {
         $folder = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster/');
         $lastAttempted = DateTimeFile::readDatetimeValueFromFile($folder, 'LASTIMPORTATTEMPTED');
@@ -63,7 +65,7 @@ readonly class PortmasterDataImporter
 
         if ($outofDate || $this->hasConfigHashChanged()) {
             try {
-                $this->importPortmasterData($includeScrape);
+                $this->importPortmasterData();
                 DateTimeFile::writeDatetimeValueToFile($folder, 'LASTIMPORTATTEMPTED');
                 $this->writeConfigHash();
             } catch (\Throwable $t) {
@@ -80,13 +82,14 @@ readonly class PortmasterDataImporter
      * @throws ZipException
      * @throws ServerExceptionInterface
      */
-    public function importPortmasterData(bool $includeScrape): void
+    public function importPortmasterData(): void
     {
         // Download and unzip latest images if needed
         $lastDownloadedVersion = $this->getLastDownloadedVersionDateTime();
         $latestPublished = $this->getLatestReleasePublishedDateTime();
         if (null === $lastDownloadedVersion || null === $latestPublished || ($latestPublished > $lastDownloadedVersion)) {
             $this->downloadAndUnzipLatestImages($latestPublished);
+            $this->downloadPortsMetadataFile();
         }
 
         // get meta
@@ -95,22 +98,13 @@ readonly class PortmasterDataImporter
         // then create and import 'fake' resources
         $this->makeFakeRoms($meta);
 
-        // use 'alternates' list to scrape alternative data from scraper
-        // only do this after 'bootstrap' though because it's slow
-        $exclude = [];
-        if ($includeScrape) {
-            $exclude = $this->scrapeUsingAlternatesList();
-        }
-
-        $this->writeTextualDataToImportLocation($meta, $exclude);
-        $this->copyImagesToImportLocation($meta, $exclude);
+        $this->writeTextualDataToImportLocation($meta);
+        $this->copyImagesToImportLocation($meta);
         $this->import();
     }
 
-    private function scrapeUsingAlternatesList(): array
+    public function scrapeUsingAlternatesList(): void
     {
-        $scrapedAlready = [];
-
         // read file
         $alternates = $this->configReader->getConfig()->portmasterAlternates;
         $romList = $this->configReader->getConfig()->portmaster;
@@ -154,11 +148,7 @@ readonly class PortmasterDataImporter
                 $this->logger->error($e->getMessage());
                 throw new \RuntimeException('Importing alternate data for portmaster failed');
             }
-
-            $scrapedAlready[] = $game;
         }
-
-        return $scrapedAlready;
     }
 
     private function import(): void
@@ -178,22 +168,17 @@ readonly class PortmasterDataImporter
         $fakeRomPath = $this->pathProvider->getPortmasterRomPath();
 
         $filesystem = new Filesystem();
-        $romList = $this->configReader->getConfig()->portmaster;
 
         if ($filesystem->exists($fakeRomPath)) {
             $filesystem->remove($fakeRomPath);
         }
 
-        foreach ($metadata as $name => $attr) {
-            if (!empty($romList) && !in_array($name, $romList)) {
-                // skips roms not explicitly set in config
-                continue;
-            }
-            $filesystem->appendToFile(Path::join($fakeRomPath, $name.'.zip'), 'fake');
+        foreach ($metadata as $scriptName => $attr) {
+            $filesystem->appendToFile(Path::join($fakeRomPath, $attr['zipName']), 'fake');
         }
     }
 
-    private function writeTextualDataToImportLocation(array $metadata, array $exclude): void
+    private function writeTextualDataToImportLocation(array $metadata): void
     {
         $tmpFolder = $this->path->joinWithBase(
             FolderNames::TEMP->value,
@@ -203,17 +188,13 @@ readonly class PortmasterDataImporter
             'textual/'
         );
 
-        foreach ($metadata as $name => $attr) {
-            // if scraped already then skip
-            if (in_array($name, $exclude)) {
-                continue;
-            }
-            $path = Path::join($tmpFolder, $name.'.xml');
+        foreach ($metadata as $attr) {
+            $path = Path::join($tmpFolder, $attr['name'].'.xml');
             $this->manualImportXMLGenerator->generateXML($path, $attr['title'], $attr['description'], $attr['genre']);
         }
     }
 
-    private function copyImagesToImportLocation(array $metadata, array $exclude): void
+    private function copyImagesToImportLocation(array $metadata): void
     {
         $tmpFolder = $this->path->joinWithBase(
             FolderNames::TEMP->value,
@@ -224,17 +205,12 @@ readonly class PortmasterDataImporter
         );
         $filesystem = new Filesystem();
 
-        foreach ($metadata as $name => $attr) {
-            // if scraped already then skip
-            if (in_array($name, $exclude)) {
-                continue;
-            }
-
-            $this->createWheelForPortmaster($attr['title'], $name);
+        foreach ($metadata as $attr) {
+            $this->createWheelForPortmaster($attr['title'], $attr['name']);
 
             foreach (['jpg', 'png'] as $extension) {
-                $screenshotInPath = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'images', $name.'.screenshot.'.$extension);
-                $screenshotOutPath = Path::join($tmpFolder, $name.'.'.$extension);
+                $screenshotInPath = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'images', $attr['name'].'.screenshot.'.$extension);
+                $screenshotOutPath = Path::join($tmpFolder, $attr['name'].'.'.$extension);
                 if (!$filesystem->exists($screenshotInPath)) {
                     continue;
                 }
@@ -283,13 +259,11 @@ readonly class PortmasterDataImporter
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
      * @throws RedirectionExceptionInterface
-     * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      */
-    private function getMetaData(): array
+    private function downloadPortsMetadataFile(): void
     {
-        $supportedSystems = ['rg35xx-plus:ALL', 'rg35xx-h:ALL'];
-
+        $filesystem = new Filesystem();
         $portDataUrl = 'https://raw.githubusercontent.com/PortsMaster/PortMaster-Info/master/ports.json';
 
         $response = $this->client->request(
@@ -297,14 +271,47 @@ readonly class PortmasterDataImporter
             $portDataUrl
         );
 
-        $responseArray = $response->toArray();
+        $metaFilePath = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'ports.json');
+
+        $filesystem->dumpFile($metaFilePath, $response->getContent());
+    }
+
+    public function getMetaData(): array
+    {
+        if ($this->metadata) {
+            return $this->metadata;
+        }
+
+        $filesystem = new Filesystem();
+        $supportedSystems = ['rg35xx-plus:ALL', 'rg35xx-h:ALL'];
+
+        // read ports data
+        $metaFilePath = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'ports.json');
+
+        if (!$filesystem->exists($metaFilePath)) {
+            try {
+                $this->downloadPortsMetadataFile();
+            } catch (\Throwable $e) {
+                $this->logger->critical('Could not download ports metadata file');
+                $this->logger->debug($e->getMessage());
+                // @todo throw an exception that will skip this step but not fail the whole process
+            }
+        }
+
+        $metadataJson = json_decode($filesystem->readFile($metaFilePath), true);
 
         // just store the stuff we care about
         $metaProcessed = [];
+        $romList = $this->configReader->getConfig()->portmaster;
 
-        foreach ($responseArray['ports'] as $portZipName => $attrWrapper) {
+        foreach ($metadataJson['ports'] as $portZipName => $attrWrapper) {
             $portData = $attrWrapper['attr'];
             $portName = basename($portZipName, '.zip');
+
+            if (!empty($romList) && !in_array($portName, $romList)) {
+                // skips roms not explicitly set in config
+                continue;
+            }
 
             // if not supported then skip
             if (array_key_exists('avail', $portData)) {
@@ -313,11 +320,27 @@ readonly class PortmasterDataImporter
                     continue;
                 }
             }
+            $scriptName = 'unknown.sh';
+            if (array_key_exists('items', $attrWrapper)) {
+                foreach ($attrWrapper['items'] as $item) {
+                    if ('sh' === pathinfo($item, PATHINFO_EXTENSION)) {
+                        $scriptName = $item;
+                    }
+                }
+            }
+
+            // keyed this way because this is what the port folder is ultimately called and it's used as a lookup
+            // $scriptKey = basename($scriptName, 'sh');
 
             $metaProcessed[$portName]['title'] = $portData['title'] ?? $portName;
+            $metaProcessed[$portName]['zipName'] = $portZipName;
+            $metaProcessed[$portName]['name'] = $portName;
             $metaProcessed[$portName]['description'] = $portData['desc'] ?? $portName;
             $metaProcessed[$portName]['genre'] = isset($portData['genres']) ? reset($portData['genres']) : $portName;
+            $metaProcessed[$portName]['script'] = $scriptName;
         }
+
+        $this->metadata = $metaProcessed;
 
         return $metaProcessed;
     }

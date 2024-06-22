@@ -161,7 +161,7 @@
 'pokemini':
   logo: 'Handhelds/Nintendo Pokémon Mini.png'
 'ports':
-  logo: ~
+  logo: 'Computers/Ports.png'
 'ps2':
   logo: 'Consoles/Sony Playstation 2.png'
 'ps3':
@@ -169,7 +169,7 @@
 'ps4':
   logo: 'Consoles/Sony Playstation 4.png'
 'ps5':
-  logo: 'Consoles/Sony Playstation 5.png'
+  logo: 'Computers/Ports.png'
 'psp':
   logo: 'Handhelds/Sony PSP.png'
 'psvita':

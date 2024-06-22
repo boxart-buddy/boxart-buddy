@@ -41,7 +41,6 @@ readonly class GenerateArtworkHandler implements CommandHandlerInterface
             $artwork,
             $command->platform,
             $command->single,
-            $command->folderMode,
             $command->tokens,
             $command->generateDescriptions,
             $command->romName
