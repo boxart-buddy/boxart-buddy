@@ -50,7 +50,6 @@ class VerticalScrollbarPostProcess implements PostProcessInterface
     private function processWorkset(array $files, string $target, array $options): void
     {
         foreach ($files as $originalFilePath) {
-            $originalFilename = basename($originalFilePath);
             $manager = ImageManager::imagick();
             $canvasX = 640;
             $canvasY = 480;

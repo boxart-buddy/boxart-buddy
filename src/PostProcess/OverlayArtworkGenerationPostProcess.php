@@ -130,7 +130,7 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
         return OverlayArtworkGenerationPostProcessOptions::mergeDefaults($options);
     }
 
-    private function processWorkset(array $files, string $target, array $options)
+    private function processWorkset(array $files, string $target, array $options): void
     {
         $generatedFolder = $this->path->joinWithBase(
             FolderNames::TEMP->value,

@@ -112,7 +112,6 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
 
             $siblings = $this->reorderArrayOutToIn($set);
             $originalImage = array_pop($siblings);
-            $originalFilename = basename($originalImage);
 
             foreach ($siblings as $siblingKey => $sibling) {
                 if (null === $sibling) {

@@ -12,7 +12,6 @@ use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Typography\FontFactory;
 use Monolog\Attribute\WithMonologChannel;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
 #[WithMonologChannel('postprocessing')]
@@ -64,8 +63,6 @@ class AddTextPostProcess implements PostProcessInterface
 
             return;
         }
-
-        $filesystem = new Filesystem();
 
         // read text in
         $mappingFilePath = $this->path->joinWithBase(
@@ -122,7 +119,7 @@ class AddTextPostProcess implements PostProcessInterface
             $canvas->place($text, 'center', 0, $yOffset, $textBgOpacity);
 
             // save to temp location
-            $canvas->save($this->getSavePath($originalFilename));
+            $canvas->save($this->getSavePath($originalFilePath));
             $addedAtLeastOneText = true;
         }
 

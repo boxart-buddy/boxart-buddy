@@ -97,7 +97,7 @@ class BackgroundImagePostProcess implements PostProcessInterface
                 $canvas->place($overlay);
             }
 
-            $canvas->save($this->getSavePath($originalFilename));
+            $canvas->save($this->getSavePath($originalFilePath));
         }
 
         $this->mirrorTemporaryFolderIfRequired($target);

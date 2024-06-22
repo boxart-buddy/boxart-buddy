@@ -5,6 +5,7 @@ namespace App\ConsoleCommand;
 use App\FolderNames;
 use App\Util\Console\BlockSectionHelper;
 use App\Util\Path;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -18,8 +19,10 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 class NewTemplateCommand extends Command
 {
-    public function __construct(readonly private Path $path)
-    {
+    public function __construct(
+        readonly private Path $path,
+        readonly private LoggerInterface $logger,
+    ) {
         parent::__construct();
     }
 
@@ -56,7 +59,7 @@ class NewTemplateCommand extends Command
 
         // copy basic artwork.xml and Makefile
         $exampleCommandName = sprintf('%s-example-one', $templateName);
-        $makefileContents = sprintf("%s: ## Describe this recipe\n\tphp bin/console build --artwork=artwork.xml", $exampleCommandName);
+        $makefileContents = sprintf("%s: ## Describe this recipe\n\tphp bin/console build --artwork=%s:artwork.xml", $exampleCommandName, $templateName);
         $filesystem->appendToFile(
             Path::join($base, 'Makefile'),
             $makefileContents
