@@ -80,7 +80,6 @@ readonly class PreviewGenerator
         $delay = 30;
         $generatedOutPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.'.$this->configReader->getConfig()->animationFormat);
 
-        // $generateGifCommand = array_merge(array_merge(['magick', '-dispose', '3', '-quality', '65', '-delay', $delay], $gifFrames), ['-loop', 0, 'WEBP:'.$generatedOutPath]);
         $generateAnimationCommand = array_merge(array_merge(['magick', '-dispose', '3', '-quality', '75', '-delay', $delay], $gifFrames), ['-loop', 0]);
 
         $generateAnimationCommand[] = match ($this->configReader->getConfig()->animationFormat) {
