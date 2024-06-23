@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <meta author="IncognitoMan" notes="Shared on the muOS discord"></meta>
+
+    <output type="cover" width="640" height="480">
+        <layer resource="screenshot" mpixels="0.7" width="532" align="center" valign="middle" opacity="50" y="42">
+        </layer>
+        <mask file="mask/3px_dither_inner.png"/>
+        <layer resource="cover" width="120" x="-16" y="-60" valign="bottom" align="right">
+            <rounded radius="7"/>
+            <stroke width="5" red="255" green="255" blue="255"/>
+            <shadow distance="5" softness="5" opacity="70"/>
+        </layer>
+    </output>
+</artwork>

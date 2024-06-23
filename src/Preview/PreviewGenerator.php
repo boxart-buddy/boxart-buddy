@@ -78,15 +78,23 @@ readonly class PreviewGenerator
         }
 
         $delay = 30;
-        $generatedOutPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.webp');
+        $generatedOutPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.'.$this->configReader->getConfig()->animationFormat);
 
-        $generateGifCommand = array_merge(array_merge(['magick', '-dispose', '3', '-delay', $delay], $gifFrames), ['-loop', 0, 'WEBP:'.$generatedOutPath]);
+        // $generateGifCommand = array_merge(array_merge(['magick', '-dispose', '3', '-quality', '65', '-delay', $delay], $gifFrames), ['-loop', 0, 'WEBP:'.$generatedOutPath]);
+        $generateAnimationCommand = array_merge(array_merge(['magick', '-dispose', '3', '-quality', '75', '-delay', $delay], $gifFrames), ['-loop', 0]);
+
+        $generateAnimationCommand[] = match ($this->configReader->getConfig()->animationFormat) {
+            'webp' => 'WEBP:'.$generatedOutPath,
+            'webm' => 'WEBM:'.$generatedOutPath,
+            'gif' => 'GIF:'.$generatedOutPath,
+            default => throw new \Exception('Unknown animation value')
+        };
 
         $this->logger->info(
-            sprintf("creating gif with command:\n%s", implode(' ', $generateGifCommand))
+            sprintf("creating gif with command:\n%s", implode(' ', $generateAnimationCommand))
         );
 
-        $process = new Process($generateGifCommand);
+        $process = new Process($generateAnimationCommand);
         $process->run();
         $this->logger->info($process->getOutput());
 

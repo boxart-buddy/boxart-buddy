@@ -196,9 +196,22 @@ class GenerateAllCommand extends Command
             });
         }
 
+        $packageRoot = $this->path->joinWithBase(FolderNames::PACKAGE->value, sprintf('%s_%s', $packageName, $this->configReader->getConfig()->romsetName));
+
+        if ($this->configReader->getConfig()->copyPreviewBackToTemplate && $input->getOption('artwork')) {
+            // copy previews from the package folder back to the template/preview of the artwork used
+            // get package preview
+            $packagePreviewFolder = Path::join($packageRoot, 'extra', 'preview');
+            // get artwork preview folder
+            $t = TokenUtility::splitStringIntoArtworkPackageAndFileName($input->getOption('artwork'));
+            $templatePreviewFolder = $this->path->joinWithBase('template', $t['artworkPackage'], 'preview');
+            // mirror one to the other (copy/overwrite)
+            $filesystem = new Filesystem();
+            $filesystem->mirror($packagePreviewFolder, $templatePreviewFolder);
+        }
+
         $event = $stopwatch->stop();
 
-        $packageRoot = $this->path->joinWithBase(FolderNames::PACKAGE->value, sprintf('%s_%s', $packageName, $this->configReader->getConfig()->romsetName));
         $size = Path::getDirectorySize($packageRoot);
 
         $io->complete(sprintf("Build complete in %s\n\n(Package Size %s): %s", CommandUtility::formatStopwatchEvent($event), $size, $packageRoot));
@@ -281,7 +294,7 @@ class GenerateAllCommand extends Command
 
     private function getPreviewCommands(string $packageName, InputInterface $input): array
     {
-        $themes = $input->getOption('preview-theme');
+        $themes = $input->getOption('preview-theme') ?: [];
 
         // get package name
 

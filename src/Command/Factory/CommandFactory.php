@@ -97,6 +97,11 @@ readonly class CommandFactory
         );
 
         $commands = [];
+
+        if (1 === count($themes)) {
+            $themes = $this->configReader->getConfig()->previewThemes;
+        }
+
         foreach ($themes as $theme) {
             if (in_array($this->configReader->getConfig()->previewType, ['static', 'both'])) {
                 $commands[] = new GenerateStaticPreviewCommand($target, $previewName, $theme);

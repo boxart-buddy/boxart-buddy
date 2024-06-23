@@ -13,6 +13,6 @@ readonly class GenerateAnimatedPreviewCommand implements TargetableCommandInterf
 
     public function getTarget(): string
     {
-        return $this->theme;
+        return sprintf('%s / animated', $this->theme);
     }
 }

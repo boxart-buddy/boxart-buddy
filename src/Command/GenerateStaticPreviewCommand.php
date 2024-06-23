@@ -13,6 +13,6 @@ readonly class GenerateStaticPreviewCommand implements TargetableCommandInterfac
 
     public function getTarget(): string
     {
-        return $this->theme;
+        return sprintf('%s / static', $this->theme);
     }
 }
