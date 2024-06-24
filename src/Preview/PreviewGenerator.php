@@ -80,14 +80,13 @@ readonly class PreviewGenerator
         $delay = 30;
         $generatedOutPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.'.$this->configReader->getConfig()->animationFormat);
 
-        // $generateGifCommand = array_merge(array_merge(['magick', '-dispose', '3', '-quality', '65', '-delay', $delay], $gifFrames), ['-loop', 0, 'WEBP:'.$generatedOutPath]);
         $generateAnimationCommand = array_merge(array_merge(['magick', '-dispose', '3', '-quality', '75', '-delay', $delay], $gifFrames), ['-loop', 0]);
 
         $generateAnimationCommand[] = match ($this->configReader->getConfig()->animationFormat) {
             'webp' => 'WEBP:'.$generatedOutPath,
             'webm' => 'WEBM:'.$generatedOutPath,
             'gif' => 'GIF:'.$generatedOutPath,
-            default => throw new \Exception('Unknown animation value')
+            default => throw new \InvalidArgumentException('Unknown animation value')
         };
 
         $this->logger->info(
@@ -134,6 +133,9 @@ readonly class PreviewGenerator
     public function generateStaticPreview(string $target, string $previewName, ?string $theme): void
     {
         $gridSize = $this->configReader->getConfig()->previewGridSize;
+        if ($gridSize < 1) {
+            $gridSize = 1;
+        }
         $themeImages = [];
         if ($theme) {
             try {
@@ -167,7 +169,7 @@ readonly class PreviewGenerator
             $files[$screenshot->getRealPath()] = $screenshot->getFilename();
         }
         // shuffle but preserves keys
-        uksort($files, function ($k, $v) { return rand() > rand() ? 1 : -1; });
+        uksort($files, function () { return rand() > rand() ? 1 : -1; });
 
         $screenshotCount = 0;
         $screenshotLimit = $gridSize * $gridSize;

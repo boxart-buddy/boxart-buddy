@@ -9,7 +9,6 @@ use App\FolderNames;
 use App\Model\Artwork;
 use App\Portmaster\PortmasterDataImporter;
 use App\Provider\PathProvider;
-use App\Reader\ArtworkXMLReader;
 use App\Translator\ArtworkTranslator;
 use App\Util\Finder;
 use App\Util\Path;
@@ -27,7 +26,6 @@ readonly class ArtworkGenerator
         private GameDescriptionGenerator $gameDescriptionGenerator,
         private PathProvider $pathProvider,
         private LoggerInterface $logger,
-        private ArtworkXMLReader $artworkXMLReader,
         private Path $path,
         private SkippedRomImportDataGenerator $skippedRomImportDataGenerator,
         private PortmasterDataImporter $portmasterDataImporter
@@ -132,8 +130,6 @@ readonly class ArtworkGenerator
             // @todo add own flag for this rather than piggybacking on game descriptions
             $this->skippedRomImportDataGenerator->generate();
         }
-
-        $this->artworkXMLReader->writeNotesForArtwork($artwork->absoluteFilepath);
     }
 
     public function getTmpArtworkPath(

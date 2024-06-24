@@ -1,0 +1,56 @@
+# Hugo configuration file
+title: Boxart Buddy
+contentDir: docs
+dataDir: docs-data
+
+# import hextra as module
+module:
+  imports:
+    - path: github.com/imfing/hextra
+
+markup:
+  # allow raw html
+  goldmark:
+    renderer:
+      unsafe: true
+
+  # enable hextra syntax highlight
+  highlight:
+    noClasses: false
+
+menu:
+  main:
+    - name: Config
+      pageRef: /configuration
+      weight: 1
+    - name: Contact ↗
+      url: "https://github.com/boxart-buddy"
+      weight: 2
+    - name: Search
+      weight: 3
+      params:
+        type: search
+    - name: GitHub
+      weight: 4
+      url: "https://github.com/boxart-buddy/boxart-buddy"
+      params:
+        icon: github
+
+params:
+  navbar:
+    displayTitle: false
+    displayLogo: true
+    logo:
+      path: images/logo.png
+      dark: images/logo.png
+      link: /
+      width: 248
+      height: 31
+
+  footer:
+    displayCopyright: false
+    displayPoweredBy: false
+
+  editURL:
+    enable: true
+    base: "https://github.com/boxart-buddy/boxart-buddy/edit/main"
