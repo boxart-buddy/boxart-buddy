@@ -65,7 +65,7 @@ readonly class CommandFactory
         }
 
         // some platforms share an output/package folder, so we combine those to reduce the number of
-        // post processing passes where the 'target' is the same
+        // post-processing passes where the 'target' is the same
         $targets = [];
         $targetPlatforms = [];
         foreach ($config->platforms as $platform => $folder) {

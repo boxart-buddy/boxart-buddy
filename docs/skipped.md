@@ -1,4 +1,8 @@
-# Skipped Roms
+---
+linkTitle: Skipped
+title: Skipped Roms
+weight: 5
+---
 
 During the scraping process some roms may not be able to be matched. Typically these will be fan made translations or
 rom hacks but may be because some combination of the filename and crc of the rom cannot be matched by the scraper.

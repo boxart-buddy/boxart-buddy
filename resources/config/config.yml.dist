@@ -8,17 +8,24 @@ screenscraper_pass: 'password'
 #skyscraper_config_folder_path: ~
 
 # the name of the romset you are generating against. Is used in naming packages
-romset_name: custom
+#romset_name: custom
 
 #optimize:
 #  enabled: true
 #  convert_to_jpg: false
 #  jpg_quality: 85
-
-
-# sftp details only required to auto transfer to/from device
 #sftp:
-#  ip: 192.168.1.135
+#  ip: 0.0.0.0
 #  user: muos
 #  pass: muos
 #  port: 2022
+#preview:
+#  type: 'both'
+#  animation_frames: 100
+#  animation_format: webp
+#  grid_size: 3
+#  theme:
+#    - "GamePal - SnesLight"
+#    - "GamePal - LCDNight"
+#    - "GamePal - Sober"
+#  copy_back: false

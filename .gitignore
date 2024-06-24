@@ -6,7 +6,7 @@
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
-/vendor/
+/vendor-php/
 ###< symfony/framework-bundle ###
 
 ###> friendsofphp/php-cs-fixer ###
@@ -36,6 +36,7 @@ package/*
 themes/*
 skipped/*
 user_config/*
+public/*
 
 .idea/*
 *.DS_Store

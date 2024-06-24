@@ -86,7 +86,7 @@ readonly class PreviewGenerator
             'webp' => 'WEBP:'.$generatedOutPath,
             'webm' => 'WEBM:'.$generatedOutPath,
             'gif' => 'GIF:'.$generatedOutPath,
-            default => throw new \Exception('Unknown animation value')
+            default => throw new \InvalidArgumentException('Unknown animation value')
         };
 
         $this->logger->info(
@@ -133,6 +133,9 @@ readonly class PreviewGenerator
     public function generateStaticPreview(string $target, string $previewName, ?string $theme): void
     {
         $gridSize = $this->configReader->getConfig()->previewGridSize;
+        if ($gridSize < 1) {
+            $gridSize = 1;
+        }
         $themeImages = [];
         if ($theme) {
             try {
@@ -166,7 +169,7 @@ readonly class PreviewGenerator
             $files[$screenshot->getRealPath()] = $screenshot->getFilename();
         }
         // shuffle but preserves keys
-        uksort($files, function ($k, $v) { return rand() > rand() ? 1 : -1; });
+        uksort($files, function () { return rand() > rand() ? 1 : -1; });
 
         $screenshotCount = 0;
         $screenshotLimit = $gridSize * $gridSize;
