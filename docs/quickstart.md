@@ -77,7 +77,7 @@ to handle this
 
 {{% /steps %}}
 
-### Indivdiual commands
+### Individual commands
 
 These 'make' commands provide an easy way to get started but there are many more options for generating artwork. If you
 run a 'make' command with the '-n' flag it will output the full underlying command which is being used to generate the
