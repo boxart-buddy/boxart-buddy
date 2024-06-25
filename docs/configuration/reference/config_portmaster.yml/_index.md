@@ -26,7 +26,7 @@ Or like this
 ```
 
 Use the 'name' value from this
-file [this file](https://github.com/PortsMaster/PortMaster-New/releases/latest/download/images.zip)
+file [this file](https://github.com/PortsMaster/PortMaster-Info/blob/main/ports.json)
 
 Or unzip the zip file of screenshots from here and use those (the values are the same as above):
 [https://github.com/PortsMaster/PortMaster-New/releases/latest/download/images.zip](https://github.com/PortsMaster/PortMaster-New/releases/latest/download/images.zip)
