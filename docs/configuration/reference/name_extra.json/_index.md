@@ -4,6 +4,8 @@ title: name_extra.yml
 weight: 5
 ---
 
+<br>
+
 Certain rom types are typically named in shorthand style (e.g. Arcade/Mame and NeoGeo).
 
 {{< filetree/container >}}

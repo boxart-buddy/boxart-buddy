@@ -36,25 +36,5 @@ Boxart Buddy has the following features:
 
 ## Individual Commands
 
-Run these commands with '--help' to see a full configuration reference e.g
-
-```sh
-php bin/console build --help
-```
-
-| Command                        | Description                                                                        |
-|--------------------------------|------------------------------------------------------------------------------------|
-| php bin/console bootstrap      | Generate config files and folders                                                  |
-| php bin/console prime-cache    | Primes the cache by scraping using [screenscraper.fr](http://www.screenscraper.fr) |
-| php bin/console build          | Generates and packages artwork                                                     |
-| php bin/console new-template   | Creates a new template folder with correct folder structure                        |
-| php bin/console import-skipped | Imports 'skipped' data from the './skipped' folder into the cache                  |
-
-You can see particular examples of the 'build' command in the example template
-Makefiles [here](https://github.com/boxart-buddy/boxart-buddy/blob/main/template/simple-examples/Makefile)
-
 You can bootstrap the application using presets like this to give 'config_platform.yml' files already configured
 
-```console
-php bin/console bootstrap --preset=TINYBEST
-php bin/console bootstrap --preset=DONE2

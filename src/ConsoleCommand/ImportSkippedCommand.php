@@ -2,17 +2,13 @@
 
 namespace App\ConsoleCommand;
 
-use App\Config\Reader\ConfigReader;
-use App\FolderNames;
-use App\Importer\SkyscraperManualDataImporter;
+use App\Importer\SkippedRomImporter;
 use App\Util\Console\BlockSectionHelper;
-use App\Util\Path;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 #[AsCommand(
     name: 'import-skipped',
@@ -21,10 +17,8 @@ use Symfony\Component\Filesystem\Filesystem;
 class ImportSkippedCommand extends Command
 {
     public function __construct(
-        readonly private SkyscraperManualDataImporter $skyscraperManualDataImporter,
-        readonly private Path $path,
-        readonly private ConfigReader $configReader,
-        readonly private LoggerInterface $logger
+        readonly private LoggerInterface $logger,
+        readonly private SkippedRomImporter $skippedRomImporter,
     ) {
         parent::__construct();
     }
@@ -37,36 +31,17 @@ class ImportSkippedCommand extends Command
     {
         $io = new BlockSectionHelper($input, $output, $this->logger);
         $io->heading();
-        $filesystem = new Filesystem();
-
-        $config = $this->configReader->getConfig();
-        $romsetName = $config->romsetName;
-        $platforms = $config->platforms;
 
         $io->section('import');
-        $progressBar = $io->getProgressBar();
 
         $io->wait('Importing skipped data to skyscraper');
 
-        $importPaths = [];
-        foreach ($platforms as $platform => $romFolder) {
-            $in = $this->path->joinWithBase(FolderNames::SKIPPED->value, $romsetName, $platform);
-            if (!$filesystem->exists($in)) {
-                continue;
-            }
+        try {
+            $this->skippedRomImporter->import();
+        } catch (\Throwable $e) {
+            $io->failure($e->getMessage(), true);
 
-            $importPaths[$platform] = $in;
-        }
-
-        if (empty($importPaths)) {
-            $io->complete('Nothing to import', true);
-
-            return Command::SUCCESS;
-        }
-
-        foreach ($progressBar->iterate($importPaths) as $platform => $path) {
-            $progressBar->setMessage($platform);
-            $this->skyscraperManualDataImporter->importResources($path, $platform);
+            return Command::FAILURE;
         }
 
         $io->complete('Import Complete', true);

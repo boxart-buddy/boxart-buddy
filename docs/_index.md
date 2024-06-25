@@ -1,6 +1,7 @@
 ---
 title: BOXART BUDDY
 toc: false
+breadcrumbs: false
 cascade:
   type: docs
 ---
@@ -16,14 +17,12 @@ cascade:
 <br>
 </div>
 
-
+Boxart-Buddy has been developed and tested on **macOS** and **Linux**.
+<br><br>
+**Windows** support via docker is coming.
 <br>
 
-<!-- Intro -->
-
-![Standfirst](images/gif/standfirst.gif)
-
-## Preamble
+<br>
 
 Boxart Buddy is still under heavy development and is unstable and subject to change prior to the 1.0 release. In
 time I hope to improve the docs and installation process.

@@ -1,0 +1,78 @@
+{
+  "Fairytale Dreams of Alice, The (Japan) (Translated).zip": {
+    "platform": "pce",
+    "query": "crc=B809D3B3"
+  },
+  "Castlevania - Rondo of Blood (Japan) (Translated).chd": {
+    "platform": "pcecd",
+    "query": "crc=68789807"
+  },
+  "Go for it! Goemon 3 - The Mecha Leg Hold of Jurokube Shishi (Japan) (Translated).zip": {
+    "platform": "snes",
+    "query": "crc=99BF9C94"
+  },
+  "Mystery Dungeon 2 - Shiren the Wanderer (Japan) (Translated).zip": {
+    "platform": "snes",
+    "query": "crc=262E30C1"
+  },
+  "Super Tennis (USA)_bak.zip": {
+    "platform": "snes",
+    "query": "crc=A4E95FFD"
+  },
+  "Taloon's Great Adventure - Mystery Dungeon (Japan) (Translated).zip": {
+    "platform": "snes",
+    "query": "crc=96064895"
+  },
+  "Fire Emblem - Shadow Dragon and the Blade of Light (Japan) (Translated).zip": {
+    "platform": "nes",
+    "query": "crc=675F4F38"
+  },
+  "Go for it! Goemon 2 (Japan) (Translated).zip": {
+    "platform": "nes",
+    "query": "crc=3424D0DC"
+  },
+  "Kid Niki 2 (Japan) (Translated).zip": {
+    "platform": "nes",
+    "query": "crc=99386239"
+  },
+  "Kid Niki 3 (Japan) (Translated).zip": {
+    "platform": "nes",
+    "query": "crc=2D643442"
+  },
+  "Mysterious Murasame Castle, The (Japan) (Translated).zip": {
+    "platform": "nes",
+    "query": "crc=74523C8B"
+  },
+  "Perman - Return the Space Saucer! (Japan) (Translated).zip": {
+    "platform": "nes",
+    "query": "crc=B6EC0CDA"
+  },
+  "Perman 2 - Down with the Secret Madou Society! (Japan) (Translated).zip": {
+    "platform": "nes",
+    "query": "crc=687837C8"
+  },
+  "TwinBee 3 - The Aimless Demon King (Japan) (Translated).zip": {
+    "platform": "nes",
+    "query": "crc=E1298E00"
+  },
+  "Wai Wai World 2 - SOS!! Parsley Castle (Japan) (Translated).zip": {
+    "platform": "nes",
+    "query": "crc=7B26BA9F"
+  },
+  "Pokemon Trading Card Game 2 - The Invasion of Team GR! (Japan) (Translated).zip": {
+    "platform": "gbc",
+    "query": "crc=1141BC81"
+  },
+  "Rhythm Heaven Silver (Japan) (Translated).zip": {
+    "platform": "gba",
+    "query": "crc=349D7025"
+  },
+  "Frog For Whom the Bell Tolls, The (Japan) (Translated).zip": {
+    "platform": "gb",
+    "query": "crc=711504D3"
+  },
+  "Gargoyle's Quest II - The Demon Darkness (Japan) (Translated).zip": {
+    "platform": "gb",
+    "query": "crc=CFA358DE"
+  }
+}

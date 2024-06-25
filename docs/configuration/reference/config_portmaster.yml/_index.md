@@ -4,6 +4,8 @@ title: config_portmaster.yml
 weight: 3
 ---
 
+<br>
+
 This configuration file is optional, even if you are generating portmaster art it doesn't need to be explicitly
 configued.
 

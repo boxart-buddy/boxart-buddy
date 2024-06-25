@@ -4,7 +4,7 @@ title: config_platform.yml
 weight: 2
 ---
 
-## Folder Structure
+### Folder Structure
 
 This tool assumes a basic folder structure as follows. You can name your rom folders by anything you like but this tool
 makes a few assumptions:

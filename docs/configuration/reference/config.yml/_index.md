@@ -52,7 +52,7 @@ preview:
 **type:**```string```   **required:** yes
 
 This needs to be set to the absolute path that all of your rom 'subfolders' sit within (
-see [Folder Structure](#platform) for more details)
+see [Folder Structure]({{< ref "configuration/reference/config_platform.yml" >}}) for more details)
 
 #### screenscraper_user
 
