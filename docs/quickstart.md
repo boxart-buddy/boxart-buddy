@@ -29,7 +29,7 @@ This will generate config files inside ./user_config folder.
 {{< /filetree/container >}}
 
 You must edit ```config.yml``` and ```config_platform.yml``` before you can proceed.
-See [Configuration Reference](/configuration) for more details
+See [Configuration Reference]( {{ ref "configuration" }}) for more details
 
 {{< callout type="info" >}}
 You can also run ```make bootstrap-tinybest``` or ```make bootstrap-done2``` if you are using those romsets. This will
@@ -70,9 +70,8 @@ make simple-examples-system-and-game-logos
 Completed artwork will be output into ```./package```
 
 {{< callout type="warning" >}}
-After generating, some roms may be skipped due to not being scraped properly. See the [skipped section](/skipped) for
-how
-to handle this
+After generating, some roms may be skipped due to not being scraped properly.
+See the [skipped section]({{< ref "skipped" >}}) for how to handle this
 {{< /callout >}}
 
 {{% /steps %}}
