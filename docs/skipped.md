@@ -77,4 +77,4 @@ After running the ```missing.json``` file will be backed up to the folder ```./s
 This is an example of 'missing.json' that could be useful if you have a particular set of roms. To use it move it
 to ```./skipped/romset/missing.json``` and run the above command.
 
-[tinybest_missing.json](/example/tinybest_missing.json)
+[tinybest_missing.json]( {{< static "/example/tinybest_missing.json" >}} )
