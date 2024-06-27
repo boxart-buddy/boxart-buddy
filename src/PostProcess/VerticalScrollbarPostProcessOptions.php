@@ -8,8 +8,8 @@ readonly class VerticalScrollbarPostProcessOptions implements PostProcessOptions
 
     public const POSITION = 'position';
     public const OPACITY = 'opacity';
-    public const TRACK_COLOR = 'track-color';
-    public const THUMB_COLOR = 'thumb-color';
+    public const TRACK_COLOR = 'track_color';
+    public const THUMB_COLOR = 'thumb_color';
 
     public static function getOptions(): array
     {

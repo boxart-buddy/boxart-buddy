@@ -12,10 +12,14 @@
   "require": {
     "php": ">=8.2",
     "ext-ctype": "*",
+    "ext-dom": "*",
     "ext-iconv": "*",
+    "ext-imagick": "*",
+    "ext-intl": "*",
     "ext-simplexml": "*",
     "illuminate/collections": "^11.10",
     "intervention/image": "^3.6",
+    "laravel/prompts": "^0.1.24",
     "league/flysystem": "^3.28",
     "league/flysystem-sftp-v3": "^3.28",
     "nelexa/zip": "^4.0",
@@ -33,10 +37,7 @@
     "symfony/twig-bundle": "7.1.*",
     "symfony/yaml": "7.1.*",
     "twig/extra-bundle": "^2.12|^3.0",
-    "twig/twig": "^2.12|^3.0",
-    "ext-dom": "*",
-    "ext-intl": "*",
-    "ext-imagick": "*"
+    "twig/twig": "^2.12|^3.0"
   },
   "config": {
     "allow-plugins": {

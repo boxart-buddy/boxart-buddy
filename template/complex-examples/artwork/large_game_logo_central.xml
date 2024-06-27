@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <artwork>
-    <meta author="Boxart Buddy" notes="Large central game logo. "></meta>
     <output type="cover" width="640" height="480">
 
         <layer resource="wheel" width="200" align="center" valign="middle">

@@ -3,6 +3,7 @@
 namespace App\PostProcess;
 
 use App\Command\PostProcessCommand;
+use App\Provider\OrderedListProvider;
 use App\Util\Path;
 use Intervention\Image\ImageManager;
 use Psr\Log\LoggerInterface;
@@ -16,7 +17,8 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
 
     public function __construct(
         readonly private Path $path,
-        readonly private LoggerInterface $logger
+        readonly private LoggerInterface $logger,
+        readonly private OrderedListProvider $orderedListProvider
     ) {
     }
 
@@ -41,7 +43,7 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
         $this->setupSaveBehaviour(true);
 
         $options = $this->processOptions($command->options);
-        $workset = $this->getSortedArtwork($command->target, $options, $this->logger);
+        $workset = $this->getSortedArtwork($command->target, $options, $this->logger, $this->orderedListProvider);
         $this->processWorkset($workset, $command->target, $options);
     }
 
@@ -68,7 +70,8 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
 
         // add first/last siblings to allow looping type display
         // wrong type (=== 'true') intentional
-        if (isset($options[OffsetWithSiblingsPostProcessOptions::LOOP]) && 'true' === $options[OffsetWithSiblingsPostProcessOptions::LOOP]) {
+
+        if (isset($options[OffsetWithSiblingsPostProcessOptions::LOOP]) && true === $options[OffsetWithSiblingsPostProcessOptions::LOOP]) {
             for ($x = 0; $x < $totalSiblingCount; ++$x) {
                 $worksetKey = (int) $siblingsAmount - $x;
 
@@ -101,6 +104,7 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
         }
 
         $iteration = 0;
+
         foreach ($workset as $set) {
             ++$iteration;
             $canvasX = 640;
@@ -119,6 +123,7 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
                 }
 
                 $offsetIndex = (int) ($siblingKey - $middleKey);
+
                 $siblingImage = $manager->read($sibling);
 
                 $totalOffsetY = $options[OffsetWithSiblingsPostProcessOptions::OFFSET_Y] * $offsetIndex;

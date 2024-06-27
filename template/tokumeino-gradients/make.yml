@@ -1,0 +1,36 @@
+simple-box-cart:
+  description: "Game box with game cart in front"
+  package-name: 'simple-box-cart'
+  artwork:
+    file: 'simple-box-cart.xml'
+simple-box-shadow:
+  description: "Game box with shadow"
+  package-name: 'simple-box-shadow'
+  artwork:
+    file: 'simple-box-shadow.xml'
+full-height-with-game-logo:
+  description: "Full height with game logo"
+  package-name: 'full-height-with-game-logo'
+  artwork:
+    file: 'full-gradient-screen-wheel.xml'
+full-height-with-game-logo-halftone:
+  description: "Full height with game logo using 'halftone dots' mask"
+  package-name: 'full-height-with-game-logo-halftone'
+  artwork:
+    file: 'full-gradient-screen-wheel.xml'
+    token:
+      mask: muos-halftone-dots.png
+inner-height-with-game-logo:
+  description: "Inner height with game logo using 'high grain' mask"
+  package-name: 'inner-height-with-game-logo'
+  artwork:
+    file: 'inner-gradient-screen-wheel.xml'
+    token:
+      mask: muos-grain-high.png
+inner-height-with-game-logo-gray:
+  description: "Inner height gradient with game logo and box using 'gray' mask"
+  package-name: 'inner-height-with-game-logo-gray'
+  artwork:
+    file: 'inner-gradient-screen-wheel-box.xml'
+    token:
+      mask: muos-dithering-gray.png

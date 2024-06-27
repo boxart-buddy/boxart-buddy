@@ -1,2 +1,0 @@
-complex-examples-game-logo-scrolling-with-muos-classic-bg: ## Template: Game logos w/ post processing and scrollbar
-	php bin/console build --artwork='complex-examples:large_game_logo_central.xml' --package-name='game-logo-scrolling-with-muos-classic-bg' --post-process-artwork='offset_with_siblings|offset-y:90|scale:0.6|sibling-count:3|effect:greyscale|effect:blur' --post-process-artwork='vertical_scrollbar|position:right|type:bar|opacity:60' --post-process-artwork='background|background:background/muos_classic.png'

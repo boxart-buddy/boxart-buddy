@@ -2,18 +2,19 @@
 
 namespace App\PostProcess;
 
+use App\Provider\OrderedListProvider;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Finder\Finder;
 
 trait ArtworkTrait
 {
-    protected function getSortedArtwork(string $target, array $options, LoggerInterface $logger): array
+    protected function getSortedArtwork(string $target, array $options, LoggerInterface $logger, OrderedListProvider $orderedListProvider): array
     {
         $finder = new Finder();
         $finder->in($target);
         $finder->files()->name('*.png');
 
-        $sortOrder = $options['sort_order'] ?? null;
+        $sortOrder = (isset($options['sort']) && true === $options['sort']) ? $orderedListProvider->getOrderedList($target) : null;
 
         if (!$sortOrder) {
             $finder->sortByCaseInsensitiveName();
@@ -57,6 +58,7 @@ trait ArtworkTrait
         $finder = new Finder();
         $finder->in($target);
         $finder->files()->name('*.png');
+        $workset = [];
         foreach ($finder as $file) {
             $workset[] = $file->getRealPath();
         }

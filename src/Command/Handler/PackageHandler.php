@@ -8,6 +8,7 @@ use App\Command\PackageCommand;
 use App\Config\Reader\ConfigReader;
 use App\FolderNames;
 use App\Provider\NamesProvider;
+use App\Provider\PathProvider;
 use App\Util\Finder;
 use App\Util\Path;
 use Symfony\Component\Filesystem\Filesystem;
@@ -17,6 +18,7 @@ readonly class PackageHandler implements CommandHandlerInterface
     public function __construct(
         private ConfigReader $configReader,
         private Path $path,
+        private PathProvider $pathProvider,
         private NamesProvider $namesProvider
     ) {
     }
@@ -31,10 +33,8 @@ readonly class PackageHandler implements CommandHandlerInterface
         $outputFolder = $this->path->joinWithBase(FolderNames::TEMP->value, 'output');
 
         $packages = $config->package;
-        $packageBase = $this->path->joinWithBase(
-            FolderNames::PACKAGE->value,
-            sprintf('%s_%s', $command->packageName, $config->romsetName)
-        );
+        $packageBase = $this->pathProvider->getPackageRootPath($command->packageName);
+
         // wipe package folder
         if ($filesystem->exists($packageBase)) {
             $filesystem->remove($packageBase);

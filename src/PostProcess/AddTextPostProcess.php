@@ -20,7 +20,7 @@ class AddTextPostProcess implements PostProcessInterface
     use ArtworkTrait;
     use SaveImageTrait;
 
-    public const NAME = 'add-text';
+    public const NAME = 'add_text';
 
     public function __construct(
         readonly private Path $path,

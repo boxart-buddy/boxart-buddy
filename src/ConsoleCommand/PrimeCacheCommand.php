@@ -44,7 +44,7 @@ class PrimeCacheCommand extends Command
         $commands = $this->commandFactory->createPrimeCacheCommandsForAllPlatforms();
         $io = new BlockSectionHelper($input, $output, $this->logger);
         $io->heading();
-        $this->getPlatformOverview($io, $this->configValidator);
+        $this->printPlatformOverview($io, $this->configValidator);
 
         if ($commands) {
             $io->section('prime-cache');

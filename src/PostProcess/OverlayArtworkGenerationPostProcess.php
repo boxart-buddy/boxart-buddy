@@ -26,7 +26,7 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
     use ArtworkTrait;
     use SaveImageTrait;
 
-    public const NAME = 'artwork-generation';
+    public const NAME = 'artwork_generation';
 
     public function __construct(
         readonly private Path $path,

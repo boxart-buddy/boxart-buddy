@@ -6,9 +6,9 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
 {
     use PostProcessOptionsTrait;
 
-    public const OFFSET_Y = 'offset-y';
-    public const OFFSET_X = 'offset-x';
-    public const SIBLING_COUNT = 'sibling-count';
+    public const OFFSET_Y = 'offset_y';
+    public const OFFSET_X = 'offset_x';
+    public const SIBLING_COUNT = 'sibling_count';
     public const SCALE = 'scale';
     public const EFFECT = 'effect';
     public const LOOP = 'loop';

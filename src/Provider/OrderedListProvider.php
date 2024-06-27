@@ -2,26 +2,18 @@
 
 namespace App\Provider;
 
-use App\Command\CommandNamespace;
-use App\Config\Reader\ConfigReader;
 use Symfony\Component\Finder\Finder;
 
-class OrderedListProvider
+readonly class OrderedListProvider
 {
-    private ?array $names = null;
-
     public function __construct(
-        readonly private ConfigReader $configReader,
-        readonly private NamesProvider $namesProvider
+        private NamesProvider $namesProvider
     ) {
     }
 
-    public function getOrderedList(CommandNamespace $namespace, ?string $target = null): array
+    public function getOrderedList(?string $target = null): array
     {
-        return match ($namespace) {
-            CommandNamespace::ARTWORK => $this->getOrderedListForArtwork($target),
-            default => []
-        };
+        return $this->getOrderedListForArtwork($target);
     }
 
     private function getOrderedListForArtwork(?string $target): array

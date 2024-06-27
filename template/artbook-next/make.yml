@@ -1,0 +1,83 @@
+artbook-next-inner:
+  description: "dimmed siblings, white system logos, black outline on game logos"
+  package-name: 'artbook-next-inner'
+  artwork:
+    file: 'masked-screenshot-inner-frame.yml'
+    post_process:
+      offset_with_siblings:
+        offset_x: 150
+        sibling-count: 3
+        loop: true
+      background:
+        background: bg-black.png
+        overlay: overlay-inner-black-50.png
+      artwork_generation:
+        artwork: 'artbook-next:wheel-white-stroke.xml'
+        namespace: artwork
+      add_text:
+        mapping: rom-translations.yml
+        font_variant: bold
+        text_bg_opacity: 90
+  folder:
+    file: 'masked-screenshot-inner-frame.xml'
+    post_process:
+      offset_with_siblings:
+        offset_x: 150
+        sibling_count: 3
+        loop: true
+      background:
+        background: bg-black.png
+        overlay: overlay-inner-black-50.png
+      artwork_generation:
+        artwork: 'artbook-next:system-logo.xml'
+        namespace: folder
+        token: '{"logo-type":"dark-white"}'
+  portmaster:
+    file: 'masked-screenshot-inner-portmaster.xml'
+    post_process:
+      artwork_generation:
+        artwork: 'artbook-next:wheel-portmaster.xml'
+        namespace: portmaster
+
+artbook-next-inner-alt:
+  description: "greyscale siblings, color system logos, white outline on game logos"
+  package_name: 'artbook-next-inner-alt'
+  artwork:
+    file: 'masked-screenshot-inner-frame.yml'
+    post_process:
+      offset_with_siblings:
+        offset_x: 150
+        sibling_count: 3
+        loop: true
+        effect: greyscale
+      background:
+        background: bg-black.png
+        overlay: overlay-inner-black-50.png
+      artwork_generation:
+        artwork: 'artbook-next:wheel-black-stroke.xml'
+        namespace: artwork
+      add_text:
+        mapping: rom-translations.yml
+        font_variant: bold
+        text_bg_opacity: 90
+  folder:
+    file: 'masked-screenshot-inner-frame.xml'
+    post_process:
+      offset_with_siblings:
+        offset_x: 150
+        sibling_count: 3
+        loop: true
+        effect: greyscale
+      background:
+        background: bg-black.png
+        overlay: overlay-inner-black-50.png
+      artwork_generation:
+        artwork: 'artbook-next:system-logo.xml'
+        namespace: folder
+        token: '{"logo-type":"light-color"}'
+  portmaster:
+    file: 'masked-screenshot-inner-portmaster.xml'
+    post_process:
+      artwork_generation:
+        artwork: 'artbook-next:wheel-portmaster.xml'
+        namespace: portmaster

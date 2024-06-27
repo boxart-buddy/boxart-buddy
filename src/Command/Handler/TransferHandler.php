@@ -5,8 +5,7 @@ namespace App\Command\Handler;
 use App\Command\CommandInterface;
 use App\Command\TransferCommand;
 use App\Config\Reader\ConfigReader;
-use App\FolderNames;
-use App\Util\Path;
+use App\Provider\PathProvider;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\Local\LocalFilesystemAdapter;
@@ -22,7 +21,7 @@ readonly class TransferHandler implements CommandHandlerInterface
 
     public function __construct(
         private ConfigReader $configReader,
-        private Path $path,
+        private PathProvider $pathProvider,
         private LoggerInterface $logger,
     ) {
     }
@@ -34,12 +33,8 @@ readonly class TransferHandler implements CommandHandlerInterface
         }
 
         $config = $this->configReader->getConfig();
-        $romSetName = $config->romsetName;
 
-        $packagePath = $this->path->joinWithBase(
-            FolderNames::PACKAGE->value,
-            sprintf('%s_%s', $command->packageName, $romSetName)
-        );
+        $packagePath = $this->pathProvider->getPackageRootPath($command->packageName);
 
         // check package folder exists
         $fs = new SymfonyFilesystem();

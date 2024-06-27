@@ -4,6 +4,7 @@ namespace App\Command\Handler;
 
 use App\Command\CommandInterface;
 use App\Command\OptimizeCommand;
+use App\Provider\PathProvider;
 use App\Util\Path;
 use Intervention\Image\Encoders\JpegEncoder;
 use Intervention\Image\ImageManager;
@@ -13,7 +14,7 @@ use Symfony\Component\Finder\Finder;
 
 readonly class OptimizeHandler implements CommandHandlerInterface
 {
-    public function __construct()
+    public function __construct(private PathProvider $pathProvider)
     {
     }
 
@@ -23,7 +24,9 @@ readonly class OptimizeHandler implements CommandHandlerInterface
             throw new \InvalidArgumentException();
         }
 
-        $optimizeBase = Path::join($command->target, 'MUOS');
+        $packagePath = $this->pathProvider->getPackageRootPath($command->packageName);
+
+        $optimizeBase = Path::join($packagePath, 'MUOS');
 
         $filesystem = new Filesystem();
         if ($command->convertToJpg) {

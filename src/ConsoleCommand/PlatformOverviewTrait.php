@@ -8,7 +8,7 @@ use App\Util\Console\BlockSectionHelper;
 
 trait PlatformOverviewTrait
 {
-    protected function getPlatformOverview(BlockSectionHelper $io, ConfigValidator $configValidator)
+    protected function printPlatformOverview(BlockSectionHelper $io, ConfigValidator $configValidator): void
     {
         $io->section('platform-overview');
 

@@ -5,6 +5,7 @@ namespace App\Util\Console;
 use App\Command\TargetableCommandInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Helper\ProgressIndicator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
@@ -133,6 +134,11 @@ class BlockSectionHelper
         $progressBar->setMessage($defaultMessage);
 
         return $progressBar;
+    }
+
+    public function getProgressIndicator(): ProgressIndicator
+    {
+        return new ProgressIndicator($this->consoleOutput);
     }
 
     private function callBlockMethodOnStyle(string $message, bool $overwrite, string $type): void

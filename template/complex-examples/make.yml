@@ -1,0 +1,19 @@
+game-logo-scrolling:
+  description: "Game logos with scrollbar"
+  package-name: 'game-logo-scrolling'
+  artwork:
+    file: 'large_game_logo_central.xml'
+    post_process:
+      offset_with_siblings:
+        offset_y: 90
+        scale: 0.6
+        sibling_count: 3
+        effect: greyscale
+        #        effect: blur
+        loop: true
+      vertical_scrollbar:
+        position: right
+        opacity: 60
+      background:
+        background: 'background/muos_classic.png'
+

@@ -3,6 +3,7 @@
 namespace App\PostProcess;
 
 use App\Command\PostProcessCommand;
+use App\Provider\OrderedListProvider;
 use App\Util\Path;
 use Intervention\Image\Geometry\Factories\RectangleFactory;
 use Intervention\Image\ImageManager;
@@ -18,7 +19,8 @@ class VerticalScrollbarPostProcess implements PostProcessInterface
 
     public function __construct(
         readonly private Path $path,
-        readonly private LoggerInterface $logger
+        readonly private LoggerInterface $logger,
+        readonly private OrderedListProvider $orderedListProvider
     ) {
     }
 
@@ -43,7 +45,7 @@ class VerticalScrollbarPostProcess implements PostProcessInterface
         $this->setupSaveBehaviour(true);
 
         $options = $this->processOptions($command->options);
-        $workset = $this->getSortedArtwork($command->target, $options, $this->logger);
+        $workset = $this->getSortedArtwork($command->target, $options, $this->logger, $this->orderedListProvider);
         $this->processWorkset($workset, $command->target, $options);
     }
 

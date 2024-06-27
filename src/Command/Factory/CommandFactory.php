@@ -11,7 +11,6 @@ use App\Command\OptimizeCommand;
 use App\Command\PostProcessCommand;
 use App\Command\PrimeCacheCommand;
 use App\Config\Reader\ConfigReader;
-use App\FolderNames;
 use App\Provider\OrderedListProvider;
 use App\Provider\PathProvider;
 use App\Util\Path;
@@ -21,7 +20,6 @@ readonly class CommandFactory
 {
     public function __construct(
         private ConfigReader $configReader,
-        private Path $path,
         private OrderedListProvider $orderedListProvider,
         private PathProvider $pathProvider
     ) {
@@ -30,10 +28,7 @@ readonly class CommandFactory
     public function createOptimizeCommand(string $package): OptimizeCommand
     {
         $config = $this->configReader->getConfig();
-        $targetBase = $this->path->joinWithBase(
-            FolderNames::PACKAGE->value,
-            sprintf('%s_%s', $package, $config->romsetName),
-        );
+        $targetBase = $this->pathProvider->getPackageRootPath($package);
 
         return new OptimizeCommand($targetBase, $config->convertToJpg, $config->jpgQuality);
     }
@@ -43,9 +38,8 @@ readonly class CommandFactory
         $commands = [];
         $config = $this->configReader->getConfig();
 
-        $targetBase = $this->path->joinWithBase(
-            FolderNames::PACKAGE->value,
-            sprintf('%s_%s', $package, $config->romsetName),
+        $targetBase = Path::join(
+            $this->pathProvider->getPackageRootPath($package),
             'MUOS',
             'info',
             'catalogue',
@@ -53,7 +47,6 @@ readonly class CommandFactory
 
         if ($targetNamespace === CommandNamespace::FOLDER->value) {
             $target = Path::join($targetBase, 'Folder', 'box');
-            $options['sort_order'] = $this->orderedListProvider->getOrderedList(CommandNamespace::FOLDER);
 
             return [new PostProcessCommand($target, $strategy, $options)];
         }
@@ -75,32 +68,22 @@ readonly class CommandFactory
         }
 
         foreach ($targets as $target) {
-            $options['sort_order'] = $this->orderedListProvider->getOrderedList(CommandNamespace::ARTWORK, $target);
+            $options['sort'] = true;
             $commands[] = new PostProcessCommand($target, $strategy, $options, $targetPlatforms[$target]);
         }
 
         return $commands;
     }
 
-    public function createGeneratePreviewCommands(string $package, string $previewName, array $themes): array
+    public function createGeneratePreviewCommands(string $package, string $previewName): array
     {
-        // always generate a 'no-theme' version
-        if (!array_search(false, $themes, true)) {
-            $themes[] = false;
-        }
-
-        $config = $this->configReader->getConfig();
-
-        $target = $this->path->joinWithBase(
-            FolderNames::PACKAGE->value,
-            sprintf('%s_%s', $package, $config->romsetName)
-        );
+        $target = $this->pathProvider->getPackageRootPath($package);
 
         $commands = [];
 
-        if (1 === count($themes)) {
-            $themes = $this->configReader->getConfig()->previewThemes;
-        }
+        $themes = $this->configReader->getConfig()->previewThemes;
+        // always generate a 'no-theme' version
+        $themes[] = null;
 
         foreach ($themes as $theme) {
             if (in_array($this->configReader->getConfig()->previewType, ['static', 'both'])) {

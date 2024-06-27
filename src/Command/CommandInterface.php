@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
-interface CommandInterface {
-
+interface CommandInterface
+{
+    public function getName(): string;
 }

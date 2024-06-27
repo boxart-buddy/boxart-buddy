@@ -2,13 +2,14 @@
 
 namespace App\Provider;
 
+use App\Config\Reader\ConfigReader;
 use App\FolderNames;
 use App\Util\Path;
 
 // this class possibly redundant and functions to be moved back to classes where used
 readonly class PathProvider
 {
-    public function __construct(private Path $path)
+    public function __construct(private Path $path, private ConfigReader $configReader)
     {
     }
 
@@ -37,6 +38,20 @@ readonly class PathProvider
     public function getPortmasterRomPath(): string
     {
         return $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'roms/');
+    }
+
+    public function getPackageRootPath(string $packageName): string
+    {
+        $romsetName = $this->configReader->getConfig()->romsetName;
+
+        return $this->path->joinWithBase(FolderNames::PACKAGE->value, $packageName.'-'.$romsetName);
+    }
+
+    public function getPackageZipPath(string $packageName): string
+    {
+        $romsetName = $this->configReader->getConfig()->romsetName;
+
+        return $this->path->joinWithBase(FolderNames::ZIPPED->value, $packageName.'-'.$romsetName.'.zip');
     }
 
     public function getFontPath(string $family, ?string $variant = null): string

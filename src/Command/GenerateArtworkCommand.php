@@ -4,6 +4,8 @@ namespace App\Command;
 
 readonly class GenerateArtworkCommand implements TargetableCommandInterface
 {
+    public const NAME = 'generate-artwork';
+
     public function __construct(
         public string $namespace,
         public string $artworkPackage,
@@ -24,5 +26,10 @@ readonly class GenerateArtworkCommand implements TargetableCommandInterface
         }
 
         return $this->platform;
+    }
+
+    public function getName(): string
+    {
+        return self::NAME;
     }
 }

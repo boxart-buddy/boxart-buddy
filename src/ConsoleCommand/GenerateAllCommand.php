@@ -3,16 +3,14 @@
 namespace App\ConsoleCommand;
 
 use App\Command\CommandNamespace;
-use App\Command\CompressPackageCommand;
-use App\Command\CopyResourcesCommand;
+use App\Command\Factory\BuildCommandCollectionFromInputFactory;
 use App\Command\Factory\CommandFactory;
 use App\Command\Handler\CentralHandler;
-use App\Command\PackageCommand;
-use App\Command\TransferCommand;
 use App\Config\Reader\ConfigReader;
 use App\Config\Validator\ConfigValidator;
 use App\FolderNames;
 use App\Portmaster\PortmasterDataImporter;
+use App\Provider\PathProvider;
 use App\Util\CommandUtility;
 use App\Util\Console\BlockSectionHelper;
 use App\Util\Path;
@@ -41,9 +39,11 @@ class GenerateAllCommand extends Command
         readonly private CentralHandler $centralHandler,
         readonly private PortmasterDataImporter $portmasterDataImporter,
         readonly private Path $path,
+        readonly private PathProvider $pathProvider,
         readonly private ConfigValidator $configValidator,
         readonly private ConfigReader $configReader,
-        readonly private LoggerInterface $logger
+        readonly private LoggerInterface $logger,
+        readonly private BuildCommandCollectionFromInputFactory $buildCommandCollectionFactory
     ) {
         parent::__construct();
     }
@@ -51,9 +51,10 @@ class GenerateAllCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption('artwork', null, InputOption::VALUE_REQUIRED, 'Colon delimited pair of {template-folder}:{artwork.xml} or {template-folder}:{artwork.yml} used to generate ROM artwork')
-            ->addOption('folder', null, InputOption::VALUE_REQUIRED, 'Colon delimited pair of {template-folder}:{artwork.xml} or {template-folder}:{artwork.yml} used to generate FOLDER artwork')
-            ->addOption('portmaster', null, InputOption::VALUE_REQUIRED, 'Colon delimited pair of {template-folder}:{artwork.xml} or {template-folder}:{artwork.yml} used to generate PORTMASTER artwork')
+            ->addArgument('template', null, 'The template package folder being used (e.g "artbook-next")')
+            ->addOption('artwork', null, InputOption::VALUE_REQUIRED, '{artwork.xml} or {artwork.yml} used to generate ROM artwork')
+            ->addOption('folder', null, InputOption::VALUE_REQUIRED, '{artwork.xml} or {artwork.yml} used to generate FOLDER artwork')
+            ->addOption('portmaster', null, InputOption::VALUE_REQUIRED, '{artwork.xml} or {artwork.yml} used to generate PORTMASTER artwork')
             ->addOption('zip', 'z', InputOption::VALUE_NONE, 'Creates a zip archive of the generated package')
             ->addOption('transfer', 't', InputOption::VALUE_NONE, 'Attempts to transfer the generated artwork to your device using sftp')
             ->addOption('package-name', 'p', InputOption::VALUE_REQUIRED, 'A name for the output package. Will be appended with the configured `romset_name`. If not set will default to the same name as the artwork used.')
@@ -68,152 +69,26 @@ class GenerateAllCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // wipe temp folder to keep clean
-        $this->wipeTempFolders();
-
         if (!$output instanceof ConsoleOutput) {
             throw new \RuntimeException();
         }
 
-        // dump out the current command string so that it can be used later during asset packaging
-        $this->writeCommandStringToFile($input);
         $io = new BlockSectionHelper($input, $output, $this->logger);
         $io->heading();
-
-        $this->getPlatformOverview($io, $this->configValidator);
-
+        $this->printPlatformOverview($io, $this->configValidator);
         $stopwatch = (new Stopwatch())->start('all');
-        $this->deleteOutputFolder();
 
-        // copy resources
-        $command = new CopyResourcesCommand($this->getArtworkPackageNamesFromInput($input));
-        $io->waitOrFail('copy-resources', 'Copying Custom Resources to Skyscraper Folder', function () use ($command) {
-            $this->centralHandler->handle($command);
-        });
+        // dump out the current command string so that it can be used later during asset packaging
+        $this->writeCommandStringToFile($input);
 
-        // artwork
-        $commands = $this->getArtworkCommands($input);
+        $buildCommandCollection = $this->buildCommandCollectionFactory->create($input);
+        $this->centralHandler->handleBuildCommandCollection($buildCommandCollection);
 
-        if ($commands) {
-            $io->waitOrFailTargetableCommandsWithProgressBar(
-                'generate-rom-artwork',
-                'Generating Rom Artwork',
-                $commands,
-                function ($command) {
-                    $this->centralHandler->handle($command);
-                }
-            );
-        }
-
-        // folder
-        $commands = $this->getFolderCommands($input);
-
-        if ($commands) {
-            $io->waitOrFailTargetableCommandsWithProgressBar(
-                'generate-folder-artwork',
-                'Generating Folder Artwork',
-                $commands,
-                function ($command) {
-                    $this->centralHandler->handle($command);
-                }
-            );
-        }
-
-        // portmaster
-        $commands = $this->getPortmasterCommands($input);
-        if ($commands) {
-            // ensure portmaster data is up to date
-            $portmasterDataImporter = $this->portmasterDataImporter;
-            $io->waitOrFail('import-portmaster-data', 'Importing Portmaster Data', function () use ($portmasterDataImporter) {
-                $portmasterDataImporter->importPortmasterDataIfNotImportedSince(new \DateInterval('P14D'));
-            });
-
-            $io->waitOrFailTargetableCommandsWithProgressBar(
-                'generate-portmaster-artwork',
-                'Generating Portmaster Artwork',
-                $commands,
-                function ($command) {
-                    $this->centralHandler->handle($command);
-                }
-            );
-        }
-
-        $packageName = $this->getPackageName($input);
-
-        // package
-        $command = new PackageCommand($packageName);
-        $io->waitOrFail('package', 'Packaging', function () use ($command) {
-            $this->centralHandler->handle($command);
-        });
-
-        // post process
-        $commands = $this->getPostProcessCommands($packageName, $input);
-        if ($commands) {
-            $io->waitOrFailTargetableCommandsWithProgressBar(
-                'post-process',
-                'Post Processing (SLOW) be patient',
-                $commands,
-                function ($command) {
-                    $this->centralHandler->handle($command);
-                }
-            );
-        }
-
-        // Preview generation
-        $commands = $this->getPreviewCommands($packageName, $input);
-        if ($commands) {
-            $io->waitOrFailTargetableCommandsWithProgressBar(
-                'generate-previews',
-                'Generating Previews',
-                $commands,
-                function ($command) {
-                    $this->centralHandler->handle($command);
-                }
-            );
-        }
-
-        // optimize
-        if ($this->configReader->getConfig()->shouldOptimize) {
-            $command = $this->commandFactory->createOptimizeCommand($packageName);
-            $io->waitOrFail('optimize', 'Optimizing Images (SLOW)', function () use ($command) {
-                $this->centralHandler->handle($command);
-            });
-        }
-
-        // zip
-        if ($input->getOption('zip')) {
-            $command = new CompressPackageCommand($packageName);
-            $io->waitOrFail('compress-package', 'Compressing Package', function () use ($command) {
-                $this->centralHandler->handle($command);
-            });
-        }
-
-        // transfer
-        if ($input->getOption('transfer')) {
-            $command = new TransferCommand($packageName);
-            $io->waitOrFail('transfer-package', 'Transferring Package', function () use ($command) {
-                $this->centralHandler->handle($command);
-            });
-        }
-
-        $packageRoot = $this->path->joinWithBase(FolderNames::PACKAGE->value, sprintf('%s_%s', $packageName, $this->configReader->getConfig()->romsetName));
-
-        if ($this->configReader->getConfig()->copyPreviewBackToTemplate && $input->getOption('artwork')) {
-            // copy previews from the package folder back to the template/preview of the artwork used
-            // get package preview
-            $packagePreviewFolder = Path::join($packageRoot, 'extra', 'preview');
-            // get artwork preview folder
-            $t = TokenUtility::splitStringIntoArtworkPackageAndFileName($input->getOption('artwork'));
-            $templatePreviewFolder = $this->path->joinWithBase('template', $t['artworkPackage'], 'preview');
-            // mirror one to the other (copy/overwrite)
-            $filesystem = new Filesystem();
-            $filesystem->mirror($packagePreviewFolder, $templatePreviewFolder);
-        }
+        $packageName = BuildCommandCollectionFromInputFactory::getPackageName($input);
+        $packageRoot = $this->pathProvider->getPackageRootPath($packageName);
 
         $event = $stopwatch->stop();
-
         $size = Path::getDirectorySize($packageRoot);
-
         $io->complete(sprintf("Build complete in %s\n\n(Package Size %s): %s", CommandUtility::formatStopwatchEvent($event), $size, $packageRoot));
 
         // skipped roms
@@ -227,152 +102,106 @@ class GenerateAllCommand extends Command
     //        // read the skipped rom file and report back to use next steps to take
     //    }
 
-    private function getPostProcessCommands(string $packageName, InputInterface $input): array
-    {
-        $commands = [];
-
-        // artwork
-        $postProcessArtwork = $input->getOption('post-process-artwork');
-
-        foreach ($postProcessArtwork as $ppa) {
-            $argAndOptions = TokenUtility::splitArgumentAndOptions($ppa);
-            $commands = array_merge($commands, $this->commandFactory->createPostProcessCommands(
-                $packageName,
-                $argAndOptions['argument'],
-                CommandNamespace::ARTWORK->value,
-                $argAndOptions['options'],
-            ));
-        }
-
-        // folder
-        $postProcessFolder = $input->getOption('post-process-folder');
-
-        foreach ($postProcessFolder as $ppf) {
-            $argAndOptions = TokenUtility::splitArgumentAndOptions($ppf);
-            $commands = array_merge($commands, $this->commandFactory->createPostProcessCommands(
-                $packageName,
-                $argAndOptions['argument'],
-                CommandNamespace::FOLDER->value,
-                $argAndOptions['options'],
-            ));
-        }
-
-        // @todo portmaster
-        $postProcessPortmaster = $input->getOption('post-process-portmaster');
-
-        foreach ($postProcessPortmaster as $ppp) {
-            $argAndOptions = TokenUtility::splitArgumentAndOptions($ppp);
-            $commands = array_merge($commands, $this->commandFactory->createPostProcessCommands(
-                $packageName,
-                $argAndOptions['argument'],
-                CommandNamespace::PORTMASTER->value,
-                $argAndOptions['options'],
-            ));
-        }
-
-        return $commands;
-    }
-
-    private function deleteOutputFolder(): void
-    {
-        $filesystem = new Filesystem();
-        $outputFolder = $this->path->joinWithBase(FolderNames::TEMP->value, 'output');
-
-        if ($filesystem->exists($outputFolder)) {
-            $filesystem->remove($outputFolder);
-        }
-
-        $tempArtworkPath = $this->path->joinWithBase(
-            FolderNames::TEMP->value,
-            'artwork_tmp'
-        );
-
-        if ($filesystem->exists($tempArtworkPath)) {
-            $filesystem->remove($tempArtworkPath);
-        }
-    }
-
-    private function getPreviewCommands(string $packageName, InputInterface $input): array
-    {
-        $themes = $input->getOption('preview-theme') ?: [];
-
-        // get package name
-
-        return $this->commandFactory->createGeneratePreviewCommands($packageName, $packageName, $themes);
-    }
-
-    private function getArtworkCommands(InputInterface $input): array
-    {
-        $artwork = $input->getOption('artwork');
-        $perRom = $input->getOption('per-rom');
-
-        if (!$artwork) {
-            return [];
-        }
-
-        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
-
-        return $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
-            CommandNamespace::ARTWORK,
-            $split['artworkPackage'],
-            $split['filename'],
-            $this->parseToken($input->getOption('token')),
-            true,
-            $perRom
-        );
-    }
-
-    private function getFolderCommands(InputInterface $input): array
-    {
-        $artwork = $input->getOption('folder');
-        $perRom = $input->getOption('per-rom');
-        $addPortmasterPlatform = false;
-        if ($input->getOption('portmaster')) {
-            $addPortmasterPlatform = true;
-        }
-
-        if (!$artwork) {
-            return [];
-        }
-
-        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
-
-        return $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
-            CommandNamespace::FOLDER,
-            $split['artworkPackage'],
-            $split['filename'],
-            $this->parseToken($input->getOption('token')),
-            false,
-            $perRom,
-            $addPortmasterPlatform
-        );
-    }
-
-    private function getPortmasterCommands(InputInterface $input): array
-    {
-        $artwork = $input->getOption('portmaster');
-
-        if (!$artwork) {
-            return [];
-        }
-
-        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
-
-        return $this->commandFactory->createGenerateArtworkCommandForPortmaster(
-            $split['artworkPackage'],
-            $split['filename'],
-            $this->parseToken($input->getOption('token'))
-        );
-    }
-
-    private function parseToken(?string $token): array
-    {
-        if (!$token) {
-            return [];
-        }
-
-        return TokenUtility::parseRuntimeTokens($token);
-    }
+    //    private function deleteOutputFolder(): void
+    //    {
+    //        $filesystem = new Filesystem();
+    //        $outputFolder = $this->path->joinWithBase(FolderNames::TEMP->value, 'output');
+    //
+    //        if ($filesystem->exists($outputFolder)) {
+    //            $filesystem->remove($outputFolder);
+    //        }
+    //
+    //        $tempArtworkPath = $this->path->joinWithBase(
+    //            FolderNames::TEMP->value,
+    //            'artwork_tmp'
+    //        );
+    //
+    //        if ($filesystem->exists($tempArtworkPath)) {
+    //            $filesystem->remove($tempArtworkPath);
+    //        }
+    //    }
+    //
+    //    private function getPreviewCommands(string $packageName, InputInterface $input): array
+    //    {
+    //        $themes = $input->getOption('preview-theme') ?: [];
+    //
+    //        // get package name
+    //
+    //        return $this->commandFactory->createGeneratePreviewCommands($packageName, $packageName, $themes);
+    //    }
+    //
+    //    private function getArtworkCommands(InputInterface $input): array
+    //    {
+    //        $artwork = $input->getOption('artwork');
+    //        $perRom = $input->getOption('per-rom');
+    //
+    //        if (!$artwork) {
+    //            return [];
+    //        }
+    //
+    //        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
+    //
+    //        return $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
+    //            CommandNamespace::ARTWORK,
+    //            $split['artworkPackage'],
+    //            $split['filename'],
+    //            $this->parseToken($input->getOption('token')),
+    //            true,
+    //            $perRom
+    //        );
+    //    }
+    //
+    //    private function getFolderCommands(InputInterface $input): array
+    //    {
+    //        $artwork = $input->getOption('folder');
+    //        $perRom = $input->getOption('per-rom');
+    //        $addPortmasterPlatform = false;
+    //        if ($input->getOption('portmaster')) {
+    //            $addPortmasterPlatform = true;
+    //        }
+    //
+    //        if (!$artwork) {
+    //            return [];
+    //        }
+    //
+    //        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
+    //
+    //        return $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
+    //            CommandNamespace::FOLDER,
+    //            $split['artworkPackage'],
+    //            $split['filename'],
+    //            $this->parseToken($input->getOption('token')),
+    //            false,
+    //            $perRom,
+    //            $addPortmasterPlatform
+    //        );
+    //    }
+    //
+    //    private function getPortmasterCommands(InputInterface $input): array
+    //    {
+    //        $artwork = $input->getOption('portmaster');
+    //
+    //        if (!$artwork) {
+    //            return [];
+    //        }
+    //
+    //        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
+    //
+    //        return $this->commandFactory->createGenerateArtworkCommandForPortmaster(
+    //            $split['artworkPackage'],
+    //            $split['filename'],
+    //            $this->parseToken($input->getOption('token'))
+    //        );
+    //    }
+    //
+    //    private function parseToken(?string $token): array
+    //    {
+    //        if (!$token) {
+    //            return [];
+    //        }
+    //
+    //        return TokenUtility::parseRuntimeTokens($token);
+    //    }
 
     private function writeCommandStringToFile(InputInterface $input): void
     {
@@ -386,74 +215,8 @@ class GenerateAllCommand extends Command
     }
 
     // Gets the template folders being used in current generation, to load tokens and resources etc
-    private function getArtworkPackageNamesFromInput(InputInterface $input): array
-    {
-        // to some extent this will validate these arguments as well;
 
-        $vals = [];
-        $artwork = $input->getOption('artwork');
-        $folder = $input->getOption('folder');
-        $portmaster = $input->getOption('portmaster');
-
-        if ($artwork) {
-            $vals[] = $artwork;
-        }
-        if ($folder) {
-            $vals[] = $folder;
-        }
-        if ($portmaster) {
-            $vals[] = $portmaster;
-        }
-
-        $folders = [];
-        foreach ($vals as $v) {
-            $t = TokenUtility::splitStringIntoArtworkPackageAndFileName($v);
-            $folders[] = $t['artworkPackage'];
-        }
-
-        return array_unique($folders);
-    }
-
-    /**
+    /*
      * @return string Package name if set, falling back to artwork/folder/portmaster artwork filename if not set
      */
-    private function getPackageName(InputInterface $input): string
-    {
-        if ($input->getOption('package-name')) {
-            return $input->getOption('package-name');
-        }
-
-        $vals = [];
-        $artwork = $input->getOption('artwork');
-        $folder = $input->getOption('folder');
-        $portmaster = $input->getOption('portmaster');
-
-        if ($artwork) {
-            $vals[] = $artwork;
-        }
-        if ($folder) {
-            $vals[] = $folder;
-        }
-        if ($portmaster) {
-            $vals[] = $portmaster;
-        }
-
-        if (empty($vals)) {
-            throw new \LogicException('Cannot get package name - no artwork generation params provided');
-        }
-
-        $packageAndFilename = TokenUtility::splitStringIntoArtworkPackageAndFileName(reset($vals));
-
-        return sprintf(
-            '%s-%s',
-            $packageAndFilename['artworkPackage'],
-            basename(basename($packageAndFilename['filename'], '.xml'), '.yml')
-        );
-    }
-
-    private function wipeTempFolders(): void
-    {
-        $filesystem = new Filesystem();
-        $filesystem->remove($this->path->joinWithBase(FolderNames::TEMP->value, 'output', 'post-process'));
-    }
 }

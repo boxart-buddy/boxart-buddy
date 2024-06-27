@@ -4,9 +4,7 @@ namespace App\Command\Handler;
 
 use App\Command\CommandInterface;
 use App\Command\CompressPackageCommand;
-use App\Config\Reader\ConfigReader;
-use App\FolderNames;
-use App\Util\Path;
+use App\Provider\PathProvider;
 use PhpZip\Constants\ZipCompressionMethod;
 use PhpZip\Exception\ZipException;
 use PhpZip\ZipFile;
@@ -16,8 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 readonly class CompressPackageHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private ConfigReader $configReader,
-        private Path $path,
+        private PathProvider $pathProvider,
         private LoggerInterface $logger
     ) {
     }
@@ -28,18 +25,9 @@ readonly class CompressPackageHandler implements CommandHandlerInterface
             throw new \InvalidArgumentException();
         }
 
-        $config = $this->configReader->getConfig();
-        $romSetName = $config->romsetName;
+        $packagePath = $this->pathProvider->getPackageRootPath($command->packageName);
 
-        $packagePath = $this->path->joinWithBase(
-            FolderNames::PACKAGE->value,
-            sprintf('%s_%s', $command->packageName, $romSetName)
-        );
-
-        $outPath = $this->path->joinWithBase(
-            FolderNames::ZIPPED->value,
-            sprintf('%s_%s.zip', $command->packageName, $romSetName)
-        );
+        $outPath = $this->pathProvider->getPackageZipPath($command->packageName);
 
         $filesystem = new Filesystem();
         if ($filesystem->exists($outPath)) {

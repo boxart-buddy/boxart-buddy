@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <artwork>
-    <meta author="Boxart Buddy"
-          notes="Large central game logo with screenshot on side, covers the whole screen, desaturated to match LCD style themes"></meta>
 
     <output type="cover" width="640" height="480">
         <layer resource="screenshot" width="640" align="center" valign="top">

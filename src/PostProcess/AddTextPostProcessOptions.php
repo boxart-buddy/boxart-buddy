@@ -5,13 +5,13 @@ namespace App\PostProcess;
 class AddTextPostProcessOptions implements PostProcessOptionsInterface
 {
     use PostProcessOptionsTrait;
-    public const POSITION_Y = 'position-y';
+    public const POSITION_Y = 'position_y';
     public const MAPPING = 'mapping';
-    public const TEXT_COLOR = 'text-color';
-    public const TEXT_BG_COLOR = 'text-bg-color';
-    public const TEXT_BG_OPACITY = 'text-bg-opacity';
-    public const TEXT_FONT_FAMILY = 'font-family';
-    public const TEXT_FONT_VARIANT = 'font-variant';
+    public const TEXT_COLOR = 'text_color';
+    public const TEXT_BG_COLOR = 'text_bg_color';
+    public const TEXT_BG_OPACITY = 'text_bg_opacity';
+    public const TEXT_FONT_FAMILY = 'font_family';
+    public const TEXT_FONT_VARIANT = 'font_variant';
 
     public static function getOptions(): array
     {
