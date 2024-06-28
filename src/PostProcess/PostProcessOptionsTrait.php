@@ -49,7 +49,7 @@ trait PostProcessOptionsTrait
                 $defaults[$postProcessOption->name] = $postProcessOption->default;
             }
 
-            // coalesce multi to array if not array already
+            // transform multi to array if not array already
             if ((true === $postProcessOption->multi) && isset($options[$postProcessOption->name]) && !is_array($options[$postProcessOption->name])) {
                 $options[$postProcessOption->name] = [$options[$postProcessOption->name]];
             }

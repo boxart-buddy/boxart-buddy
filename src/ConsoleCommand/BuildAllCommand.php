@@ -12,6 +12,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
@@ -34,6 +35,9 @@ class BuildAllCommand extends Command
 
     protected function configure(): void
     {
+        $this
+            ->addOption('template', 't', InputOption::VALUE_REQUIRED, 'a template, if provided then build will be restricted to that template only')
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -44,7 +48,16 @@ class BuildAllCommand extends Command
 
         $options = $this->promptOptionsGenerator->generate();
 
+        $template = $input->getOption('template');
+
+        if ($template && !in_array($template, $options->getPackages(), true)) {
+            throw new \InvalidArgumentException(sprintf('Invalid template: %s', $template));
+        }
+
         foreach ($options->getPackages() as $package) {
+            if ($template && $template !== $package) {
+                continue;
+            }
             foreach ($options->getVariants($package) as $variant => $variantDescription) {
                 $defaultOptions = $options->getOptionDefaults($package, $variant);
                 $artwork = $folder = $portmaster = $zip = $transfer = false;

@@ -45,6 +45,33 @@
         "folder": false
     },
     {
+        "templateName": "jdcross-brush",
+        "variantName": "jdcross_brush_torn",
+        "previewPath": "template\/preview\/jdcross-brush-torn-no-theme.webp",
+        "type": "standalone",
+        "height": "full",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "jdcross-brush",
+        "variantName": "jdcross_brush_emboss",
+        "previewPath": "template\/preview\/jdcross-brush-emboss-no-theme.webp",
+        "type": "standalone",
+        "height": "full",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "jdcross-brush",
+        "variantName": "jdcross_brush_mk8bg",
+        "previewPath": "template\/preview\/jdcross-brush-mk8bg-no-theme.webp",
+        "type": "standalone",
+        "height": "full",
+        "portmaster": false,
+        "folder": false
+    },
+    {
         "templateName": "tokumeino-gradients",
         "variantName": "simple_box_cart",
         "previewPath": "template\/preview\/simple-box-cart-no-theme.webp",

@@ -51,8 +51,6 @@ class BackgroundImagePostProcess implements PostProcessInterface
         $filesystem = new Filesystem();
 
         foreach ($files as $originalFilePath) {
-            $originalFilename = basename($originalFilePath);
-
             $manager = ImageManager::imagick();
             $canvasX = 640;
             $canvasY = 480;
@@ -63,18 +61,20 @@ class BackgroundImagePostProcess implements PostProcessInterface
             }
 
             if (isset($options['background'])) {
-                $bg = $this->path->joinWithBase(
-                    FolderNames::TEMP->value,
-                    'post-process',
-                    'resources',
-                    $options['background']
-                );
+                foreach ($options['background'] as $background) {
+                    $bg = $this->path->joinWithBase(
+                        FolderNames::TEMP->value,
+                        'post-process',
+                        'resources',
+                        $background
+                    );
 
-                if (!$filesystem->exists($bg)) {
-                    throw new \InvalidArgumentException(sprintf('Background image "%s" does not exist', $bg));
+                    if (!$filesystem->exists($bg)) {
+                        throw new \InvalidArgumentException(sprintf('Background image "%s" does not exist', $bg));
+                    }
+
+                    $canvas->place($bg);
                 }
-
-                $canvas->place($bg);
             }
 
             // insert the image on top

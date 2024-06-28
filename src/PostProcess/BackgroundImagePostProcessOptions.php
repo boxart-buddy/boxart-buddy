@@ -16,7 +16,8 @@ class BackgroundImagePostProcessOptions implements PostProcessOptionsInterface
             null,
             null,
             'The background image file: resources/background/{image.png}',
-            false
+            false,
+            true
         );
         $options[] = new PostProcessOption(
             self::OVERLAY,

@@ -1,0 +1,36 @@
+jdcross-brush-torn:
+  metadata:
+    height: full
+    type: standalone
+  description: 'torn brush effect mask with game logo'
+  package_name: jdcross-brush-torn
+  artwork:
+    file: artwork.xml
+    post-process:
+      background:
+        overlay: brush_shadow_black.png
+
+jdcross-brush-emboss:
+  metadata:
+    height: full
+    type: standalone
+  description: 'emboss brush effect mask with game logo'
+  package_name: jdcross-brush-emboss
+  artwork:
+    file: artwork.xml
+    post-process:
+      background:
+        overlay: brush_shadow_white.png
+
+jdcross-brush-mk8bg:
+  metadata:
+    height: full
+    type: standalone
+  description: 'with Mario Kart 8 themed background'
+  package_name: jdcross-brush-mk8bg
+  artwork:
+    file: artwork.xml
+    post-process:
+      background:
+        background: [ mk8bg.png ]
+        overlay: brush_shadow_black.png

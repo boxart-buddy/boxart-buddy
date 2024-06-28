@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <output type="cover" width="640" height="480">
+
+        {% if platform in ['mame'] %}
+        <layer resource="screenshot" mpixels="0.7" align="right" valign="center"></layer>
+        {% elseif platform in ['nds'] %}
+        <layer resource="screenshot" width="380" align="right" valign="center"></layer>
+        {% else %}
+        <layer resource="screenshot" height="480" align="right" valign="middle" x="240"></layer>
+        {% endif %}
+
+        <mask file="mask/brush_transparent_inverted.png" width="640" height="480" x="0"/>
+
+        <layer resource="wheel" width="160" align="right" valign="bottom" x="-20" y="-50">
+            <stroke width="2" color="{{ rom|trans({}, 'logo-stroke-black', locale)|default('#FFFFFF') }}"/>
+            <shadow distance="4" softness="6" opacity="50"/>
+        </layer>
+
+    </output>
+
+    <output type="screenshot" width="515" height="275">
+        <layer resource="screenshot" height="275" align="center" valign="middle"/>
+    </output>
+</artwork>

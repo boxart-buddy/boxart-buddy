@@ -23,7 +23,7 @@
                         <tbody>
 
                         {{ range $templates := .Site.Data.templates }}
-                            <tr>
+                            <tr id="template-{{ .templateName }}-{{ .variantName }}">
                                 <td><img class="rounded-none" loading="lazy" src="{{ absURL .previewPath  }}"
                                          alt="{{ .variantName }}"/>
                                 </td>

@@ -88,7 +88,7 @@ class ArtworkTranslator
         );
         $twig->addExtension(new EmptyTranslatingTwigExtension($this->translator));
 
-        $vars = ['locale' => $locale];
+        $vars = ['locale' => $locale, 'platform' => $locale];
         if ($romName) {
             $vars['rom'] = $romName;
         }
