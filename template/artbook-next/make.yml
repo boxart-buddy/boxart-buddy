@@ -16,7 +16,7 @@ artbook-next-full:
         artwork: 'artbook-next:wheel-white-stroke.xml'
         namespace: artwork
       add_text:
-        mapping: rom-translations.yml
+        mapping: rom_translations.yml
         font_variant: bold
         text_bg_opacity: 90
   folder:
@@ -57,7 +57,7 @@ artbook-next-inner:
         artwork: 'artbook-next:wheel-white-stroke.xml'
         namespace: artwork
       add_text:
-        mapping: rom-translations.yml
+        mapping: rom_translations.yml
         font_variant: bold
         text_bg_opacity: 90
   folder:
@@ -98,7 +98,7 @@ artbook-next-inner-alt:
         artwork: 'artbook-next:wheel-black-stroke.xml'
         namespace: artwork
       add_text:
-        mapping: rom-translations.yml
+        mapping: rom_translations.yml
         font_variant: bold
         text_bg_opacity: 90
   folder:

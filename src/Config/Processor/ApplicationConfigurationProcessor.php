@@ -13,6 +13,7 @@ readonly class ApplicationConfigurationProcessor
     public const CONFIG_FILENAME = 'config.yml';
     public const CONFIG_PLATFORM_FILENAME = 'config_platform.yml';
     public const CONFIG_FOLDER_ROMS = 'folder_roms.yml';
+    public const CONFIG_ROM_TRANSLATIONS = 'rom_translations.yml';
     public const CONFIG_PORTMASTER_FILENAME = 'config_portmaster.yml';
     public const CONFIG_PACKAGE_FILENAME = 'config_package_muos.yml';
     public const PORTMASTER_ALTERNATES_FILE = 'portmaster-alternates.yml';

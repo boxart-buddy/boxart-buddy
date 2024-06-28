@@ -70,6 +70,13 @@ class BootstrapCommand extends Command
             $overwrite
         );
 
+        // rom translations
+        $this->createNewFileFromDist(
+            ApplicationConfigurationProcessor::CONFIG_ROM_TRANSLATIONS,
+            'config/rom_translations.yml.dist',
+            $overwrite
+        );
+
         // platform config bootstrap
         $platformConfig = strtoupper($input->getOption('preset'));
 

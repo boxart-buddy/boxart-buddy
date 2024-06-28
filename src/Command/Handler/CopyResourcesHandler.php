@@ -4,6 +4,7 @@ namespace App\Command\Handler;
 
 use App\Command\CommandInterface;
 use App\Command\CopyResourcesCommand;
+use App\Config\Processor\ApplicationConfigurationProcessor;
 use App\Config\Reader\ConfigReader;
 use App\FolderNames;
 use App\Util\Path;
@@ -106,7 +107,13 @@ readonly class CopyResourcesHandler implements CommandHandlerInterface
             );
         }
 
-        // COPY FROM resources/common
+        // COPY rom translations
+        $filesystem->dumpFile(
+            Path::join($postProcessTemp, ApplicationConfigurationProcessor::CONFIG_ROM_TRANSLATIONS),
+            $filesystem->readFile(
+                $this->path->joinWithBase(FolderNames::USER_CONFIG->value, ApplicationConfigurationProcessor::CONFIG_ROM_TRANSLATIONS)
+            )
+        );
         $finder = new Finder();
 
         $finder->in($this->path->joinWithBase('resources'));
