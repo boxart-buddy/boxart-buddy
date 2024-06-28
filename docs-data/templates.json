@@ -1,0 +1,101 @@
+[
+    {
+        "templateName": "artbook-next",
+        "variantName": "artbook_next_inner",
+        "previewPath": "\/template\/preview\/artbook-next-inner-no-theme.webp",
+        "type": "sibling",
+        "height": "inner",
+        "portmaster": true,
+        "folder": true
+    },
+    {
+        "templateName": "artbook-next",
+        "variantName": "artbook_next_inner_alt",
+        "previewPath": "\/template\/preview\/artbook-next-inner-alt-no-theme.webp",
+        "type": "sibling",
+        "height": "inner",
+        "portmaster": true,
+        "folder": true
+    },
+    {
+        "templateName": "complex-examples",
+        "variantName": "game_logo_scrolling",
+        "previewPath": "\/template\/preview\/game-logo-scrolling-no-theme.webp",
+        "type": "sibling",
+        "height": "full",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "incognitoman-retro-dither",
+        "variantName": "full_height",
+        "previewPath": "\/template\/preview\/incognitoman-retro-dither-no-theme.webp",
+        "type": "standalone",
+        "height": "full",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "incognitoman-retro-dither",
+        "variantName": "inner_height",
+        "previewPath": "\/template\/preview\/incognitoman-retro-dither-inner-no-theme.webp",
+        "type": "standalone",
+        "height": "inner",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "tokumeino-gradients",
+        "variantName": "simple_box_cart",
+        "previewPath": "\/template\/preview\/simple-box-cart-no-theme.webp",
+        "type": "standalone",
+        "height": "partial",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "tokumeino-gradients",
+        "variantName": "simple_box_shadow",
+        "previewPath": "\/template\/preview\/simple-box-shadow-no-theme.webp",
+        "type": "standalone",
+        "height": "partial",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "tokumeino-gradients",
+        "variantName": "full_height_with_game_logo",
+        "previewPath": "\/template\/preview\/full-height-with-game-logo-no-theme.webp",
+        "type": "standalone",
+        "height": "full",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "tokumeino-gradients",
+        "variantName": "full_height_with_game_logo_halftone",
+        "previewPath": "\/template\/preview\/full-height-with-game-logo-halftone-no-theme.webp",
+        "type": "standalone",
+        "height": "full",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "tokumeino-gradients",
+        "variantName": "inner_height_with_game_logo",
+        "previewPath": "\/template\/preview\/inner-height-with-game-logo-no-theme.webp",
+        "type": "standalone",
+        "height": "inner",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "tokumeino-gradients",
+        "variantName": "inner_height_with_game_logo_gray",
+        "previewPath": "\/template\/preview\/inner-height-with-game-logo-gray-no-theme.webp",
+        "type": "standalone",
+        "height": "inner",
+        "portmaster": false,
+        "folder": false
+    }
+]

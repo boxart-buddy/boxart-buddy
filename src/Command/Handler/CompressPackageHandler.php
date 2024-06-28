@@ -37,7 +37,7 @@ readonly class CompressPackageHandler implements CommandHandlerInterface
         $zip = new ZipFile();
 
         try {
-            $zip->addDirRecursive($packagePath, '/', ZipCompressionMethod::DEFLATED)
+            $zip->addDirRecursive($packagePath, '/mnt/mmc/', ZipCompressionMethod::DEFLATED)
                 ->saveAsFile($outPath);
         } catch (ZipException $e) {
             $this->logger->error($e->getMessage());

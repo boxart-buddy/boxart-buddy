@@ -2,11 +2,12 @@
 linkTitle: Installation
 title: Installation
 weight: 1
+breadcrumbs: false
 ---
 
 First [Setup Skyscraper](https://github.com/Gemba/Skyscraper/?tab=readme-ov-file#installation-prerequisites-on-other-systems-or-architectures).
 
-This application runs on PHP 8.2+ and requires a few other extensions to be installed (eg imagemagick, 7zip etc).
+This application runs on PHP 8.2+ and requires a few other packages to be installed.
 
 ## Install Dependencies
 
@@ -19,8 +20,9 @@ brew install php@8.2 composer p7zip imagemagick pkg-config
 pecl install imagick
 ```
 
-Image optimization steps require additional packages to be installed for best
-results. [See here](https://github.com/spatie/image-optimizer?tab=readme-ov-file#optimization-tools)
+Image optimization steps require additional packages to
+be [installed](https://github.com/spatie/image-optimizer?tab=readme-ov-file#optimization-tools) for best
+results.
 
 ```shell
 brew install jpegoptim optipng pngquant

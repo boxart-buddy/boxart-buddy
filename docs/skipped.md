@@ -2,6 +2,7 @@
 linkTitle: Skipped
 title: Skipped Roms
 weight: 5
+breadcrumbs: false
 ---
 
 ### missing.json

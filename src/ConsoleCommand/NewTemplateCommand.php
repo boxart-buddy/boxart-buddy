@@ -8,10 +8,11 @@ use App\Util\Path;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+
+use function Laravel\Prompts\text;
 
 #[AsCommand(
     name: 'new-template',
@@ -28,9 +29,6 @@ class NewTemplateCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->addArgument('template-name', InputArgument::REQUIRED, 'The name of the template folder to create')
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -42,7 +40,8 @@ class NewTemplateCommand extends Command
 
         $folders = ['artwork', 'mapping', 'preview', 'resources', 'resources-post-process', 'tokens'];
 
-        $templateName = $input->getArgument('template-name');
+        $templateName = text('Name of your template');
+
         $templateName = preg_replace('/[^a-z0-9]+/', '-', strtolower($templateName)) ?? 'default';
 
         $base = $this->path->joinWithBase(FolderNames::TEMPLATE->value, $templateName);
@@ -59,9 +58,10 @@ class NewTemplateCommand extends Command
 
         // copy basic artwork.xml and Makefile
         $exampleCommandName = sprintf('%s-example-one', $templateName);
-        $makefileContents = sprintf("%s: ## Describe this recipe\n\tphp bin/console build --artwork=%s:artwork.xml", $exampleCommandName, $templateName);
+        $makefileContents = sprintf("%s:\n  metadata:\n    height: full\n    type: standalone\n  description: 'describe your template'\n  package_name: %s\n  artwork:\n    file: artwork.xml", $exampleCommandName, $exampleCommandName);
+
         $filesystem->appendToFile(
-            Path::join($base, 'Makefile'),
+            Path::join($base, 'make.yml'),
             $makefileContents
         );
 
@@ -72,7 +72,7 @@ class NewTemplateCommand extends Command
 
         $io->done(sprintf('Template folder `%s` created', $templateName));
 
-        $io->help(sprintf('Edit the artwork file at `%s` and run `make %s` to generate artwork', Path::join($templateName, 'artwork', 'artwork.xml'), $exampleCommandName));
+        $io->help(sprintf('Edit the artwork file at `%s` and run `make build` to generate artwork', Path::join($templateName, 'artwork', 'artwork.xml')));
 
         return Command::SUCCESS;
     }

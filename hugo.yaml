@@ -2,8 +2,10 @@
 title: Boxart Buddy
 contentDir: docs
 dataDir: docs-data
+assetDir: docs-assets
 baseURL: https://boxart-buddy.github.io
 
+enableInlineShortcodes: true
 # import hextra as module
 module:
   imports:

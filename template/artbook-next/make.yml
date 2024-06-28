@@ -1,6 +1,9 @@
 artbook-next-inner:
+  metadata:
+    height: inner
+    type: sibling
   description: "dimmed siblings, white system logos, black outline on game logos"
-  package-name: 'artbook-next-inner'
+  package_name: 'artbook-next-inner'
   artwork:
     file: 'masked-screenshot-inner-frame.yml'
     post_process:
@@ -40,6 +43,9 @@ artbook-next-inner:
         namespace: portmaster
 
 artbook-next-inner-alt:
+  metadata:
+    height: inner
+    type: sibling
   description: "greyscale siblings, color system logos, white outline on game logos"
   package_name: 'artbook-next-inner-alt'
   artwork:

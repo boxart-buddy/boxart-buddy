@@ -6,8 +6,10 @@ readonly class TransferCommand implements CommandInterface
 {
     public const NAME = 'transfer';
 
-    public function __construct(public string $packageName)
-    {
+    public function __construct(
+        public string $packageName,
+        public bool $zipped,
+    ) {
     }
 
     public function getName(): string

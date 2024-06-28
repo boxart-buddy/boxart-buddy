@@ -1,0 +1,62 @@
+{{ define "main" }}
+    <div class='hx-mx-auto hx-flex {{ partial "utils/page-width" . }}'>
+        {{ partial "sidebar.html" (dict "context" .) }}
+        <article
+                class="hx-w-full hx-break-words hx-flex hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-justify-center hx-pb-8 hx-pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+            <main class="hx-w-full hx-min-w-0 hx-max-w-6xl hx-px-6 hx-pt-4 md:hx-px-12">
+                {{ partial "breadcrumb.html" . }}
+                <div class="content">
+                    <h1>{{ .Title }}</h1>
+                    {{ .Content }}
+
+                    <table class="table-fixed">
+                        <thead>
+                        <tr>
+                            <th class="w-96"></th>
+                            <th>Template/Variant</th>
+                            <th>{{ partial "icon.html" (dict "name" "folder" "title" "Creates Folder Artwork?") }} </th>
+                            <th>{{ partial "icon.html" (dict "name" "boat" "title" "Creates Portmaster Artwork?") }} </th>
+                            <th><a href="{{ ref . "templates/types" }}">types</a></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        {{ range $templates := .Site.Data.templates }}
+                            <tr>
+                                <td><img class="rounded-none" loading="lazy" src="{{ .previewPath }}"
+                                         alt="{{ .variantName }}"/>
+                                </td>
+                                <td>{{ .templateName }}<br>{{ .variantName }}</td>
+                                <td>
+                                    {{ if .folder }}
+                                        {{ partial "icon.html" (dict "name" "check" "title" "yes") }}
+                                    {{ else }}
+                                        {{ partial "icon.html" (dict "name" "x-mark" "title" "no") }}
+                                    {{ end }}
+                                </td>
+                                <td>
+                                    {{ if .portmaster }}
+                                        {{ partial "icon.html" (dict "name" "check" "title" "yes") }}
+                                    {{ else }}
+                                        {{ partial "icon.html" (dict "name" "x-mark" "title" "no") }}
+                                    {{ end }}
+                                </td>
+                                <td>
+                                    {{ partial "badge.html" (dict "text" .type "title" "type" "color" "green") }}
+                                    {{ partial "badge.html" (dict "text" .height "title" "height" "color" "blue") }}
+                                </td>
+                            </tr>
+                        {{ end }}
+
+                        </tbody>
+                    </table>
+
+                </div>
+                {{ partial "components/last-updated.html" . }}
+                {{ partial "components/pager.html" . }}
+                {{ partial "components/comments.html" . }}
+            </main>
+        </article>
+    </div>
+{{ end }}

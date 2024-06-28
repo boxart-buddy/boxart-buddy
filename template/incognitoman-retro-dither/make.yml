@@ -1,11 +1,17 @@
 full-height:
+  metadata:
+    height: full
+    type: standalone
   description: "Retro dither with Cover artwork card"
-  package-name: 'incognitoman-retro-dither'
+  package_name: 'incognitoman-retro-dither'
   artwork:
     file: 'artwork.xml'
 
 inner-height:
+  metadata:
+    height: inner
+    type: standalone
   description: "Retro dither with Cover artwork card"
-  package-name: 'incognitoman-retro-dither-inner'
+  package_name: 'incognitoman-retro-dither-inner'
   artwork:
     file: 'artwork-inner.xml'

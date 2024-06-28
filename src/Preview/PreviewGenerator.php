@@ -14,6 +14,7 @@ use Intervention\Image\Typography\FontFactory;
 use Monolog\Attribute\WithMonologChannel;
 use PhpZip\Exception\ZipException;
 use Psr\Log\LoggerInterface;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
@@ -77,10 +78,10 @@ readonly class PreviewGenerator
             }
         }
 
-        $delay = 30;
+        $delay = 40;
         $generatedOutPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.'.$this->configReader->getConfig()->animationFormat);
 
-        $generateAnimationCommand = array_merge(array_merge(['magick', '-dispose', '3', '-quality', '75', '-delay', $delay], $gifFrames), ['-loop', 0]);
+        $generateAnimationCommand = array_merge(array_merge(['magick', '-dispose', '3', '-quality', '70', '-delay', $delay], $gifFrames), ['-loop', 0]);
 
         $generateAnimationCommand[] = match ($this->configReader->getConfig()->animationFormat) {
             'webp' => 'WEBP:'.$generatedOutPath,
@@ -98,6 +99,10 @@ readonly class PreviewGenerator
         $this->logger->info($process->getOutput());
 
         $filesystem->remove(Path::join($outFolder, 'gif-frames'));
+
+        // optimize
+        $optimizerChain = OptimizerChainFactory::create();
+        $optimizerChain->optimize($generatedOutPath);
 
         if (!$process->isSuccessful()) {
             throw new \RuntimeException('Error while generating preview. Check `var/log/preview*.log` log file');
@@ -198,7 +203,11 @@ readonly class PreviewGenerator
             ++$i;
         }
 
-        $canvas->save(Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.png'));
+        $outPath = Path::join($outFolder, $previewName.'-'.($theme ?: 'no-theme').'.png');
+        $canvas->save($outPath);
+
+        $optimizerChain = OptimizerChainFactory::create();
+        $optimizerChain->optimize($outPath);
     }
 
     private function addScreenshotsToImage(

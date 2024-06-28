@@ -1,0 +1,7 @@
+{{- $text := .Get "text" -}}
+{{- $title := .Get "title" -}}
+{{- $color := .Get "color" -}}
+
+{{ partial "badge" (dict "text" $text "title" $title "color" $color) }}
+
+

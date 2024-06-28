@@ -2,6 +2,7 @@
 linkTitle: Quickstart
 title: Quickstart
 weight: 2
+breadcrumbs: false
 ---
 
 {{< callout type="info" >}}
@@ -42,7 +43,8 @@ create ```config_platform.yml``` preconfigured for those romsets.
 make scrape
 ```
 
-This will take a while (depending on the number of roms you have).
+This process is **slow** and can take hours depending on number of roms<br>
+This only needs to be done once.
 
 ### Generate
 
@@ -50,9 +52,15 @@ This will take a while (depending on the number of roms you have).
 make build
 ```
 
+{{< callout >}}
+See the [templates gallery]({{< ref "/templates/gallery" >}}) for previews
+{{< /callout >}}
+
 ![Standfirst](images/gif/build.gif)
 
-Completed artwork will be output into ```./package```
+Completed artwork will be output into ```./package```. <br>
+See [templates transfer]({{< ref "/templates/transfer" >}})
+for information on copying to device
 
 {{< callout type="warning" >}}
 After generating, some roms may be skipped due to not being scraped properly.

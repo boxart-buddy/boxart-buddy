@@ -10,6 +10,10 @@ build: ## Build artwork (run this 3rd)
 	php bin/console build-interactive
 scrape-skipped: ## Import skipped roms from the 'missing.json' file
 	php bin/console import-skipped
+build-all: ## Builds every combination of template/variant with default options
+	php bin/console build-all
+new-template:  ## Creates a new template folder, ready for editing
+	php bin/console new-template
 help:
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m  %-70s\033[0m %s\n", $$1, $$2}'
 

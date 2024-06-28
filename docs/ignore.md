@@ -1,6 +1,6 @@
 ---
-linkTitle: Installation
-title: Installation
+linkTitle: ignore
+title: ignore
 weight: 10
 sidebar:
   exclude: true

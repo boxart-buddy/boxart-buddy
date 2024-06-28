@@ -23,7 +23,7 @@ class BlockSectionHelper
     public function __construct(
         readonly private InputInterface $input,
         readonly private OutputInterface $consoleOutput,
-        readonly private LoggerInterface $logger,
+        readonly private ?LoggerInterface $logger = null,
     ) {
     }
 
@@ -45,7 +45,9 @@ class BlockSectionHelper
             $callable();
             $this->done($message, true);
         } catch (\Exception $e) {
-            $this->logger->critical($e->getMessage());
+            if ($this->logger) {
+                $this->logger->critical($e->getMessage());
+            }
             $this->failure(sprintf("$message: %s", $e->getMessage()), true);
             throw $e;
         }
@@ -66,7 +68,9 @@ class BlockSectionHelper
             }
             $this->done($message, true);
         } catch (\Exception $e) {
-            $this->logger->critical($e->getMessage());
+            if ($this->logger) {
+                $this->logger->critical($e->getMessage());
+            }
             $this->failure(sprintf("$message: %s", $e->getMessage()), true);
             throw $e;
         }

@@ -42,7 +42,7 @@ readonly class BuildCommandCollectionFactory
             $buildCommandCollection->setCompressPackageCommand(new CompressPackageCommand($packageName));
         }
         if ($choices->transfer) {
-            $buildCommandCollection->setTransferCommand(new TransferCommand($packageName));
+            $buildCommandCollection->setTransferCommand(new TransferCommand($packageName, $choices->zip));
         }
         if ($config->copyPreviewBackToTemplate) {
             $buildCommandCollection->setCopyBackPreviewCommand(new CopyBackPreviewCommand($packageName, $choices->package));

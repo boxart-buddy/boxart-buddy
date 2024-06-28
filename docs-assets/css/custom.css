@@ -1,0 +1,7 @@
+.cursor-help {
+    cursor: help;
+}
+
+/*thead:has(th:empty) {*/
+/*    display: none;*/
+/*}*/
