@@ -12,8 +12,6 @@ makes a few assumptions:
 1) Folders of roms only contain roms of the same 'platform'.
 2) Each platform has all of its roms in a single folder.
 3) Roms sit at the root of the folder (no subfolders)
-4) Folders should only contain roms. The code filters our some file types (e.g .txt, .md) but it isn't comprehensive. It
-   assumes everything in the folder is something that can be scraped and have artwork generated for it.
 
 Meaning that this tool assumes a simple 1:1 mapping of system and rom type. For example
 
