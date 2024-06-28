@@ -13,6 +13,13 @@ class NamesProvider
     {
     }
 
+    public function getNamesInJsonFormat(): string
+    {
+        $names = $this->getNames();
+
+        return json_encode($names, JSON_THROW_ON_ERROR | JSON_FORCE_OBJECT);
+    }
+
     public function getNamesInIniFormat(): string
     {
         $names = $this->getNames();
@@ -52,14 +59,8 @@ class NamesProvider
             throw new \RuntimeException('Cannot read names');
         }
 
-        $names = json_decode($n, true, 512, JSON_BIGINT_AS_STRING);
-        $namesExtra = json_decode($ne, true, 512, JSON_BIGINT_AS_STRING);
-        if (empty($names)) {
-            throw new \RuntimeException('name.json is invalid');
-        }
-        if (empty($namesExtra)) {
-            throw new \RuntimeException('names_extra.json is invalid');
-        }
+        $names = json_decode($n, true, 512, JSON_THROW_ON_ERROR);
+        $namesExtra = json_decode($ne, true, 512, JSON_THROW_ON_ERROR);
 
         $combined = $names + $namesExtra;
 

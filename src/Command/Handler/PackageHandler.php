@@ -123,6 +123,9 @@ readonly class PackageHandler implements CommandHandlerInterface
         $filesystem = new Filesystem();
         $namePath = Path::join($packageBase, 'MUOS', 'info', 'name.ini');
         $filesystem->appendToFile($namePath, $this->namesProvider->getNamesInIniFormat());
+        // providing both name.ini and name.json to support non refried beans, to remove ini in future
+        $namePath = Path::join($packageBase, 'MUOS', 'info', 'name.json');
+        $filesystem->appendToFile($namePath, $this->namesProvider->getNamesInJsonFormat());
     }
 
     private function addNotes(string $packageBase): void
