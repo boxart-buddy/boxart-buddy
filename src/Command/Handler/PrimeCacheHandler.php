@@ -5,7 +5,6 @@ namespace App\Command\Handler;
 use App\Builder\SkyscraperCommandDirector;
 use App\Command\CommandInterface;
 use App\Command\PrimeCacheCommand;
-use App\Portmaster\PortmasterDataImporter;
 use Monolog\Attribute\WithMonologChannel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Process\Process;
@@ -15,8 +14,7 @@ readonly class PrimeCacheHandler implements CommandHandlerInterface
 {
     public function __construct(
         private LoggerInterface $logger,
-        private SkyscraperCommandDirector $skyscraperCommandDirector,
-        private PortmasterDataImporter $portmasterDataImporter
+        private SkyscraperCommandDirector $skyscraperCommandDirector
     ) {
     }
 
@@ -38,7 +36,5 @@ readonly class PrimeCacheHandler implements CommandHandlerInterface
         if (!$process->isSuccessful()) {
             throw new \RuntimeException('The scraping process failed. Check `var/log/skyscraper*.log` log file');
         }
-
-        $this->portmasterDataImporter->scrapeUsingAlternatesList();
     }
 }

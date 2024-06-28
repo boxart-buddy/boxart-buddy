@@ -5,6 +5,7 @@ namespace App\ConsoleCommand;
 use App\Command\Factory\CommandFactory;
 use App\Command\Handler\CentralHandler;
 use App\Config\Validator\ConfigValidator;
+use App\Portmaster\PortmasterDataImporter;
 use App\Util\Console\BlockSectionHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -26,7 +27,8 @@ class PrimeCacheCommand extends Command
         readonly private CommandFactory $commandFactory,
         readonly private CentralHandler $centralHandler,
         readonly private ConfigValidator $configValidator,
-        readonly private LoggerInterface $logger
+        readonly private LoggerInterface $logger,
+        readonly private PortmasterDataImporter $portmasterDataImporter
     ) {
         parent::__construct();
     }
@@ -59,7 +61,16 @@ class PrimeCacheCommand extends Command
                 $this->centralHandler->handle($command);
             }
 
-            $io->complete('Priming Cache Complete', true);
+            $io->complete('Scraping for platforms complete', true);
+        }
+
+        $io->section('prime-cache-screenscraper-alternates');
+        $io->wait('Scraping for portmaster alternates');
+        try {
+            $this->portmasterDataImporter->scrapeUsingAlternatesList();
+            $io->complete('Scraping for portmaster alternates complete', true);
+        } catch (\Throwable $exception) {
+            $io->failure('Scraping for portmaster alternates failed', true);
         }
 
         return Command::SUCCESS;
