@@ -1,8 +1,48 @@
+artbook-next-full:
+  metadata:
+    height: full
+    type: sibling
+  description: "full height, greycale siblings, white system logos w/ black outline"
+  package_name: 'artbook-next-full'
+  artwork:
+    file: 'masked-screenshot.xml'
+    post_process:
+      offset_with_siblings:
+        offset_x: 150
+        sibling-count: 3
+        loop: true
+        effect: greyscale
+      artwork_generation:
+        artwork: 'artbook-next:wheel-white-stroke.xml'
+        namespace: artwork
+      add_text:
+        mapping: rom-translations.yml
+        font_variant: bold
+        text_bg_opacity: 90
+  folder:
+    file: 'masked-screenshot.xml'
+    post_process:
+      offset_with_siblings:
+        offset_x: 150
+        sibling_count: 3
+        loop: true
+        effect: greyscale
+      artwork_generation:
+        artwork: 'artbook-next:system-logo.xml'
+        namespace: folder
+        token: '{"logo-type":"dark-white"}'
+  portmaster:
+    file: 'masked-screenshot.xml'
+    post_process:
+      artwork_generation:
+        artwork: 'artbook-next:wheel-white-stroke.xml'
+        namespace: portmaster
+
 artbook-next-inner:
   metadata:
     height: inner
     type: sibling
-  description: "dimmed siblings, white system logos, black outline on game logos"
+  description: "dimmed siblings, white system logos, game logos w/ black outline"
   package_name: 'artbook-next-inner'
   artwork:
     file: 'masked-screenshot-inner-frame.yml'
@@ -12,7 +52,6 @@ artbook-next-inner:
         sibling-count: 3
         loop: true
       background:
-        background: bg-black.png
         overlay: overlay-inner-black-50.png
       artwork_generation:
         artwork: 'artbook-next:wheel-white-stroke.xml'
@@ -29,7 +68,6 @@ artbook-next-inner:
         sibling_count: 3
         loop: true
       background:
-        background: bg-black.png
         overlay: overlay-inner-black-50.png
       artwork_generation:
         artwork: 'artbook-next:system-logo.xml'
@@ -46,7 +84,7 @@ artbook-next-inner-alt:
   metadata:
     height: inner
     type: sibling
-  description: "greyscale siblings, color system logos, white outline on game logos"
+  description: "greyscale siblings, color system logos, game logos w/ white outline"
   package_name: 'artbook-next-inner-alt'
   artwork:
     file: 'masked-screenshot-inner-frame.yml'
@@ -56,9 +94,6 @@ artbook-next-inner-alt:
         sibling_count: 3
         loop: true
         effect: greyscale
-      background:
-        background: bg-black.png
-        overlay: overlay-inner-black-50.png
       artwork_generation:
         artwork: 'artbook-next:wheel-black-stroke.xml'
         namespace: artwork
@@ -74,9 +109,6 @@ artbook-next-inner-alt:
         sibling_count: 3
         loop: true
         effect: greyscale
-      background:
-        background: bg-black.png
-        overlay: overlay-inner-black-50.png
       artwork_generation:
         artwork: 'artbook-next:system-logo.xml'
         namespace: folder

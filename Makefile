@@ -23,5 +23,7 @@ help:
 .PHONY: scrape
 .PHONY: scrape-skipped
 .PHONY: build
+.PHONY: build-all
+.PHONY: new-template
 .PHONY: help
 .DEFAULT_GOAL := help

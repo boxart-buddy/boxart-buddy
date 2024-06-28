@@ -1,6 +1,15 @@
 [
     {
         "templateName": "artbook-next",
+        "variantName": "artbook_next_full",
+        "previewPath": "template\/preview\/artbook-next-full-no-theme.webp",
+        "type": "sibling",
+        "height": "full",
+        "portmaster": true,
+        "folder": true
+    },
+    {
+        "templateName": "artbook-next",
         "variantName": "artbook_next_inner",
         "previewPath": "template\/preview\/artbook-next-inner-no-theme.webp",
         "type": "sibling",
