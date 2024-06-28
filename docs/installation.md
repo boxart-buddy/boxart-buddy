@@ -5,7 +5,7 @@ weight: 1
 breadcrumbs: false
 ---
 
-First [Setup Skyscraper](https://github.com/Gemba/Skyscraper/?tab=readme-ov-file#installation-prerequisites-on-other-systems-or-architectures).
+First [Setup Skyscraper](https://github.com/Gemba/Skyscraper/?tab=readme-ov-file#installation-prerequisites-on-other-systems-or-architectures). Make sure you use the [newest fork](https://github.com/Gemba/Skyscraper/)
 
 This application runs on PHP 8.2+ and requires a few other packages to be installed.
 
