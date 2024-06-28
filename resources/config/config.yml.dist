@@ -8,7 +8,7 @@ screenscraper_pass: 'password'
 #skyscraper_config_folder_path: ~
 
 # the name of the romset you are generating against. Is used in naming packages
-#romset_name: custom
+romset_name: custom
 
 #optimize:
 #  enabled: true
