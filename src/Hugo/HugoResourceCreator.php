@@ -61,7 +61,7 @@ class HugoResourceCreator
         array $variant
     ): HugoTemplateDataFixtureEntry {
         $previewName = $variant['package_name'].'-no-theme.webp';
-        $previewPath = sprintf('/template/preview/%s', $previewName);
+        $previewPath = sprintf('template/preview/%s', $previewName);
 
         return new HugoTemplateDataFixtureEntry(
             $templateName,

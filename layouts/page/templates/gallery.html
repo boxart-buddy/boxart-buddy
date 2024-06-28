@@ -24,7 +24,7 @@
 
                         {{ range $templates := .Site.Data.templates }}
                             <tr>
-                                <td><img class="rounded-none" loading="lazy" src="{{ .previewPath }}"
+                                <td><img class="rounded-none" loading="lazy" src="{{ absURL .previewPath  }}"
                                          alt="{{ .variantName }}"/>
                                 </td>
                                 <td>{{ .templateName }}<br>{{ .variantName }}</td>

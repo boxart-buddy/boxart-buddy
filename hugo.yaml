@@ -3,7 +3,7 @@ title: Boxart Buddy
 contentDir: docs
 dataDir: docs-data
 assetDir: docs-assets
-baseURL: https://boxart-buddy.github.io
+baseURL: https://boxart-buddy.github.io/boxart-buddy/
 
 enableInlineShortcodes: true
 # import hextra as module
