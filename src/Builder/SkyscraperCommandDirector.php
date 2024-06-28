@@ -6,6 +6,7 @@ use App\ApplicationConstant;
 use App\Command\CommandNamespace;
 use App\Config\Reader\ConfigReader;
 use App\Provider\PathProvider;
+use App\Skyscraper\RomExtensionProvider;
 use App\Util\Finder;
 use App\Util\Path;
 
@@ -13,7 +14,8 @@ readonly class SkyscraperCommandDirector
 {
     public function __construct(
         private ConfigReader $configReader,
-        private PathProvider $pathProvider
+        private PathProvider $pathProvider,
+        private RomExtensionProvider $romExtensionProvider,
     ) {
     }
 
@@ -134,7 +136,8 @@ readonly class SkyscraperCommandDirector
         $finder->in($folder);
 
         // some allowances for dirty rom folders
-        $finder->files()->notName(ApplicationConstant::EXCLUDE_FROM_ROM_SEARCH);
+        $finder->files();
+        $this->romExtensionProvider->addRomExtensionsToFinder($finder, $platform);
 
         if (!$finder->hasResults()) {
             throw new \RuntimeException(sprintf('Cannot get single ROM from `%s`, no files in this location', $folder));

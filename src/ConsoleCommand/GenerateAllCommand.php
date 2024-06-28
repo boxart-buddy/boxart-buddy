@@ -2,19 +2,14 @@
 
 namespace App\ConsoleCommand;
 
-use App\Command\CommandNamespace;
 use App\Command\Factory\BuildCommandCollectionFromInputFactory;
-use App\Command\Factory\CommandFactory;
 use App\Command\Handler\CentralHandler;
-use App\Config\Reader\ConfigReader;
 use App\Config\Validator\ConfigValidator;
 use App\FolderNames;
-use App\Portmaster\PortmasterDataImporter;
 use App\Provider\PathProvider;
 use App\Util\CommandUtility;
 use App\Util\Console\BlockSectionHelper;
 use App\Util\Path;
-use App\Util\TokenUtility;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -35,13 +30,10 @@ class GenerateAllCommand extends Command
     use PlatformOverviewTrait;
 
     public function __construct(
-        readonly private CommandFactory $commandFactory,
         readonly private CentralHandler $centralHandler,
-        readonly private PortmasterDataImporter $portmasterDataImporter,
         readonly private Path $path,
         readonly private PathProvider $pathProvider,
         readonly private ConfigValidator $configValidator,
-        readonly private ConfigReader $configReader,
         readonly private LoggerInterface $logger,
         readonly private BuildCommandCollectionFromInputFactory $buildCommandCollectionFactory
     ) {
@@ -97,112 +89,6 @@ class GenerateAllCommand extends Command
         return Command::SUCCESS;
     }
 
-    //    private function readSkippedRomReport(BlockSectionHelper $io): void
-    //    {
-    //        // read the skipped rom file and report back to use next steps to take
-    //    }
-
-    //    private function deleteOutputFolder(): void
-    //    {
-    //        $filesystem = new Filesystem();
-    //        $outputFolder = $this->path->joinWithBase(FolderNames::TEMP->value, 'output');
-    //
-    //        if ($filesystem->exists($outputFolder)) {
-    //            $filesystem->remove($outputFolder);
-    //        }
-    //
-    //        $tempArtworkPath = $this->path->joinWithBase(
-    //            FolderNames::TEMP->value,
-    //            'artwork_tmp'
-    //        );
-    //
-    //        if ($filesystem->exists($tempArtworkPath)) {
-    //            $filesystem->remove($tempArtworkPath);
-    //        }
-    //    }
-    //
-    //    private function getPreviewCommands(string $packageName, InputInterface $input): array
-    //    {
-    //        $themes = $input->getOption('preview-theme') ?: [];
-    //
-    //        // get package name
-    //
-    //        return $this->commandFactory->createGeneratePreviewCommands($packageName, $packageName, $themes);
-    //    }
-    //
-    //    private function getArtworkCommands(InputInterface $input): array
-    //    {
-    //        $artwork = $input->getOption('artwork');
-    //        $perRom = $input->getOption('per-rom');
-    //
-    //        if (!$artwork) {
-    //            return [];
-    //        }
-    //
-    //        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
-    //
-    //        return $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
-    //            CommandNamespace::ARTWORK,
-    //            $split['artworkPackage'],
-    //            $split['filename'],
-    //            $this->parseToken($input->getOption('token')),
-    //            true,
-    //            $perRom
-    //        );
-    //    }
-    //
-    //    private function getFolderCommands(InputInterface $input): array
-    //    {
-    //        $artwork = $input->getOption('folder');
-    //        $perRom = $input->getOption('per-rom');
-    //        $addPortmasterPlatform = false;
-    //        if ($input->getOption('portmaster')) {
-    //            $addPortmasterPlatform = true;
-    //        }
-    //
-    //        if (!$artwork) {
-    //            return [];
-    //        }
-    //
-    //        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
-    //
-    //        return $this->commandFactory->createGenerateArtworkCommandsForAllPlatforms(
-    //            CommandNamespace::FOLDER,
-    //            $split['artworkPackage'],
-    //            $split['filename'],
-    //            $this->parseToken($input->getOption('token')),
-    //            false,
-    //            $perRom,
-    //            $addPortmasterPlatform
-    //        );
-    //    }
-    //
-    //    private function getPortmasterCommands(InputInterface $input): array
-    //    {
-    //        $artwork = $input->getOption('portmaster');
-    //
-    //        if (!$artwork) {
-    //            return [];
-    //        }
-    //
-    //        $split = TokenUtility::splitStringIntoArtworkPackageAndFileName($artwork);
-    //
-    //        return $this->commandFactory->createGenerateArtworkCommandForPortmaster(
-    //            $split['artworkPackage'],
-    //            $split['filename'],
-    //            $this->parseToken($input->getOption('token'))
-    //        );
-    //    }
-    //
-    //    private function parseToken(?string $token): array
-    //    {
-    //        if (!$token) {
-    //            return [];
-    //        }
-    //
-    //        return TokenUtility::parseRuntimeTokens($token);
-    //    }
-
     private function writeCommandStringToFile(InputInterface $input): void
     {
         $filesystem = new Filesystem();
@@ -213,10 +99,4 @@ class GenerateAllCommand extends Command
         }
         $filesystem->appendToFile($lastRunCommandFile, $commandString);
     }
-
-    // Gets the template folders being used in current generation, to load tokens and resources etc
-
-    /*
-     * @return string Package name if set, falling back to artwork/folder/portmaster artwork filename if not set
-     */
 }

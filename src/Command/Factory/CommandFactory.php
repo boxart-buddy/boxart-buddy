@@ -11,8 +11,8 @@ use App\Command\OptimizeCommand;
 use App\Command\PostProcessCommand;
 use App\Command\PrimeCacheCommand;
 use App\Config\Reader\ConfigReader;
-use App\Provider\OrderedListProvider;
 use App\Provider\PathProvider;
+use App\Skyscraper\RomExtensionProvider;
 use App\Util\Path;
 use Symfony\Component\Finder\Finder;
 
@@ -20,8 +20,8 @@ readonly class CommandFactory
 {
     public function __construct(
         private ConfigReader $configReader,
-        private OrderedListProvider $orderedListProvider,
-        private PathProvider $pathProvider
+        private PathProvider $pathProvider,
+        private RomExtensionProvider $romExtensionProvider
     ) {
     }
 
@@ -223,7 +223,8 @@ readonly class CommandFactory
             $finder = new Finder();
             // only look at roms one level down in the folder, this may or may not be acceptable to the way people organise roms
             // this is required as the subsequent 'skyscraper' command expects the filename to be at the folder root
-            $finder->in($inFolder)->files()->depth('== 0')->notName(ApplicationConstant::EXCLUDE_FROM_ROM_SEARCH);
+            $finder->in($inFolder)->files()->depth('== 0');
+            $this->romExtensionProvider->addRomExtensionsToFinder($finder, $platform);
 
             foreach ($finder as $file) {
                 $commands[] = new GenerateArtworkCommand(

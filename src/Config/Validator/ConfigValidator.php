@@ -5,14 +5,17 @@ namespace App\Config\Validator;
 use App\Config\InvalidConfigException;
 use App\Config\Reader\ConfigReader;
 use App\FolderNames;
+use App\Skyscraper\RomExtensionProvider;
 use App\Util\Path;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 class ConfigValidator
 {
-    public function __construct(private ConfigReader $configReader)
-    {
+    public function __construct(
+        private ConfigReader $configReader,
+        private RomExtensionProvider $romExtensionProvider
+    ) {
     }
 
     /**
@@ -53,6 +56,7 @@ class ConfigValidator
         foreach ($platforms as $platform => $folder) {
             $finder = new Finder();
             $finder->in(Path::join($romFolder, $folder))->files();
+            $this->romExtensionProvider->addRomExtensionsToFinder($finder, $platform);
             $count = count($finder);
             $report[$platform] = [
                 'folder' => $folder,
