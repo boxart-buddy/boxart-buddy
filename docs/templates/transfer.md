@@ -44,7 +44,7 @@ You need to copy the 'MUOS' folder and all its contents to the **root** of your 
 BE AWARE that you don't want to **overwrite** the MUOS folder, but **merge**. This is the default behaviour on
 windows, but on macOS you need to make sure you click 'merge' and not 'replace' in the following dialog
 
-<div ><img class="w-96" src="/images/merge.png"/>
+<div ><img class="w-96" src="images/merge.png"/>
 </div>
 
 ### Transfer
