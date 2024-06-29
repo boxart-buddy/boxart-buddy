@@ -142,7 +142,7 @@ class PortmasterDataImporter
                 $output = $process->getOutput();
                 $this->logger->info($output);
                 if (!$process->isSuccessful()) {
-                    $this->logger->error('Importing alternate data for portmaster failed');
+                    $this->logger->error(sprintf('Importing alternate data for single portmaster entry %s failed', $game));
                 }
             } catch (\Exception $e) {
                 $this->logger->error($e->getMessage());
