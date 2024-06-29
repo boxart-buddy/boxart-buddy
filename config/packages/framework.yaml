@@ -1,16 +1,22 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
-    secret: '%env(APP_SECRET)%'
-    #csrf_protection: true
+  secret: '%env(APP_SECRET)%'
+  #csrf_protection: true
 
-    # Note that the session will be started ONLY if you read or write from it.
-    session: true
+  # Note that the session will be started ONLY if you read or write from it.
+  session: true
 
-    #esi: true
-    #fragments: true
+  #esi: true
+  #fragments: true
+  http_client:
+    retry_failed:
+      http_codes: [ 401, 403, 423, 425, 429, 500, 502, 503, 504, 507, 510 ]
+      max_retries: 5
+      delay: 5000
+      multiplier: 3
 
 when@test:
-    framework:
-        test: true
-        session:
-            storage_factory_id: session.storage.factory.mock_file
+  framework:
+    test: true
+    session:
+      storage_factory_id: session.storage.factory.mock_file

@@ -266,10 +266,15 @@ class PortmasterDataImporter
         $filesystem = new Filesystem();
         $portDataUrl = 'https://raw.githubusercontent.com/PortsMaster/PortMaster-Info/master/ports.json';
 
-        $response = $this->client->request(
-            'GET',
-            $portDataUrl
-        );
+        try {
+            $response = $this->client->request(
+                'GET',
+                $portDataUrl
+            );
+        } catch (ClientExceptionInterface $exception) {
+            $this->logger->critical($exception->getMessage());
+            throw new \RuntimeException('There was a problem downloading information from portmaster github, you might want to run this command again later or check log output to see what the issue was. You can continue generate without portmaster data and add it later on.');
+        }
 
         $metaFilePath = $this->path->joinWithBase(FolderNames::TEMP->value, 'portmaster', 'ports.json');
 
@@ -407,10 +412,15 @@ class PortmasterDataImporter
     {
         $apiUrl = 'https://api.github.com/repos/PortsMaster/PortMaster-New/releases/latest';
 
-        $response = $this->client->request(
-            'GET',
-            $apiUrl
-        );
+        try {
+            $response = $this->client->request(
+                'GET',
+                $apiUrl
+            );
+        } catch (ClientExceptionInterface $exception) {
+            $this->logger->critical($exception->getMessage());
+            throw new \RuntimeException('There was a problem downloading information from portmaster github, you might want to run this command again later or check log output to see what the issue was. You can continue generate without portmaster data and add it later on.');
+        }
 
         $data = $response->toArray();
 
