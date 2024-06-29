@@ -8,12 +8,12 @@ framework:
 
   #esi: true
   #fragments: true
-  http_client:
-    retry_failed:
-      http_codes: [ 401, 403, 423, 425, 429, 500, 502, 503, 504, 507, 510 ]
-      max_retries: 5
-      delay: 5000
-      multiplier: 3
+#  http_client:
+#    retry_failed:
+#      http_codes: [ 401, 403, 423, 425, 429, 500, 502, 503, 504, 507, 510 ]
+#      max_retries: 5
+#      delay: 5000
+#      multiplier: 3
 
 when@test:
   framework:
