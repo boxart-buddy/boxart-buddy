@@ -15,6 +15,10 @@ cartwheel-right:
         circle_radius: 260
         loop: true
         opacity: 0.3
+      counter:
+        position: right
+        offset_y: -20
+        font_family: KarenFat
 
 cartwheel-left:
   metadata:
