@@ -1,0 +1,57 @@
+cartwheel-right:
+  metadata:
+    height: partial
+    type: sibling
+  description: 'A wheel of carts right aligned'
+  package_name: cartwheel-right
+  artwork:
+    file: artwork.xml
+    post-process:
+      offset_with_siblings:
+        offset_x: 80
+        scale: 0.4
+        sibling-count: 4
+        circle: half-circle-right
+        circle_radius: 260
+        loop: true
+        opacity: 0.3
+
+cartwheel-left:
+  metadata:
+    height: partial
+    type: sibling
+  description: 'A wheel of carts left aligned, w/ greyscale effect'
+  package_name: cartwheel-left
+  artwork:
+    file: artwork.xml
+    post-process:
+      offset_with_siblings:
+        offset_x: -80
+        scale: 0.6
+        sibling-count: 4
+        circle: half-circle-left
+        circle_radius: 260
+        loop: true
+        opacity: 0.8
+        effect: greyscale
+
+cartwheel-right-game-logo:
+  metadata:
+    height: partial
+    type: sibling
+  description: 'A wheel of carts right aligned, w/ game logo'
+  package_name: cartwheel-right-game-logo
+  artwork:
+    file: artwork.xml
+    post-process:
+      offset_with_siblings:
+        offset_x: 50
+        scale: 0.6
+        sibling-count: 4
+        circle: half-circle-right
+        circle_radius: 260
+        loop: true
+        opacity: 0.5
+      artwork_generation:
+        artwork: 'cartwheel:wheel-right.xml'
+        namespace: artwork

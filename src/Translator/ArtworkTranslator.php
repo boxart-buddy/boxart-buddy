@@ -19,7 +19,8 @@ class ArtworkTranslator
     private FuzzyMatchingTranslator $translator;
 
     public function __construct(
-        readonly private LoggerInterface $logger
+        readonly private LoggerInterface $logger,
+        readonly private Path $path
     ) {
         $this->translator = new FuzzyMatchingTranslator('default');
         $this->translator->setFallbackLocales(['default']);
@@ -37,10 +38,21 @@ class ArtworkTranslator
         $tokenPath = dirname($artwork->absoluteFilepath, 2);
         // setup and load translations
         $finder = new Finder();
-
         $finder->in(Path::join($tokenPath, 'tokens'));
         $finder->files()->name('*.yml');
+        $this->loadFoundTranslations($finder);
 
+        // load ones from common
+        $finder = new Finder();
+        $finder->in($this->path->joinWithBase('resources', 'common', 'tokens'));
+        $finder->files()->name('*.yml');
+        $this->loadFoundTranslations($finder);
+
+        $this->translationAddedForArtwork[$artwork->absoluteFilepath] = true;
+    }
+
+    private function loadFoundTranslations(Finder $finder): void
+    {
         foreach ($finder as $file) {
             $translationData = Yaml::parseFile($file->getRealPath());
             // assume yml file is keyed by platform
@@ -54,8 +66,6 @@ class ArtworkTranslator
                 );
             }
         }
-
-        $this->translationAddedForArtwork[$artwork->absoluteFilepath] = true;
     }
 
     public function addRuntimeTranslationTokens(array $tokens): void

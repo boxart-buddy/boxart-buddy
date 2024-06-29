@@ -8,6 +8,7 @@ class OverlayArtworkGenerationPostProcessOptions implements PostProcessOptionsIn
     public const ARTWORK = 'artwork';
     public const NAMESPACE = 'namespace';
     public const TOKEN = 'token';
+    public const LAYER = 'layer';
 
     public static function getOptions(): array
     {
@@ -29,6 +30,12 @@ class OverlayArtworkGenerationPostProcessOptions implements PostProcessOptionsIn
             null,
             '',
             'A token string to be used to translate artwork tokens',
+        );
+        $options[] = new PostProcessOption(
+            self::LAYER,
+            ['top', 'bottom'],
+            'top',
+            'Layer the option on top or underneath',
         );
 
         return $options;

@@ -28,7 +28,7 @@ class BuildAllCommand extends Command
         readonly private BuildCommandCollectionFactory $buildCommandCollectionFactory,
         readonly private CentralHandler $centralHandler,
         readonly private LoggerInterface $logger,
-        readonly private ConfigValidator $configValidator,
+        readonly private ConfigValidator $configValidator
     ) {
         parent::__construct();
     }

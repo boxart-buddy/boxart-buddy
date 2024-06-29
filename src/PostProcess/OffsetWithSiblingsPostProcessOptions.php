@@ -11,7 +11,10 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
     public const SIBLING_COUNT = 'sibling_count';
     public const SCALE = 'scale';
     public const EFFECT = 'effect';
+    public const OPACITY = 'opacity';
     public const LOOP = 'loop';
+    public const CIRCLE = 'circle';
+    public const CIRCLE_RADIUS = 'circle_radius';
 
     public static function getOptions(): array
     {
@@ -38,7 +41,7 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
             self::SCALE,
             null,
             null,
-            'Scale parameter will resize siblings using a logarithmic scale. A float between 0-1 (e.g 0.8)',
+            'Scale parameter will resize siblings using a logarithmic scale. A float between 0-1 (e.g 0.8), the last sibling will be scaled to this size',
             false
         );
         $options[] = new PostProcessOption(
@@ -50,10 +53,31 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
             true
         );
         $options[] = new PostProcessOption(
+            self::OPACITY,
+            null,
+            null,
+            'Opacity parameter will make siblings transparent using a logarithmic scale. A float between 0-1 (e.g 0.8), the last sibling will be this percent transparent',
+            false
+        );
+        $options[] = new PostProcessOption(
             self::LOOP,
             ['true'],
             'false',
             'If set to true then first and last sibling will be amended to show a loop (rather than blanks)',
+            false
+        );
+        $options[] = new PostProcessOption(
+            self::CIRCLE,
+            ['half-circle-left', 'half-circle-right', 'half-circle-top', 'half-circle-bottom'],
+            null,
+            'The amount of rotation of the final sibling',
+            false
+        );
+        $options[] = new PostProcessOption(
+            self::CIRCLE_RADIUS,
+            null,
+            320,
+            'The radius of the circle. Only used if `circle` is set',
             false
         );
 

@@ -69,8 +69,6 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
         }
 
         // add first/last siblings to allow looping type display
-        // wrong type (=== 'true') intentional
-
         if (isset($options[OffsetWithSiblingsPostProcessOptions::LOOP]) && true === $options[OffsetWithSiblingsPostProcessOptions::LOOP]) {
             for ($x = 0; $x < $totalSiblingCount; ++$x) {
                 $worksetKey = (int) $siblingsAmount - $x;
@@ -117,6 +115,8 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
             $siblings = $this->reorderArrayOutToIn($set);
             $originalImage = array_pop($siblings);
 
+            $circle = $options[OffsetWithSiblingsPostProcessOptions::CIRCLE];
+
             foreach ($siblings as $siblingKey => $sibling) {
                 if (null === $sibling) {
                     continue;
@@ -132,7 +132,8 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
                 $scale = $options[OffsetWithSiblingsPostProcessOptions::SCALE] ?? null;
 
                 if ($scale) {
-                    $targetWidth = $this->getTargetWidth($canvasX, $scale, $offsetIndex, (float) $totalSiblingCount);
+                    $targetWidth = $this->getScaledValue($canvasX, $scale, $siblingsAmount, $offsetIndex);
+
                     $siblingImage->scaleDown(width: $targetWidth);
                     $totalOffsetY = $this->getTargetOffset(
                         $options[OffsetWithSiblingsPostProcessOptions::OFFSET_Y], $scale, $offsetIndex, $totalSiblingCount
@@ -142,7 +143,24 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
                     );
                 }
 
+                if ($circle) {
+                    $xy = $this->calculateRelativeCircleCoordinates(
+                        $circle,
+                        $options[OffsetWithSiblingsPostProcessOptions::CIRCLE_RADIUS],
+                        $offsetIndex,
+                        $siblingsAmount
+                    );
+                    $r = round((90 / $siblingsAmount) * $offsetIndex);
+
+                    // adding the offset option will offset the entire 'wheel'
+                    $totalOffsetX = $xy['x'] + (int) $options[OffsetWithSiblingsPostProcessOptions::OFFSET_X];
+                    $totalOffsetY = $xy['y'] + (int) $options[OffsetWithSiblingsPostProcessOptions::OFFSET_Y];
+
+                    $siblingImage->core()->native()->rotateImage(new \ImagickPixel('#00000000'), $r);
+                }
+
                 $effects = $options[OffsetWithSiblingsPostProcessOptions::EFFECT] ?? null;
+
                 if ($effects) {
                     foreach ($effects as $effect) {
                         $siblingImage = match ($effect) {
@@ -154,6 +172,16 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
                     }
                 }
 
+                $opacity = $options[OffsetWithSiblingsPostProcessOptions::OPACITY] ?? null;
+                if ($opacity) {
+                    $targetOpacity = $this->getScaledValue(100, $opacity, $siblingsAmount, $offsetIndex);
+                    $canvas->core()->native()->evaluateImage(
+                        \Imagick::EVALUATE_MULTIPLY,
+                        $targetOpacity / 100,
+                        \Imagick::CHANNEL_ALPHA
+                    );
+                }
+
                 $canvas->place(
                     $siblingImage,
                     'center',
@@ -163,7 +191,19 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
             }
 
             // insert the original 'middle' image on top
-            $canvas->place($originalImage);
+            if (!$circle) {
+                $canvas->place($originalImage);
+            }
+
+            // if circle then the central image can also be offset
+            if ($circle) {
+                $canvas->place(
+                    $originalImage,
+                    'top-left',
+                    (int) $options[OffsetWithSiblingsPostProcessOptions::OFFSET_X],
+                    (int) $options[OffsetWithSiblingsPostProcessOptions::OFFSET_Y]
+                );
+            }
 
             $canvas->save($this->getSavePath($originalImage));
         }
@@ -171,12 +211,64 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
         $this->mirrorTemporaryFolderIfRequired($target);
     }
 
-    private function getTargetWidth(int $originalWidth, float $scale, int $offsetIndex, float $logScale): int
+    public function calculateRelativeCircleCoordinates(string $layout, int $radius, int $index, int $siblingAmount): array
     {
-        $diff = (int) floor($originalWidth - ($originalWidth * $scale));
-        $mult = log(abs($offsetIndex), $logScale);
+        // only works with half circles
+        $t = 90 / $siblingAmount;
 
-        return (int) max(round($originalWidth - ($diff + ($diff * $mult))), 40);
+        $circleCentreX = 0;
+        $circleCentreY = 0;
+        $t = $t * $index;
+
+        switch ($layout) {
+            case 'half-circle-right':
+                $t = $t + 180;
+                break;
+            case 'half-circle-top':
+                $t = $t + 90;
+                break;
+            case 'half-circle-bottom':
+                $t = $t + 270;
+                break;
+        }
+
+        $x = $radius * cos(deg2rad($t)) + $circleCentreX;
+        $y = $radius * sin(deg2rad($t)) + $circleCentreY;
+
+        switch ($layout) {
+            case 'half-circle-right':
+                $x = $x + $radius;
+                break;
+            case 'half-circle-top':
+                $y = $y - $radius;
+                break;
+            case 'half-circle-bottom':
+                $y = $y + $radius;
+                break;
+            case 'half-circle-left':
+                $x = $x - $radius;
+                break;
+        }
+
+        return [
+            'x' => round($x),
+            'y' => round($y),
+        ];
+    }
+
+    private function getScaledValue(int $start, float $multipler, int $numSteps, int $currentStep): int
+    {
+        // Calculate the logarithmic step factor
+        $logFactor = log(($multipler * $start) / $start) / $numSteps;
+
+        // Generate each step based on the logarithmic scale
+        for ($i = 0; $i <= $numSteps; ++$i) {
+            if (abs($currentStep) === $i) {
+                return (int) round($start * exp($logFactor * $i));
+            }
+        }
+
+        throw new \LogicException();
     }
 
     private function getTargetOffset(int $offset, float $scale, int $offsetIndex, float $logScale): int

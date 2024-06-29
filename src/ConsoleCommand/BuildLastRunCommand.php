@@ -6,7 +6,6 @@ use App\Command\Factory\BuildCommandCollectionFactory;
 use App\Command\Handler\CentralHandler;
 use App\Config\Validator\ConfigValidator;
 use App\ConsoleCommand\Interactive\PromptChoices;
-use App\ConsoleCommand\Interactive\PromptOptionsGenerator;
 use App\FolderNames;
 use App\Provider\PathProvider;
 use App\Util\CommandUtility;
@@ -18,27 +17,25 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 
-use function Laravel\Prompts\multiselect;
-use function Laravel\Prompts\select;
-
 #[AsCommand(
-    name: 'build-interactive',
+    name: 'build-last-run',
     description: 'Build artwork by answering questions on the command prompt',
 )]
-class BuildInteractiveCommand extends Command
+class BuildLastRunCommand extends Command
 {
     use PlatformOverviewTrait;
 
     public function __construct(
-        readonly private PromptOptionsGenerator $promptOptionsGenerator,
         readonly private BuildCommandCollectionFactory $buildCommandCollectionFactory,
         readonly private CentralHandler $centralHandler,
         readonly private LoggerInterface $logger,
         readonly private ConfigValidator $configValidator,
+        readonly private Path $path,
         readonly private PathProvider $pathProvider,
-        readonly private Path $path
+        readonly private SerializerInterface $serializer,
     ) {
         parent::__construct();
     }
@@ -54,47 +51,17 @@ class BuildInteractiveCommand extends Command
         $this->printPlatformOverview($io, $this->configValidator);
         $stopwatch = (new Stopwatch())->start('all');
 
-        $options = $this->promptOptionsGenerator->generate();
+        $filesystem = new Filesystem();
+        $lastRunChoicesFile = $this->path->joinWithBase(FolderNames::TEMP->value, 'LASTRUNCHOICES.json');
 
-        // yml to option parser
-        $package = (string) select(
-            'Select Template',
-            $options->getPackages(),
-        );
-
-        $variant = (string) select(
-            'Select Variant',
-            $options->getVariants($package),
-        );
-
-        $optionChoices = multiselect(
-            'Select Options (spacebar to select, enter to confirm)',
-            $options->getOptions($package, $variant),
-            $options->getOptionDefaults($package, $variant),
-        );
-
-        $artwork = $folder = $portmaster = $zip = $transfer = false;
-
-        foreach ($optionChoices as $o) {
-            if ('artwork' === $o) {
-                $artwork = true;
-            }
-            if ('folder' === $o) {
-                $folder = true;
-            }
-            if ('portmaster' === $o) {
-                $portmaster = true;
-            }
-            if ('zip' === $o) {
-                $zip = true;
-            }
-            if ('transfer' === $o) {
-                $transfer = true;
-            }
+        if (!$filesystem->exists($lastRunChoicesFile)) {
+            $io->failure('LASTRUNCHOICES.json does not exist, you need to run `make build` at least once');
         }
 
-        $choices = new PromptChoices($package, $variant, $artwork, $folder, $portmaster, $zip, $transfer);
-        $this->writeChoicesToFile($choices);
+        $choices = $this->serializer->deserialize($filesystem->readFile($lastRunChoicesFile), PromptChoices::class, 'json');
+
+        $io->section('build-choices');
+        $io->help("Building with last run choices:\n\n".$choices->prettyPrint());
 
         $buildCommandCollection = $this->buildCommandCollectionFactory->create($choices);
         $this->centralHandler->handleBuildCommandCollection($buildCommandCollection);
@@ -107,12 +74,5 @@ class BuildInteractiveCommand extends Command
         $io->complete(sprintf("Build complete in %s\n\n(Package Size %s): %s", CommandUtility::formatStopwatchEvent($event), $size, $packageRoot));
 
         return Command::SUCCESS;
-    }
-
-    private function writeChoicesToFile(PromptChoices $choices): void
-    {
-        $filesystem = new Filesystem();
-        $lastRunChoicesFile = $this->path->joinWithBase(FolderNames::TEMP->value, 'LASTRUNCHOICES.json');
-        $filesystem->dumpFile($lastRunChoicesFile, json_encode($choices));
     }
 }

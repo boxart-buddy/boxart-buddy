@@ -12,6 +12,8 @@ scrape-skipped: ## Import skipped roms from the 'missing.json' file
 	php bin/console import-skipped
 build-all: ## Builds every combination of template/variant with default options
 	php bin/console build-all
+build-last: ## Builds using the last set of choices you made in the builder
+	php bin/console build-last-run
 new-template:  ## Creates a new template folder, ready for editing
 	php bin/console new-template
 help:

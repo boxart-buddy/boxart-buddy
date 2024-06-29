@@ -147,8 +147,6 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
             $canvasY = 480;
             $canvas = $manager->create($canvasX, $canvasY);
 
-            $canvas->place($originalFilePath);
-
             $finder = new Finder();
             $finder->in($generatedFolder);
             $pattern = '#/covers/#';
@@ -187,9 +185,19 @@ class OverlayArtworkGenerationPostProcess implements PostProcessInterface
             $file = $finder->first();
             $generatedImagePath = $file->getRealPath();
 
-            // insert the generated image on top
-            $generatedImage = $manager->read($generatedImagePath);
-            $canvas->place($generatedImage);
+            $layer = $options[OverlayArtworkGenerationPostProcessOptions::LAYER];
+
+            if ('bottom' === $layer) {
+                $generatedImage = $manager->read($generatedImagePath);
+                $canvas->place($generatedImage);
+            }
+
+            $canvas->place($originalFilePath);
+
+            if ('top' === $layer) {
+                $generatedImage = $manager->read($generatedImagePath);
+                $canvas->place($generatedImage);
+            }
 
             // save to original location
             $canvas->save($this->getSavePath($originalFilePath));

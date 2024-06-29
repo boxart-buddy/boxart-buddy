@@ -1,4 +1,6 @@
 #some wheels have outlines that don't suit the default stroke treatment, this file allows adjustments
+'n64':
+  "Star Wars Episode I*": '#000000'
 'snes':
   'ActRaiser*': '#000000'
   'American Tail*': '#000000'
