@@ -13,6 +13,9 @@ readonly class CounterPostProcessOptions implements PostProcessOptionsInterface
     public const TEXT_COLOR = 'color';
     public const TEXT_FONT_FAMILY = 'font_family';
     public const TEXT_FONT_VARIANT = 'font_variant';
+    public const SCALE = 'scale';
+
+    public const BACKGROUND = 'background';
 
     public static function getOptions(): array
     {
@@ -61,6 +64,18 @@ readonly class CounterPostProcessOptions implements PostProcessOptionsInterface
             null,
             0,
             'The number of pixels to offset on the Y axis',
+        );
+        $options[] = new PostProcessOption(
+            self::SCALE,
+            null,
+            1,
+            'Rescale the size of the counter by this factor',
+        );
+        $options[] = new PostProcessOption(
+            self::BACKGROUND,
+            [true, false],
+            false,
+            'If set to true, will render a circular background behind the counter',
         );
 
         return $options;

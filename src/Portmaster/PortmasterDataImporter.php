@@ -126,11 +126,11 @@ class PortmasterDataImporter
                 continue;
             }
 
-            $command = $this->skyscraperCommandDirector->getScrapeCommandForSingleRomWithQuery(
+            $command = $this->skyscraperCommandDirector->getScrapeCommandForSingleRom(
                 $data['platform'],
                 sprintf('%s.zip', $game),
+                true,
                 $queryString,
-                true
             );
 
             $process = new Process($command);

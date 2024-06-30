@@ -124,6 +124,14 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
 
                 $offsetIndex = (int) ($siblingKey - $middleKey);
 
+                // skip this sibling if render behind or ahead is chosen
+                if ($offsetIndex < 0 && 'ahead' === $options[OffsetWithSiblingsPostProcessOptions::RENDER]) {
+                    continue;
+                }
+                if ($offsetIndex > 0 && 'behind' === $options[OffsetWithSiblingsPostProcessOptions::RENDER]) {
+                    continue;
+                }
+
                 $siblingImage = $manager->read($sibling);
 
                 $totalOffsetY = $options[OffsetWithSiblingsPostProcessOptions::OFFSET_Y] * $offsetIndex;

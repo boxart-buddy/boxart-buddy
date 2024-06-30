@@ -91,11 +91,14 @@ readonly class BuildCommandCollectionFactory
         // post processing
 
         if (isset($makeVariant['artwork']['post_process']) && $choices->artwork) {
-            foreach ($makeVariant['artwork']['post_process'] as $postProcessName => $postProcessOptions) {
+            foreach ($makeVariant['artwork']['post_process'] as $postProcessOptions) {
+                if (!isset($postProcessOptions['strategy'])) {
+                    throw new \InvalidArgumentException('strategy key is required on post processing node');
+                }
                 $buildCommandCollection->addPostProcessCommands(
                     $this->commandFactory->createPostProcessCommands(
                         $packageName,
-                        $postProcessName,
+                        $postProcessOptions['strategy'],
                         CommandNamespace::ARTWORK->value,
                         $postProcessOptions,
                     )
@@ -104,11 +107,14 @@ readonly class BuildCommandCollectionFactory
         }
 
         if (isset($makeVariant['folder']['post_process']) && $choices->folder) {
-            foreach ($makeVariant['folder']['post_process'] as $postProcessName => $postProcessOptions) {
+            foreach ($makeVariant['folder']['post_process'] as $postProcessOptions) {
+                if (!isset($postProcessOptions['strategy'])) {
+                    throw new \InvalidArgumentException('strategy key is required on post processing node');
+                }
                 $buildCommandCollection->addPostProcessCommands(
                     $this->commandFactory->createPostProcessCommands(
                         $packageName,
-                        $postProcessName,
+                        $postProcessOptions['strategy'],
                         CommandNamespace::FOLDER->value,
                         $postProcessOptions,
                     )
@@ -117,11 +123,14 @@ readonly class BuildCommandCollectionFactory
         }
 
         if (isset($makeVariant['portmaster']['post_process']) && $choices->portmaster) {
-            foreach ($makeVariant['portmaster']['post_process'] as $postProcessName => $postProcessOptions) {
+            foreach ($makeVariant['portmaster']['post_process'] as $postProcessOptions) {
+                if (!isset($postProcessOptions['strategy'])) {
+                    throw new \InvalidArgumentException('strategy key is required on post processing node');
+                }
                 $buildCommandCollection->addPostProcessCommands(
                     $this->commandFactory->createPostProcessCommands(
                         $packageName,
-                        $postProcessName,
+                        $postProcessOptions['strategy'],
                         CommandNamespace::PORTMASTER->value,
                         $postProcessOptions,
                     )

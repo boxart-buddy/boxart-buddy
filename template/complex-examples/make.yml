@@ -2,21 +2,21 @@ game-logo-scrolling:
   metadata:
     height: full
     type: sibling
+    interface: 'full+front'
   description: "Game logos with scrollbar"
   package_name: 'game-logo-scrolling'
   artwork:
     file: 'large_game_logo_central.xml'
     post_process:
-      offset_with_siblings:
+      - strategy: offset_with_siblings
         offset_y: 90
         scale: 0.6
         sibling_count: 3
         effect: greyscale
-        #        effect: blur
         loop: true
-      vertical_scrollbar:
+      - strategy: vertical_scrollbar
         position: right
         opacity: 60
-      background:
+      - strategy: background
         background: 'background/muos_classic.png'
 

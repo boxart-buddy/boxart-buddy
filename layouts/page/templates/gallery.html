@@ -24,29 +24,39 @@
 
                         {{ range $templates := .Site.Data.templates }}
                             <tr id="template-{{ .templateName }}-{{ .variantName }}">
-                                <td><img class="rounded-none" loading="lazy" src="{{ absURL .previewPath  }}"
+                                <td {{ if ne .notes "" }} rowspan="1" {{ else }} rowspan="2" {{ end }}>
+                                    <img class="rounded-none" loading="lazy"
+                                         src="{{ absURL .previewPath  }}"
                                          alt="{{ .variantName }}"/>
                                 </td>
-                                <td>{{ .templateName }}<br>{{ .variantName }}</td>
-                                <td>
+                                <td {{ if ne .notes "" }} rowspan="1" {{ else }} rowspan="2" {{ end }}>{{ .templateName }}
+                                    <br>{{ .variantName }}</td>
+                                <td {{ if ne .notes "" }} rowspan="1" {{ else }} rowspan="2" {{ end }}>
                                     {{ if .folder }}
-                                        {{ partial "icon.html" (dict "name" "check" "title" "yes") }}
+                                        {{ partial "icon.html" (dict "name" "check" "title" "yes" "attributes" "color=green") }}
                                     {{ else }}
-                                        {{ partial "icon.html" (dict "name" "x-mark" "title" "no") }}
+                                        {{ partial "icon.html" (dict "name" "x-mark" "title" "no" "attributes" "color=red") }}
                                     {{ end }}
                                 </td>
-                                <td>
+                                <td {{ if ne .notes "" }} rowspan="1" {{ else }} rowspan="2" {{ end }}>
                                     {{ if .portmaster }}
-                                        {{ partial "icon.html" (dict "name" "check" "title" "yes") }}
+                                        {{ partial "icon.html" (dict "name" "check" "title" "yes" "attributes" "color=green") }}
                                     {{ else }}
-                                        {{ partial "icon.html" (dict "name" "x-mark" "title" "no") }}
+                                        {{ partial "icon.html" (dict "name" "x-mark" "title" "no" "attributes" "color=red") }}
                                     {{ end }}
                                 </td>
-                                <td>
+                                <td {{ if ne .notes "" }} rowspan="1" {{ else }} rowspan="2" {{ end }}>
                                     {{ partial "badge.html" (dict "text" .type "title" "type" "color" "green") }}
                                     {{ partial "badge.html" (dict "text" .height "title" "height" "color" "blue") }}
+                                    {{ partial "badge.html" (dict "text" .interface "title" "interface" "color" "yellow") }}
                                 </td>
                             </tr>
+                            <tr>
+                                {{ if ne .notes "" }}
+                                    <td colspan="5">{{ .notes }}</td>
+                                {{ end }}
+                            </tr>
+
                         {{ end }}
 
                         </tbody>

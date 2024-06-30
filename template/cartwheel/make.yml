@@ -1,61 +1,86 @@
-cartwheel-right:
+cartwheel-right-counter:
   metadata:
-    height: partial
+    height: full
     type: sibling
-  description: 'A wheel of carts right aligned'
-  package_name: cartwheel-right
+    interface: 'full+behind'
+  description: 'A wheel of carts right aligned w/ counter'
+  package_name: cartwheel-right-counter
+  notes: 'lots of roms dont have carts, so this variant wont work well for large romsets and certain platforms'
   artwork:
-    file: artwork.xml
-    post-process:
-      offset_with_siblings:
+    file: texture.xml
+    post_process:
+      - strategy: offset_with_siblings
         offset_x: 80
-        scale: 0.4
+        scale: 0.7
         sibling-count: 4
         circle: half-circle-right
         circle_radius: 260
         loop: true
-        opacity: 0.3
-      counter:
-        position: right
-        offset_y: -20
-        font_family: KarenFat
-
-cartwheel-left:
-  metadata:
-    height: partial
-    type: sibling
-  description: 'A wheel of carts left aligned, w/ greyscale effect'
-  package_name: cartwheel-left
-  artwork:
-    file: artwork.xml
-    post-process:
-      offset_with_siblings:
-        offset_x: -80
-        scale: 0.6
-        sibling-count: 4
-        circle: half-circle-left
-        circle_radius: 260
-        loop: true
-        opacity: 0.8
         effect: greyscale
+      - strategy: counter
+        position: right
+        offset_y: 10
+        background: true
+        color: white
+        font_family: roboto
+        font_variant: black
+        scale: 0.8
+      - strategy: artwork_generation
+        artwork: 'cartwheel:screenshot-right.xml'
+        namespace: artwork
+        layer: bottom
 
 cartwheel-right-game-logo:
   metadata:
-    height: partial
+    height: full
     type: sibling
+    interface: 'full+behind'
   description: 'A wheel of carts right aligned, w/ game logo'
   package_name: cartwheel-right-game-logo
+  notes: 'lots of roms dont have carts, so this variant wont work well for large romsets and certain platforms'
   artwork:
-    file: artwork.xml
-    post-process:
-      offset_with_siblings:
+    file: texture.xml
+    post_process:
+      - strategy: offset_with_siblings
         offset_x: 50
         scale: 0.6
         sibling-count: 4
         circle: half-circle-right
         circle_radius: 260
         loop: true
-        opacity: 0.5
-      artwork_generation:
+        opacity: 0.7
+      - strategy: artwork_generation
         artwork: 'cartwheel:wheel-right.xml'
         namespace: artwork
+        layer: top
+      - strategy: artwork_generation
+        artwork: 'cartwheel:screenshot-right.xml'
+        namespace: artwork
+        layer: bottom
+
+cartwheel-stacked-boxes:
+  metadata:
+    height: partial
+    type: sibling
+    interface: 'full+behind'
+  description: 'Gameboxes stacked up with a counter'
+  package_name: cartwheel-stacked-boxes
+  artwork:
+    file: box.xml
+    post_process:
+      - strategy: offset_with_siblings
+        offset_x: -20
+        offset_y: -5
+        sibling-count: 20
+        render: ahead
+        loop: true
+        opacity: 0.1
+      - strategy: counter
+        position: bottom-right
+        offset_y: 20
+        offset_x: 20
+        color: white
+        background: true
+        font_family: roboto
+        font_variant: black
+        scale: 0.8

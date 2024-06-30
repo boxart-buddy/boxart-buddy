@@ -2,7 +2,7 @@
 <artwork>
     <output type="cover" width="640" height="480">
         <layer resource="wheel" width="{{ (rom|trans({}, 'wheel-width', locale)|default('240'))*0.7 }}" align="right"
-               valign="middle" x="-20">
+               valign="middle" x="-10">
             <stroke width="2" color="{{ rom|trans({}, 'logo-stroke-black', locale)|default('#FFFFFF') }}"/>
             <shadow distance="4" softness="6" opacity="40"/>
         </layer>

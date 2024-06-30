@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artwork>
+    <output type="cover" width="640" height="480">
+
+        <layer resource="cover" height="180" valign="middle" align="center" x="140" y="80">
+            <!-- Convert the cover layer to a 3D gamebox layer. Eye candy ahoy! Define what you would like on the side of the box with the 'side' attribute. You can also type in a filename of an image that resides in the '~/.skyscraper/resources' folder. In this example we place the scraped wheel resource on the side and rotate it 90 degrees -->
+            <gamebox side="wheel" rotate="90"/>
+            <!-- Render a shadow on the cover layer for that extra finish -->
+        </layer>
+
+    </output>
+
+    <output type="screenshot" width="515" height="275">
+        <layer resource="screenshot" height="275" align="center" valign="middle"/>
+    </output>
+
+</artwork>

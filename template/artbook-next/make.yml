@@ -2,39 +2,40 @@ artbook-next-full:
   metadata:
     height: full
     type: sibling
+    interface: 'full+front'
   description: "full height, greycale siblings, white system logos w/ black outline"
   package_name: 'artbook-next-full'
   artwork:
     file: 'masked-screenshot.xml'
     post_process:
-      offset_with_siblings:
+      - strategy: offset_with_siblings
         offset_x: 150
         sibling-count: 3
         loop: true
         effect: greyscale
-      artwork_generation:
+      - strategy: artwork_generation
         artwork: 'artbook-next:wheel-white-stroke.xml'
         namespace: artwork
-      add_text:
+      - strategy: add_text
         mapping: rom_translations.yml
         font_variant: bold
         text_bg_opacity: 90
   folder:
     file: 'masked-screenshot.xml'
     post_process:
-      offset_with_siblings:
+      - strategy: offset_with_siblings
         offset_x: 150
         sibling_count: 3
         loop: true
         effect: greyscale
-      artwork_generation:
+      - strategy: artwork_generation
         artwork: 'artbook-next:system-logo.xml'
         namespace: folder
         token: '{"logo-type":"dark-white"}'
   portmaster:
     file: 'masked-screenshot.xml'
     post_process:
-      artwork_generation:
+      - strategy: artwork_generation
         artwork: 'artbook-next:wheel-white-stroke.xml'
         namespace: portmaster
 
@@ -42,41 +43,42 @@ artbook-next-inner:
   metadata:
     height: inner
     type: sibling
+    interface: 'full+front'
   description: "dimmed siblings, white system logos, game logos w/ black outline"
   package_name: 'artbook-next-inner'
   artwork:
     file: 'masked-screenshot-inner-frame.yml'
     post_process:
-      offset_with_siblings:
+      - strategy: offset_with_siblings
         offset_x: 150
         sibling-count: 3
         loop: true
-      background:
+      - strategy: background
         overlay: overlay-inner-black-50.png
-      artwork_generation:
+      - strategy: artwork_generation
         artwork: 'artbook-next:wheel-white-stroke.xml'
         namespace: artwork
-      add_text:
+      - strategy: add_text
         mapping: rom_translations.yml
         font_variant: bold
         text_bg_opacity: 90
   folder:
     file: 'masked-screenshot-inner-frame.xml'
     post_process:
-      offset_with_siblings:
+      - strategy: offset_with_siblings
         offset_x: 150
         sibling_count: 3
         loop: true
-      background:
+      - strategy: background
         overlay: overlay-inner-black-50.png
-      artwork_generation:
+      - strategy: artwork_generation
         artwork: 'artbook-next:system-logo.xml'
         namespace: folder
         token: '{"logo-type":"dark-white"}'
   portmaster:
     file: 'masked-screenshot-inner-portmaster.xml'
     post_process:
-      artwork_generation:
+      - strategy: artwork_generation
         artwork: 'artbook-next:wheel-portmaster.xml'
         namespace: portmaster
 
@@ -84,38 +86,83 @@ artbook-next-inner-alt:
   metadata:
     height: inner
     type: sibling
+    interface: 'full+front'
   description: "greyscale siblings, color system logos, game logos w/ white outline"
   package_name: 'artbook-next-inner-alt'
   artwork:
     file: 'masked-screenshot-inner-frame.yml'
     post_process:
-      offset_with_siblings:
+      - strategy: offset_with_siblings
         offset_x: 150
         sibling_count: 3
         loop: true
         effect: greyscale
-      artwork_generation:
+      - strategy: artwork_generation
         artwork: 'artbook-next:wheel-black-stroke.xml'
         namespace: artwork
-      add_text:
+      - strategy: add_text
         mapping: rom_translations.yml
         font_variant: bold
         text_bg_opacity: 90
   folder:
     file: 'masked-screenshot-inner-frame.xml'
     post_process:
-      offset_with_siblings:
+      - strategy: offset_with_siblings
         offset_x: 150
         sibling_count: 3
         loop: true
         effect: greyscale
-      artwork_generation:
+      - strategy: artwork_generation
         artwork: 'artbook-next:system-logo.xml'
         namespace: folder
         token: '{"logo-type":"light-color"}'
   portmaster:
     file: 'masked-screenshot-inner-portmaster.xml'
     post_process:
-      artwork_generation:
+      - strategy: artwork_generation
         artwork: 'artbook-next:wheel-portmaster.xml'
         namespace: portmaster
+
+artbook-next-vertical:
+  metadata:
+    height: full
+    type: sibling
+    interface: 'full+front'
+  description: "full height, vertically stacked, white system logos w/ black outline, counter"
+  package_name: 'artbook-next-vertical'
+  artwork:
+    file: 'masked-screenshot-vertical.xml'
+    post_process:
+      - strategy: offset_with_siblings
+        offset_y: 144
+        sibling-count: 2
+        loop: true
+        effect: greyscale
+      - strategy: artwork_generation
+        artwork: 'artbook-next:wheel-white-stroke.xml'
+        namespace: artwork
+      - strategy: add_text
+        mapping: rom_translations.yml
+        font_variant: bold
+        text_bg_opacity: 90
+      - strategy: counter
+        position: bottom-right
+        offset_x: 30
+        offset_y: 30
+        font_family: roboto
+        font_variant: bold-italic
+        scale: 0.8
+        color: white
+        background: true
+  folder:
+    file: 'masked-screenshot-vertical.xml'
+    post_process:
+      - strategy: offset_with_siblings
+        offset_y: 144
+        sibling_count: 2
+        loop: true
+        effect: greyscale
+      - strategy: artwork_generation
+        artwork: 'artbook-next:system-logo-v2.xml'
+        namespace: folder
+        token: '{"logo-type":"dark-white"}'

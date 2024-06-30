@@ -14,6 +14,7 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
     public const OPACITY = 'opacity';
     public const LOOP = 'loop';
     public const CIRCLE = 'circle';
+    public const RENDER = 'render';
     public const CIRCLE_RADIUS = 'circle_radius';
 
     public static function getOptions(): array
@@ -79,6 +80,12 @@ class OffsetWithSiblingsPostProcessOptions implements PostProcessOptionsInterfac
             320,
             'The radius of the circle. Only used if `circle` is set',
             false
+        );
+        $options[] = new PostProcessOption(
+            self::RENDER,
+            ['both', 'ahead', 'behind'],
+            'both',
+            'Which siblings to render, by default siblings behind and ahead are rendered',
         );
 
         return $options;

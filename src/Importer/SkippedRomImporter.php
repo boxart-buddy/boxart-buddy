@@ -40,11 +40,11 @@ readonly class SkippedRomImporter
                 continue;
             }
             // get all commands
-            $commands[] = $this->skyscraperCommandDirector->getScrapeCommandForSingleRomWithQuery(
+            $commands[] = $this->skyscraperCommandDirector->getScrapeCommandForSingleRom(
                 $data['platform'],
                 $romName,
+                false,
                 $data['query'],
-                false
             );
         }
 

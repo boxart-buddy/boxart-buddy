@@ -38,11 +38,11 @@ readonly class SkyscraperCommandDirector
         return $commandBuilder->build();
     }
 
-    public function getScrapeCommandForSingleRomWithQuery(
+    public function getScrapeCommandForSingleRom(
         string $platform,
         string $romName,
-        string $query,
-        bool $forcePortmasterFolder
+        bool $forcePortmasterFolder,
+        ?string $query = null,
     ): array {
         $commandBuilder = new SkyscraperCommandBuilder();
 
@@ -61,8 +61,11 @@ readonly class SkyscraperCommandDirector
             ->setPlatform($platform)
             ->setScraper('screenscraper')
             ->setInputPath($inFolder)
-            ->setQuery($query)
             ->setRomName($romName);
+
+        if (null !== $query) {
+            $commandBuilder->setQuery($query);
+        }
 
         return $commandBuilder->build();
     }

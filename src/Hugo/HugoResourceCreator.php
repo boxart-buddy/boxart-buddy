@@ -66,9 +66,11 @@ class HugoResourceCreator
         return new HugoTemplateDataFixtureEntry(
             $templateName,
             $variantName,
+            $variant['notes'],
             $previewPath,
             $variant['metadata']['type'],
             $variant['metadata']['height'],
+            $variant['metadata']['interface'],
             array_key_exists('portmaster', $variant),
             array_key_exists('folder', $variant),
         );

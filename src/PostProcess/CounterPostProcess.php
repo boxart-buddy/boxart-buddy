@@ -6,6 +6,7 @@ use App\Command\PostProcessCommand;
 use App\Provider\OrderedListProvider;
 use App\Provider\PathProvider;
 use App\Util\Path;
+use Intervention\Image\Geometry\Factories\CircleFactory;
 use Intervention\Image\Geometry\Factories\LineFactory;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
@@ -94,6 +95,8 @@ class CounterPostProcess implements PostProcessInterface
         $fontFamily = $options[CounterPostProcessOptions::TEXT_FONT_FAMILY];
         $fontVariant = $options[CounterPostProcessOptions::TEXT_FONT_VARIANT];
         $color = $options[CounterPostProcessOptions::TEXT_COLOR];
+        $scale = $options[CounterPostProcessOptions::SCALE];
+        $background = $options[CounterPostProcessOptions::BACKGROUND];
 
         $counter = $manager->create($width, $height);
         $total = count($files);
@@ -105,7 +108,7 @@ class CounterPostProcess implements PostProcessInterface
         $counter->text(
             (string) ($currentPosition + 1),
             95,
-            90,
+            78,
             function (FontFactory $font) use ($fontPath, $color) {
                 $font->filename($fontPath);
                 $font->size(30);
@@ -117,8 +120,8 @@ class CounterPostProcess implements PostProcessInterface
 
         $counter->text(
             (string) $total,
-            100,
-            125,
+            90,
+            107,
             function (FontFactory $font) use ($fontPath, $color) {
                 $font->filename($fontPath);
                 $font->size(30);
@@ -130,12 +133,45 @@ class CounterPostProcess implements PostProcessInterface
 
         // draw splitter
         $counter->drawLine(function (LineFactory $line) use ($color) {
-            $line->from(78, 113);
-            $line->to(118, 99);
+            $line->from(83, 96);
+            $line->to(100, 86);
             $line->color($color); // color of line
             $line->width(2); // line width in pixels
         });
 
-        return $counter;
+        if (!$background) {
+            if (1 !== $scale) {
+                $counter->scale(height: $height * $scale);
+            }
+
+            return $counter;
+        }
+
+        $circleRadius = match (strlen((string) $total)) {
+            1 => 45,
+            2 => 55,
+            3 => 65,
+            4 => 75,
+            5 => 85,
+            default => 90
+        };
+
+        $bg = $manager->create($height, $width);
+        $bg->drawCircle(90, 90, function (CircleFactory $circle) use ($color, $circleRadius) {
+            $circle->radius($circleRadius);
+            $circle->background($color);
+        });
+        $bg->core()->native()->negateImage(false, \Imagick::CHANNEL_RED | \Imagick::CHANNEL_GREEN | \Imagick::CHANNEL_BLUE);
+
+        $canvas = $manager->create($width, $height);
+        $canvas->place($bg, 'top-left', 0, 0, 60);
+
+        $canvas->place($counter, 'center');
+
+        if (1 !== $scale) {
+            $canvas->scale(height: $height * $scale);
+        }
+
+        return $canvas;
     }
 }

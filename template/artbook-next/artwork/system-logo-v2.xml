@@ -2,15 +2,10 @@
 <artwork>
     <output type="cover" width="640" height="480">
 
-        <!--        <layer width="640" height="480">-->
-        <!--            <layer resource="inner-frame.png" x="218" align="left" valign="center"></layer>-->
-        <!--        </layer>-->
-
         <layer resource="system-logos/{{ 'logo-type'|trans({}, 'general', locale)|default('dark-white') }}/{{ 'logo'|trans({}, 'logo', locale) }}"
                width="320" align="center" valign="middle">
-            <stroke width="{{ platform|trans({}, 'system-stroke-width', platform)|default('0') }}"
+            <stroke width="2"
                     color="{{ platform|trans({}, 'system-stroke-color', platform)|default('#000000') }}"/>
-            <shadow distance="8" softness="5" opacity="50"/>
         </layer>
 
     </output>

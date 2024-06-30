@@ -137,12 +137,13 @@ readonly class PackageHandler implements CommandHandlerInterface
         // write note header
         if (!$filesystem->exists($noteFilename)) {
             $noteHeader = "Generated with boxart-buddy (https://github.com/boxart-buddy/boxart-buddy/) \n\n";
-            // check if LASTCOMMANDRUN is set and add it to the output
-            $lastRunCommandFile = $this->path->joinWithBase(FolderNames::TEMP->value, 'LASTRUNCOMMAND');
+            // check if LASTRUNCHOICES.json is set and add it to the output
+            $lastRunFile = $this->path->joinWithBase(FolderNames::TEMP->value, 'LASTRUNCHOICES.json');
 
-            if ($filesystem->exists($lastRunCommandFile)) {
-                $noteHeader = $noteHeader."Generated with the following command \n";
-                $noteHeader = $noteHeader.$filesystem->readFile($lastRunCommandFile)."\n\n";
+            if ($filesystem->exists($lastRunFile)) {
+                $noteHeader = $noteHeader."Generated with the following choices \n";
+                $json = json_decode($filesystem->readFile($lastRunFile), true);
+                $noteHeader = $noteHeader.json_encode($json, JSON_PRETTY_PRINT)."\n\n";
             }
             $filesystem->appendToFile($noteFilename, $noteHeader);
         }
