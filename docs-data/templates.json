@@ -27,6 +27,33 @@
         "folder": true
     },
     {
+        "templateName": "cartwheel",
+        "variantName": "cartwheel_right",
+        "previewPath": "template\/preview\/cartwheel-right-no-theme.webp",
+        "type": "sibling",
+        "height": "partial",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "cartwheel",
+        "variantName": "cartwheel_left",
+        "previewPath": "template\/preview\/cartwheel-left-no-theme.webp",
+        "type": "sibling",
+        "height": "partial",
+        "portmaster": false,
+        "folder": false
+    },
+    {
+        "templateName": "cartwheel",
+        "variantName": "cartwheel_right_game_logo",
+        "previewPath": "template\/preview\/cartwheel-right-game-logo-no-theme.webp",
+        "type": "sibling",
+        "height": "partial",
+        "portmaster": false,
+        "folder": false
+    },
+    {
         "templateName": "complex-examples",
         "variantName": "game_logo_scrolling",
         "previewPath": "template\/preview\/game-logo-scrolling-no-theme.webp",

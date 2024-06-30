@@ -115,7 +115,7 @@ class OffsetWithSiblingsPostProcess implements PostProcessInterface
             $siblings = $this->reorderArrayOutToIn($set);
             $originalImage = array_pop($siblings);
 
-            $circle = $options[OffsetWithSiblingsPostProcessOptions::CIRCLE];
+            $circle = $options[OffsetWithSiblingsPostProcessOptions::CIRCLE] ?? null;
 
             foreach ($siblings as $siblingKey => $sibling) {
                 if (null === $sibling) {
