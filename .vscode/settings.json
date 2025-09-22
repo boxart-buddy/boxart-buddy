@@ -1,0 +1,31 @@
+{
+    "terminal.integrated.profiles.osx": {
+        "zsh": {
+            "path": "/opt/homebrew/bin/zsh",
+            "args": []
+        }
+    },
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "Lua.diagnostics.globals": [
+        "jit",
+        "love",
+        "timer",
+        "state_machine",
+        "pubsub",
+        "class",
+        "identifier",
+        "pretty"
+    ],
+    "Lua.workspace.library": [
+        "${3rd}/love2d/library",
+    ],
+    "Lua.workspace.ignoreDir": [
+        "boxart-buddy/resources",
+        "boxart-buddy/trash",
+        "boxart-buddy/lib",
+    ],
+    "search.exclude": {
+        "boxart-buddy/resources": true,
+        "boxart-buddy/trash": true,
+    },
+}

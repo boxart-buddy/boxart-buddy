@@ -1,0 +1,5 @@
+return {
+  "Named_Boxarts/Quake III Arena.png",
+  "Named_Snaps/Quake III Arena.png",
+  "Named_Titles/Quake III Arena.png",
+}

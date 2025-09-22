@@ -1,0 +1,16 @@
+.git
+.github/
+.DS_Store
+data/
+.vscode/
+tools/
+.gitignore
+.distignore
+.stylua.toml
+.styluaignore
+Makefile
+Makefile_old
+boxart-buddy/trash/
+dist
+native/macarm64/
+doc/

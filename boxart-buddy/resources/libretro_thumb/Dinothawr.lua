@@ -1,0 +1,5 @@
+return {
+  "Named_Boxarts/Dinothawr.png",
+  "Named_Snaps/Dinothawr.png",
+  "Named_Titles/Dinothawr.png",
+}

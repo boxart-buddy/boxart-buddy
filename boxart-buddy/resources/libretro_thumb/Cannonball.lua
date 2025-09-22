@@ -1,0 +1,5 @@
+return {
+  "Named_Boxarts/OutRun.png",
+  "Named_Snaps/OutRun.png",
+  "Named_Titles/OutRun.png",
+}

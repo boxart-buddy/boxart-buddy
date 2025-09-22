@@ -1,0 +1,9 @@
+/luarocks
+/lua
+/lua_modules
+/dist
+/.luarocks
+.DS_Store
+data/*
+tools/fixtures*
+boxart-buddy/resources/db/bb-dev.db

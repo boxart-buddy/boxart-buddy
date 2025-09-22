@@ -1,0 +1,34 @@
+# Name of your project
+PROJECT_NAME := boxartbuddy
+VERSION := 1.0.0
+DIST_NAME := $(PROJECT_NAME)-$(VERSION)
+CONTENT_DIR := mnt/mmc/MUOS/application/BoxartBuddy
+DIST_DIR := dist
+ZIP_FILE := $(DIST_DIR)/$(DIST_NAME).muxzip
+DISTIGNORE := .distignore
+DEVICE_IP := 192.168.1.182
+
+.PHONY: dist clean deploy
+
+dist:
+	@echo "Creating distribution..."
+	@rm -rf $(DIST_DIR)
+	@mkdir -p $(DIST_DIR)
+	@rsync -a . $(DIST_DIR)/$(CONTENT_DIR) \
+		--exclude-from=$(DISTIGNORE) \
+		--exclude=$(DIST_DIR) \
+		--delete-excluded
+	@mkdir -p $(DIST_DIR)/opt/muos/default/MUOS/theme/active/glyph/muxapp
+	@cp ./boxart-buddy/assets/image/glyph.png $(DIST_DIR)/opt/muos/default/MUOS/theme/active/glyph/muxapp/boxartbuddy.png
+	@cd $(DIST_DIR) && zip -r $(DIST_NAME).muxzip mnt opt
+	@rm -rf $(DIST_DIR)/mnt $(DIST_DIR)/opt
+	@echo "Created $(ZIP_FILE)"
+
+clean:
+	rm -rf $(DIST_DIR)
+
+deploy:
+	@sshpass -p 'root' scp $(ZIP_FILE) root@$(DEVICE_IP):/mnt/mmc/ARCHIVE
+	@echo "Deployed to $(DEVICE_IP):/mnt/mmc/ARCHIVE"
+
+all: clean dist

@@ -1,0 +1,17 @@
+return {
+  "Named_Boxarts/Defender (USA, Europe).png",
+  "Named_Boxarts/Space Force (USA, Europe).png",
+  "Named_Boxarts/Super Cobra (USA, Europe).png",
+  "Named_Boxarts/Turtles (USA, Europe).png",
+  "Named_Logos/Space Force (USA, Europe).png",
+  "Named_Logos/Super Cobra (USA, Europe).png",
+  "Named_Logos/Turtles (USA, Europe).png",
+  "Named_Snaps/Defender (USA, Europe).png",
+  "Named_Snaps/Space Force (USA, Europe).png",
+  "Named_Snaps/Super Cobra (USA, Europe).png",
+  "Named_Snaps/Turtles (USA, Europe).png",
+  "Named_Titles/Defender (USA, Europe).png",
+  "Named_Titles/Space Force (USA, Europe).png",
+  "Named_Titles/Super Cobra (USA, Europe).png",
+  "Named_Titles/Turtles (USA, Europe).png",
+}

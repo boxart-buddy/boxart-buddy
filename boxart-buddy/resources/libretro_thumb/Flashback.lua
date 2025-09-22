@@ -1,0 +1,5 @@
+return {
+  "Named_Boxarts/Flashback_ The Quest for Identity.png",
+  "Named_Snaps/Flashback_ The Quest for Identity.png",
+  "Named_Titles/Flashback_ The Quest for Identity.png",
+}

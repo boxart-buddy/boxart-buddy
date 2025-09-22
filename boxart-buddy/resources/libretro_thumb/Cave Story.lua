@@ -1,0 +1,11 @@
+return {
+  "Named_Boxarts/Cave Story (De).png",
+  "Named_Boxarts/Cave Story (En).png",
+  "Named_Boxarts/Doukutsu Monogatari (Ja).png",
+  "Named_Snaps/Cave Story (De).png",
+  "Named_Snaps/Cave Story (En).png",
+  "Named_Snaps/Doukutsu Monogatari (Ja).png",
+  "Named_Titles/Cave Story (De).png",
+  "Named_Titles/Cave Story (En).png",
+  "Named_Titles/Doukutsu Monogatari (Ja).png",
+}

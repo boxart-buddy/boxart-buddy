@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Love Main",
+            "type": "lua-local",
+            "request": "launch",
+            "program": {
+                "command": "love",
+            },
+            "args": [
+                "boxart-buddy --project-root=${workspaceFolder}"
+            ],
+            "scriptRoots": [
+                "boxart-buddy"
+            ]
+        }
+    ]
+}
