@@ -530,7 +530,7 @@ function M:updateOne(threadKey)
         self.timers.lastCompleteCheck > self.timers.lastCompleteCheckInterval
         and (not self.environment:isThread())
         and self.threadPool[threadKey].status == self.threadStatusValue.COMPLETE
-        and not self.threadPool[threadKey].permanent
+        -- and not self.threadPool[threadKey].permanent
     then
         self.timers.lastCompleteCheck = 0
 

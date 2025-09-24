@@ -41,7 +41,9 @@ function M:enter()
     self.systemeventsubscriber:subscribe("init_db_complete", self.boundDbInitComplete)
     -- rotate logs
     if self.logger.handlers.file then
+        self.logger:log("info", "startup", "Rotating old logs")
         self.logger.handlers.file:cleanupOldLogs(7)
+        self.logger:log("info", "startup", "Log Rotate Complete")
     end
 end
 
@@ -93,17 +95,26 @@ function M:draw(dt)
 end
 
 function M:_initMixes()
+    self.logger:log("debug", "startup", "Ensuring preset mixes exist")
+
     local initializedPath = self.environment:getPath("initialized_mix_presets")
     for i = 1, 10 do
         if filesystem.getInfo(initializedPath) then
+            self.logger:log("debug", "startup", "Preset mix lock exists, skipping import")
+
             return
         end
         socket.sleep(0.1)
     end
 
+    self.logger:log("debug", "startup", "Preset lock missing, importing presets")
+
     self.mixRepository:importPresets()
 
+    self.logger:log("debug", "startup", "Presets inserted, writing lock")
+
     filesystem.write(initializedPath, "")
+    self.logger:log("debug", "startup", "Presets lock write complete")
 end
 
 return M

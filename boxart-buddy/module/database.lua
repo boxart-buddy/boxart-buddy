@@ -105,15 +105,6 @@ function M:replaceDBFromFixture()
     if filesystem.getInfo(dbPath) ~= nil then
         self:close()
         filesystem.remove(dbPath)
-        -- ensure WAL/SHM are gone before copying a fresh DB over
-        local wal = dbPath .. "-wal"
-        local shm = dbPath .. "-shm"
-        if filesystem.getInfo(wal) then
-            filesystem.remove(wal)
-        end
-        if filesystem.getInfo(shm) then
-            filesystem.remove(shm)
-        end
     end
 
     if filesystem.getInfo(dbPath) == nil then
@@ -122,6 +113,7 @@ function M:replaceDBFromFixture()
         end
 
         local cmd = string.format("cp %s %s", stringUtil.shellQuote(dbFixturePath), stringUtil.shellQuote(dbPath))
+
         os.execute(cmd)
     end
 
@@ -390,6 +382,7 @@ end
 
 function M:close()
     local db = self.db
+
     if not db then
         return
     end

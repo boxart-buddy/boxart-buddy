@@ -302,7 +302,6 @@ function M:scrapeOne(romUuid, options)
                         )
                     )
                 end
-                DD(matches)
                 for typ, url in pairs(matches) do
                     local uuid = identifier.uuid4()
 

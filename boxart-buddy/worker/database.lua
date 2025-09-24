@@ -53,6 +53,31 @@ while true do
             DIC.configManager.config = nil
         end
 
+        -- INIT/REPLACE DB
+        if task.type == "initialize" or task.type == "replace" then
+            task.sendProgress = true
+            task.sendResult = true
+
+            local status, result = pcall(function()
+                if task.type == "initialize" then
+                    return database:initialize()
+                end
+
+                if task.type == "replace" then
+                    database:replaceDBFromFixture()
+                end
+            end)
+
+            local err
+            if status == false then
+                err = result
+                result = "ERROR"
+            end
+
+            thread:sendResponse("database", task, result, err)
+        end
+
+        -- EXEC / SELECT
         if task.type == "exec" or task.type == "select" then
             local status, result = pcall(function()
                 if task.type == "exec" then

@@ -113,6 +113,7 @@ screens = {
         DIC.environment,
         DIC.systemeventsubscriber,
         DIC.inputeventsubscriber,
+        DIC.database,
         DIC.configManager,
         DIC.thread
     ),

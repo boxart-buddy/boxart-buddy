@@ -20,7 +20,10 @@ function M:handle(task)
 
     if task.type == "replace" then
         return pcall(function()
-            return self.DIC.database:replaceDBFromFixture()
+            self.DIC.database:replaceDBFromFixture()
+            -- replace preset mix values
+            local mixRepository = require("repository.mix")(self.DIC.database)
+            mixRepository:importPresets()
         end)
     end
 

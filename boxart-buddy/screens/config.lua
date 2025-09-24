@@ -10,12 +10,13 @@ local M = class({
     name = "ConfigScreen",
 })
 
-function M:new(environment, systemeventsubscriber, inputeventsubscriber, configManager, thread)
+function M:new(environment, systemeventsubscriber, inputeventsubscriber, database, configManager, thread)
     self.environment = environment
     self.configManager = configManager
     self.inputeventsubscriber = inputeventsubscriber
     self.systemeventsubscriber = systemeventsubscriber
     self.thread = thread
+    self.database = database
 
     self.shouldRedraw = true
     self.config = nil
@@ -167,11 +168,15 @@ end
 
 function M:_handleFullReset()
     -- dispatch replace DB task
-    self.thread:dispatchTasks("init_db", {
+    self.thread:dispatchTasks("database", {
         {
             type = "replace",
         },
     }, { progressStyle = "modal", progressText = "Replacing Database (please wait)", skipThreadCreation = true })
+
+    -- replace mixes
+    local mixRepository = require("repository.mix")(self.database)
+    mixRepository:importPresets()
 
     -- clear cache
     local clearCacheCmd = string.format("rm -rf %s", stringUtil.shellQuote(self.environment:getPath("cache")))
