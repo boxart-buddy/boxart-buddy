@@ -121,7 +121,11 @@ A minimal scraper written in Python
 
 # Issues & Logging/Debugging
 
-If you encounter an issue and wish to submit a bug report, please enable file logging ```(CONFIG > LOG)``` at the "debug" level and provide the log file with your bug report (as well as a description of the issue, version of MuOS etc). Note that after changing log settings you need to restart for the changes to take effect. Log files are saved to ~/MUOS/application/BoxartBuddy/data/log.
+If you encounter an issue and wish to submit a bug report, please enable file logging ```(CONFIG > LOG)``` at the "debug" level and provide the log file with your bug report (as well as a description of the issue, version of MuOS etc). Note that after changing log settings you need to restart for the changes to take effect. Log files are saved to ~/MUOS/application/BoxartBuddy/data/log/-*
+
+Pre Release version will have file logging at the debug level enabled by default.
+
+If the app crashes with an error then this will be logged to ~/MUOS/application/BoxartBuddy/data/log/crash-*
 
 ---
 
