@@ -237,7 +237,7 @@ return {
     {
         key = "log_file",
         type = "boolean",
-        default = false,
+        default = true,
         label = "File Logger",
         group = "log",
         description = "Saves log messages to a file in the data folder. Requires app reload after changing",
