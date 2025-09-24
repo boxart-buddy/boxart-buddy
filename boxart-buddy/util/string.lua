@@ -1,3 +1,5 @@
+local utf8 = require("utf8")
+
 local M = {}
 
 function M.truncateStringAfterWidth(str, maxWidth, font)
@@ -9,12 +11,24 @@ function M.truncateStringAfterWidth(str, maxWidth, font)
     local ellipsisWidth = font:getWidth(ellipsis)
     local truncated = ""
 
-    for i = 1, #str do
-        local sub = str:sub(1, i)
+    local pos = 1
+    while true do
+        local nextPos = utf8.offset(str, 2, pos)
+        local sub
+        if nextPos then
+            sub = str:sub(1, nextPos - 1)
+        else
+            sub = str
+        end
         if font:getWidth(sub) + ellipsisWidth > maxWidth then
-            truncated = str:sub(1, i - 1)
+            truncated = str:sub(1, pos - 1)
             break
         end
+        if not nextPos then
+            truncated = str
+            break
+        end
+        pos = nextPos
     end
 
     return truncated .. ellipsis

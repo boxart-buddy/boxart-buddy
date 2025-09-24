@@ -14,3 +14,4 @@ boxart-buddy/trash/
 dist
 native/macarm64/
 doc/
+tests/
