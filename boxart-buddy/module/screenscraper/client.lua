@@ -1,6 +1,7 @@
 local json = require("lib.json")
 local uri = require("util.uri")
 local socket = require("socket")
+local mime = require("mime")
 
 ---@class ScreenscraperClient
 local M = class({
@@ -52,7 +53,7 @@ function M:new(environment, logger, https, scraperRepository)
 
     self.devCredentials = {
         devid = "duckdownroms",
-        devpassword = "enafiBfBA7B",
+        devpassword = mime.unb64("ZW5hZmlCZkJBN0I="),
     }
     self.userCredentials = {
         ssid = environment:getConfig("scraper_screenscraper_user"),
