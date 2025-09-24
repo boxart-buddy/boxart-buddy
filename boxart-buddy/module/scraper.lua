@@ -4,6 +4,7 @@ local stringUtil = require("util.string")
 local https = require("https")
 local media = require("util.media")
 local image = require("util.image")
+local socket = require("socket")
 
 ---@class Scraper
 local M = class({
@@ -499,7 +500,12 @@ function M:downloadMedia(remotePath, assetType, uuid)
         self.logger:log(
             "warn",
             "scraper",
-            string.format("Media download failed for:\n%s\n%s", remotePath, pretty.string(body))
+            string.format(
+                "Media download failed for:\npath: %s\nbody: %s\nresponsecode: %s",
+                remotePath,
+                pretty.string(body),
+                code
+            )
         )
         return nil
     else
@@ -508,10 +514,40 @@ function M:downloadMedia(remotePath, assetType, uuid)
 
     local cacheFolder =
         path.join({ self.environment:getPath("cache"), assetType, stringUtil.uuidToFolder(localFilename) })
-    filesystem.createDirectory(cacheFolder) -- ensure directory exists
 
     local assetPath = path.join({ cacheFolder, localFilename })
-    local result, writeError = filesystem.write(assetPath, body)
+
+    local result, writeError
+    local maxAttempts = 5
+    for attempt = 1, maxAttempts do
+        -- ensure directory exists
+        local okDir, dirErr = pcall(filesystem.createDirectory, cacheFolder)
+
+        if not okDir then
+            writeError = dirErr
+        else
+            -- attempt to write the file
+            result, writeError = filesystem.write(assetPath, body)
+        end
+
+        if result then
+            break
+        end
+
+        if attempt < maxAttempts then
+            socket.sleep(0.2)
+        else
+            self.logger:log(
+                "error",
+                "scraper",
+                string.format(
+                    "Failed on final attempt creating directory or writing file:\nDir error: %s\nWrite error: %s",
+                    tostring(dirErr),
+                    tostring(writeError)
+                )
+            )
+        end
+    end
 
     if not result then
         self.logger:log(

@@ -1,4 +1,6 @@
 local path = require("util.path")
+local url = require("lib.url")
+
 ---@class LibretroClient
 local M = class({
     name = "LibretroClient",
@@ -74,15 +76,17 @@ end
 
 function M:_mapKeys(result, thumbDir)
     local mapped = {}
+
     if result["Named_Boxarts"] then
-        mapped.box2d = self.baseUri .. "/" .. thumbDir .. "/" .. result["Named_Boxarts"]
+        mapped.box2d = url:encodePath(self.baseUri .. "/" .. thumbDir .. "/" .. result["Named_Boxarts"])
     end
     if result["Named_Logos"] then
-        mapped.wheel = self.baseUri .. "/" .. thumbDir .. "/" .. result["Named_Logos"]
+        mapped.wheel = url:encodePath(self.baseUri .. "/" .. thumbDir .. "/" .. result["Named_Logos"])
     end
     if result["Named_Snaps"] then
-        mapped.screenshot = self.baseUri .. "/" .. thumbDir .. "/" .. result["Named_Snaps"]
+        mapped.screenshot = url:encodePath(self.baseUri .. "/" .. thumbDir .. "/" .. result["Named_Snaps"])
     end
+    DD(mapped)
     -- if result["Named_Titles"] then
     --     mapped.title = result["Named_Titles"]
     -- end

@@ -99,6 +99,19 @@ local function concat(a, b)
 	end
 end
 
+
+function M:encodePath(pathStr)
+	-- encode only characters that are not legal in path, leave ':' and '/' intact
+	local legal = {}
+	for k,v in pairs(M.options.legal_in_path) do
+		legal[k] = v
+	end
+	legal[":"] = true
+	legal["/"] = true
+	return encode(pathStr, legal)
+end
+
+
 function M:addSegment(path)
 	if type(path) == 'string' then
 		self.path = self.path .. '/' .. encode(path:gsub("^/+", ""), M.options.legal_in_path)

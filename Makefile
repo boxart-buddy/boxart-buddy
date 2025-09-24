@@ -6,7 +6,7 @@ CONTENT_DIR := BoxartBuddy
 DIST_DIR := dist
 ZIP_FILE := $(DIST_DIR)/$(DIST_NAME).muxapp
 DISTIGNORE := .distignore
-DEVICE_IP := 192.168.1.45
+DEVICE_IP := 192.168.1.181
 
 .PHONY: dist clean deploy
 
@@ -19,7 +19,7 @@ dist:
 		--exclude=$(DIST_DIR) \
 		--delete-excluded
 	@mkdir -p $(DIST_DIR)/glyph/muxapp
-	@cp ./boxart-buddy/assets/image/glyph.png $(DIST_DIR)/glyph/muxapp/boxartbuddy.png
+	@cp ./boxart-buddy/assets/image/glyph.png $(DIST_DIR)/glyph/boxartbuddy.png
 	@cd $(DIST_DIR) && zip -r $(DIST_NAME).muxapp .
 	@rm -rf $(DIST_DIR)/$(CONTENT_DIR) $(DIST_DIR)/glyph
 	@echo "Created $(ZIP_FILE)"
