@@ -1,4 +1,5 @@
 local M = {}
+
 function M:getArg(name)
     for _, v in ipairs(arg or {}) do
         local key, value = v:match("^%-%-([^=]+)=(.+)")

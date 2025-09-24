@@ -1,5 +1,9 @@
 -- override error handler
-require("error")
+if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
+    require("error")
+else
+    require("error_user_friendly")
+end
 
 -- needed early for class system
 require("lib.batteries"):export()
