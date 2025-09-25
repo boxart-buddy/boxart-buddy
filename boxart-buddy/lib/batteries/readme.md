@@ -168,4 +168,4 @@ I've implemented experimental automatic API conversion (UpperCamelCase for types
 
 # License
 
-zlib, see [here](license.txt)
+zlib, see [here](license)
