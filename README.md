@@ -169,7 +169,7 @@ A comprehensive API used as a source for scraping media in this application. For
 ### [SteamGridDB](https://www.steamgriddb.com)
 A media API used to fetch 'grid' assets. You need to sign up for an account here an generate an API key in order to use this as a source.
 
-### [No-Intro](https://no-intro.org) & [Redump](http://redump.org) 
+### [No-Intro](https://no-intro.org) & [Redump](http://redump.org) & [WHDLoad](https://github.com/MrV2K/WHDLoad-Database)
 Dat data for verifying roms.
 
 ## License

@@ -86,7 +86,6 @@ function M:_mapKeys(result, thumbDir)
     if result["Named_Snaps"] then
         mapped.screenshot = url:encodePath(self.baseUri .. "/" .. thumbDir .. "/" .. result["Named_Snaps"])
     end
-    DD(mapped)
     -- if result["Named_Titles"] then
     --     mapped.title = result["Named_Titles"]
     -- end

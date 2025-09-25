@@ -102,7 +102,6 @@ function M:importOne(platformKey, folder, searchFilename)
 
     for i, datfile in ipairs(datfiles) do
         local containingFolder = path.join({ self.environment:getPath("dat_root"), folder })
-
         if
             (datfile.path:sub(1, #containingFolder) == containingFolder)
             and (string.find(datfile.name, searchFilename, 1, true))
@@ -116,7 +115,7 @@ function M:importOne(platformKey, folder, searchFilename)
                 string.format("parsing %s file: %s", datType, path.join({ folder, datfile.name }))
             )
 
-            if datType == "libretro" then
+            if datType == "libretro" or datType == "whdload" then
                 local datparser = require("module.datparser")(self.logger)
                 games = datparser:parse(filecontents)
             else -- PC XML Format
@@ -134,7 +133,7 @@ function M:importOne(platformKey, folder, searchFilename)
                 "INSERT or IGNORE INTO dat (id, platform, source, sourcekey, name, romname, size, crc32, md5, sha1, serial, priority) VALUES (:id, :platform, :source, :sourcekey, :name, :romname, :size, :crc32, :md5, :sha1, :serial, :priority)"
 
             for i2, game in ipairs(games) do
-                if game.rom and datType == "libretro" then -- libretro dat format
+                if game.rom and datType == "libretro" or datType == "whdload" then -- libretro dat format
                     local entry = {}
                     entry.id = identifier.uuid4()
                     entry.platform = platformKey
@@ -151,7 +150,6 @@ function M:importOne(platformKey, folder, searchFilename)
                     entry.sha1 = game.rom.sha1
                     entry.serial = game.rom.serial or entry.serial
                     entry.priority = self:getPriorityByPrefer(entry.sourcekey, prefer)
-
                     self.database:blockingExec(statement, entry)
                 elseif game.rom and game.rom._attr and game.rom._attr.crc then -- single rom xml fomat
                     local entry = {}
@@ -224,6 +222,8 @@ function M:sourceKey(source)
         ["libretro/metadat/headered"] = "headered",
         ["no-intro/"] = "no-intro",
         ["redump/"] = "redump",
+        ["whdload/"] = "whdload",
+        ["other/"] = "other",
     }
 
     for prefix, value in pairs(keyMap) do
