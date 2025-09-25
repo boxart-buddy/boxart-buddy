@@ -41,6 +41,7 @@ function M:new(environment, systemeventsubscriber, inputeventsubscriber)
         imageRight = ASSETS.image.button.gamepad.small.r2,
         imageMargin = SCREEN.wUnit(1),
         font = ASSETS.font.inter.bold(FONTSIZE.m),
+        cycle = true,
     })
 
     self.active = true

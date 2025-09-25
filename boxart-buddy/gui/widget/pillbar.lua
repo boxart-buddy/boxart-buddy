@@ -21,6 +21,7 @@ function M:new(canvas, items, current, options)
 
     -- REORDER MODE
     self.reorderable = options.reorderable or false
+    self.cycle = options.cycle or false
 
     -- init base
     self:super(canvas, value, self:_extractBaseOptions(options))
@@ -269,10 +270,18 @@ function M:handleInput(input)
     end
 
     -- Navigation always works the same
-    if input == "left" and self.currentIndex > 1 then
-        self.currentIndex = self.currentIndex - 1
-    elseif input == "right" and self.currentIndex < #self.items then
-        self.currentIndex = self.currentIndex + 1
+    if input == "left" then
+        if self.currentIndex > 1 then
+            self.currentIndex = self.currentIndex - 1
+        elseif self.cycle then
+            self.currentIndex = #self.items
+        end
+    elseif input == "right" then
+        if self.currentIndex < #self.items then
+            self.currentIndex = self.currentIndex + 1
+        elseif self.cycle then
+            self.currentIndex = 1
+        end
     end
 
     -- Reordering with confirm/cancel when enabled
