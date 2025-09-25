@@ -422,7 +422,7 @@ function M:update(dt)
         -- media count donut
         if rom.media_count > 0 then
             local donutFolder = "donut" .. math.min(#self.scrapeMediaTypes, 6) -- defensive if > 6 media
-            local mediaCountIcon = ASSETS.image[donutFolder][rom.media_count]
+            local mediaCountIcon = ASSETS.image.donut[donutFolder][rom.media_count]
             love.graphics.draw(mediaCountIcon, 42, tableRowYMid - mediaCountIcon:getHeight() / 2)
         end
 
