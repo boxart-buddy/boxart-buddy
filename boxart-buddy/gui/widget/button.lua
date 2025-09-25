@@ -18,8 +18,8 @@ function M:new(canvas, text, options)
     self.disabled = options.disabled or false
 
     -- TEXT/ALIGN
-    self.font = options.font or ASSETS.font.univers.regular(FONTSIZE.s)
-    self.subTextFont = options.subTextFont or ASSETS.font.univers.regular(FONTSIZE.xs)
+    self.font = options.font or ASSETS.font.inter.medium(FONTSIZE.s)
+    self.subTextFont = options.subTextFont or ASSETS.font.inter.medium(FONTSIZE.xs)
     self.subTextMarginY = options.subTextMarginY or 0
     self.align = options.align or "left"
     self.textAlign = options.textAlign or "center"

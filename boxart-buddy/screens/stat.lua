@@ -79,8 +79,8 @@ function M:update(dt)
     end
 
     -- fonts
-    local font = ASSETS.font.univers.regular(FONTSIZE.m)
-    local fontLarge = ASSETS.font.univers.bold(24)
+    local font = ASSETS.font.inter.medium(FONTSIZE.m)
+    local fontLarge = ASSETS.font.inter.bold(24)
     local baselineY = layout.baselineY(SCREEN.hUnit(3), SCREEN.hUnit(4.8))
 
     -- draw to canvas

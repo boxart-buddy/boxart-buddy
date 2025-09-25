@@ -239,7 +239,7 @@ function M:update()
     love.graphics.setCanvas(self.footerCanvas)
     love.graphics.clear(colors.black)
 
-    local font = ASSETS.font.univers.bold(FONTSIZE.s)
+    local font = ASSETS.font.inter.bold(FONTSIZE.s)
     local imageMargin = self.imageMargin or 2
     local textMarginLeft = self.textMarginLeft or 8
     local marginX = self.marginX or 0

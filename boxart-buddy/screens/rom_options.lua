@@ -89,7 +89,7 @@ function M:initMenu()
         self.systemeventsubscriber,
         romOptionDefinition, --definitions
         opts, --values
-        { x = 70, y = 60, font = ASSETS.font.univers.regular(FONTSIZE.s), labelWidth = 190, spacingY = 34 }
+        { x = 70, y = 60, font = ASSETS.font.inter.medium(FONTSIZE.s), labelWidth = 190, spacingY = 34 }
     )
 end
 
@@ -130,7 +130,7 @@ function M:update(dt)
     love.graphics.rectangle("fill", 0, 0, SCREEN.w, SCREEN.mainH, 16, 16)
 
     -- heading
-    local headingFont = ASSETS.font.univers.bold(FONTSIZE.xl)
+    local headingFont = ASSETS.font.inter.bold(FONTSIZE.xl)
     love.graphics.setFont(headingFont)
     love.graphics.setColor(colors.offWhite)
     love.graphics.printf(

@@ -81,9 +81,9 @@ function M:new(systemeventsubscriber, canvas, value, options)
     self.validate = options.validate or nil
 
     -- FONTS
-    self.inlineFont = options.font or ASSETS.font.univers.regular(FONTSIZE.s)
+    self.inlineFont = options.font or ASSETS.font.inter.medium(FONTSIZE.s)
     self.keycapFont = options.keycapFont or ASSETS.font.montserrat.regular(FONTSIZE.xl)
-    self.typedTextFont = options.typedTextFont or ASSETS.font.univers.regular(FONTSIZE.xl)
+    self.typedTextFont = options.typedTextFont or ASSETS.font.inter.medium(FONTSIZE.xl)
 
     -- CARET
     self.caretVisible = true

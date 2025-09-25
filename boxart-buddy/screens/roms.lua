@@ -64,8 +64,8 @@ function M:new(
         - self.tableBoxMarginLeft
         - self.tableBoxMarginRight
 
-    self.paginationFont = ASSETS.font.univers.regular(FONTSIZE.s)
-    self.tableFont = ASSETS.font.univers.regular(FONTSIZE.s)
+    self.paginationFont = ASSETS.font.inter.bold(FONTSIZE.s)
+    self.tableFont = ASSETS.font.inter.bold(FONTSIZE.s)
 
     -- init rom data
     self.romData = {}
@@ -350,14 +350,14 @@ function M:update(dt)
     -- case when there are 0 roms
     if not next(self.romData) and not self:_isFilterApplied() then
         love.graphics.setColor(colors.white)
-        love.graphics.setFont(ASSETS.font.univers.bold(FONTSIZE.xl))
+        love.graphics.setFont(ASSETS.font.inter.bold(FONTSIZE.xl))
         love.graphics.printf("NO ROMS FOUND\nHAVE YOU SCANNED ROMS YET?", 0, 100, SCREEN.w, "center")
         love.graphics.setCanvas()
         self.shouldRedraw = false
         return
     elseif not next(self.romData) then
         love.graphics.setColor(colors.white)
-        love.graphics.setFont(ASSETS.font.univers.bold(FONTSIZE.xl))
+        love.graphics.setFont(ASSETS.font.inter.bold(FONTSIZE.xl))
         love.graphics.printf("NO RESULTS", 0, 100, SCREEN.w, "center")
         love.graphics.setCanvas()
         self.shouldRedraw = false

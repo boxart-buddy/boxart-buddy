@@ -43,7 +43,7 @@ function M:new(canvas, systemeventsubscriber, definitions, values, options)
     self.widgetHeight = options.widgetHeight or SCREEN.hUnit(3.4)
 
     -- force same font for all widgets, also applies to label
-    self.font = options.font or ASSETS.font.univers.regular(FONTSIZE.s)
+    self.font = options.font or ASSETS.font.inter.medium(FONTSIZE.s)
 
     -- INITIALIZE ALL WIDGETS WITH CORRECT OPTIONS
     local currentWidgetY = 0

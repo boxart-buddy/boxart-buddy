@@ -88,7 +88,7 @@ function M:initButtonList()
         y = 20,
         spacingY = 50,
         textAlign = "center",
-        font = ASSETS.font.univers.regular(FONTSIZE.s),
+        font = ASSETS.font.inter.medium(FONTSIZE.s),
     })
 end
 

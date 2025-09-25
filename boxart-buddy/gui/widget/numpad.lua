@@ -41,9 +41,9 @@ function M:new(systemeventsubscriber, canvas, value, options)
     self.caretBlinkPeriod = 0.5
 
     -- FONT
-    self.inlineFont = options.font or ASSETS.font.univers.regular(FONTSIZE.s)
+    self.inlineFont = options.font or ASSETS.font.inter.medium(FONTSIZE.s)
     self.keycapFont = options.keycapFont or ASSETS.font.montserrat.bold(22)
-    self.typedTextFont = options.typedTextFont or ASSETS.font.univers.bold(22)
+    self.typedTextFont = options.typedTextFont or ASSETS.font.inter.bold(22)
 
     self.colors = table.shallow_overlay({
         label = colors.offWhite,

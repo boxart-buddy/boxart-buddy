@@ -7,7 +7,7 @@ function M:new(canvas, items, current, options)
     options = options or {}
 
     -- LAYOUT
-    self.font = options.font or ASSETS.font.univers.regular(FONTSIZE.s)
+    self.font = options.font or ASSETS.font.inter.medium(FONTSIZE.s)
 
     -- area between the top of the widget and the start of the background
     self.barMarginY = options.barMarginY or SCREEN.hUnit(0.2)

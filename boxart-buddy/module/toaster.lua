@@ -12,7 +12,7 @@ local GAP = SCREEN.hUnit(1)
 local RADIUS = 2
 local RIGHT_MARGIN = SCREEN.wUnit(0.6)
 local BOTTOM_MARGIN = SCREEN.hUnit(1.2)
-local FONT = ASSETS.font.univers.regular(FONTSIZE.m)
+local FONT = ASSETS.font.inter.medium(FONTSIZE.m)
 
 -- Utility: color with alpha multiplier (preserve original theme colors)
 local function applyAlpha(c, a)

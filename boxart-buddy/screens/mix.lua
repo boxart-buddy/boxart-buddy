@@ -95,7 +95,7 @@ function M:setMenu()
         {
             x = (SCREEN.w / 2) + SCREEN.wUnit(2),
             y = SCREEN.hUnit(3.5),
-            font = ASSETS.font.univers.regular(FONTSIZE.s),
+            font = ASSETS.font.inter.medium(FONTSIZE.s),
             labelWidth = SCREEN.wUnit(6),
             spacingY = SCREEN.hUnit(3.4),
             inputPaddingLeft = 0,
@@ -145,7 +145,7 @@ function M:setPresetSelect()
         y = SCREEN.hUnit(3),
         width = (SCREEN.w / 2),
         height = SCREEN.hUnit(3),
-        font = ASSETS.font.univers.bold(FONTSIZE.m),
+        font = ASSETS.font.inter.bold(FONTSIZE.m),
         -- labelWidth = 0,
         -- inputPaddingLeft = 0,
         textWidth = (SCREEN.w / 2) - SCREEN.wUnit(3),
@@ -173,7 +173,7 @@ function M:setStrategySelect()
         y = (SCREEN.h / 2) + 75,
         width = (SCREEN.w / 2),
         height = 30,
-        font = ASSETS.font.univers.bold(FONTSIZE.m),
+        font = ASSETS.font.inter.bold(FONTSIZE.m),
         labelWidth = 0,
         textWidth = (SCREEN.w / 2) - 110,
         arrowLeft = ASSETS.image.button.gamepad.small.start,
@@ -426,7 +426,7 @@ function M:update(dt)
     -- if no roms then print warning
     if not self.hasRoms then
         love.graphics.setColor(colors.white)
-        love.graphics.setFont(ASSETS.font.univers.bold(FONTSIZE.xl))
+        love.graphics.setFont(ASSETS.font.inter.bold(FONTSIZE.xl))
         love.graphics.printf("NO ROMS FOUND\nHAVE YOU SCANNED ROMS YET?", 0, 100, SCREEN.w, "center")
         love.graphics.setCanvas()
         self.shouldRedraw = false

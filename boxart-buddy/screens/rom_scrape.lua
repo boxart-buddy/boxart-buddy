@@ -255,7 +255,7 @@ function M:initScrapeSelector()
     self.scrapeSelector = Menu(self.canvas, self.systemeventsubscriber, buttons, {}, {
         x = 10,
         y = 100,
-        font = ASSETS.font.univers.regular(FONTSIZE.s),
+        font = ASSETS.font.inter.medium(FONTSIZE.s),
         -- spacingY = 34,
         currentOptionIndex = currentOptionIndex,
     })
@@ -267,7 +267,7 @@ function M:initMediaTypeSelector()
         y = 50,
         width = (SCREEN.w / 3),
         height = 30,
-        font = ASSETS.font.univers.bold(FONTSIZE.m),
+        font = ASSETS.font.inter.bold(FONTSIZE.m),
         labelWidth = 0,
         textWidth = ((SCREEN.w / 4) * 3) - 80,
         arrowLeft = ASSETS.image.button.gamepad.small.l1,
@@ -318,7 +318,7 @@ function M:update(dt)
     love.graphics.rectangle("fill", 0, 0, SCREEN.w, SCREEN.mainH, 16, 16)
 
     -- heading
-    local headingFont = ASSETS.font.univers.bold(FONTSIZE.xl)
+    local headingFont = ASSETS.font.inter.bold(FONTSIZE.xl)
     love.graphics.setFont(headingFont)
     love.graphics.setColor(colors.offWhite)
     love.graphics.printf(
@@ -336,7 +336,7 @@ function M:update(dt)
         -- no scraper for this media type
         love.graphics.setCanvas(self.canvas)
         love.graphics.setColor(colors.white)
-        love.graphics.setFont(ASSETS.font.univers.bold(FONTSIZE.xl))
+        love.graphics.setFont(ASSETS.font.inter.bold(FONTSIZE.xl))
         love.graphics.printf(
             "NO SCRAPER ENABLED\nOR THIS MEDIA TYPE",
             (SCREEN.w / 4) * 1,
@@ -359,7 +359,7 @@ function M:update(dt)
         -- no results
         love.graphics.setCanvas(self.canvas)
         love.graphics.setColor(colors.white)
-        love.graphics.setFont(ASSETS.font.univers.bold(FONTSIZE.xl))
+        love.graphics.setFont(ASSETS.font.inter.bold(FONTSIZE.xl))
         love.graphics.printf("NO RESULTS", (SCREEN.w / 4) * 1, (SCREEN.mainH / 2), (SCREEN.w / 4) * 3, "center")
     end
 

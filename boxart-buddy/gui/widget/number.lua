@@ -8,7 +8,7 @@ function M:new(canvas, value, options)
     -- init base
     self:super(canvas, value, self:_extractBaseOptions(options))
 
-    self.font = options.font or ASSETS.font.univers.regular(FONTSIZE.s)
+    self.font = options.font or ASSETS.font.inter.medium(FONTSIZE.s)
     self.arrowLeft = options.arrowLeft or ASSETS.image.arrow_left
     self.arrowRight = options.arrowRight or ASSETS.image.arrow_right
     self.arrowScale = options.arrowScale or 0.7

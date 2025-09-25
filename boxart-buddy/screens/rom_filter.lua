@@ -233,7 +233,7 @@ function M:enter()
         self.options.platforms,
         { x = SCREEN.wUnit(2.5), y = platformY, w = SCREEN.wUnit(27), h = SCREEN.hUnit(25) },
         {
-            font = ASSETS.font.univers.regular(FONTSIZE.s),
+            font = ASSETS.font.inter.medium(FONTSIZE.s),
             colors = {
                 label = colors.offWhite,
                 box = colors.offWhite,
@@ -300,7 +300,7 @@ function M:update(dt)
     end
     -- platforms
     love.graphics.setCanvas(self.canvas)
-    local font = ASSETS.font.univers.bold(FONTSIZE.s)
+    local font = ASSETS.font.inter.bold(FONTSIZE.s)
     love.graphics.setFont(font)
     love.graphics.setColor(colors.offWhite)
     love.graphics.printf(

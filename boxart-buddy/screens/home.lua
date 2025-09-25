@@ -71,7 +71,7 @@ function M:initButtonList()
             description = "Uses configured scraping services to download media/images for your scanned roms",
             options = {
                 subText = scrapeRomSubText,
-                subTextFont = ASSETS.font.univers.bold(FONTSIZE.m),
+                subTextFont = ASSETS.font.inter.bold(FONTSIZE.m),
                 x = (SCREEN.w - SCREEN.wUnit(22)) / 2,
                 buttonWidth = SCREEN.wUnit(22),
                 buttonHeight = SCREEN.hUnit(7),
@@ -108,7 +108,7 @@ function M:initButtonList()
             description = "Combines scraped images to make a composite 'mix' for display in the background or foreground when browsing roms",
             options = {
                 subText = (self.selectedPreset ~= nil) and self.selectedPreset.name or nil,
-                subTextFont = ASSETS.font.univers.bold(FONTSIZE.m),
+                subTextFont = ASSETS.font.inter.bold(FONTSIZE.m),
                 x = (SCREEN.w - SCREEN.wUnit(22)) / 2,
                 buttonWidth = SCREEN.wUnit(22),
                 buttonHeight = SCREEN.hUnit(7),
@@ -144,7 +144,7 @@ function M:initButtonList()
             description = "Copies images and mixes into the catalogue, or into an archive file",
             options = {
                 subText = self.environment:getConfig("pack_archive") and "Catalog Package" or "Direct Install",
-                subTextFont = ASSETS.font.univers.bold(FONTSIZE.m),
+                subTextFont = ASSETS.font.inter.bold(FONTSIZE.m),
                 x = (SCREEN.w - SCREEN.wUnit(22)) / 2,
                 buttonWidth = SCREEN.wUnit(22),
                 buttonHeight = SCREEN.hUnit(7),
@@ -173,7 +173,7 @@ function M:initButtonList()
         height = SCREEN.mainH,
         y = SCREEN.hUnit(10),
         widgetHeight = SCREEN.hUnit(9),
-        font = ASSETS.font.univers.bold(FONTSIZE.xxl),
+        font = ASSETS.font.inter.bold(FONTSIZE.xxl),
         labelWidth = 0,
     })
 end
@@ -272,7 +272,7 @@ function M:draw(dt)
     self.buttonList:draw()
 
     -- LAST SCANNED
-    local inlineTextFont = ASSETS.font.univers.bold(FONTSIZE.s)
+    local inlineTextFont = ASSETS.font.inter.bold(FONTSIZE.s)
     local lastScanText = "No roms scanned"
     if self.lastScan then
         lastScanText = string.format("Last Scan: %s", self.lastScan)
@@ -299,7 +299,7 @@ function M:draw(dt)
 
     -- SCAN HINT
     if self.lastScan == nil then
-        local scanHintFont = ASSETS.font.univers.bold(FONTSIZE.l)
+        local scanHintFont = ASSETS.font.inter.bold(FONTSIZE.l)
         local scanHintText = "Press `START` to scan roms"
 
         love.graphics.setFont(scanHintFont)

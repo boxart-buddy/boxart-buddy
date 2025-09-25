@@ -20,7 +20,7 @@ function M:new(canvas, items, viewport, options)
     self.options.colWidth = self.options.colWidth or 165
     self.options.paddingX = self.options.paddingX or 15
     self.options.paddingY = self.options.paddingY or 8
-    self.options.font = self.options.font or ASSETS.font.univers.regular(FONTSIZE.s)
+    self.options.font = self.options.font or ASSETS.font.inter.medium(FONTSIZE.s)
     self.options.colors = self.options.colors
         or {
             label = colors.offWhite,

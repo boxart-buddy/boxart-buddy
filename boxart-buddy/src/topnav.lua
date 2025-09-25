@@ -40,7 +40,7 @@ function M:new(environment, systemeventsubscriber, inputeventsubscriber)
         imageLeft = ASSETS.image.button.gamepad.small.l2,
         imageRight = ASSETS.image.button.gamepad.small.r2,
         imageMargin = SCREEN.wUnit(1),
-        font = ASSETS.font.univers.bold(FONTSIZE.m),
+        font = ASSETS.font.inter.bold(FONTSIZE.m),
     })
 
     self.active = true

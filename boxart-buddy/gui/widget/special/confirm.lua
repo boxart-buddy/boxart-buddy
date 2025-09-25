@@ -8,8 +8,8 @@ function M:new(systemeventsubscriber, options)
 
     self.systemeventsubscriber = systemeventsubscriber
     -- init base
-    self.font = options.font or ASSETS.font.univers.regular(FONTSIZE.l)
-    self.buttonFont = options.font or ASSETS.font.univers.regular(FONTSIZE.m)
+    self.font = options.font or ASSETS.font.inter.medium(FONTSIZE.l)
+    self.buttonFont = options.font or ASSETS.font.inter.medium(FONTSIZE.m)
     self.buttonWidth = options.buttonWidth or SCREEN.w / 4
     self.buttonHeight = options.buttonWidth or SCREEN.hUnit(6)
     self.message = options.message or "Do you confirm?"

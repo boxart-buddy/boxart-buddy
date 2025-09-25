@@ -16,7 +16,7 @@ function M:new(canvas, value, opts)
 
     -- LABEL
     self.label = opts.label or nil
-    self.labelFont = opts.labelFont or ASSETS.font.univers.regular(FONTSIZE.s)
+    self.labelFont = opts.labelFont or ASSETS.font.inter.medium(FONTSIZE.s)
     self.labelHighlightPaddingX = opts.labelHighlightPaddingX or 4
     self.labelHighlightPaddingY = opts.labelHighlightPaddingY or 2
     self.labelWidth = opts.labelWidth or self.labelFont:getWidth(self.label or "X") + self.labelHighlightPaddingX * 2 -- if supplied then the value is inclusive of labelHighlightPaddingX

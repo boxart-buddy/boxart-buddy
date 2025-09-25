@@ -11,7 +11,7 @@ function M:new(progress, options, canvas)
     self.canvas = canvas
     self.options = options or {}
 
-    self.headingFont = ASSETS.font.univers.bold(FONTSIZE.m)
+    self.headingFont = ASSETS.font.inter.bold(FONTSIZE.m)
 
     self.loading =
         Loading(self.canvas, ASSETS.image.loading.sprite_64, { x = SCREEN.wDiv(1, 2), y = SCREEN.hDiv(2, 3), fps = 32 })

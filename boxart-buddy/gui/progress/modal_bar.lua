@@ -13,8 +13,8 @@ function M:new(progress, flux, options, canvas)
     self.canvas = canvas
     self.options = options or {}
 
-    self.stepFont = ASSETS.font.univers.regular(FONTSIZE.s)
-    self.headingFont = ASSETS.font.univers.bold(FONTSIZE.m)
+    self.stepFont = ASSETS.font.inter.medium(FONTSIZE.s)
+    self.headingFont = ASSETS.font.inter.bold(FONTSIZE.m)
 
     self.options.barHeight = self.options.barHeight or SCREEN.hUnit(3)
     self.options.barWidth = self.options.barWidth or SCREEN.wUnit(20)

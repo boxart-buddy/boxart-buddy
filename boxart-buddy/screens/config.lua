@@ -59,7 +59,7 @@ function M:enter()
         height = SCREEN.hUnit(3),
         inputPaddingLeft = 0,
         uppercaseText = true,
-        font = ASSETS.font.univers.bold(FONTSIZE.s),
+        font = ASSETS.font.inter.bold(FONTSIZE.s),
         imageLeft = ASSETS.image.button.gamepad.small.l1,
         imageRight = ASSETS.image.button.gamepad.small.r1,
         imageMargin = 14,
@@ -92,7 +92,7 @@ function M:setMenu(name)
         {
             x = SCREEN.hUnit(7),
             y = SCREEN.wUnit(3),
-            font = ASSETS.font.univers.regular(FONTSIZE.s),
+            font = ASSETS.font.inter.medium(FONTSIZE.s),
             labelWidth = SCREEN.wUnit(10),
             spacingY = SCREEN.hUnit(3.4),
             height = SCREEN.mainH - SCREEN.hUnit(13),

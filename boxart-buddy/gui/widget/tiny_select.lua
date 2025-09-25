@@ -12,7 +12,7 @@ function M:new(canvas, items, value, options)
     self:setCurrentIndexByValue(self.value)
 
     self.cycle = options.cycle or true
-    self.font = options.font or ASSETS.font.univers.regular(FONTSIZE.s)
+    self.font = options.font or ASSETS.font.inter.medium(FONTSIZE.s)
     self.arrowLeft = options.arrowLeft or ASSETS.image.arrow_left
     self.arrowRight = options.arrowRight or ASSETS.image.arrow_right
     self.arrowScale = options.arrowScale or 0.7
