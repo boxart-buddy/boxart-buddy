@@ -11,6 +11,7 @@ M.all = {
         ["muos"] = "The 3DO Company - 3DO", -- name of the catalog folder in muos also assign.ini
         ["extensions"] = { "chd", "cue", "iso" },
         ["ssId"] = 29,
+        ["tgdbId"] = 25,
     },
     {
         ["key"] = "a800",
@@ -39,6 +40,7 @@ M.all = {
             "xfd.gz",
         },
         ["ssId"] = 43,
+        ["tgdbId"] = 4943,
     },
     {
         ["key"] = "atari2600",
@@ -52,6 +54,7 @@ M.all = {
         ["muos"] = "Atari 2600",
         ["extensions"] = { "a26", "bin", "gz", "rom" },
         ["ssId"] = 26,
+        ["tgdbId"] = 22,
     },
     {
         ["key"] = "atari5200",
@@ -65,6 +68,7 @@ M.all = {
         ["muos"] = "Atari 5200",
         ["extensions"] = { "a52", "atr", "atr.gz", "bas", "bin", "car", "dcm", "xex", "xfd", "xfd.gz" },
         ["ssId"] = 40,
+        ["tgdbId"] = 26,
     },
     {
         ["key"] = "atari7800",
@@ -79,6 +83,7 @@ M.all = {
         ["muos"] = "Atari 7800",
         ["extensions"] = { "a78", "bin" },
         ["ssId"] = 41,
+        ["tgdbId"] = 27,
     },
     {
         ["key"] = "amiga",
@@ -94,6 +99,7 @@ M.all = {
         ["muos"] = "Commodore Amiga",
         ["extensions"] = { "adf", "adz", "chd", "cue", "dms", "hdf", "img", "ipf", "iso", "lha", "m3u", "rp9", "uae" },
         ["ssId"] = 64,
+        ["tgdbId"] = 4911,
     },
     {
         ["key"] = "arcade",
@@ -135,6 +141,7 @@ M.all = {
         ["alternate"] = { "arcade" },
         ["extensions"] = { "bin", "cue", "dat", "fba", "iso", "zip" }, -- zip
         ["ssId"] = 75,
+        ["tgdbId"] = 23,
     },
     {
         ["key"] = "arduboy",
@@ -148,6 +155,7 @@ M.all = {
         ["muos"] = "Arduboy",
         ["extensions"] = { "hex", "arduboy" },
         ["ssId"] = 263,
+        ["tgdbId"] = nil,
     },
     {
         ["key"] = "atomiswave",
@@ -161,6 +169,7 @@ M.all = {
         ["extensions"] = { "bin", "chd", "dat", "zip" }, -- zip
         ["ssId"] = 53,
         ["ssParentId"] = 75,
+        ["tgdbId"] = nil,
     },
     {
         ["key"] = "c64",
@@ -172,6 +181,7 @@ M.all = {
         ["muos"] = "Commodore C64",
         ["extensions"] = { "cmd", "crt", "d64", "d71", "d80", "d81", "g64", "m3u", "prg", "t64", "tap", "vsf", "x64" },
         ["ssId"] = 66,
+        ["tgdbId"] = 40,
     },
     {
         ["key"] = "channelf",
@@ -183,6 +193,7 @@ M.all = {
         ["muos"] = "Fairchild ChannelF",
         ["extensions"] = { "bin", "rom" },
         ["ssId"] = 80,
+        ["tgdbId"] = 4928,
     },
     {
         ["key"] = "cdi",
@@ -194,6 +205,7 @@ M.all = {
         ["muos"] = "Philips CDi",
         ["extensions"] = { "chd" },
         ["ssId"] = 133,
+        ["tgdbId"] = 4917,
     },
     -- {
     --     ["key"] = "cps1",
@@ -231,6 +243,7 @@ M.all = {
         ["muos"] = "Amstrad",
         ["extensions"] = { "cdt", "cpc", "cpr", "dsk", "m3u", "tap" },
         ["ssId"] = 65,
+        ["tgdbId"] = 4914,
     },
     {
         ["key"] = "dreamcast",
@@ -244,6 +257,7 @@ M.all = {
         ["muos"] = "Sega Dreamcast",
         ["extensions"] = { "cdi", "chd", "cue", "gdi", "iso", "m3u" },
         ["ssId"] = 23,
+        ["tgdbId"] = 16,
     },
     {
         ["key"] = "fds",
@@ -257,6 +271,7 @@ M.all = {
         ["extensions"] = { "fds", "nes" },
         ["ssId"] = 106,
         ["ssParentId"] = 3,
+        ["tgdbId"] = 4936,
     },
     {
         ["key"] = "gb",
@@ -272,6 +287,7 @@ M.all = {
         ["muos"] = "Nintendo Game Boy",
         ["extensions"] = { "gb" },
         ["ssId"] = 9,
+        ["tgdbId"] = 4,
     },
     {
         ["key"] = "gba",
@@ -287,6 +303,7 @@ M.all = {
         ["muos"] = "Nintendo Game Boy Advance",
         ["extensions"] = { "gba" },
         ["ssId"] = 12,
+        ["tgdbId"] = 5,
     },
     {
         ["key"] = "gbc",
@@ -302,6 +319,7 @@ M.all = {
         ["extensions"] = { "gbc", "gb" },
         ["ssId"] = 10,
         ["ssParentId"] = 9,
+        ["tgdbId"] = 41,
     },
     {
         ["key"] = "gg",
@@ -316,6 +334,7 @@ M.all = {
         ["muos"] = "Sega Game Gear",
         ["extensions"] = { "bin", "gg", "sms" },
         ["ssId"] = 21,
+        ["tgdbId"] = 20,
     },
     {
         ["key"] = "gw",
@@ -327,6 +346,7 @@ M.all = {
         ["muos"] = "Handheld Electronic - Game and Watch",
         ["extensions"] = { "mgw" },
         ["ssId"] = 52,
+        ["tgdbId"] = 4950,
     },
     {
         ["key"] = "gx4000",
@@ -339,6 +359,7 @@ M.all = {
         ["extensions"] = { "cpr", "bin" },
         ["ssId"] = 87,
         ["ssParentId"] = 65,
+        ["tgdbId"] = 4999,
     },
     {
         ["key"] = "intv",
@@ -353,6 +374,7 @@ M.all = {
         ["muos"] = "Mattel - Intellivision",
         ["extensions"] = { "bin", "int", "itv", "rom" },
         ["ssId"] = 115,
+        ["tgdbId"] = 32,
     },
     {
         ["key"] = "jaguar",
@@ -367,16 +389,18 @@ M.all = {
         ["muos"] = "Atari Jaguar",
         ["extensions"] = { "chd", "cue", "j64", "jag" },
         ["ssId"] = 27,
+        ["tgdbId"] = 28,
     },
-    -- { -- skipping due to size,
-    --     ["key"] = "j2me",
-    --     ["name"] = "Java J2ME-Platform",
-    --     ["dat"] = {
-    --         {"libretro/dat", "Mobile - J2ME"},
-    --     },
-    --     ["libretroThumbFolder"] = nil,
-    --     ["muos"] = "Java J2ME",
-    -- },
+    { -- skipping due to size,
+        ["key"] = "j2me",
+        ["name"] = "Java J2ME-Platform",
+        -- ["dat"] = {
+        --     {"libretro/dat", "Mobile - J2ME"},
+        -- },
+        ["libretroThumbFolder"] = nil,
+        ["muos"] = "Java J2ME",
+        ["tgdbId"] = 5018,
+    },
     {
         ["key"] = "lynx",
         ["name"] = "Atari Lynx",
@@ -390,6 +414,7 @@ M.all = {
         ["muos"] = "Atari Lynx",
         ["extensions"] = { "lnx" },
         ["ssId"] = 28,
+        ["tgdbId"] = 4924,
     },
     {
         ["key"] = "md",
@@ -405,6 +430,7 @@ M.all = {
         ["muos"] = "Sega Mega Drive - Genesis",
         ["extensions"] = { "bin", "gen", "md", "sg", "smd" },
         ["ssId"] = 1,
+        ["tgdbId"] = { 36, 18 },
     },
     {
         ["key"] = "mdcd",
@@ -416,6 +442,7 @@ M.all = {
         ["muos"] = "Sega Mega CD - Sega CD",
         ["extensions"] = { "chd", "cue", "iso", "m3u" },
         ["ssId"] = 20,
+        ["tgdbId"] = 21,
     },
     {
         ["key"] = "megaduck",
@@ -425,6 +452,7 @@ M.all = {
         ["muos"] = "Mega Duck - Cougar Boy",
         ["extensions"] = { "bin" },
         ["ssId"] = 90,
+        ["tgdbId"] = 4948,
     },
     {
         ["key"] = "msx",
@@ -437,6 +465,7 @@ M.all = {
         ["alternate"] = { "msx2" },
         ["extensions"] = { "cas", "col", "dsk", "m3u", "mx1", "mx2", "rom" },
         ["ssId"] = 113,
+        ["tgdbId"] = 4929,
     },
     {
         ["key"] = "msx2",
@@ -450,6 +479,7 @@ M.all = {
         ["extensions"] = { "col", "dsk", "mx1", "mx2", "rom" },
         ["ssId"] = 116,
         ["ssParentId"] = 113,
+        ["tgdbId"] = 4929,
     },
     {
         ["key"] = "n64",
@@ -465,6 +495,7 @@ M.all = {
         ["muos"] = "Nintendo N64",
         ["extensions"] = { "n64", "v64", "z64" },
         ["ssId"] = 14,
+        ["tgdbId"] = 3,
     },
     {
         ["key"] = "naomi",
@@ -478,6 +509,7 @@ M.all = {
         ["extensions"] = { "bin", "chd", "dat" },
         ["ssId"] = 56,
         ["ssParentId"] = 75,
+        ["tgdbId"] = nil,
     },
     {
         ["key"] = "naomi2",
@@ -491,6 +523,7 @@ M.all = {
         ["extensions"] = { "bin", "chd", "dat" },
         ["ssId"] = 230,
         ["ssParentId"] = 75,
+        ["tgdbId"] = nil,
     },
     {
         ["key"] = "nds",
@@ -505,6 +538,7 @@ M.all = {
         ["alternate"] = { "ndsi" },
         ["extensions"] = { "nds" },
         ["ssId"] = 15,
+        ["tgdbId"] = 8,
     },
     {
         ["key"] = "ndsi",
@@ -517,6 +551,7 @@ M.all = {
         ["alternate"] = { "nds" },
         ["extensions"] = { "nds" },
         ["ssId"] = 15,
+        ["tgdbId"] = 8,
     },
     {
         ["key"] = "neogeo",
@@ -529,6 +564,7 @@ M.all = {
         ["extensions"] = { "chd", "cue", "fba", "iso", "zip" }, -- zip
         ["ssId"] = 142,
         ["ssParentId"] = 75,
+        ["tgdbId"] = 24,
     },
     {
         ["key"] = "neocd",
@@ -540,6 +576,7 @@ M.all = {
         ["muos"] = "SNK Neo Geo CD",
         ["extensions"] = { "chd", "cue", "fba", "iso" },
         ["ssId"] = 70,
+        ["tgdbId"] = 4956,
     },
     {
         ["key"] = "nes",
@@ -557,6 +594,7 @@ M.all = {
         ["muos"] = "Nintendo NES - Famicom",
         ["extensions"] = { "fig", "mgd", "nes", "sfc", "smc", "swc" },
         ["ssId"] = 3,
+        ["tgdbId"] = 7,
     },
     {
         ["key"] = "ngp",
@@ -570,6 +608,7 @@ M.all = {
         ["extensions"] = { "ngp" },
         ["ssId"] = 25,
         ["ssParentId"] = 82,
+        ["tgdbId"] = 4922,
     },
     {
         ["key"] = "ngpc",
@@ -582,6 +621,7 @@ M.all = {
         ["alternate"] = { "ngpc" },
         ["extensions"] = { "ngc" },
         ["ssId"] = 82,
+        ["tgdbId"] = 4923,
     },
     {
         ["key"] = "openbor",
@@ -591,6 +631,7 @@ M.all = {
         ["muos"] = "OpenBOR",
         ["extensions"] = { "bor", "pak" },
         ["ssId"] = 214,
+        ["tgdbId"] = nil,
     },
     {
         ["key"] = "odyssey2",
@@ -602,6 +643,7 @@ M.all = {
         ["muos"] = "Odyssey2 - VideoPac",
         ["extensions"] = { "bin" },
         ["ssId"] = 104,
+        ["tgdbId"] = { 4961, 4927 },
     },
     {
         ["key"] = "pce",
@@ -615,6 +657,7 @@ M.all = {
         ["muos"] = "NEC PC Engine",
         ["extensions"] = { "ccd", "chd", "cue", "pce" },
         ["ssId"] = 31,
+        ["tgdbId"] = 34,
     },
     {
         ["key"] = "pces",
@@ -627,6 +670,7 @@ M.all = {
         ["extensions"] = { "ccd", "chd", "cue", "pce" },
         ["ssId"] = 105,
         ["ssParentId"] = 31,
+        ["tgdbId"] = nil,
     },
     {
         ["key"] = "pcecd",
@@ -639,6 +683,7 @@ M.all = {
         ["extensions"] = { "ccd", "chd", "cue", "pce" },
         ["ssId"] = 114,
         ["ssParentId"] = 31,
+        ["tgdbId"] = 4955,
     },
     {
         ["key"] = "pico8",
@@ -650,6 +695,7 @@ M.all = {
         ["muos"] = "PICO-8",
         ["extensions"] = { "p8", "png" },
         ["ssParentId"] = 234,
+        ["tgdbId"] = nil,
     },
     {
         ["key"] = "pokemini",
@@ -662,6 +708,7 @@ M.all = {
         ["muos"] = "Nintendo Pokemon Mini",
         ["extensions"] = { "min" },
         ["ssId"] = 211,
+        ["tgdbId"] = 4957,
     },
     {
         ["key"] = "psx",
@@ -676,6 +723,7 @@ M.all = {
         ["muos"] = "Sony PlayStation",
         ["extensions"] = { "cbn", "chd", "cue", "img", "iso", "m3u", "mdf", "pbp", "toc", "z", "znx" },
         ["ssId"] = 57,
+        ["tgdbId"] = 10,
     },
     {
         ["key"] = "psp",
@@ -690,6 +738,7 @@ M.all = {
         ["muos"] = "Sony Playstation Portable",
         ["extensions"] = { "chd", "cso", "iso", "pbp" },
         ["ssId"] = 61,
+        ["tgdbId"] = 13,
     },
     {
         ["key"] = "saturn",
@@ -701,6 +750,7 @@ M.all = {
         ["muos"] = "Sega Saturn",
         ["extensions"] = { "chd", "cue", "iso", "m3u", "mdf" },
         ["ssId"] = 22,
+        ["tgdbId"] = 17,
     },
     {
         ["key"] = "scummvm",
@@ -714,6 +764,7 @@ M.all = {
         ["extensions"] = { "scummvm", "svm" },
         ["ssId"] = 123,
         ["ssParentId"] = 135,
+        ["tgdbId"] = nil,
     },
     {
         ["key"] = "sega32x",
@@ -729,6 +780,7 @@ M.all = {
         ["extensions"] = { "32x", "bin", "md", "smd" },
         ["ssId"] = 19,
         ["ssParentId"] = 1,
+        ["tgdbId"] = 33,
     },
     {
         ["key"] = "sg1000",
@@ -742,6 +794,7 @@ M.all = {
         ["extensions"] = { "bin", "sg" },
         ["ssId"] = 109,
         ["ssParentId"] = 2,
+        ["tgdbId"] = 4949,
     },
     {
         ["key"] = "sms",
@@ -753,6 +806,7 @@ M.all = {
         ["muos"] = "Sega Master System",
         ["extensions"] = { "bin", "sms" },
         ["ssId"] = 2,
+        ["tgdbId"] = 35,
     },
     {
         ["key"] = "snes",
@@ -770,6 +824,7 @@ M.all = {
         ["muos"] = "Nintendo SNES - SFC",
         ["extensions"] = { "bin", "bs", "fig", "mgd", "sfc", "smc", "swc" },
         ["ssId"] = 4,
+        ["tgdbId"] = 6,
     },
     {
         ["key"] = "spectrum",
@@ -783,6 +838,7 @@ M.all = {
         ["muos"] = "Sinclair ZX Spectrum",
         ["extensions"] = { "dsk", "gz", "img", "mgt", "rzx", "scl", "sna", "szx", "tap", "trd", "tzx", "udi", "z80" },
         ["ssId"] = 76,
+        ["tgdbId"] = 4913,
     },
     {
         ["key"] = "supervision",
@@ -794,6 +850,7 @@ M.all = {
         ["muos"] = "Watara Supervision",
         ["extensions"] = { "bin", "sv" },
         ["ssId"] = 207,
+        ["tgdbId"] = 4959,
     },
     {
         ["key"] = "tic80",
@@ -805,6 +862,7 @@ M.all = {
         ["muos"] = "TIC-80",
         ["extensions"] = { "tic" },
         ["ssId"] = 222,
+        ["tgdbId"] = nil,
     },
     {
         ["key"] = "vb",
@@ -816,6 +874,7 @@ M.all = {
         ["muos"] = "Nintendo Virtual Boy",
         ["extensions"] = { "vb" },
         ["ssId"] = 11,
+        ["tgdbId"] = 4918,
     },
     {
         ["key"] = "vectrex",
@@ -827,6 +886,7 @@ M.all = {
         ["muos"] = "GCE-Vectrex",
         ["extensions"] = { "bin", "gam", "vec" },
         ["ssId"] = 102,
+        ["tgdbId"] = 4939,
     },
     {
         ["key"] = "ws",
@@ -839,6 +899,7 @@ M.all = {
         ["muos"] = "Bandai WonderSwan",
         ["extensions"] = { "ws" },
         ["ssId"] = 45,
+        ["tgdbId"] = 4925,
     },
     {
         ["key"] = "wsc",
@@ -852,6 +913,7 @@ M.all = {
         ["extensions"] = { "wsc" },
         ["ssId"] = 46,
         ["ssParentId"] = 45,
+        ["tgdbId"] = 4926,
     },
     {
         ["key"] = "x1",
@@ -865,6 +927,7 @@ M.all = {
         ["muos"] = "Sharp X1",
         ["extensions"] = { "2d", "2hd", "88d", "cmd", "d88", "dup", "dx1", "hdm", "tfd", "xdf" },
         ["ssId"] = 220,
+        ["tgdbId"] = 4977,
     },
     {
         ["key"] = "x68000",
@@ -878,6 +941,7 @@ M.all = {
         ["muos"] = "Sharp X68000",
         ["extensions"] = { "2hd", "d88", "dim", "hdf", "hdm", "m3u", "xdf" },
         ["ssId"] = 79,
+        ["tgdbId"] = 4931,
     },
     {
         ["key"] = "zx81",
@@ -889,6 +953,7 @@ M.all = {
         ["muos"] = "Sinclair ZX 81",
         ["extensions"] = { "p", "t81", "tzx" },
         ["ssId"] = 77,
+        ["tgdbId"] = 5010,
     },
     -- TBC,
     -- PORTS (github?)

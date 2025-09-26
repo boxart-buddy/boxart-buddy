@@ -7,3 +7,4 @@
 data/*
 tools/fixtures*
 boxart-buddy/resources/db/bb-dev.db
+boxart-buddy/trash/*
