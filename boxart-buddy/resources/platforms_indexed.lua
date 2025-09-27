@@ -1,726 +1,220 @@
 -- DO NOT EDIT THIS CODE IT IS GENERATED AUTOMATICALLY
 local M = {
-    byKey = {
-      spectrum = {
-        extensions = {
-          "dsk",
-          "gz",
-          "img",
-          "mgt",
-          "rzx",
-          "scl",
-          "sna",
-          "szx",
-          "tap",
-          "trd",
-          "tzx",
-          "udi",
-          "z80"
+    byMuos = {
+      arcade = {
+        alternate = {
+          "arcade"
         },
-        key = "spectrum",
+        tgdbId = 23,
         dat = {
           {
-            "libretro/dat",
-            "Sinclair - ZX Spectrum"
+            "libretro/metadat/fbneo-split/",
+            "FBNeo - Arcade Games"
           },
           {
-            "libretro/metadat/tosec",
-            "Sinclair - ZX Spectrum.dat"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sinclair - ZX Spectrum +3"
+            "no-intro/Non-Redump/fbneo-split/",
+            "Non-Redump - Capcom - Play System"
           }
         },
-        name = "ZX Spectrum",
-        ssId = 76,
-        tgdbId = 4913,
-        muos = "Sinclair ZX Spectrum",
-        libretroThumbFolder = "Sinclair - ZX Spectrum"
-      },
-      channelf = {
+        name = "Arcade (FB NEO)",
         extensions = {
           "bin",
-          "rom"
+          "cue",
+          "dat",
+          "fba",
+          "iso",
+          "zip"
         },
-        key = "channelf",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Fairchild - Channel F"
-          }
-        },
-        name = "Fairchild ChannelF",
-        ssId = 80,
-        tgdbId = 4928,
-        muos = "Fairchild ChannelF",
-        libretroThumbFolder = "Fairchild - Channel F"
+        libretroThumbFolder = "FBNeo - Arcade Games",
+        key = "fbneo",
+        ssId = 75,
+        muos = "Arcade"
       },
-      cdi = {
-        extensions = {
-          "chd"
-        },
-        key = "cdi",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "Philips - CD-i"
-          }
-        },
-        name = "Philips CD-i",
-        ssId = 133,
-        tgdbId = 4917,
-        muos = "Philips CDi",
-        libretroThumbFolder = "Philips - CD-i"
-      },
-      supervision = {
-        extensions = {
-          "bin",
-          "sv"
-        },
-        key = "supervision",
+      ["watara supervision"] = {
+        ssId = 207,
+        tgdbId = 4959,
         dat = {
           {
             "libretro/metadat/no-intro",
             "Watara - Supervision"
           }
         },
+        libretroThumbFolder = "Watara - Supervision",
+        key = "supervision",
         name = "Watara Supervision",
-        ssId = 207,
-        tgdbId = 4959,
-        muos = "Watara Supervision",
-        libretroThumbFolder = "Watara - Supervision"
-      },
-      tic80 = {
-        extensions = {
-          "tic"
-        },
-        key = "tic80",
-        dat = {
-          {
-            "libretro/dat",
-            "TIC-80"
-          }
-        },
-        name = "TIC-80 Tiny Computer",
-        ssId = 222,
-        muos = "TIC-80",
-        libretroThumbFolder = "TIC-80"
-      },
-      gba = {
-        ssId = 12,
-        tgdbId = 5,
-        muos = "Nintendo Game Boy Advance",
-        extensions = {
-          "gba"
-        },
-        key = "gba",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Nintendo - Game Boy Advance"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Nintendo - Game Boy Advance"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Game Boy Advance"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Nintendo - Game Boy Advance"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Nintendo - Game Boy Advance",
-        libretroThumbFolder = "Nintendo - Game Boy Advance"
-      },
-      vb = {
-        extensions = {
-          "vb"
-        },
-        key = "vb",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Virtual Boy"
-          }
-        },
-        name = "Nintendo - Virtual Boy",
-        ssId = 11,
-        tgdbId = 4918,
-        muos = "Nintendo Virtual Boy",
-        libretroThumbFolder = "Nintendo - Virtual Boy"
-      },
-      gbc = {
-        ssId = 10,
-        tgdbId = 41,
-        muos = "Nintendo Game Boy Color",
-        extensions = {
-          "gbc",
-          "gb"
-        },
-        key = "gbc",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Nintendo - Game Boy Color"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Game Boy Color"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Nintendo - Game Boy Color"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        ssParentId = 9,
-        name = "Nintendo - Game Boy Color",
-        libretroThumbFolder = "Nintendo - Game Boy Color"
-      },
-      vectrex = {
         extensions = {
           "bin",
-          "gam",
-          "vec"
+          "sv"
         },
-        key = "vectrex",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "GCE - Vectrex"
-          }
-        },
-        name = "GCE Vectrex",
-        ssId = 102,
-        tgdbId = 4939,
-        muos = "GCE-Vectrex",
-        libretroThumbFolder = "GCE - Vectrex"
+        muos = "Watara Supervision"
       },
-      gg = {
-        ssId = 21,
-        tgdbId = 20,
-        muos = "Sega Game Gear",
-        extensions = {
-          "bin",
-          "gg",
-          "sms"
-        },
-        key = "gg",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Sega - Game Gear"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sega - Game Gear"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sega - Game Gear"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "SEGA Game Gear",
-        libretroThumbFolder = "Sega - Game Gear"
-      },
-      sms = {
-        extensions = {
-          "bin",
-          "sms"
-        },
-        key = "sms",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Sega - Master System - Mark III"
-          }
-        },
-        name = "SEGA Master System",
-        ssId = 2,
-        tgdbId = 35,
-        muos = "Sega Master System",
-        libretroThumbFolder = "Sega - Master System - Mark III"
-      },
-      ws = {
-        extensions = {
-          "ws"
-        },
-        key = "ws",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Bandai - WonderSwan.dat"
-          },
-          {
-            "libretro/metadat/hacks",
-            "Bandai - WonderSwan.dat"
-          }
-        },
-        name = "WonderSwan",
-        ssId = 45,
-        tgdbId = 4925,
-        muos = "Bandai WonderSwan",
-        libretroThumbFolder = "Bandai - WonderSwan"
-      },
-      x1 = {
-        ssId = 220,
-        tgdbId = 4977,
-        muos = "Sharp X1",
-        extensions = {
-          "2d",
-          "2hd",
-          "88d",
-          "cmd",
-          "d88",
-          "dup",
-          "dx1",
-          "hdm",
-          "tfd",
-          "xdf"
-        },
-        key = "x1",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Sharp - X1"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sharp - X1"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Sharp X1",
-        libretroThumbFolder = "Sharp - X1"
-      },
-      nes = {
-        ssId = 3,
-        tgdbId = 7,
-        muos = "Nintendo NES - Famicom",
-        extensions = {
-          "fig",
-          "mgd",
-          "nes",
-          "sfc",
-          "smc",
-          "swc"
-        },
-        key = "nes",
-        dat = {
-          {
-            "libretro/dat",
-            "Nintendo - Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/hacks",
-            "Nintendo - Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/headered",
-            "Nintendo - Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Nintendo - Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Nintendo - Nintendo Entertainment System"
-          }
-        },
-        prefer = {
-          "no-intro",
-          "libretro-dats"
-        },
-        name = "Nintendo - Entertainment System",
-        libretroThumbFolder = "Nintendo - Nintendo Entertainment System"
-      },
-      wsc = {
-        ssId = 46,
-        tgdbId = 4926,
-        muos = "Bandai WonderSwan",
-        extensions = {
-          "wsc"
-        },
-        key = "wsc",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Bandai - WonderSwan Color"
-          },
-          {
-            "libretro/metadat/hacks",
-            "Bandai - WonderSwan Color"
-          }
-        },
-        name = "WonderSwan Color",
-        ssParentId = 45,
-        libretroThumbFolder = "Bandai - WonderSwan Color"
-      },
-      intv = {
-        ssId = 115,
-        tgdbId = 32,
-        muos = "Mattel - Intellivision",
-        extensions = {
-          "bin",
-          "int",
-          "itv",
-          "rom"
-        },
-        key = "intv",
-        dat = {
-          {
-            "libretro/metadat/homebrew",
-            "Mattel - Intellivision"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Mattel - Intellivision"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Mattel - Intellivision"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Mattel Intellivision",
-        libretroThumbFolder = "Mattel - Intellivision"
-      },
-      jaguar = {
-        ssId = 27,
-        tgdbId = 28,
-        muos = "Atari Jaguar",
-        extensions = {
-          "chd",
-          "cue",
-          "j64",
-          "jag"
-        },
-        key = "jaguar",
-        dat = {
-          {
-            "libretro/metadat/magazine/edge/",
-            "Atari - Jaguar"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Atari - Jaguar"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Atari - Jaguar"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Atari Jaguar",
-        libretroThumbFolder = "Atari - Jaguar"
-      },
-      ngp = {
-        ssId = 25,
-        tgdbId = 4922,
-        muos = "SNK Neo Geo Pocket - Color",
-        extensions = {
-          "ngp"
-        },
-        key = "ngp",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "SNK - Neo Geo Pocket.dat"
-          }
-        },
-        name = "Neo Geo Pocket",
-        ssParentId = 82,
-        alternate = {
-          "ngpc"
-        },
-        libretroThumbFolder = "SNK - Neo Geo Pocket"
-      },
-      j2me = {
-        extensions = {
-          "jar"
-        },
-        key = "j2me",
-        name = "Java J2ME-Platform",
-        tgdbId = 5018,
-        muos = "Java J2ME"
-      },
-      ngpc = {
-        ssId = 82,
-        tgdbId = 4923,
-        muos = "SNK Neo Geo Pocket - Color",
-        extensions = {
-          "ngc"
-        },
-        key = "ngpc",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "SNK - Neo Geo Pocket Color.dat"
-          }
-        },
-        name = "Neo Geo Pocket Color",
-        alternate = {
-          "ngpc"
-        },
-        libretroThumbFolder = "SNK - Neo Geo Pocket Color"
-      },
-      lynx = {
+      ["atari lynx"] = {
         ssId = 28,
         tgdbId = 4924,
-        muos = "Atari Lynx",
+        dat = {
+          {
+            "libretro/metadat/headered",
+            "Atari - Lynx"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Atari - Lynx"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Atari - Lynx"
+          }
+        },
+        name = "Atari Lynx",
         extensions = {
           "lnx"
         },
+        libretroThumbFolder = "Atari - Lynx",
         key = "lynx",
-        dat = {
-          {
-            "libretro/metadat/headered",
-            "Atari - Lynx"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Atari - Lynx"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Atari - Lynx"
-          }
-        },
         prefer = {
           "no-intro"
         },
-        name = "Atari Lynx",
-        libretroThumbFolder = "Atari - Lynx"
+        muos = "Atari Lynx"
       },
-      openbor = {
-        extensions = {
-          "bor",
-          "pak"
-        },
-        key = "openbor",
-        name = "OpenBOR",
-        ssId = 214,
-        muos = "OpenBOR"
-      },
-      atari2600 = {
-        ssId = 26,
-        tgdbId = 22,
-        muos = "Atari 2600",
-        extensions = {
-          "a26",
-          "bin",
-          "gz",
-          "rom"
-        },
-        key = "atari2600",
+      ["the 3do company - 3do"] = {
+        ssId = 29,
+        tgdbId = 25,
         dat = {
           {
-            "libretro/metadat/no-intro/",
-            "Atari - 2600"
-          },
-          {
-            "libretro/metadat/tosec/",
-            "Atari - 2600"
+            "libretro/metadat/redump/",
+            "The 3DO Company"
           }
         },
-        prefer = {
-          "no-intro"
-        },
-        name = "Atari 2600",
-        libretroThumbFolder = "Atari - 2600"
-      },
-      md = {
-        ssId = 1,
-        tgdbId = {
-          36,
-          18
-        },
-        muos = "Sega Mega Drive - Genesis",
-        extensions = {
-          "bin",
-          "gen",
-          "md",
-          "sg",
-          "smd"
-        },
-        key = "md",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Sega - Mega Drive - Genesis"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Sega - Mega Drive - Genesis"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sega - Mega Drive - Genesis"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sega - Mega Drive - Genesis"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "SEGA Megadrive",
-        libretroThumbFolder = "Sega - Mega Drive - Genesis"
-      },
-      odyssey2 = {
-        extensions = {
-          "bin"
-        },
-        key = "odyssey2",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Magnavox - Odyssey2.dat"
-          }
-        },
-        name = "Magnavox Odyssey - Videopac",
-        ssId = 104,
-        tgdbId = {
-          4961,
-          4927
-        },
-        muos = "Odyssey2 - VideoPac",
-        libretroThumbFolder = "Magnavox - Odyssey2"
-      },
-      atari5200 = {
-        ssId = 40,
-        tgdbId = 26,
-        muos = "Atari 5200",
-        extensions = {
-          "a52",
-          "atr",
-          "atr.gz",
-          "bas",
-          "bin",
-          "car",
-          "dcm",
-          "xex",
-          "xfd",
-          "xfd.gz"
-        },
-        key = "atari5200",
-        dat = {
-          {
-            "libretro/metadat/no-intro/",
-            "Atari - 5200"
-          },
-          {
-            "libretro/metadat/tosec/",
-            "Atari - 5200"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Atari 5200",
-        libretroThumbFolder = "Atari - 5200"
-      },
-      pce = {
-        ssId = 31,
-        tgdbId = 34,
-        muos = "NEC PC Engine",
-        extensions = {
-          "ccd",
-          "chd",
-          "cue",
-          "pce"
-        },
-        key = "pce",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "NEC - PC Engine - TurboGrafx 16"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "NEC - PC Engine - TurboGrafx 16"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "PC Engine",
-        libretroThumbFolder = "NEC - PC Engine - TurboGrafx 16"
-      },
-      mdcd = {
+        libretroThumbFolder = "The 3DO Company - 3DO",
+        key = "3do",
+        name = "Panasonic 3DO",
         extensions = {
           "chd",
           "cue",
-          "iso",
-          "m3u"
+          "iso"
         },
-        key = "mdcd",
+        muos = "The 3DO Company - 3DO"
+      },
+      ["pico-8"] = {
+        ssParentId = 234,
+        dat = {
+          {
+            "libretro/dat",
+            "PICO-8"
+          }
+        },
+        key = "pico8",
+        name = "Pico-8",
+        extensions = {
+          "p8",
+          "png"
+        },
+        muos = "PICO-8"
+      },
+      ["handheld electronic - game and watch"] = {
+        ssId = 52,
+        tgdbId = 4950,
+        dat = {
+          {
+            "no-intro/No-Intro",
+            "Nintendo - Game & Watch"
+          }
+        },
+        key = "gw",
+        name = "Nintendo - Game & Watch",
+        extensions = {
+          "mgw"
+        },
+        muos = "Handheld Electronic - Game and Watch"
+      },
+      ["sega saturn"] = {
+        ssId = 22,
+        tgdbId = 17,
         dat = {
           {
             "libretro/metadat/redump",
-            "Sega - Mega-CD - Sega CD"
+            "Sega - Saturn"
           }
         },
-        name = "SEGA Mega-CD",
-        ssId = 20,
-        tgdbId = 21,
-        muos = "Sega Mega CD - Sega CD",
-        libretroThumbFolder = "Sega - Mega-CD - Sega CD"
-      },
-      megaduck = {
+        libretroThumbFolder = "Sega - Saturn",
+        key = "saturn",
+        name = "SEGA Saturn",
         extensions = {
-          "bin"
-        },
-        key = "megaduck",
-        name = "Mega Duck",
-        ssId = 90,
-        tgdbId = 4948,
-        muos = "Mega Duck - Cougar Boy"
-      },
-      amiga = {
-        ssId = 64,
-        tgdbId = 4911,
-        muos = "Commodore Amiga",
-        extensions = {
-          "adf",
-          "adz",
           "chd",
           "cue",
-          "dms",
-          "hdf",
-          "img",
-          "ipf",
           "iso",
-          "lha",
           "m3u",
-          "rp9",
-          "uae"
+          "mdf"
         },
-        key = "amiga",
+        muos = "Sega Saturn"
+      },
+      ["sony playstation portable"] = {
+        ssId = 61,
+        tgdbId = 13,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Sony - PlayStation Portable (PSN)"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sony - PlayStation Portable (PSX2PSP)"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sony - PlayStation Portable (UMD Music)"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sony - PlayStation Portable (UMD Video)"
+          }
+        },
+        libretroThumbFolder = "Sony - PlayStation Portable",
+        key = "psp",
+        name = "Sony PlayStation Portable",
+        extensions = {
+          "chd",
+          "cso",
+          "iso",
+          "pbp"
+        },
+        muos = "Sony Playstation Portable"
+      },
+      ["sega 32x"] = {
+        ssId = 19,
+        ssParentId = 1,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Sega - 32X"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sega - 32X"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sega - 32X"
+          }
+        },
+        name = "SEGA 32X",
+        extensions = {
+          "32x",
+          "bin",
+          "md",
+          "smd"
+        },
+        libretroThumbFolder = "Sega - 32X",
+        key = "sega32x",
+        tgdbId = 33,
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sega 32X"
+      },
+      ["commodore amiga"] = {
+        ssId = 64,
+        tgdbId = 4911,
         dat = {
           {
             "libretro/metadat/no-intro/",
@@ -739,117 +233,510 @@ local M = {
             "Commodore - Amiga"
           }
         },
+        name = "Commodore Amiga",
+        extensions = {
+          "adf",
+          "adz",
+          "chd",
+          "cue",
+          "dms",
+          "hdf",
+          "img",
+          "ipf",
+          "iso",
+          "lha",
+          "m3u",
+          "rp9",
+          "uae"
+        },
+        libretroThumbFolder = "Commodore - Amiga",
+        key = "amiga",
         prefer = {
           "whdload",
           "libretro-dats",
           "no-intro"
         },
-        name = "Commodore Amiga",
-        libretroThumbFolder = "Commodore - Amiga"
+        muos = "Commodore Amiga"
       },
-      msx = {
-        ssId = 113,
-        tgdbId = 4929,
-        muos = "Microsoft MSX",
+      ["snk neo geo cd"] = {
+        ssId = 70,
+        tgdbId = 4956,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "SNK - Neo Geo CD"
+          }
+        },
+        libretroThumbFolder = "SNK - Neo Geo CD",
+        key = "neocd",
+        name = "SNK Neo Geo CD",
         extensions = {
-          "cas",
-          "col",
-          "dsk",
-          "m3u",
-          "mx1",
-          "mx2",
+          "chd",
+          "cue",
+          "fba",
+          "iso"
+        },
+        muos = "SNK Neo Geo CD"
+      },
+      amstrad = {
+        ssId = 87,
+        ssParentId = 65,
+        dat = {
+          {
+            "libretro/metadat/tosec",
+            "Amstrad - GX4000"
+          }
+        },
+        name = "Amstrad GX4000",
+        extensions = {
+          "cpr",
+          "bin"
+        },
+        libretroThumbFolder = "Amstrad - GX4000",
+        key = "gx4000",
+        tgdbId = 4999,
+        muos = "Amstrad"
+      },
+      ["mattel - intellivision"] = {
+        ssId = 115,
+        tgdbId = 32,
+        dat = {
+          {
+            "libretro/metadat/homebrew",
+            "Mattel - Intellivision"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Mattel - Intellivision"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Mattel - Intellivision"
+          }
+        },
+        name = "Mattel Intellivision",
+        extensions = {
+          "bin",
+          "int",
+          "itv",
           "rom"
         },
-        key = "msx",
+        libretroThumbFolder = "Mattel - Intellivision",
+        key = "intv",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Mattel - Intellivision"
+      },
+      ["sega sg-1000"] = {
+        ssId = 109,
+        ssParentId = 2,
         dat = {
           {
             "libretro/metadat/no-intro",
-            "Microsoft - MSX.dat"
+            "Sega - SG-1000"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sega - SG-1000"
           }
         },
-        name = "MSX Computer",
-        alternate = {
-          "msx2"
+        name = "SEGA SG-1000",
+        extensions = {
+          "bin",
+          "sg"
         },
-        libretroThumbFolder = "Microsoft - MSX"
+        libretroThumbFolder = "Sega - SG-1000",
+        key = "sg1000",
+        tgdbId = 4949,
+        muos = "Sega SG-1000"
       },
-      pcecd = {
-        ssId = 114,
-        tgdbId = 4955,
-        muos = "NEC PC Engine CD",
+      ["atari 5200"] = {
+        ssId = 40,
+        tgdbId = 26,
+        dat = {
+          {
+            "libretro/metadat/no-intro/",
+            "Atari - 5200"
+          },
+          {
+            "libretro/metadat/tosec/",
+            "Atari - 5200"
+          }
+        },
+        name = "Atari 5200",
+        extensions = {
+          "a52",
+          "atr",
+          "atr.gz",
+          "bas",
+          "bin",
+          "car",
+          "dcm",
+          "xex",
+          "xfd",
+          "xfd.gz"
+        },
+        libretroThumbFolder = "Atari - 5200",
+        key = "atari5200",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Atari 5200"
+      },
+      ["nintendo ds"] = {
+        alternate = {
+          "nds"
+        },
+        tgdbId = 8,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "/Nintendo - Nintendo DSi.dat"
+          }
+        },
+        name = "Nintendo - DSi",
+        extensions = {
+          "nds"
+        },
+        libretroThumbFolder = "Nintendo - Nintendo DSi",
+        key = "ndsi",
+        ssId = 15,
+        muos = "Nintendo DS"
+      },
+      ["snk neo geo"] = {
+        ssId = 142,
+        ssParentId = 75,
+        dat = {
+          {
+            "libretro/dat",
+            "SNK - Neo Geo.dat"
+          }
+        },
+        name = "SNK Neo Geo",
+        extensions = {
+          "chd",
+          "cue",
+          "fba",
+          "iso",
+          "zip"
+        },
+        libretroThumbFolder = "SNK - Neo Geo",
+        key = "neogeo",
+        tgdbId = 24,
+        muos = "SNK Neo Geo"
+      },
+      ["sega dreamcast"] = {
+        ssId = 23,
+        tgdbId = 16,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "Sega - Dreamcast"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Sega - Dreamcast"
+          }
+        },
+        name = "SEGA Dreamcast",
+        extensions = {
+          "cdi",
+          "chd",
+          "cue",
+          "gdi",
+          "iso",
+          "m3u"
+        },
+        libretroThumbFolder = "Sega - Dreamcast",
+        key = "dreamcast",
+        prefer = {
+          "redump"
+        },
+        muos = "Sega Dreamcast"
+      },
+      ["philips cdi"] = {
+        ssId = 133,
+        tgdbId = 4917,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "Philips - CD-i"
+          }
+        },
+        libretroThumbFolder = "Philips - CD-i",
+        key = "cdi",
+        name = "Philips CD-i",
+        extensions = {
+          "chd"
+        },
+        muos = "Philips CDi"
+      },
+      ["nec pc engine supergrafx"] = {
+        ssId = 105,
+        ssParentId = 31,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "NEC - PC Engine SuperGrafx"
+          }
+        },
+        name = "PC Engine SuperGrafx",
         extensions = {
           "ccd",
           "chd",
           "cue",
           "pce"
         },
-        key = "pcecd",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "NEC - PC Engine CD - TurboGrafx-CD"
-          }
-        },
-        name = "PC Engine CD-ROM²",
-        ssParentId = 31,
-        libretroThumbFolder = "NEC - PC Engine CD - TurboGrafx-CD"
+        libretroThumbFolder = "NEC - PC Engine SuperGrafx",
+        key = "pces",
+        muos = "NEC PC Engine SuperGrafx"
       },
-      msx2 = {
-        ssId = 116,
-        tgdbId = 4929,
-        muos = "Microsoft - MSX",
-        extensions = {
-          "col",
-          "dsk",
-          "mx1",
-          "mx2",
-          "rom"
-        },
-        key = "msx2",
+      ["atari jaguar"] = {
+        ssId = 27,
+        tgdbId = 28,
         dat = {
           {
-            "libretro/metadat/no-intro",
-            "Microsoft - MSX2.dat"
-          }
-        },
-        name = "MSX2 Computer",
-        ssParentId = 113,
-        alternate = {
-          "msx"
-        },
-        libretroThumbFolder = "Microsoft - MSX2"
-      },
-      pokemini = {
-        extensions = {
-          "min"
-        },
-        key = "pokemini",
-        dat = {
-          {
-            "libretro/metadat/homebrew",
-            "Nintendo - Pokemon Mini.dat"
+            "libretro/metadat/magazine/edge/",
+            "Atari - Jaguar"
           },
           {
             "libretro/metadat/no-intro",
-            "Nintendo - Pokemon Mini.dat"
+            "Atari - Jaguar"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Atari - Jaguar"
           }
         },
-        name = "Nintendo - Pokemon Mini",
-        ssId = 211,
-        tgdbId = 4957,
-        muos = "Nintendo Pokemon Mini",
-        libretroThumbFolder = "Nintendo - Pokemon Mini"
+        name = "Atari Jaguar",
+        extensions = {
+          "chd",
+          "cue",
+          "j64",
+          "jag"
+        },
+        libretroThumbFolder = "Atari - Jaguar",
+        key = "jaguar",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Atari Jaguar"
       },
-      n64 = {
+      ["sinclair zx 81"] = {
+        ssId = 77,
+        tgdbId = 5010,
+        dat = {
+          {
+            "libretro/dat",
+            "Sinclair - ZX 81"
+          }
+        },
+        libretroThumbFolder = "Sinclair - ZX 81",
+        key = "zx81",
+        name = "Sinclair ZX81",
+        extensions = {
+          "p",
+          "t81",
+          "tzx"
+        },
+        muos = "Sinclair ZX 81"
+      },
+      arduboy = {
+        ssId = 263,
+        dat = {
+          {
+            "libretro/metadat/no-intro/",
+            "Arduboy Inc - Arduboy"
+          },
+          {
+            "libretro/dat/",
+            "Arduboy Inc - Arduboy"
+          }
+        },
+        name = "Arduboy",
+        extensions = {
+          "hex",
+          "arduboy"
+        },
+        libretroThumbFolder = "Arduboy Inc - Arduboy",
+        key = "arduboy",
+        prefer = {
+          "libretro-dats"
+        },
+        muos = "Arduboy"
+      },
+      ["tic-80"] = {
+        ssId = 222,
+        dat = {
+          {
+            "libretro/dat",
+            "TIC-80"
+          }
+        },
+        libretroThumbFolder = "TIC-80",
+        key = "tic80",
+        name = "TIC-80 Tiny Computer",
+        extensions = {
+          "tic"
+        },
+        muos = "TIC-80"
+      },
+      ["commodore c64"] = {
+        ssId = 66,
+        tgdbId = 40,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Commodore - 64"
+          }
+        },
+        libretroThumbFolder = "Commodore - 64",
+        key = "c64",
+        name = "Commodore 64",
+        extensions = {
+          "cmd",
+          "crt",
+          "d64",
+          "d71",
+          "d80",
+          "d81",
+          "g64",
+          "m3u",
+          "prg",
+          "t64",
+          "tap",
+          "vsf",
+          "x64"
+        },
+        muos = "Commodore C64"
+      },
+      ["sinclair zx spectrum"] = {
+        ssId = 76,
+        tgdbId = 4913,
+        dat = {
+          {
+            "libretro/dat",
+            "Sinclair - ZX Spectrum"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sinclair - ZX Spectrum.dat"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sinclair - ZX Spectrum +3"
+          }
+        },
+        libretroThumbFolder = "Sinclair - ZX Spectrum",
+        key = "spectrum",
+        name = "ZX Spectrum",
+        extensions = {
+          "dsk",
+          "gz",
+          "img",
+          "mgt",
+          "rzx",
+          "scl",
+          "sna",
+          "szx",
+          "tap",
+          "trd",
+          "tzx",
+          "udi",
+          "z80"
+        },
+        muos = "Sinclair ZX Spectrum"
+      },
+      ["java j2me"] = {
+        tgdbId = 5018,
+        key = "j2me",
+        name = "Java J2ME-Platform",
+        muos = "Java J2ME",
+        extensions = {
+          "jar"
+        }
+      },
+      ["sharp x1"] = {
+        ssId = 220,
+        tgdbId = 4977,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Sharp - X1"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sharp - X1"
+          }
+        },
+        name = "Sharp X1",
+        extensions = {
+          "2d",
+          "2hd",
+          "88d",
+          "cmd",
+          "d88",
+          "dup",
+          "dx1",
+          "hdm",
+          "tfd",
+          "xdf"
+        },
+        libretroThumbFolder = "Sharp - X1",
+        key = "x1",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sharp X1"
+      },
+      ["naomi 2"] = {
+        alternate = {
+          "naomi"
+        },
+        ssParentId = 75,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "Sega - Naomi 2.dat"
+          }
+        },
+        name = "SEGA Naomi 2",
+        extensions = {
+          "bin",
+          "chd",
+          "dat"
+        },
+        libretroThumbFolder = "Sega - Naomi 2",
+        key = "naomi2",
+        ssId = 230,
+        muos = "Naomi 2"
+      },
+      naomi = {
+        alternate = {
+          "naomi2"
+        },
+        ssParentId = 75,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "Sega - Naomi.dat"
+          }
+        },
+        name = "SEGA Naomi",
+        extensions = {
+          "bin",
+          "chd",
+          "dat"
+        },
+        libretroThumbFolder = "Sega - Naomi",
+        key = "naomi",
+        ssId = 56,
+        muos = "Naomi"
+      },
+      ["nintendo n64"] = {
         ssId = 14,
         tgdbId = 3,
-        muos = "Nintendo N64",
-        extensions = {
-          "n64",
-          "v64",
-          "z64"
-        },
-        key = "n64",
         dat = {
           {
             "libretro/metadat/hacks",
@@ -868,30 +755,197 @@ local M = {
             "Nintendo - Nintendo 64"
           }
         },
+        name = "Nintendo - 64",
+        extensions = {
+          "n64",
+          "v64",
+          "z64"
+        },
+        libretroThumbFolder = "Nintendo - Nintendo 64",
+        key = "n64",
         prefer = {
           "no-intro"
         },
-        name = "Nintendo - 64",
-        libretroThumbFolder = "Nintendo - Nintendo 64"
+        muos = "Nintendo N64"
       },
-      psx = {
-        ssId = 57,
-        tgdbId = 10,
-        muos = "Sony PlayStation",
+      ["nintendo virtual boy"] = {
+        ssId = 11,
+        tgdbId = 4918,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Virtual Boy"
+          }
+        },
+        libretroThumbFolder = "Nintendo - Virtual Boy",
+        key = "vb",
+        name = "Nintendo - Virtual Boy",
         extensions = {
-          "cbn",
+          "vb"
+        },
+        muos = "Nintendo Virtual Boy"
+      },
+      ["atari 7800"] = {
+        ssId = 41,
+        tgdbId = 27,
+        dat = {
+          {
+            "libretro/metadat/no-intro/",
+            "Atari - 7800"
+          },
+          {
+            "libretro/metadat/tosec/",
+            "Atari - 7800"
+          },
+          {
+            "libretro/metadat/headered/",
+            "Atari - 7800"
+          }
+        },
+        name = "Atari 7800",
+        extensions = {
+          "a78",
+          "bin"
+        },
+        libretroThumbFolder = "Atari - 7800",
+        key = "atari7800",
+        prefer = {
+          "no-intro",
+          "headered"
+        },
+        muos = "Atari 7800"
+      },
+      ["nintendo snes - sfc"] = {
+        ssId = 4,
+        tgdbId = 6,
+        dat = {
+          {
+            "libretro/dat",
+            "Nintendo - Super Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Super Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Nintendo - Super Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/libretro-dats",
+            "Nintendo - Super Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/magazine/edge",
+            "Nintendo - Super Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Super Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Nintendo - Super Nintendo Entertainment System"
+          }
+        },
+        libretroThumbFolder = "Nintendo - Super Nintendo Entertainment System",
+        key = "snes",
+        name = "Nintendo - SNES",
+        extensions = {
+          "bin",
+          "bs",
+          "fig",
+          "mgd",
+          "sfc",
+          "smc",
+          "swc"
+        },
+        muos = "Nintendo SNES - SFC"
+      },
+      ["sega master system"] = {
+        ssId = 2,
+        tgdbId = 35,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Sega - Master System - Mark III"
+          }
+        },
+        libretroThumbFolder = "Sega - Master System - Mark III",
+        key = "sms",
+        name = "SEGA Master System",
+        extensions = {
+          "bin",
+          "sms"
+        },
+        muos = "Sega Master System"
+      },
+      ["nintendo famicon disk system"] = {
+        ssId = 106,
+        ssParentId = 3,
+        dat = {
+          {
+            "libretro/metadat/libretro-dats",
+            "Nintendo - Family Computer Disk System"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Family Computer Disk System"
+          }
+        },
+        name = "Nintendo - Famicom Disk System",
+        extensions = {
+          "fds",
+          "nes"
+        },
+        libretroThumbFolder = "Nintendo - Family Computer Disk System",
+        key = "fds",
+        tgdbId = 4936,
+        muos = "Nintendo Famicon Disk System"
+      },
+      ["odyssey2 - videopac"] = {
+        ssId = 104,
+        tgdbId = {
+          4961,
+          4927
+        },
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Magnavox - Odyssey2.dat"
+          }
+        },
+        libretroThumbFolder = "Magnavox - Odyssey2",
+        key = "odyssey2",
+        name = "Magnavox Odyssey - Videopac",
+        extensions = {
+          "bin"
+        },
+        muos = "Odyssey2 - VideoPac"
+      },
+      ["sega mega cd - sega cd"] = {
+        ssId = 20,
+        tgdbId = 21,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "Sega - Mega-CD - Sega CD"
+          }
+        },
+        libretroThumbFolder = "Sega - Mega-CD - Sega CD",
+        key = "mdcd",
+        name = "SEGA Mega-CD",
+        extensions = {
           "chd",
           "cue",
-          "img",
           "iso",
-          "m3u",
-          "mdf",
-          "pbp",
-          "toc",
-          "z",
-          "znx"
+          "m3u"
         },
-        key = "psx",
+        muos = "Sega Mega CD - Sega CD"
+      },
+      ["sony playstation"] = {
+        ssId = 57,
+        tgdbId = 10,
         dat = {
           {
             "libretro/metadat/redump",
@@ -906,25 +960,1333 @@ local M = {
             "Sony - PlayStation.dat"
           }
         },
+        name = "Sony PlayStation",
+        extensions = {
+          "cbn",
+          "chd",
+          "cue",
+          "img",
+          "iso",
+          "m3u",
+          "mdf",
+          "pbp",
+          "toc",
+          "z",
+          "znx"
+        },
+        libretroThumbFolder = "Sony - PlayStation",
+        key = "psx",
         prefer = {
           "redump"
         },
-        name = "Sony PlayStation",
-        libretroThumbFolder = "Sony - PlayStation"
+        muos = "Sony PlayStation"
       },
-      arcade = {
-        ssId = 75,
-        tgdbId = 23,
-        muos = "Arcade",
+      ["nintendo pokemon mini"] = {
+        ssId = 211,
+        tgdbId = 4957,
+        dat = {
+          {
+            "libretro/metadat/homebrew",
+            "Nintendo - Pokemon Mini.dat"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Pokemon Mini.dat"
+          }
+        },
+        libretroThumbFolder = "Nintendo - Pokemon Mini",
+        key = "pokemini",
+        name = "Nintendo - Pokemon Mini",
+        extensions = {
+          "min"
+        },
+        muos = "Nintendo Pokemon Mini"
+      },
+      ["nintendo game boy"] = {
+        ssId = 9,
+        tgdbId = 4,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Game Boy.dat"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Nintendo - Game Boy.dat"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Game Boy.dat"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Nintendo - Game Boy.dat"
+          }
+        },
+        name = "Nintendo - Gameboy",
+        extensions = {
+          "gb"
+        },
+        libretroThumbFolder = "Nintendo - Game Boy",
+        key = "gb",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Nintendo Game Boy"
+      },
+      ["nintendo game boy advance"] = {
+        ssId = 12,
+        tgdbId = 5,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Game Boy Advance"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Nintendo - Game Boy Advance"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Game Boy Advance"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Nintendo - Game Boy Advance"
+          }
+        },
+        name = "Nintendo - Game Boy Advance",
+        extensions = {
+          "gba"
+        },
+        libretroThumbFolder = "Nintendo - Game Boy Advance",
+        key = "gba",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Nintendo Game Boy Advance"
+      },
+      ["sega game gear"] = {
+        ssId = 21,
+        tgdbId = 20,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Sega - Game Gear"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sega - Game Gear"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sega - Game Gear"
+          }
+        },
+        name = "SEGA Game Gear",
         extensions = {
           "bin",
+          "gg",
+          "sms"
+        },
+        libretroThumbFolder = "Sega - Game Gear",
+        key = "gg",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sega Game Gear"
+      },
+      ["nec pc engine cd"] = {
+        ssId = 114,
+        ssParentId = 31,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "NEC - PC Engine CD - TurboGrafx-CD"
+          }
+        },
+        name = "PC Engine CD-ROM²",
+        extensions = {
+          "ccd",
+          "chd",
           "cue",
+          "pce"
+        },
+        libretroThumbFolder = "NEC - PC Engine CD - TurboGrafx-CD",
+        key = "pcecd",
+        tgdbId = 4955,
+        muos = "NEC PC Engine CD"
+      },
+      ["nintendo game boy color"] = {
+        ssId = 10,
+        ssParentId = 9,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Game Boy Color"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Game Boy Color"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Nintendo - Game Boy Color"
+          }
+        },
+        name = "Nintendo - Game Boy Color",
+        extensions = {
+          "gbc",
+          "gb"
+        },
+        libretroThumbFolder = "Nintendo - Game Boy Color",
+        key = "gbc",
+        tgdbId = 41,
+        prefer = {
+          "no-intro"
+        },
+        muos = "Nintendo Game Boy Color"
+      },
+      ["atari 2600"] = {
+        ssId = 26,
+        tgdbId = 22,
+        dat = {
+          {
+            "libretro/metadat/no-intro/",
+            "Atari - 2600"
+          },
+          {
+            "libretro/metadat/tosec/",
+            "Atari - 2600"
+          }
+        },
+        name = "Atari 2600",
+        extensions = {
+          "a26",
+          "bin",
+          "gz",
+          "rom"
+        },
+        libretroThumbFolder = "Atari - 2600",
+        key = "atari2600",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Atari 2600"
+      },
+      ["mega duck - cougar boy"] = {
+        ssId = 90,
+        tgdbId = 4948,
+        key = "megaduck",
+        name = "Mega Duck",
+        muos = "Mega Duck - Cougar Boy",
+        extensions = {
+          "bin"
+        }
+      },
+      ["microsoft - msx"] = {
+        alternate = {
+          "msx"
+        },
+        ssParentId = 113,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Microsoft - MSX2.dat"
+          }
+        },
+        name = "MSX2 Computer",
+        extensions = {
+          "col",
+          "dsk",
+          "mx1",
+          "mx2",
+          "rom"
+        },
+        libretroThumbFolder = "Microsoft - MSX2",
+        key = "msx2",
+        tgdbId = 4929,
+        ssId = 116,
+        muos = "Microsoft - MSX"
+      },
+      ["sega mega drive - genesis"] = {
+        ssId = 1,
+        tgdbId = {
+          36,
+          18
+        },
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Sega - Mega Drive - Genesis"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Sega - Mega Drive - Genesis"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sega - Mega Drive - Genesis"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sega - Mega Drive - Genesis"
+          }
+        },
+        name = "SEGA Megadrive",
+        extensions = {
+          "bin",
+          "gen",
+          "md",
+          "sg",
+          "smd"
+        },
+        libretroThumbFolder = "Sega - Mega Drive - Genesis",
+        key = "md",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sega Mega Drive - Genesis"
+      },
+      ["nintendo nes - famicom"] = {
+        ssId = 3,
+        tgdbId = 7,
+        dat = {
+          {
+            "libretro/dat",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/headered",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Nintendo - Nintendo Entertainment System"
+          }
+        },
+        name = "Nintendo - Entertainment System",
+        extensions = {
+          "fig",
+          "mgd",
+          "nes",
+          "sfc",
+          "smc",
+          "swc"
+        },
+        libretroThumbFolder = "Nintendo - Nintendo Entertainment System",
+        key = "nes",
+        prefer = {
+          "no-intro",
+          "libretro-dats"
+        },
+        muos = "Nintendo NES - Famicom"
+      },
+      ["sega atomiswave naomi"] = {
+        alternate = {
+          "arcade",
+          "fbneo",
+          "naomi"
+        },
+        ssParentId = 75,
+        dat = {
+          {
+            "libretro/dat",
+            "Atomiswave"
+          }
+        },
+        name = "Atomiswave",
+        extensions = {
+          "bin",
+          "chd",
           "dat",
-          "fba",
-          "iso",
           "zip"
         },
-        key = "arcade",
+        libretroThumbFolder = "Atomiswave",
+        key = "atomiswave",
+        ssId = 53,
+        muos = "Sega Atomiswave Naomi"
+      },
+      ["sharp x68000"] = {
+        ssId = 79,
+        tgdbId = 4931,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Sharp - X68000"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sharp - X68000"
+          }
+        },
+        name = "Sharp X68000",
+        extensions = {
+          "2hd",
+          "d88",
+          "dim",
+          "hdf",
+          "hdm",
+          "m3u",
+          "xdf"
+        },
+        libretroThumbFolder = "Sharp - X68000",
+        key = "x68000",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sharp X68000"
+      },
+      ["gce-vectrex"] = {
+        ssId = 102,
+        tgdbId = 4939,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "GCE - Vectrex"
+          }
+        },
+        libretroThumbFolder = "GCE - Vectrex",
+        key = "vectrex",
+        name = "GCE Vectrex",
+        extensions = {
+          "bin",
+          "gam",
+          "vec"
+        },
+        muos = "GCE-Vectrex"
+      },
+      ["fairchild channelf"] = {
+        ssId = 80,
+        tgdbId = 4928,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Fairchild - Channel F"
+          }
+        },
+        libretroThumbFolder = "Fairchild - Channel F",
+        key = "channelf",
+        name = "Fairchild ChannelF",
+        extensions = {
+          "bin",
+          "rom"
+        },
+        muos = "Fairchild ChannelF"
+      },
+      ["bandai wonderswan color"] = {
+        ssId = 46,
+        ssParentId = 45,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Bandai - WonderSwan Color"
+          },
+          {
+            "libretro/metadat/hacks",
+            "Bandai - WonderSwan Color"
+          }
+        },
+        name = "WonderSwan Color",
+        extensions = {
+          "wsc"
+        },
+        libretroThumbFolder = "Bandai - WonderSwan Color",
+        key = "wsc",
+        tgdbId = 4926,
+        muos = "Bandai WonderSwan Color"
+      },
+      scummvm = {
+        ssId = 123,
+        ssParentId = 135,
+        dat = {
+          {
+            "libretro/dat",
+            "ScummVM"
+          },
+          {
+            "libretro/metadat/magazine/edge",
+            "ScummVM"
+          }
+        },
+        name = "ScummVM",
+        extensions = {
+          "scummvm",
+          "svm"
+        },
+        libretroThumbFolder = "ScummVM",
+        key = "scummvm",
+        muos = "ScummVM"
+      },
+      ["nec pc engine"] = {
+        ssId = 31,
+        tgdbId = 34,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "NEC - PC Engine - TurboGrafx 16"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "NEC - PC Engine - TurboGrafx 16"
+          }
+        },
+        name = "PC Engine",
+        extensions = {
+          "ccd",
+          "chd",
+          "cue",
+          "pce"
+        },
+        libretroThumbFolder = "NEC - PC Engine - TurboGrafx 16",
+        key = "pce",
+        prefer = {
+          "no-intro"
+        },
+        muos = "NEC PC Engine"
+      },
+      openbor = {
+        ssId = 214,
+        key = "openbor",
+        name = "OpenBOR",
+        muos = "OpenBOR",
+        extensions = {
+          "bor",
+          "pak"
+        }
+      },
+      ["snk neo geo pocket - color"] = {
+        alternate = {
+          "ngpc"
+        },
+        tgdbId = 4923,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "SNK - Neo Geo Pocket Color.dat"
+          }
+        },
+        name = "Neo Geo Pocket Color",
+        extensions = {
+          "ngc"
+        },
+        libretroThumbFolder = "SNK - Neo Geo Pocket Color",
+        key = "ngpc",
+        ssId = 82,
+        muos = "SNK Neo Geo Pocket - Color"
+      },
+      ["microsoft msx"] = {
+        alternate = {
+          "msx2"
+        },
+        tgdbId = 4929,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Microsoft - MSX.dat"
+          }
+        },
+        name = "MSX Computer",
+        extensions = {
+          "cas",
+          "col",
+          "dsk",
+          "m3u",
+          "mx1",
+          "mx2",
+          "rom"
+        },
+        libretroThumbFolder = "Microsoft - MSX",
+        key = "msx",
+        ssId = 113,
+        muos = "Microsoft MSX"
+      }
+    },
+    byKey = {
+      vectrex = {
+        ssId = 102,
+        tgdbId = 4939,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "GCE - Vectrex"
+          }
+        },
+        libretroThumbFolder = "GCE - Vectrex",
+        key = "vectrex",
+        name = "GCE Vectrex",
+        extensions = {
+          "bin",
+          "gam",
+          "vec"
+        },
+        muos = "GCE-Vectrex"
+      },
+      openbor = {
+        ssId = 214,
+        key = "openbor",
+        name = "OpenBOR",
+        muos = "OpenBOR",
+        extensions = {
+          "bor",
+          "pak"
+        }
+      },
+      ws = {
+        ssId = 45,
+        tgdbId = 4925,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Bandai - WonderSwan.dat"
+          },
+          {
+            "libretro/metadat/hacks",
+            "Bandai - WonderSwan.dat"
+          }
+        },
+        libretroThumbFolder = "Bandai - WonderSwan",
+        key = "ws",
+        name = "WonderSwan",
+        extensions = {
+          "ws"
+        },
+        muos = "Bandai WonderSwan Color"
+      },
+      fds = {
+        ssId = 106,
+        ssParentId = 3,
+        dat = {
+          {
+            "libretro/metadat/libretro-dats",
+            "Nintendo - Family Computer Disk System"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Family Computer Disk System"
+          }
+        },
+        name = "Nintendo - Famicom Disk System",
+        extensions = {
+          "fds",
+          "nes"
+        },
+        libretroThumbFolder = "Nintendo - Family Computer Disk System",
+        key = "fds",
+        tgdbId = 4936,
+        muos = "Nintendo Famicon Disk System"
+      },
+      wsc = {
+        ssId = 46,
+        ssParentId = 45,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Bandai - WonderSwan Color"
+          },
+          {
+            "libretro/metadat/hacks",
+            "Bandai - WonderSwan Color"
+          }
+        },
+        name = "WonderSwan Color",
+        extensions = {
+          "wsc"
+        },
+        libretroThumbFolder = "Bandai - WonderSwan Color",
+        key = "wsc",
+        tgdbId = 4926,
+        muos = "Bandai WonderSwan Color"
+      },
+      nes = {
+        ssId = 3,
+        tgdbId = 7,
+        dat = {
+          {
+            "libretro/dat",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/headered",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Nintendo Entertainment System"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Nintendo - Nintendo Entertainment System"
+          }
+        },
+        name = "Nintendo - Entertainment System",
+        extensions = {
+          "fig",
+          "mgd",
+          "nes",
+          "sfc",
+          "smc",
+          "swc"
+        },
+        libretroThumbFolder = "Nintendo - Nintendo Entertainment System",
+        key = "nes",
+        prefer = {
+          "no-intro",
+          "libretro-dats"
+        },
+        muos = "Nintendo NES - Famicom"
+      },
+      gb = {
+        ssId = 9,
+        tgdbId = 4,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Game Boy.dat"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Nintendo - Game Boy.dat"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Game Boy.dat"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Nintendo - Game Boy.dat"
+          }
+        },
+        name = "Nintendo - Gameboy",
+        extensions = {
+          "gb"
+        },
+        libretroThumbFolder = "Nintendo - Game Boy",
+        key = "gb",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Nintendo Game Boy"
+      },
+      gba = {
+        ssId = 12,
+        tgdbId = 5,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Game Boy Advance"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Nintendo - Game Boy Advance"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Game Boy Advance"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Nintendo - Game Boy Advance"
+          }
+        },
+        name = "Nintendo - Game Boy Advance",
+        extensions = {
+          "gba"
+        },
+        libretroThumbFolder = "Nintendo - Game Boy Advance",
+        key = "gba",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Nintendo Game Boy Advance"
+      },
+      gbc = {
+        ssId = 10,
+        ssParentId = 9,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Game Boy Color"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Game Boy Color"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Nintendo - Game Boy Color"
+          }
+        },
+        name = "Nintendo - Game Boy Color",
+        extensions = {
+          "gbc",
+          "gb"
+        },
+        libretroThumbFolder = "Nintendo - Game Boy Color",
+        key = "gbc",
+        tgdbId = 41,
+        prefer = {
+          "no-intro"
+        },
+        muos = "Nintendo Game Boy Color"
+      },
+      x68000 = {
+        ssId = 79,
+        tgdbId = 4931,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Sharp - X68000"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sharp - X68000"
+          }
+        },
+        name = "Sharp X68000",
+        extensions = {
+          "2hd",
+          "d88",
+          "dim",
+          "hdf",
+          "hdm",
+          "m3u",
+          "xdf"
+        },
+        libretroThumbFolder = "Sharp - X68000",
+        key = "x68000",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sharp X68000"
+      },
+      gg = {
+        ssId = 21,
+        tgdbId = 20,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Sega - Game Gear"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sega - Game Gear"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sega - Game Gear"
+          }
+        },
+        name = "SEGA Game Gear",
+        extensions = {
+          "bin",
+          "gg",
+          "sms"
+        },
+        libretroThumbFolder = "Sega - Game Gear",
+        key = "gg",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sega Game Gear"
+      },
+      zx81 = {
+        ssId = 77,
+        tgdbId = 5010,
+        dat = {
+          {
+            "libretro/dat",
+            "Sinclair - ZX 81"
+          }
+        },
+        libretroThumbFolder = "Sinclair - ZX 81",
+        key = "zx81",
+        name = "Sinclair ZX81",
+        extensions = {
+          "p",
+          "t81",
+          "tzx"
+        },
+        muos = "Sinclair ZX 81"
+      },
+      sms = {
+        ssId = 2,
+        tgdbId = 35,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Sega - Master System - Mark III"
+          }
+        },
+        libretroThumbFolder = "Sega - Master System - Mark III",
+        key = "sms",
+        name = "SEGA Master System",
+        extensions = {
+          "bin",
+          "sms"
+        },
+        muos = "Sega Master System"
+      },
+      gw = {
+        ssId = 52,
+        tgdbId = 4950,
+        dat = {
+          {
+            "no-intro/No-Intro",
+            "Nintendo - Game & Watch"
+          }
+        },
+        key = "gw",
+        name = "Nintendo - Game & Watch",
+        extensions = {
+          "mgw"
+        },
+        muos = "Handheld Electronic - Game and Watch"
+      },
+      atari2600 = {
+        ssId = 26,
+        tgdbId = 22,
+        dat = {
+          {
+            "libretro/metadat/no-intro/",
+            "Atari - 2600"
+          },
+          {
+            "libretro/metadat/tosec/",
+            "Atari - 2600"
+          }
+        },
+        name = "Atari 2600",
+        extensions = {
+          "a26",
+          "bin",
+          "gz",
+          "rom"
+        },
+        libretroThumbFolder = "Atari - 2600",
+        key = "atari2600",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Atari 2600"
+      },
+      odyssey2 = {
+        ssId = 104,
+        tgdbId = {
+          4961,
+          4927
+        },
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Magnavox - Odyssey2.dat"
+          }
+        },
+        libretroThumbFolder = "Magnavox - Odyssey2",
+        key = "odyssey2",
+        name = "Magnavox Odyssey - Videopac",
+        extensions = {
+          "bin"
+        },
+        muos = "Odyssey2 - VideoPac"
+      },
+      gx4000 = {
+        ssId = 87,
+        ssParentId = 65,
+        dat = {
+          {
+            "libretro/metadat/tosec",
+            "Amstrad - GX4000"
+          }
+        },
+        name = "Amstrad GX4000",
+        extensions = {
+          "cpr",
+          "bin"
+        },
+        libretroThumbFolder = "Amstrad - GX4000",
+        key = "gx4000",
+        tgdbId = 4999,
+        muos = "Amstrad"
+      },
+      atari5200 = {
+        ssId = 40,
+        tgdbId = 26,
+        dat = {
+          {
+            "libretro/metadat/no-intro/",
+            "Atari - 5200"
+          },
+          {
+            "libretro/metadat/tosec/",
+            "Atari - 5200"
+          }
+        },
+        name = "Atari 5200",
+        extensions = {
+          "a52",
+          "atr",
+          "atr.gz",
+          "bas",
+          "bin",
+          "car",
+          "dcm",
+          "xex",
+          "xfd",
+          "xfd.gz"
+        },
+        libretroThumbFolder = "Atari - 5200",
+        key = "atari5200",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Atari 5200"
+      },
+      intv = {
+        ssId = 115,
+        tgdbId = 32,
+        dat = {
+          {
+            "libretro/metadat/homebrew",
+            "Mattel - Intellivision"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Mattel - Intellivision"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Mattel - Intellivision"
+          }
+        },
+        name = "Mattel Intellivision",
+        extensions = {
+          "bin",
+          "int",
+          "itv",
+          "rom"
+        },
+        libretroThumbFolder = "Mattel - Intellivision",
+        key = "intv",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Mattel - Intellivision"
+      },
+      pce = {
+        ssId = 31,
+        tgdbId = 34,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "NEC - PC Engine - TurboGrafx 16"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "NEC - PC Engine - TurboGrafx 16"
+          }
+        },
+        name = "PC Engine",
+        extensions = {
+          "ccd",
+          "chd",
+          "cue",
+          "pce"
+        },
+        libretroThumbFolder = "NEC - PC Engine - TurboGrafx 16",
+        key = "pce",
+        prefer = {
+          "no-intro"
+        },
+        muos = "NEC PC Engine"
+      },
+      atari7800 = {
+        ssId = 41,
+        tgdbId = 27,
+        dat = {
+          {
+            "libretro/metadat/no-intro/",
+            "Atari - 7800"
+          },
+          {
+            "libretro/metadat/tosec/",
+            "Atari - 7800"
+          },
+          {
+            "libretro/metadat/headered/",
+            "Atari - 7800"
+          }
+        },
+        name = "Atari 7800",
+        extensions = {
+          "a78",
+          "bin"
+        },
+        libretroThumbFolder = "Atari - 7800",
+        key = "atari7800",
+        prefer = {
+          "no-intro",
+          "headered"
+        },
+        muos = "Atari 7800"
+      },
+      jaguar = {
+        ssId = 27,
+        tgdbId = 28,
+        dat = {
+          {
+            "libretro/metadat/magazine/edge/",
+            "Atari - Jaguar"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Atari - Jaguar"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Atari - Jaguar"
+          }
+        },
+        name = "Atari Jaguar",
+        extensions = {
+          "chd",
+          "cue",
+          "j64",
+          "jag"
+        },
+        libretroThumbFolder = "Atari - Jaguar",
+        key = "jaguar",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Atari Jaguar"
+      },
+      pces = {
+        ssId = 105,
+        ssParentId = 31,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "NEC - PC Engine SuperGrafx"
+          }
+        },
+        name = "PC Engine SuperGrafx",
+        extensions = {
+          "ccd",
+          "chd",
+          "cue",
+          "pce"
+        },
+        libretroThumbFolder = "NEC - PC Engine SuperGrafx",
+        key = "pces",
+        muos = "NEC PC Engine SuperGrafx"
+      },
+      amiga = {
+        ssId = 64,
+        tgdbId = 4911,
+        dat = {
+          {
+            "libretro/metadat/no-intro/",
+            "Commodore - Amiga"
+          },
+          {
+            "libretro/metadat/tosec/",
+            "Commodore - Amiga"
+          },
+          {
+            "libretro/dat/",
+            "Commodore - Amiga"
+          },
+          {
+            "whdload/",
+            "Commodore - Amiga"
+          }
+        },
+        name = "Commodore Amiga",
+        extensions = {
+          "adf",
+          "adz",
+          "chd",
+          "cue",
+          "dms",
+          "hdf",
+          "img",
+          "ipf",
+          "iso",
+          "lha",
+          "m3u",
+          "rp9",
+          "uae"
+        },
+        libretroThumbFolder = "Commodore - Amiga",
+        key = "amiga",
+        prefer = {
+          "whdload",
+          "libretro-dats",
+          "no-intro"
+        },
+        muos = "Commodore Amiga"
+      },
+      pcecd = {
+        ssId = 114,
+        ssParentId = 31,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "NEC - PC Engine CD - TurboGrafx-CD"
+          }
+        },
+        name = "PC Engine CD-ROM²",
+        extensions = {
+          "ccd",
+          "chd",
+          "cue",
+          "pce"
+        },
+        libretroThumbFolder = "NEC - PC Engine CD - TurboGrafx-CD",
+        key = "pcecd",
+        tgdbId = 4955,
+        muos = "NEC PC Engine CD"
+      },
+      pico8 = {
+        ssParentId = 234,
+        dat = {
+          {
+            "libretro/dat",
+            "PICO-8"
+          }
+        },
+        key = "pico8",
+        name = "Pico-8",
+        extensions = {
+          "p8",
+          "png"
+        },
+        muos = "PICO-8"
+      },
+      md = {
+        ssId = 1,
+        tgdbId = {
+          36,
+          18
+        },
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Sega - Mega Drive - Genesis"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Sega - Mega Drive - Genesis"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sega - Mega Drive - Genesis"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sega - Mega Drive - Genesis"
+          }
+        },
+        name = "SEGA Megadrive",
+        extensions = {
+          "bin",
+          "gen",
+          "md",
+          "sg",
+          "smd"
+        },
+        libretroThumbFolder = "Sega - Mega Drive - Genesis",
+        key = "md",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sega Mega Drive - Genesis"
+      },
+      pokemini = {
+        ssId = 211,
+        tgdbId = 4957,
+        dat = {
+          {
+            "libretro/metadat/homebrew",
+            "Nintendo - Pokemon Mini.dat"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Pokemon Mini.dat"
+          }
+        },
+        libretroThumbFolder = "Nintendo - Pokemon Mini",
+        key = "pokemini",
+        name = "Nintendo - Pokemon Mini",
+        extensions = {
+          "min"
+        },
+        muos = "Nintendo Pokemon Mini"
+      },
+      psx = {
+        ssId = 57,
+        tgdbId = 10,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "Sony - PlayStation.dat"
+          },
+          {
+            "libretro/metadat/hacks",
+            "Sony - PlayStation.dat"
+          },
+          {
+            "libretro/metadat/magazine/edge",
+            "Sony - PlayStation.dat"
+          }
+        },
+        name = "Sony PlayStation",
+        extensions = {
+          "cbn",
+          "chd",
+          "cue",
+          "img",
+          "iso",
+          "m3u",
+          "mdf",
+          "pbp",
+          "toc",
+          "z",
+          "znx"
+        },
+        libretroThumbFolder = "Sony - PlayStation",
+        key = "psx",
+        prefer = {
+          "redump"
+        },
+        muos = "Sony PlayStation"
+      },
+      arcade = {
+        alternate = {
+          "fbneo"
+        },
+        tgdbId = 23,
         dat = {
           {
             "libretro/metadat/mame/",
@@ -984,1362 +2346,41 @@ local M = {
           }
         },
         name = "Arcade",
-        alternate = {
-          "fbneo"
-        },
-        libretroThumbFolder = "MAME"
-      },
-      psp = {
-        extensions = {
-          "chd",
-          "cso",
-          "iso",
-          "pbp"
-        },
-        key = "psp",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Sony - PlayStation Portable (PSN)"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sony - PlayStation Portable (PSX2PSP)"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sony - PlayStation Portable (UMD Music)"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sony - PlayStation Portable (UMD Video)"
-          }
-        },
-        name = "Sony PlayStation Portable",
-        ssId = 61,
-        tgdbId = 13,
-        muos = "Sony Playstation Portable",
-        libretroThumbFolder = "Sony - PlayStation Portable"
-      },
-      naomi2 = {
-        ssId = 230,
-        muos = "Naomi 2",
         extensions = {
           "bin",
-          "chd",
-          "dat"
-        },
-        key = "naomi2",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "Sega - Naomi 2.dat"
-          }
-        },
-        name = "SEGA Naomi 2",
-        ssParentId = 75,
-        alternate = {
-          "naomi"
-        },
-        libretroThumbFolder = "Sega - Naomi 2"
-      },
-      zx81 = {
-        extensions = {
-          "p",
-          "t81",
-          "tzx"
-        },
-        key = "zx81",
-        dat = {
-          {
-            "libretro/dat",
-            "Sinclair - ZX 81"
-          }
-        },
-        name = "Sinclair ZX81",
-        ssId = 77,
-        tgdbId = 5010,
-        muos = "Sinclair ZX 81",
-        libretroThumbFolder = "Sinclair - ZX 81"
-      },
-      x68000 = {
-        ssId = 79,
-        tgdbId = 4931,
-        muos = "Sharp X68000",
-        extensions = {
-          "2hd",
-          "d88",
-          "dim",
-          "hdf",
-          "hdm",
-          "m3u",
-          "xdf"
-        },
-        key = "x68000",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Sharp - X68000"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sharp - X68000"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Sharp X68000",
-        libretroThumbFolder = "Sharp - X68000"
-      },
-      nds = {
-        ssId = 15,
-        tgdbId = 8,
-        muos = "Nintendo DS",
-        extensions = {
-          "nds"
-        },
-        key = "nds",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Nintendo - Nintendo DS.dat"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Nintendo DS.dat"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        alternate = {
-          "ndsi"
-        },
-        name = "Nintendo - DS",
-        libretroThumbFolder = "Nintendo - Nintendo DS"
-      },
-      gb = {
-        ssId = 9,
-        tgdbId = 4,
-        muos = "Nintendo Game Boy",
-        extensions = {
-          "gb"
-        },
-        key = "gb",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Nintendo - Game Boy.dat"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Nintendo - Game Boy.dat"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Game Boy.dat"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Nintendo - Game Boy.dat"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Nintendo - Gameboy",
-        libretroThumbFolder = "Nintendo - Game Boy"
-      },
-      saturn = {
-        extensions = {
-          "chd",
           "cue",
+          "dat",
+          "fba",
           "iso",
-          "m3u",
-          "mdf"
+          "zip"
         },
-        key = "saturn",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "Sega - Saturn"
-          }
-        },
-        name = "SEGA Saturn",
-        ssId = 22,
-        tgdbId = 17,
-        muos = "Sega Saturn",
-        libretroThumbFolder = "Sega - Saturn"
-      },
-      pces = {
-        ssId = 105,
-        muos = "NEC PC Engine SuperGrafx",
-        extensions = {
-          "ccd",
-          "chd",
-          "cue",
-          "pce"
-        },
-        key = "pces",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "NEC - PC Engine SuperGrafx"
-          }
-        },
-        name = "PC Engine SuperGrafx",
-        ssParentId = 31,
-        libretroThumbFolder = "NEC - PC Engine SuperGrafx"
-      },
-      fbneo = {
+        libretroThumbFolder = "MAME",
+        key = "arcade",
         ssId = 75,
-        tgdbId = 23,
-        muos = "Arcade",
-        extensions = {
-          "bin",
-          "cue",
-          "dat",
-          "fba",
-          "iso",
-          "zip"
-        },
-        key = "fbneo",
-        dat = {
-          {
-            "libretro/metadat/fbneo-split/",
-            "FBNeo - Arcade Games"
-          },
-          {
-            "no-intro/Non-Redump/fbneo-split/",
-            "Non-Redump - Capcom - Play System"
-          }
-        },
-        name = "Arcade (FB NEO)",
-        alternate = {
-          "arcade"
-        },
-        libretroThumbFolder = "FBNeo - Arcade Games"
+        muos = "Arcade"
       },
-      ndsi = {
-        ssId = 15,
-        tgdbId = 8,
-        muos = "Nintendo DS",
+      megaduck = {
+        ssId = 90,
+        tgdbId = 4948,
+        key = "megaduck",
+        name = "Mega Duck",
+        muos = "Mega Duck - Cougar Boy",
         extensions = {
-          "nds"
-        },
-        key = "ndsi",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "/Nintendo - Nintendo DSi.dat"
-          }
-        },
-        name = "Nintendo - DSi",
-        alternate = {
-          "nds"
-        },
-        libretroThumbFolder = "Nintendo - Nintendo DSi"
-      },
-      scummvm = {
-        ssId = 123,
-        muos = "ScummVM",
-        extensions = {
-          "scummvm",
-          "svm"
-        },
-        key = "scummvm",
-        dat = {
-          {
-            "libretro/dat",
-            "ScummVM"
-          },
-          {
-            "libretro/metadat/magazine/edge",
-            "ScummVM"
-          }
-        },
-        name = "ScummVM",
-        ssParentId = 135,
-        libretroThumbFolder = "ScummVM"
-      },
-      c64 = {
-        extensions = {
-          "cmd",
-          "crt",
-          "d64",
-          "d71",
-          "d80",
-          "d81",
-          "g64",
-          "m3u",
-          "prg",
-          "t64",
-          "tap",
-          "vsf",
-          "x64"
-        },
-        key = "c64",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Commodore - 64"
-          }
-        },
-        name = "Commodore 64",
-        ssId = 66,
-        tgdbId = 40,
-        muos = "Commodore C64",
-        libretroThumbFolder = "Commodore - 64"
-      },
-      atari7800 = {
-        ssId = 41,
-        tgdbId = 27,
-        muos = "Atari 7800",
-        extensions = {
-          "a78",
           "bin"
-        },
-        key = "atari7800",
-        dat = {
-          {
-            "libretro/metadat/no-intro/",
-            "Atari - 7800"
-          },
-          {
-            "libretro/metadat/tosec/",
-            "Atari - 7800"
-          },
-          {
-            "libretro/metadat/headered/",
-            "Atari - 7800"
-          }
-        },
-        prefer = {
-          "no-intro",
-          "headered"
-        },
-        name = "Atari 7800",
-        libretroThumbFolder = "Atari - 7800"
+        }
       },
-      sega32x = {
-        ssId = 19,
-        tgdbId = 33,
-        muos = "Sega 32X",
-        extensions = {
-          "32x",
-          "bin",
-          "md",
-          "smd"
-        },
-        key = "sega32x",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Sega - 32X"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sega - 32X"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sega - 32X"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        ssParentId = 1,
-        name = "SEGA 32X",
-        libretroThumbFolder = "Sega - 32X"
-      },
-      neogeo = {
-        ssId = 142,
-        tgdbId = 24,
-        muos = "SNK Neo Geo",
-        extensions = {
-          "chd",
-          "cue",
-          "fba",
-          "iso",
-          "zip"
-        },
-        key = "neogeo",
-        dat = {
-          {
-            "libretro/dat",
-            "SNK - Neo Geo.dat"
-          }
-        },
-        name = "SNK Neo Geo",
-        ssParentId = 75,
-        libretroThumbFolder = "SNK - Neo Geo"
-      },
-      arduboy = {
-        ssId = 263,
-        muos = "Arduboy",
-        extensions = {
-          "hex",
-          "arduboy"
-        },
-        key = "arduboy",
-        dat = {
-          {
-            "libretro/metadat/no-intro/",
-            "Arduboy Inc - Arduboy"
-          },
-          {
-            "libretro/dat/",
-            "Arduboy Inc - Arduboy"
-          }
-        },
-        prefer = {
-          "libretro-dats"
-        },
-        name = "Arduboy",
-        libretroThumbFolder = "Arduboy Inc - Arduboy"
-      },
-      dreamcast = {
-        ssId = 23,
-        tgdbId = 16,
-        muos = "Sega Dreamcast",
-        extensions = {
-          "cdi",
-          "chd",
-          "cue",
-          "gdi",
-          "iso",
-          "m3u"
-        },
-        key = "dreamcast",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "Sega - Dreamcast"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Sega - Dreamcast"
-          }
-        },
-        prefer = {
-          "redump"
-        },
-        name = "SEGA Dreamcast",
-        libretroThumbFolder = "Sega - Dreamcast"
-      },
-      neocd = {
-        extensions = {
-          "chd",
-          "cue",
-          "fba",
-          "iso"
-        },
-        key = "neocd",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "SNK - Neo Geo CD"
-          }
-        },
-        name = "SNK Neo Geo CD",
-        ssId = 70,
-        tgdbId = 4956,
-        muos = "SNK Neo Geo CD",
-        libretroThumbFolder = "SNK - Neo Geo CD"
-      },
-      sg1000 = {
-        ssId = 109,
-        tgdbId = 4949,
-        muos = "Sega SG-1000",
-        extensions = {
-          "bin",
-          "sg"
-        },
-        key = "sg1000",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Sega - SG-1000"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sega - SG-1000"
-          }
-        },
-        name = "SEGA SG-1000",
-        ssParentId = 2,
-        libretroThumbFolder = "Sega - SG-1000"
-      },
-      atomiswave = {
-        ssId = 53,
-        muos = "Sega Atomiswave Naomi",
-        extensions = {
-          "bin",
-          "chd",
-          "dat",
-          "zip"
-        },
-        key = "atomiswave",
-        dat = {
-          {
-            "libretro/dat",
-            "Atomiswave"
-          }
-        },
-        name = "Atomiswave",
-        ssParentId = 75,
+      msx = {
         alternate = {
-          "arcade",
-          "fbneo",
-          "naomi"
+          "msx2"
         },
-        libretroThumbFolder = "Atomiswave"
-      },
-      gx4000 = {
-        ssId = 87,
-        tgdbId = 4999,
-        muos = "Amstrad",
-        extensions = {
-          "cpr",
-          "bin"
-        },
-        key = "gx4000",
-        dat = {
-          {
-            "libretro/metadat/tosec",
-            "Amstrad - GX4000"
-          }
-        },
-        name = "Amstrad GX4000",
-        ssParentId = 65,
-        libretroThumbFolder = "Amstrad - GX4000"
-      },
-      a800 = {
-        extensions = {
-          "a52",
-          "atr",
-          "atr.gz",
-          "atx",
-          "bas",
-          "bin",
-          "car",
-          "cas",
-          "com",
-          "dcm",
-          "rom",
-          "xex",
-          "xfd",
-          "xfd.gz"
-        },
-        key = "a800",
-        dat = {
-          {
-            "libretro/metadat/no-intro/",
-            "Atari - 8-bit"
-          },
-          {
-            "libretro/metadat/tosec/",
-            "Atari - 8-bit"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        ssId = 43,
-        tgdbId = 4943,
-        name = "Atari 8-bit Family",
-        libretroThumbFolder = "Atari - 8-bit"
-      },
-      naomi = {
-        ssId = 56,
-        muos = "Naomi",
-        extensions = {
-          "bin",
-          "chd",
-          "dat"
-        },
-        key = "naomi",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "Sega - Naomi.dat"
-          }
-        },
-        name = "SEGA Naomi",
-        ssParentId = 75,
-        alternate = {
-          "naomi2"
-        },
-        libretroThumbFolder = "Sega - Naomi"
-      },
-      fds = {
-        ssId = 106,
-        tgdbId = 4936,
-        muos = "Nintendo FDS",
-        extensions = {
-          "fds",
-          "nes"
-        },
-        key = "fds",
-        dat = {
-          {
-            "libretro/metadat/libretro-dats",
-            "Nintendo - Family Computer Disk System"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Family Computer Disk System"
-          }
-        },
-        name = "Nintendo - Famicom Disk System",
-        ssParentId = 3,
-        libretroThumbFolder = "Nintendo - Family Computer Disk System"
-      },
-      gw = {
-        extensions = {
-          "mgw"
-        },
-        key = "gw",
-        dat = {
-          {
-            "no-intro/No-Intro",
-            "Nintendo - Game & Watch"
-          }
-        },
-        name = "Nintendo - Game & Watch",
-        ssId = 52,
-        tgdbId = 4950,
-        muos = "Handheld Electronic - Game and Watch"
-      },
-      snes = {
-        extensions = {
-          "bin",
-          "bs",
-          "fig",
-          "mgd",
-          "sfc",
-          "smc",
-          "swc"
-        },
-        key = "snes",
-        dat = {
-          {
-            "libretro/dat",
-            "Nintendo - Super Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/hacks",
-            "Nintendo - Super Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Nintendo - Super Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/libretro-dats",
-            "Nintendo - Super Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/magazine/edge",
-            "Nintendo - Super Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Super Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Nintendo - Super Nintendo Entertainment System"
-          }
-        },
-        name = "Nintendo - SNES",
-        ssId = 4,
-        tgdbId = 6,
-        muos = "Nintendo SNES - SFC",
-        libretroThumbFolder = "Nintendo - Super Nintendo Entertainment System"
-      },
-      pico8 = {
-        extensions = {
-          "p8",
-          "png"
-        },
-        key = "pico8",
-        dat = {
-          {
-            "libretro/dat",
-            "PICO-8"
-          }
-        },
-        name = "Pico-8",
-        ssParentId = 234,
-        muos = "PICO-8"
-      },
-      ["3do"] = {
-        extensions = {
-          "chd",
-          "cue",
-          "iso"
-        },
-        key = "3do",
-        dat = {
-          {
-            "libretro/metadat/redump/",
-            "The 3DO Company"
-          }
-        },
-        name = "Panasonic 3DO",
-        ssId = 29,
-        tgdbId = 25,
-        muos = "The 3DO Company - 3DO",
-        libretroThumbFolder = "The 3DO Company - 3DO"
-      },
-      cpc = {
-        ssId = 65,
-        tgdbId = 4914,
-        muos = "Amstrad",
-        extensions = {
-          "cdt",
-          "cpc",
-          "cpr",
-          "dsk",
-          "m3u",
-          "tap"
-        },
-        key = "cpc",
-        dat = {
-          {
-            "libretro/dat",
-            "Amstrad - CPC"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Amstrad - CPC"
-          }
-        },
-        prefer = {
-          "libretro-dats"
-        },
-        name = "Amstrad CPC",
-        libretroThumbFolder = "Amstrad - CPC"
-      }
-    },
-    byMuos = {
-      ["watara supervision"] = {
-        extensions = {
-          "bin",
-          "sv"
-        },
-        key = "supervision",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Watara - Supervision"
-          }
-        },
-        name = "Watara Supervision",
-        ssId = 207,
-        tgdbId = 4959,
-        muos = "Watara Supervision",
-        libretroThumbFolder = "Watara - Supervision"
-      },
-      ["nintendo fds"] = {
-        ssId = 106,
-        tgdbId = 4936,
-        muos = "Nintendo FDS",
-        extensions = {
-          "fds",
-          "nes"
-        },
-        key = "fds",
-        dat = {
-          {
-            "libretro/metadat/libretro-dats",
-            "Nintendo - Family Computer Disk System"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Family Computer Disk System"
-          }
-        },
-        name = "Nintendo - Famicom Disk System",
-        ssParentId = 3,
-        libretroThumbFolder = "Nintendo - Family Computer Disk System"
-      },
-      ["atari lynx"] = {
-        ssId = 28,
-        tgdbId = 4924,
-        muos = "Atari Lynx",
-        extensions = {
-          "lnx"
-        },
-        key = "lynx",
-        dat = {
-          {
-            "libretro/metadat/headered",
-            "Atari - Lynx"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Atari - Lynx"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Atari - Lynx"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Atari Lynx",
-        libretroThumbFolder = "Atari - Lynx"
-      },
-      ["the 3do company - 3do"] = {
-        extensions = {
-          "chd",
-          "cue",
-          "iso"
-        },
-        key = "3do",
-        dat = {
-          {
-            "libretro/metadat/redump/",
-            "The 3DO Company"
-          }
-        },
-        name = "Panasonic 3DO",
-        ssId = 29,
-        tgdbId = 25,
-        muos = "The 3DO Company - 3DO",
-        libretroThumbFolder = "The 3DO Company - 3DO"
-      },
-      ["pico-8"] = {
-        extensions = {
-          "p8",
-          "png"
-        },
-        key = "pico8",
-        dat = {
-          {
-            "libretro/dat",
-            "PICO-8"
-          }
-        },
-        name = "Pico-8",
-        ssParentId = 234,
-        muos = "PICO-8"
-      },
-      ["handheld electronic - game and watch"] = {
-        extensions = {
-          "mgw"
-        },
-        key = "gw",
-        dat = {
-          {
-            "no-intro/No-Intro",
-            "Nintendo - Game & Watch"
-          }
-        },
-        name = "Nintendo - Game & Watch",
-        ssId = 52,
-        tgdbId = 4950,
-        muos = "Handheld Electronic - Game and Watch"
-      },
-      ["sega saturn"] = {
-        extensions = {
-          "chd",
-          "cue",
-          "iso",
-          "m3u",
-          "mdf"
-        },
-        key = "saturn",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "Sega - Saturn"
-          }
-        },
-        name = "SEGA Saturn",
-        ssId = 22,
-        tgdbId = 17,
-        muos = "Sega Saturn",
-        libretroThumbFolder = "Sega - Saturn"
-      },
-      arduboy = {
-        ssId = 263,
-        muos = "Arduboy",
-        extensions = {
-          "hex",
-          "arduboy"
-        },
-        key = "arduboy",
-        dat = {
-          {
-            "libretro/metadat/no-intro/",
-            "Arduboy Inc - Arduboy"
-          },
-          {
-            "libretro/dat/",
-            "Arduboy Inc - Arduboy"
-          }
-        },
-        prefer = {
-          "libretro-dats"
-        },
-        name = "Arduboy",
-        libretroThumbFolder = "Arduboy Inc - Arduboy"
-      },
-      ["sony playstation portable"] = {
-        extensions = {
-          "chd",
-          "cso",
-          "iso",
-          "pbp"
-        },
-        key = "psp",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Sony - PlayStation Portable (PSN)"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sony - PlayStation Portable (PSX2PSP)"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sony - PlayStation Portable (UMD Music)"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sony - PlayStation Portable (UMD Video)"
-          }
-        },
-        name = "Sony PlayStation Portable",
-        ssId = 61,
-        tgdbId = 13,
-        muos = "Sony Playstation Portable",
-        libretroThumbFolder = "Sony - PlayStation Portable"
-      },
-      ["sega 32x"] = {
-        ssId = 19,
-        tgdbId = 33,
-        muos = "Sega 32X",
-        extensions = {
-          "32x",
-          "bin",
-          "md",
-          "smd"
-        },
-        key = "sega32x",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Sega - 32X"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sega - 32X"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sega - 32X"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        ssParentId = 1,
-        name = "SEGA 32X",
-        libretroThumbFolder = "Sega - 32X"
-      },
-      ["commodore amiga"] = {
-        ssId = 64,
-        tgdbId = 4911,
-        muos = "Commodore Amiga",
-        extensions = {
-          "adf",
-          "adz",
-          "chd",
-          "cue",
-          "dms",
-          "hdf",
-          "img",
-          "ipf",
-          "iso",
-          "lha",
-          "m3u",
-          "rp9",
-          "uae"
-        },
-        key = "amiga",
-        dat = {
-          {
-            "libretro/metadat/no-intro/",
-            "Commodore - Amiga"
-          },
-          {
-            "libretro/metadat/tosec/",
-            "Commodore - Amiga"
-          },
-          {
-            "libretro/dat/",
-            "Commodore - Amiga"
-          },
-          {
-            "whdload/",
-            "Commodore - Amiga"
-          }
-        },
-        prefer = {
-          "whdload",
-          "libretro-dats",
-          "no-intro"
-        },
-        name = "Commodore Amiga",
-        libretroThumbFolder = "Commodore - Amiga"
-      },
-      scummvm = {
-        ssId = 123,
-        muos = "ScummVM",
-        extensions = {
-          "scummvm",
-          "svm"
-        },
-        key = "scummvm",
-        dat = {
-          {
-            "libretro/dat",
-            "ScummVM"
-          },
-          {
-            "libretro/metadat/magazine/edge",
-            "ScummVM"
-          }
-        },
-        name = "ScummVM",
-        ssParentId = 135,
-        libretroThumbFolder = "ScummVM"
-      },
-      ["snk neo geo cd"] = {
-        extensions = {
-          "chd",
-          "cue",
-          "fba",
-          "iso"
-        },
-        key = "neocd",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "SNK - Neo Geo CD"
-          }
-        },
-        name = "SNK Neo Geo CD",
-        ssId = 70,
-        tgdbId = 4956,
-        muos = "SNK Neo Geo CD",
-        libretroThumbFolder = "SNK - Neo Geo CD"
-      },
-      amstrad = {
-        ssId = 87,
-        tgdbId = 4999,
-        muos = "Amstrad",
-        extensions = {
-          "cpr",
-          "bin"
-        },
-        key = "gx4000",
-        dat = {
-          {
-            "libretro/metadat/tosec",
-            "Amstrad - GX4000"
-          }
-        },
-        name = "Amstrad GX4000",
-        ssParentId = 65,
-        libretroThumbFolder = "Amstrad - GX4000"
-      },
-      ["mattel - intellivision"] = {
-        ssId = 115,
-        tgdbId = 32,
-        muos = "Mattel - Intellivision",
-        extensions = {
-          "bin",
-          "int",
-          "itv",
-          "rom"
-        },
-        key = "intv",
-        dat = {
-          {
-            "libretro/metadat/homebrew",
-            "Mattel - Intellivision"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Mattel - Intellivision"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Mattel - Intellivision"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Mattel Intellivision",
-        libretroThumbFolder = "Mattel - Intellivision"
-      },
-      ["sega sg-1000"] = {
-        ssId = 109,
-        tgdbId = 4949,
-        muos = "Sega SG-1000",
-        extensions = {
-          "bin",
-          "sg"
-        },
-        key = "sg1000",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Sega - SG-1000"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sega - SG-1000"
-          }
-        },
-        name = "SEGA SG-1000",
-        ssParentId = 2,
-        libretroThumbFolder = "Sega - SG-1000"
-      },
-      ["atari 5200"] = {
-        ssId = 40,
-        tgdbId = 26,
-        muos = "Atari 5200",
-        extensions = {
-          "a52",
-          "atr",
-          "atr.gz",
-          "bas",
-          "bin",
-          "car",
-          "dcm",
-          "xex",
-          "xfd",
-          "xfd.gz"
-        },
-        key = "atari5200",
-        dat = {
-          {
-            "libretro/metadat/no-intro/",
-            "Atari - 5200"
-          },
-          {
-            "libretro/metadat/tosec/",
-            "Atari - 5200"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Atari 5200",
-        libretroThumbFolder = "Atari - 5200"
-      },
-      ["nintendo ds"] = {
-        ssId = 15,
-        tgdbId = 8,
-        muos = "Nintendo DS",
-        extensions = {
-          "nds"
-        },
-        key = "ndsi",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "/Nintendo - Nintendo DSi.dat"
-          }
-        },
-        name = "Nintendo - DSi",
-        alternate = {
-          "nds"
-        },
-        libretroThumbFolder = "Nintendo - Nintendo DSi"
-      },
-      ["snk neo geo"] = {
-        ssId = 142,
-        tgdbId = 24,
-        muos = "SNK Neo Geo",
-        extensions = {
-          "chd",
-          "cue",
-          "fba",
-          "iso",
-          "zip"
-        },
-        key = "neogeo",
-        dat = {
-          {
-            "libretro/dat",
-            "SNK - Neo Geo.dat"
-          }
-        },
-        name = "SNK Neo Geo",
-        ssParentId = 75,
-        libretroThumbFolder = "SNK - Neo Geo"
-      },
-      ["sega dreamcast"] = {
-        ssId = 23,
-        tgdbId = 16,
-        muos = "Sega Dreamcast",
-        extensions = {
-          "cdi",
-          "chd",
-          "cue",
-          "gdi",
-          "iso",
-          "m3u"
-        },
-        key = "dreamcast",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "Sega - Dreamcast"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Sega - Dreamcast"
-          }
-        },
-        prefer = {
-          "redump"
-        },
-        name = "SEGA Dreamcast",
-        libretroThumbFolder = "Sega - Dreamcast"
-      },
-      ["philips cdi"] = {
-        extensions = {
-          "chd"
-        },
-        key = "cdi",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "Philips - CD-i"
-          }
-        },
-        name = "Philips CD-i",
-        ssId = 133,
-        tgdbId = 4917,
-        muos = "Philips CDi",
-        libretroThumbFolder = "Philips - CD-i"
-      },
-      ["nec pc engine supergrafx"] = {
-        ssId = 105,
-        muos = "NEC PC Engine SuperGrafx",
-        extensions = {
-          "ccd",
-          "chd",
-          "cue",
-          "pce"
-        },
-        key = "pces",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "NEC - PC Engine SuperGrafx"
-          }
-        },
-        name = "PC Engine SuperGrafx",
-        ssParentId = 31,
-        libretroThumbFolder = "NEC - PC Engine SuperGrafx"
-      },
-      arcade = {
-        ssId = 75,
-        tgdbId = 23,
-        muos = "Arcade",
-        extensions = {
-          "bin",
-          "cue",
-          "dat",
-          "fba",
-          "iso",
-          "zip"
-        },
-        key = "fbneo",
-        dat = {
-          {
-            "libretro/metadat/fbneo-split/",
-            "FBNeo - Arcade Games"
-          },
-          {
-            "no-intro/Non-Redump/fbneo-split/",
-            "Non-Redump - Capcom - Play System"
-          }
-        },
-        name = "Arcade (FB NEO)",
-        alternate = {
-          "arcade"
-        },
-        libretroThumbFolder = "FBNeo - Arcade Games"
-      },
-      ["atari jaguar"] = {
-        ssId = 27,
-        tgdbId = 28,
-        muos = "Atari Jaguar",
-        extensions = {
-          "chd",
-          "cue",
-          "j64",
-          "jag"
-        },
-        key = "jaguar",
-        dat = {
-          {
-            "libretro/metadat/magazine/edge/",
-            "Atari - Jaguar"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Atari - Jaguar"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Atari - Jaguar"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Atari Jaguar",
-        libretroThumbFolder = "Atari - Jaguar"
-      },
-      ["sinclair zx 81"] = {
-        extensions = {
-          "p",
-          "t81",
-          "tzx"
-        },
-        key = "zx81",
-        dat = {
-          {
-            "libretro/dat",
-            "Sinclair - ZX 81"
-          }
-        },
-        name = "Sinclair ZX81",
-        ssId = 77,
-        tgdbId = 5010,
-        muos = "Sinclair ZX 81",
-        libretroThumbFolder = "Sinclair - ZX 81"
-      },
-      ["microsoft msx"] = {
-        ssId = 113,
         tgdbId = 4929,
-        muos = "Microsoft MSX",
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Microsoft - MSX.dat"
+          }
+        },
+        name = "MSX Computer",
         extensions = {
           "cas",
           "col",
@@ -2349,217 +2390,79 @@ local M = {
           "mx2",
           "rom"
         },
+        libretroThumbFolder = "Microsoft - MSX",
         key = "msx",
+        ssId = 113,
+        muos = "Microsoft MSX"
+      },
+      ["3do"] = {
+        ssId = 29,
+        tgdbId = 25,
         dat = {
           {
-            "libretro/metadat/no-intro",
-            "Microsoft - MSX.dat"
+            "libretro/metadat/redump/",
+            "The 3DO Company"
           }
         },
-        name = "MSX Computer",
-        alternate = {
-          "msx2"
-        },
-        libretroThumbFolder = "Microsoft - MSX"
-      },
-      ["tic-80"] = {
+        libretroThumbFolder = "The 3DO Company - 3DO",
+        key = "3do",
+        name = "Panasonic 3DO",
         extensions = {
-          "tic"
-        },
-        key = "tic80",
-        dat = {
-          {
-            "libretro/dat",
-            "TIC-80"
-          }
-        },
-        name = "TIC-80 Tiny Computer",
-        ssId = 222,
-        muos = "TIC-80",
-        libretroThumbFolder = "TIC-80"
-      },
-      ["commodore c64"] = {
-        extensions = {
-          "cmd",
-          "crt",
-          "d64",
-          "d71",
-          "d80",
-          "d81",
-          "g64",
-          "m3u",
-          "prg",
-          "t64",
-          "tap",
-          "vsf",
-          "x64"
-        },
-        key = "c64",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Commodore - 64"
-          }
-        },
-        name = "Commodore 64",
-        ssId = 66,
-        tgdbId = 40,
-        muos = "Commodore C64",
-        libretroThumbFolder = "Commodore - 64"
-      },
-      ["sinclair zx spectrum"] = {
-        extensions = {
-          "dsk",
-          "gz",
-          "img",
-          "mgt",
-          "rzx",
-          "scl",
-          "sna",
-          "szx",
-          "tap",
-          "trd",
-          "tzx",
-          "udi",
-          "z80"
-        },
-        key = "spectrum",
-        dat = {
-          {
-            "libretro/dat",
-            "Sinclair - ZX Spectrum"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sinclair - ZX Spectrum.dat"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sinclair - ZX Spectrum +3"
-          }
-        },
-        name = "ZX Spectrum",
-        ssId = 76,
-        tgdbId = 4913,
-        muos = "Sinclair ZX Spectrum",
-        libretroThumbFolder = "Sinclair - ZX Spectrum"
-      },
-      ["java j2me"] = {
-        extensions = {
-          "jar"
-        },
-        key = "j2me",
-        name = "Java J2ME-Platform",
-        tgdbId = 5018,
-        muos = "Java J2ME"
-      },
-      ["sharp x1"] = {
-        ssId = 220,
-        tgdbId = 4977,
-        muos = "Sharp X1",
-        extensions = {
-          "2d",
-          "2hd",
-          "88d",
-          "cmd",
-          "d88",
-          "dup",
-          "dx1",
-          "hdm",
-          "tfd",
-          "xdf"
-        },
-        key = "x1",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Sharp - X1"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sharp - X1"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Sharp X1",
-        libretroThumbFolder = "Sharp - X1"
-      },
-      ["naomi 2"] = {
-        ssId = 230,
-        muos = "Naomi 2",
-        extensions = {
-          "bin",
           "chd",
-          "dat"
+          "cue",
+          "iso"
         },
-        key = "naomi2",
+        muos = "The 3DO Company - 3DO"
+      },
+      msx2 = {
+        alternate = {
+          "msx"
+        },
+        ssParentId = 113,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Microsoft - MSX2.dat"
+          }
+        },
+        name = "MSX2 Computer",
+        extensions = {
+          "col",
+          "dsk",
+          "mx1",
+          "mx2",
+          "rom"
+        },
+        libretroThumbFolder = "Microsoft - MSX2",
+        key = "msx2",
+        tgdbId = 4929,
+        ssId = 116,
+        muos = "Microsoft - MSX"
+      },
+      saturn = {
+        ssId = 22,
+        tgdbId = 17,
         dat = {
           {
             "libretro/metadat/redump",
-            "Sega - Naomi 2.dat"
+            "Sega - Saturn"
           }
         },
-        name = "SEGA Naomi 2",
-        ssParentId = 75,
-        alternate = {
-          "naomi"
-        },
-        libretroThumbFolder = "Sega - Naomi 2"
-      },
-      ["snk neo geo pocket - color"] = {
-        ssId = 82,
-        tgdbId = 4923,
-        muos = "SNK Neo Geo Pocket - Color",
+        libretroThumbFolder = "Sega - Saturn",
+        key = "saturn",
+        name = "SEGA Saturn",
         extensions = {
-          "ngc"
+          "chd",
+          "cue",
+          "iso",
+          "m3u",
+          "mdf"
         },
-        key = "ngpc",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "SNK - Neo Geo Pocket Color.dat"
-          }
-        },
-        name = "Neo Geo Pocket Color",
-        alternate = {
-          "ngpc"
-        },
-        libretroThumbFolder = "SNK - Neo Geo Pocket Color"
+        muos = "Sega Saturn"
       },
-      ["bandai wonderswan"] = {
-        ssId = 46,
-        tgdbId = 4926,
-        muos = "Bandai WonderSwan",
-        extensions = {
-          "wsc"
-        },
-        key = "wsc",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Bandai - WonderSwan Color"
-          },
-          {
-            "libretro/metadat/hacks",
-            "Bandai - WonderSwan Color"
-          }
-        },
-        name = "WonderSwan Color",
-        ssParentId = 45,
-        libretroThumbFolder = "Bandai - WonderSwan Color"
-      },
-      ["nintendo n64"] = {
+      n64 = {
         ssId = 14,
         tgdbId = 3,
-        muos = "Nintendo N64",
-        extensions = {
-          "n64",
-          "v64",
-          "z64"
-        },
-        key = "n64",
         dat = {
           {
             "libretro/metadat/hacks",
@@ -2578,70 +2481,232 @@ local M = {
             "Nintendo - Nintendo 64"
           }
         },
+        name = "Nintendo - 64",
+        extensions = {
+          "n64",
+          "v64",
+          "z64"
+        },
+        libretroThumbFolder = "Nintendo - Nintendo 64",
+        key = "n64",
         prefer = {
           "no-intro"
         },
-        name = "Nintendo - 64",
-        libretroThumbFolder = "Nintendo - Nintendo 64"
+        muos = "Nintendo N64"
       },
-      ["nintendo virtual boy"] = {
-        extensions = {
-          "vb"
-        },
-        key = "vb",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Virtual Boy"
-          }
-        },
-        name = "Nintendo - Virtual Boy",
-        ssId = 11,
-        tgdbId = 4918,
-        muos = "Nintendo Virtual Boy",
-        libretroThumbFolder = "Nintendo - Virtual Boy"
-      },
-      ["atari 7800"] = {
-        ssId = 41,
-        tgdbId = 27,
-        muos = "Atari 7800",
-        extensions = {
-          "a78",
-          "bin"
-        },
-        key = "atari7800",
+      a800 = {
+        ssId = 43,
+        tgdbId = 4943,
         dat = {
           {
             "libretro/metadat/no-intro/",
-            "Atari - 7800"
+            "Atari - 8-bit"
           },
           {
             "libretro/metadat/tosec/",
-            "Atari - 7800"
-          },
-          {
-            "libretro/metadat/headered/",
-            "Atari - 7800"
+            "Atari - 8-bit"
           }
         },
+        libretroThumbFolder = "Atari - 8-bit",
+        key = "a800",
+        name = "Atari 8-bit Family",
         prefer = {
-          "no-intro",
-          "headered"
+          "no-intro"
         },
-        name = "Atari 7800",
-        libretroThumbFolder = "Atari - 7800"
+        extensions = {
+          "a52",
+          "atr",
+          "atr.gz",
+          "atx",
+          "bas",
+          "bin",
+          "car",
+          "cas",
+          "com",
+          "dcm",
+          "rom",
+          "xex",
+          "xfd",
+          "xfd.gz"
+        }
       },
-      ["nintendo snes - sfc"] = {
+      scummvm = {
+        ssId = 123,
+        ssParentId = 135,
+        dat = {
+          {
+            "libretro/dat",
+            "ScummVM"
+          },
+          {
+            "libretro/metadat/magazine/edge",
+            "ScummVM"
+          }
+        },
+        name = "ScummVM",
+        extensions = {
+          "scummvm",
+          "svm"
+        },
+        libretroThumbFolder = "ScummVM",
+        key = "scummvm",
+        muos = "ScummVM"
+      },
+      sega32x = {
+        ssId = 19,
+        ssParentId = 1,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Sega - 32X"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sega - 32X"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sega - 32X"
+          }
+        },
+        name = "SEGA 32X",
+        extensions = {
+          "32x",
+          "bin",
+          "md",
+          "smd"
+        },
+        libretroThumbFolder = "Sega - 32X",
+        key = "sega32x",
+        tgdbId = 33,
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sega 32X"
+      },
+      arduboy = {
+        ssId = 263,
+        dat = {
+          {
+            "libretro/metadat/no-intro/",
+            "Arduboy Inc - Arduboy"
+          },
+          {
+            "libretro/dat/",
+            "Arduboy Inc - Arduboy"
+          }
+        },
+        name = "Arduboy",
+        extensions = {
+          "hex",
+          "arduboy"
+        },
+        libretroThumbFolder = "Arduboy Inc - Arduboy",
+        key = "arduboy",
+        prefer = {
+          "libretro-dats"
+        },
+        muos = "Arduboy"
+      },
+      sg1000 = {
+        ssId = 109,
+        ssParentId = 2,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Sega - SG-1000"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sega - SG-1000"
+          }
+        },
+        name = "SEGA SG-1000",
         extensions = {
           "bin",
-          "bs",
-          "fig",
-          "mgd",
-          "sfc",
-          "smc",
-          "swc"
+          "sg"
         },
-        key = "snes",
+        libretroThumbFolder = "Sega - SG-1000",
+        key = "sg1000",
+        tgdbId = 4949,
+        muos = "Sega SG-1000"
+      },
+      naomi2 = {
+        alternate = {
+          "naomi"
+        },
+        ssParentId = 75,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "Sega - Naomi 2.dat"
+          }
+        },
+        name = "SEGA Naomi 2",
+        extensions = {
+          "bin",
+          "chd",
+          "dat"
+        },
+        libretroThumbFolder = "Sega - Naomi 2",
+        key = "naomi2",
+        ssId = 230,
+        muos = "Naomi 2"
+      },
+      naomi = {
+        alternate = {
+          "naomi2"
+        },
+        ssParentId = 75,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "Sega - Naomi.dat"
+          }
+        },
+        name = "SEGA Naomi",
+        extensions = {
+          "bin",
+          "chd",
+          "dat"
+        },
+        libretroThumbFolder = "Sega - Naomi",
+        key = "naomi",
+        ssId = 56,
+        muos = "Naomi"
+      },
+      c64 = {
+        ssId = 66,
+        tgdbId = 40,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Commodore - 64"
+          }
+        },
+        libretroThumbFolder = "Commodore - 64",
+        key = "c64",
+        name = "Commodore 64",
+        extensions = {
+          "cmd",
+          "crt",
+          "d64",
+          "d71",
+          "d80",
+          "d81",
+          "g64",
+          "m3u",
+          "prg",
+          "t64",
+          "tap",
+          "vsf",
+          "x64"
+        },
+        muos = "Commodore C64"
+      },
+      snes = {
+        ssId = 4,
+        tgdbId = 6,
         dat = {
           {
             "libretro/dat",
@@ -2672,490 +2737,472 @@ local M = {
             "Nintendo - Super Nintendo Entertainment System"
           }
         },
+        libretroThumbFolder = "Nintendo - Super Nintendo Entertainment System",
+        key = "snes",
         name = "Nintendo - SNES",
-        ssId = 4,
-        tgdbId = 6,
-        muos = "Nintendo SNES - SFC",
-        libretroThumbFolder = "Nintendo - Super Nintendo Entertainment System"
-      },
-      ["sega master system"] = {
         extensions = {
           "bin",
-          "sms"
+          "bs",
+          "fig",
+          "mgd",
+          "sfc",
+          "smc",
+          "swc"
         },
-        key = "sms",
+        muos = "Nintendo SNES - SFC"
+      },
+      ndsi = {
+        alternate = {
+          "nds"
+        },
+        tgdbId = 8,
         dat = {
           {
             "libretro/metadat/no-intro",
-            "Sega - Master System - Mark III"
+            "/Nintendo - Nintendo DSi.dat"
           }
         },
-        name = "SEGA Master System",
-        ssId = 2,
-        tgdbId = 35,
-        muos = "Sega Master System",
-        libretroThumbFolder = "Sega - Master System - Mark III"
-      },
-      ["nec pc engine"] = {
-        ssId = 31,
-        tgdbId = 34,
-        muos = "NEC PC Engine",
+        name = "Nintendo - DSi",
         extensions = {
-          "ccd",
-          "chd",
-          "cue",
-          "pce"
+          "nds"
         },
-        key = "pce",
+        libretroThumbFolder = "Nintendo - Nintendo DSi",
+        key = "ndsi",
+        ssId = 15,
+        muos = "Nintendo DS"
+      },
+      spectrum = {
+        ssId = 76,
+        tgdbId = 4913,
         dat = {
           {
-            "libretro/metadat/hacks",
-            "NEC - PC Engine - TurboGrafx 16"
+            "libretro/dat",
+            "Sinclair - ZX Spectrum"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sinclair - ZX Spectrum.dat"
           },
           {
             "libretro/metadat/no-intro",
-            "NEC - PC Engine - TurboGrafx 16"
+            "Sinclair - ZX Spectrum +3"
           }
         },
-        prefer = {
-          "no-intro"
-        },
-        name = "PC Engine",
-        libretroThumbFolder = "NEC - PC Engine - TurboGrafx 16"
-      },
-      ["odyssey2 - videopac"] = {
+        libretroThumbFolder = "Sinclair - ZX Spectrum",
+        key = "spectrum",
+        name = "ZX Spectrum",
         extensions = {
-          "bin"
+          "dsk",
+          "gz",
+          "img",
+          "mgt",
+          "rzx",
+          "scl",
+          "sna",
+          "szx",
+          "tap",
+          "trd",
+          "tzx",
+          "udi",
+          "z80"
         },
-        key = "odyssey2",
+        muos = "Sinclair ZX Spectrum"
+      },
+      neogeo = {
+        ssId = 142,
+        ssParentId = 75,
         dat = {
           {
-            "libretro/metadat/no-intro",
-            "Magnavox - Odyssey2.dat"
+            "libretro/dat",
+            "SNK - Neo Geo.dat"
           }
         },
-        name = "Magnavox Odyssey - Videopac",
-        ssId = 104,
-        tgdbId = {
-          4961,
-          4927
-        },
-        muos = "Odyssey2 - VideoPac",
-        libretroThumbFolder = "Magnavox - Odyssey2"
-      },
-      ["sega mega cd - sega cd"] = {
+        name = "SNK Neo Geo",
         extensions = {
           "chd",
           "cue",
+          "fba",
           "iso",
-          "m3u"
+          "zip"
         },
-        key = "mdcd",
+        libretroThumbFolder = "SNK - Neo Geo",
+        key = "neogeo",
+        tgdbId = 24,
+        muos = "SNK Neo Geo"
+      },
+      ngpc = {
+        alternate = {
+          "ngpc"
+        },
+        tgdbId = 4923,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "SNK - Neo Geo Pocket Color.dat"
+          }
+        },
+        name = "Neo Geo Pocket Color",
+        extensions = {
+          "ngc"
+        },
+        libretroThumbFolder = "SNK - Neo Geo Pocket Color",
+        key = "ngpc",
+        ssId = 82,
+        muos = "SNK Neo Geo Pocket - Color"
+      },
+      neocd = {
+        ssId = 70,
+        tgdbId = 4956,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "SNK - Neo Geo CD"
+          }
+        },
+        libretroThumbFolder = "SNK - Neo Geo CD",
+        key = "neocd",
+        name = "SNK Neo Geo CD",
+        extensions = {
+          "chd",
+          "cue",
+          "fba",
+          "iso"
+        },
+        muos = "SNK Neo Geo CD"
+      },
+      x1 = {
+        ssId = 220,
+        tgdbId = 4977,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Sharp - X1"
+          },
+          {
+            "libretro/metadat/tosec",
+            "Sharp - X1"
+          }
+        },
+        name = "Sharp X1",
+        extensions = {
+          "2d",
+          "2hd",
+          "88d",
+          "cmd",
+          "d88",
+          "dup",
+          "dx1",
+          "hdm",
+          "tfd",
+          "xdf"
+        },
+        libretroThumbFolder = "Sharp - X1",
+        key = "x1",
+        prefer = {
+          "no-intro"
+        },
+        muos = "Sharp X1"
+      },
+      mdcd = {
+        ssId = 20,
+        tgdbId = 21,
         dat = {
           {
             "libretro/metadat/redump",
             "Sega - Mega-CD - Sega CD"
           }
         },
+        libretroThumbFolder = "Sega - Mega-CD - Sega CD",
+        key = "mdcd",
         name = "SEGA Mega-CD",
-        ssId = 20,
-        tgdbId = 21,
-        muos = "Sega Mega CD - Sega CD",
-        libretroThumbFolder = "Sega - Mega-CD - Sega CD"
-      },
-      ["sony playstation"] = {
-        ssId = 57,
-        tgdbId = 10,
-        muos = "Sony PlayStation",
         extensions = {
-          "cbn",
           "chd",
           "cue",
-          "img",
           "iso",
-          "m3u",
-          "mdf",
-          "pbp",
-          "toc",
-          "z",
-          "znx"
+          "m3u"
         },
-        key = "psx",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "Sony - PlayStation.dat"
-          },
-          {
-            "libretro/metadat/hacks",
-            "Sony - PlayStation.dat"
-          },
-          {
-            "libretro/metadat/magazine/edge",
-            "Sony - PlayStation.dat"
-          }
-        },
-        prefer = {
-          "redump"
-        },
-        name = "Sony PlayStation",
-        libretroThumbFolder = "Sony - PlayStation"
+        muos = "Sega Mega CD - Sega CD"
       },
-      ["nintendo pokemon mini"] = {
-        extensions = {
-          "min"
-        },
-        key = "pokemini",
+      channelf = {
+        ssId = 80,
+        tgdbId = 4928,
         dat = {
-          {
-            "libretro/metadat/homebrew",
-            "Nintendo - Pokemon Mini.dat"
-          },
           {
             "libretro/metadat/no-intro",
-            "Nintendo - Pokemon Mini.dat"
+            "Fairchild - Channel F"
           }
         },
-        name = "Nintendo - Pokemon Mini",
-        ssId = 211,
-        tgdbId = 4957,
-        muos = "Nintendo Pokemon Mini",
-        libretroThumbFolder = "Nintendo - Pokemon Mini"
-      },
-      ["nintendo game boy"] = {
-        ssId = 9,
-        tgdbId = 4,
-        muos = "Nintendo Game Boy",
-        extensions = {
-          "gb"
-        },
-        key = "gb",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Nintendo - Game Boy.dat"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Nintendo - Game Boy.dat"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Game Boy.dat"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Nintendo - Game Boy.dat"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Nintendo - Gameboy",
-        libretroThumbFolder = "Nintendo - Game Boy"
-      },
-      ["nintendo game boy advance"] = {
-        ssId = 12,
-        tgdbId = 5,
-        muos = "Nintendo Game Boy Advance",
-        extensions = {
-          "gba"
-        },
-        key = "gba",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Nintendo - Game Boy Advance"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Nintendo - Game Boy Advance"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Game Boy Advance"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Nintendo - Game Boy Advance"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Nintendo - Game Boy Advance",
-        libretroThumbFolder = "Nintendo - Game Boy Advance"
-      },
-      ["sega game gear"] = {
-        ssId = 21,
-        tgdbId = 20,
-        muos = "Sega Game Gear",
+        libretroThumbFolder = "Fairchild - Channel F",
+        key = "channelf",
+        name = "Fairchild ChannelF",
         extensions = {
           "bin",
-          "gg",
-          "sms"
+          "rom"
         },
-        key = "gg",
+        muos = "Fairchild ChannelF"
+      },
+      fbneo = {
+        alternate = {
+          "arcade"
+        },
+        tgdbId = 23,
         dat = {
           {
-            "libretro/metadat/hacks",
-            "Sega - Game Gear"
+            "libretro/metadat/fbneo-split/",
+            "FBNeo - Arcade Games"
           },
           {
-            "libretro/metadat/no-intro",
-            "Sega - Game Gear"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sega - Game Gear"
+            "no-intro/Non-Redump/fbneo-split/",
+            "Non-Redump - Capcom - Play System"
           }
         },
-        prefer = {
-          "no-intro"
-        },
-        name = "SEGA Game Gear",
-        libretroThumbFolder = "Sega - Game Gear"
-      },
-      ["nec pc engine cd"] = {
-        ssId = 114,
-        tgdbId = 4955,
-        muos = "NEC PC Engine CD",
+        name = "Arcade (FB NEO)",
         extensions = {
-          "ccd",
-          "chd",
+          "bin",
           "cue",
-          "pce"
+          "dat",
+          "fba",
+          "iso",
+          "zip"
         },
-        key = "pcecd",
-        dat = {
-          {
-            "libretro/metadat/redump",
-            "NEC - PC Engine CD - TurboGrafx-CD"
-          }
-        },
-        name = "PC Engine CD-ROM²",
-        ssParentId = 31,
-        libretroThumbFolder = "NEC - PC Engine CD - TurboGrafx-CD"
+        libretroThumbFolder = "FBNeo - Arcade Games",
+        key = "fbneo",
+        ssId = 75,
+        muos = "Arcade"
       },
-      ["nintendo game boy color"] = {
-        ssId = 10,
-        tgdbId = 41,
-        muos = "Nintendo Game Boy Color",
-        extensions = {
-          "gbc",
-          "gb"
-        },
-        key = "gbc",
+      lynx = {
+        ssId = 28,
+        tgdbId = 4924,
         dat = {
           {
-            "libretro/metadat/hacks",
-            "Nintendo - Game Boy Color"
+            "libretro/metadat/headered",
+            "Atari - Lynx"
           },
           {
             "libretro/metadat/no-intro",
-            "Nintendo - Game Boy Color"
+            "Atari - Lynx"
           },
           {
             "libretro/metadat/tosec",
-            "Nintendo - Game Boy Color"
+            "Atari - Lynx"
           }
         },
+        name = "Atari Lynx",
+        extensions = {
+          "lnx"
+        },
+        libretroThumbFolder = "Atari - Lynx",
+        key = "lynx",
         prefer = {
           "no-intro"
         },
-        ssParentId = 9,
-        name = "Nintendo - Game Boy Color",
-        libretroThumbFolder = "Nintendo - Game Boy Color"
+        muos = "Atari Lynx"
       },
-      ["atari 2600"] = {
-        ssId = 26,
-        tgdbId = 22,
-        muos = "Atari 2600",
-        extensions = {
-          "a26",
-          "bin",
-          "gz",
-          "rom"
-        },
-        key = "atari2600",
-        dat = {
-          {
-            "libretro/metadat/no-intro/",
-            "Atari - 2600"
-          },
-          {
-            "libretro/metadat/tosec/",
-            "Atari - 2600"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Atari 2600",
-        libretroThumbFolder = "Atari - 2600"
-      },
-      ["mega duck - cougar boy"] = {
-        extensions = {
-          "bin"
-        },
-        key = "megaduck",
-        name = "Mega Duck",
-        ssId = 90,
-        tgdbId = 4948,
-        muos = "Mega Duck - Cougar Boy"
-      },
-      ["microsoft - msx"] = {
-        ssId = 116,
-        tgdbId = 4929,
-        muos = "Microsoft - MSX",
-        extensions = {
-          "col",
-          "dsk",
-          "mx1",
-          "mx2",
-          "rom"
-        },
-        key = "msx2",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Microsoft - MSX2.dat"
-          }
-        },
-        name = "MSX2 Computer",
-        ssParentId = 113,
-        alternate = {
-          "msx"
-        },
-        libretroThumbFolder = "Microsoft - MSX2"
-      },
-      ["sega mega drive - genesis"] = {
-        ssId = 1,
-        tgdbId = {
-          36,
-          18
-        },
-        muos = "Sega Mega Drive - Genesis",
-        extensions = {
-          "bin",
-          "gen",
-          "md",
-          "sg",
-          "smd"
-        },
-        key = "md",
-        dat = {
-          {
-            "libretro/metadat/hacks",
-            "Sega - Mega Drive - Genesis"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Sega - Mega Drive - Genesis"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Sega - Mega Drive - Genesis"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sega - Mega Drive - Genesis"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "SEGA Megadrive",
-        libretroThumbFolder = "Sega - Mega Drive - Genesis"
-      },
-      naomi = {
-        ssId = 56,
-        muos = "Naomi",
-        extensions = {
-          "bin",
-          "chd",
-          "dat"
-        },
-        key = "naomi",
+      cdi = {
+        ssId = 133,
+        tgdbId = 4917,
         dat = {
           {
             "libretro/metadat/redump",
-            "Sega - Naomi.dat"
+            "Philips - CD-i"
           }
         },
-        name = "SEGA Naomi",
-        ssParentId = 75,
-        alternate = {
-          "naomi2"
-        },
-        libretroThumbFolder = "Sega - Naomi"
-      },
-      openbor = {
+        libretroThumbFolder = "Philips - CD-i",
+        key = "cdi",
+        name = "Philips CD-i",
         extensions = {
-          "bor",
-          "pak"
+          "chd"
         },
-        key = "openbor",
-        name = "OpenBOR",
-        ssId = 214,
-        muos = "OpenBOR"
+        muos = "Philips CDi"
       },
-      ["nintendo nes - famicom"] = {
-        ssId = 3,
-        tgdbId = 7,
-        muos = "Nintendo NES - Famicom",
-        extensions = {
-          "fig",
-          "mgd",
-          "nes",
-          "sfc",
-          "smc",
-          "swc"
-        },
-        key = "nes",
+      cpc = {
+        ssId = 65,
+        tgdbId = 4914,
         dat = {
           {
             "libretro/dat",
-            "Nintendo - Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/hacks",
-            "Nintendo - Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/headered",
-            "Nintendo - Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/homebrew",
-            "Nintendo - Nintendo Entertainment System"
-          },
-          {
-            "libretro/metadat/no-intro",
-            "Nintendo - Nintendo Entertainment System"
+            "Amstrad - CPC"
           },
           {
             "libretro/metadat/tosec",
-            "Nintendo - Nintendo Entertainment System"
+            "Amstrad - CPC"
           }
         },
+        name = "Amstrad CPC",
+        extensions = {
+          "cdt",
+          "cpc",
+          "cpr",
+          "dsk",
+          "m3u",
+          "tap"
+        },
+        libretroThumbFolder = "Amstrad - CPC",
+        key = "cpc",
         prefer = {
-          "no-intro",
           "libretro-dats"
         },
-        name = "Nintendo - Entertainment System",
-        libretroThumbFolder = "Nintendo - Nintendo Entertainment System"
+        muos = "Amstrad"
       },
-      ["sega atomiswave naomi"] = {
-        ssId = 53,
-        muos = "Sega Atomiswave Naomi",
+      supervision = {
+        ssId = 207,
+        tgdbId = 4959,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Watara - Supervision"
+          }
+        },
+        libretroThumbFolder = "Watara - Supervision",
+        key = "supervision",
+        name = "Watara Supervision",
         extensions = {
           "bin",
-          "chd",
-          "dat",
-          "zip"
+          "sv"
         },
-        key = "atomiswave",
+        muos = "Watara Supervision"
+      },
+      j2me = {
+        tgdbId = 5018,
+        key = "j2me",
+        name = "Java J2ME-Platform",
+        muos = "Java J2ME",
+        extensions = {
+          "jar"
+        }
+      },
+      dreamcast = {
+        ssId = 23,
+        tgdbId = 16,
+        dat = {
+          {
+            "libretro/metadat/redump",
+            "Sega - Dreamcast"
+          },
+          {
+            "libretro/metadat/homebrew",
+            "Sega - Dreamcast"
+          }
+        },
+        name = "SEGA Dreamcast",
+        extensions = {
+          "cdi",
+          "chd",
+          "cue",
+          "gdi",
+          "iso",
+          "m3u"
+        },
+        libretroThumbFolder = "Sega - Dreamcast",
+        key = "dreamcast",
+        prefer = {
+          "redump"
+        },
+        muos = "Sega Dreamcast"
+      },
+      ngp = {
+        alternate = {
+          "ngpc"
+        },
+        ssParentId = 82,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "SNK - Neo Geo Pocket.dat"
+          }
+        },
+        name = "Neo Geo Pocket",
+        extensions = {
+          "ngp"
+        },
+        libretroThumbFolder = "SNK - Neo Geo Pocket",
+        key = "ngp",
+        tgdbId = 4922,
+        ssId = 25,
+        muos = "SNK Neo Geo Pocket - Color"
+      },
+      tic80 = {
+        ssId = 222,
+        dat = {
+          {
+            "libretro/dat",
+            "TIC-80"
+          }
+        },
+        libretroThumbFolder = "TIC-80",
+        key = "tic80",
+        name = "TIC-80 Tiny Computer",
+        extensions = {
+          "tic"
+        },
+        muos = "TIC-80"
+      },
+      nds = {
+        alternate = {
+          "ndsi"
+        },
+        tgdbId = 8,
+        dat = {
+          {
+            "libretro/metadat/hacks",
+            "Nintendo - Nintendo DS.dat"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Nintendo - Nintendo DS.dat"
+          }
+        },
+        name = "Nintendo - DS",
+        extensions = {
+          "nds"
+        },
+        libretroThumbFolder = "Nintendo - Nintendo DS",
+        key = "nds",
+        ssId = 15,
+        prefer = {
+          "no-intro"
+        },
+        muos = "Nintendo DS"
+      },
+      psp = {
+        ssId = 61,
+        tgdbId = 13,
+        dat = {
+          {
+            "libretro/metadat/no-intro",
+            "Sony - PlayStation Portable (PSN)"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sony - PlayStation Portable (PSX2PSP)"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sony - PlayStation Portable (UMD Music)"
+          },
+          {
+            "libretro/metadat/no-intro",
+            "Sony - PlayStation Portable (UMD Video)"
+          }
+        },
+        libretroThumbFolder = "Sony - PlayStation Portable",
+        key = "psp",
+        name = "Sony PlayStation Portable",
+        extensions = {
+          "chd",
+          "cso",
+          "iso",
+          "pbp"
+        },
+        muos = "Sony Playstation Portable"
+      },
+      atomiswave = {
+        alternate = {
+          "arcade",
+          "fbneo",
+          "naomi"
+        },
+        ssParentId = 75,
         dat = {
           {
             "libretro/dat",
@@ -3163,80 +3210,33 @@ local M = {
           }
         },
         name = "Atomiswave",
-        ssParentId = 75,
-        alternate = {
-          "arcade",
-          "fbneo",
-          "naomi"
-        },
-        libretroThumbFolder = "Atomiswave"
-      },
-      ["sharp x68000"] = {
-        ssId = 79,
-        tgdbId = 4931,
-        muos = "Sharp X68000",
-        extensions = {
-          "2hd",
-          "d88",
-          "dim",
-          "hdf",
-          "hdm",
-          "m3u",
-          "xdf"
-        },
-        key = "x68000",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "Sharp - X68000"
-          },
-          {
-            "libretro/metadat/tosec",
-            "Sharp - X68000"
-          }
-        },
-        prefer = {
-          "no-intro"
-        },
-        name = "Sharp X68000",
-        libretroThumbFolder = "Sharp - X68000"
-      },
-      ["gce-vectrex"] = {
         extensions = {
           "bin",
-          "gam",
-          "vec"
+          "chd",
+          "dat",
+          "zip"
         },
-        key = "vectrex",
-        dat = {
-          {
-            "libretro/metadat/no-intro",
-            "GCE - Vectrex"
-          }
-        },
-        name = "GCE Vectrex",
-        ssId = 102,
-        tgdbId = 4939,
-        muos = "GCE-Vectrex",
-        libretroThumbFolder = "GCE - Vectrex"
+        libretroThumbFolder = "Atomiswave",
+        key = "atomiswave",
+        ssId = 53,
+        muos = "Sega Atomiswave Naomi"
       },
-      ["fairchild channelf"] = {
-        extensions = {
-          "bin",
-          "rom"
-        },
-        key = "channelf",
+      vb = {
+        ssId = 11,
+        tgdbId = 4918,
         dat = {
           {
             "libretro/metadat/no-intro",
-            "Fairchild - Channel F"
+            "Nintendo - Virtual Boy"
           }
         },
-        name = "Fairchild ChannelF",
-        ssId = 80,
-        tgdbId = 4928,
-        muos = "Fairchild ChannelF",
-        libretroThumbFolder = "Fairchild - Channel F"
+        libretroThumbFolder = "Nintendo - Virtual Boy",
+        key = "vb",
+        name = "Nintendo - Virtual Boy",
+        extensions = {
+          "vb"
+        },
+        muos = "Nintendo Virtual Boy"
       }
     }
   }
