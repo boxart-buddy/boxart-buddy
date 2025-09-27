@@ -338,7 +338,7 @@ function M:update(dt)
         love.graphics.setColor(colors.white)
         love.graphics.setFont(ASSETS.font.inter.bold(FONTSIZE.xl))
         love.graphics.printf(
-            "NO SCRAPER ENABLED\nOR THIS MEDIA TYPE",
+            "NO SCRAPER ENABLED\nFOR THIS MEDIA TYPE",
             (SCREEN.w / 4) * 1,
             (SCREEN.mainH / 2),
             (SCREEN.w / 4) * 3,

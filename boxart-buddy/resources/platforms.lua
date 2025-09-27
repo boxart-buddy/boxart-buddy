@@ -127,6 +127,7 @@ M.all = {
         ["alternate"] = { "fbneo" },
         ["extensions"] = { "bin", "cue", "dat", "fba", "iso", "zip" }, -- zip
         ["ssId"] = 75,
+        ["tgdbId"] = 23,
     },
     {
         ["key"] = "fbneo",
@@ -391,14 +392,16 @@ M.all = {
         ["ssId"] = 27,
         ["tgdbId"] = 28,
     },
-    { -- skipping due to size,
+    {
         ["key"] = "j2me",
         ["name"] = "Java J2ME-Platform",
+        -- skipping due to size,
         -- ["dat"] = {
         --     {"libretro/dat", "Mobile - J2ME"},
         -- },
         ["libretroThumbFolder"] = nil,
         ["muos"] = "Java J2ME",
+        ["extensions"] = { "jar" },
         ["tgdbId"] = 5018,
     },
     {
@@ -461,7 +464,7 @@ M.all = {
             { "libretro/metadat/no-intro", "Microsoft - MSX.dat" },
         },
         ["libretroThumbFolder"] = "Microsoft - MSX",
-        ["muos"] = "Microsoft - MSX",
+        ["muos"] = "Microsoft MSX",
         ["alternate"] = { "msx2" },
         ["extensions"] = { "cas", "col", "dsk", "m3u", "mx1", "mx2", "rom" },
         ["ssId"] = 113,

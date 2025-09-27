@@ -20,6 +20,12 @@ function M:getMediaTypes()
     if self.environment:getConfig("media_box3d_enabled") then
         table.insert(types, "box3d")
     end
+    -- if self.environment:getConfig("media_titlescreen_enabled") then
+    --     table.insert(types, "titlescreen")
+    -- end
+    -- if self.environment:getConfig("media_marquee_enabled") then
+    --     table.insert(types, "marquee")
+    -- end
     if self.environment:getConfig("media_grid1x1_enabled") then
         table.insert(types, "grid1x1")
     end

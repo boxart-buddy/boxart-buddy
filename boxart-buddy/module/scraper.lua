@@ -52,6 +52,7 @@ function M:new(
             self.mediaRepository,
             self.scraperRepository
         ),
+        tgdb = require("module.tgdb.scraper")(self.environment, self.logger, self.database, self.platform),
     }
 end
 
@@ -61,6 +62,7 @@ function M:getDefinedScrapers()
         libretro = self._scrapers.libretro,
         screenscraper = self._scrapers.screenscraper,
         steamgriddb = self._scrapers.steamgriddb,
+        tgdb = self._scrapers.tgdb,
     }
 end
 
@@ -70,7 +72,9 @@ function M:getScraperSupportedTypes(id)
         libretro = { "screenshot", "box2d", "wheel" },
         screenscraper = { "screenshot", "box2d", "box3d", "wheel" },
         steamgriddb = { "wheel", "grid1x1", "grid2x3" },
+        tgdb = { "screenshot", "box2d", "titlescreen", "wheel", "marquee" },
     }
+
     local types = supported[id]
     if types == nil then
         error("unknown scraper id: " .. id)
@@ -107,6 +111,9 @@ function M:getScrapers(opts)
         end
         if self.environment:getConfig("scraper_steamgriddb_enabled") then
             table.insert(scrapers, { id = "steamgriddb", module = self:getDefinedScrapers().steamgriddb })
+        end
+        if self.environment:getConfig("scraper_tgdb_enabled") then
+            table.insert(scrapers, { id = "tgdb", module = self:getDefinedScrapers().tgdb })
         end
     end
 
