@@ -16,7 +16,7 @@ LOGDIR="${CONFDIR}/log"
 mkdir -p "$CONFDIR" "$LOGDIR"
 
 # Export environment variables
-export SDL_GAMECONTROLLERCONFIG_FILE="/usr/lib/gamecontrollerdb.txt"
+SETUP_SDL_ENVIRONMENT
 export XDG_DATA_HOME="$CONFDIR"
 
 # Launcher
