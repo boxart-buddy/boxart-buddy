@@ -738,7 +738,7 @@ M.all = {
             { "libretro/metadat/no-intro", "Sony - PlayStation Portable (UMD Video)" },
         },
         ["libretroThumbFolder"] = "Sony - PlayStation Portable",
-        ["muos"] = "Sony Playstation Portable",
+        ["muos"] = "Sony PlayStation Portable",
         ["extensions"] = { "chd", "cso", "iso", "pbp" },
         ["ssId"] = 61,
         ["tgdbId"] = 13,
