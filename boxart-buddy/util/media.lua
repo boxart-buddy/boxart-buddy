@@ -10,8 +10,8 @@ function M.mediaPath(cachePath, type, filename)
 end
 
 ---@param absolutePath string
----@return Image?
----@return FileData?
+---@return love.Image?
+---@return love.FileData?
 function M.loadImage(absolutePath)
     local fileData = filesystem.newFileData(absolutePath)
     if not fileData then
@@ -26,7 +26,12 @@ function M.loadImage(absolutePath)
         return nil, nil
     end
 
-    return love.graphics.newImage(imageData), fileData
+    local graphicsLoadSuccess, graphicsImage = pcall(love.graphics.newImage, imageData)
+    if not graphicsLoadSuccess then
+        return nil, nil
+    end
+
+    return graphicsImage, fileData
 end
 
 local function computeViewportOrigin(x, y, width, height, anchor)

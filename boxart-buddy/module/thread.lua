@@ -328,7 +328,7 @@ end
 
 ---Gets a channel using a consistent format
 ---@param threadKey any key of the thread pool
----@param type string channel constant name
+---@param typ string channel constant name
 ---@param uuid? string
 ---@return unknown
 function M:getChannel(threadKey, typ, uuid)
