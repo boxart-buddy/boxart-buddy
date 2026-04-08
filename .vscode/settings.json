@@ -28,4 +28,5 @@
         "boxart-buddy/resources": true,
         "boxart-buddy/trash": true,
     },
+    "makefile.configureOnOpen": false,
 }
