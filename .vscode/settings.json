@@ -18,6 +18,7 @@
     ],
     "Lua.workspace.library": [
         "${3rd}/love2d/library",
+        "${addons}/love2d/module/library"
     ],
     "Lua.workspace.ignoreDir": [
         "boxart-buddy/resources",
@@ -29,4 +30,7 @@
         "boxart-buddy/trash": true,
     },
     "makefile.configureOnOpen": false,
+    "Lua.runtime.special": {
+        "love.filesystem.load": "loadfile"
+    },
 }
