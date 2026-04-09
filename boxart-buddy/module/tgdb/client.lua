@@ -55,6 +55,17 @@ function M:searchByNameAndPlatform(romName, platforms, scrapeTypes)
         self.scraperRepository:insertSkip(url, "tgdb")
     end
 
+    if code == 403 then
+        if self.logger then
+            self.logger:log(
+                "error",
+                "tgdb",
+                "Invalid TGDB api key. Double check your key: https://api.thegamesdb.net/key.php"
+            )
+        end
+        return nil
+    end
+
     local ok, decoded = pcall(json.decode, body)
     if not ok or not decoded or not decoded.status or not decoded.status == "Success" then
         if self.logger then
