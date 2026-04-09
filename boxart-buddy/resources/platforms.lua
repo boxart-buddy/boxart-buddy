@@ -958,6 +958,16 @@ M.all = {
         ["ssId"] = 77,
         ["tgdbId"] = 5010,
     },
+    {
+        ["key"] = "dos",
+        ["name"] = "DOS",
+        ["dat"] = nil,
+        ["libretroThumbFolder"] = "DOS",
+        ["muos"] = "PC DOS",
+        ["extensions"] = { "zip", "7z", "iso", "exe", "sh" },
+        ["ssId"] = 135,
+        ["tgdbId"] = 1,
+    },
     -- TBC,
     -- PORTS (github?)
     -- uzebox (libretro),
