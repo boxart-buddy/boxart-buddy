@@ -6,10 +6,10 @@ data/
 tools/
 .gitignore
 .distignore
+.gitattributes
 .stylua.toml
 .styluaignore
 Makefile
-Makefile_old
 boxart-buddy/trash/
 dist
 native/macarm64/

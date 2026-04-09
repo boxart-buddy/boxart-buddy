@@ -180,6 +180,11 @@ function M:getPlatformKeyForRom(romRelativePath)
     -- if the folder has been defined (most likely)
     local romFolderCfgPath = path.join({ coreFolder, romDirname, "core.cfg" })
 
+    -- NEW INFO --
+
+    -- Core overrids stored at: /opt/muos/share/info/content/<foldername>/<romname.cfg>
+    -- Assign stored at same location
+
     return self:_getPlatformKeyByCfg(romCfgPath, 3)
         or self:_getPlatformKeyByCfg(romFolderCfgPath, 2)
         or self:_getFallbackFromAssigns(romRelativePath)

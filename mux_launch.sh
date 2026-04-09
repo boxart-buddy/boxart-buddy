@@ -1,11 +1,17 @@
 #!/bin/bash
-# HELP: BoxartBuddy
+# HELP: Boxart Buddy
 # ICON: boxartbuddy
-# GRID: BoxartBuddy
+# GRID: Boxart Buddy
 
-. /opt/muos/script/var/func.sh
+STAGE_OVERLAY=0 . /opt/muos/script/var/func.sh
 
-echo app >/tmp/act_go
+if command -v SETUP_APP >/dev/null 2>&1; then
+    # --- Jacaranda (2601+) Logic ---
+    APP_BIN="bin/love"
+    SETUP_APP "love" ""
+fi
+
+echo app >/tmp/act_go # -- can this be removed?
 
 # Define paths and commands
 LOVEDIR="$(GET_VAR "device" "storage/rom/mount")/MUOS/application/BoxartBuddy"
@@ -15,8 +21,7 @@ LOGDIR="${CONFDIR}/log"
 
 mkdir -p "$CONFDIR" "$LOGDIR"
 
-# Export environment variables
-SETUP_SDL_ENVIRONMENT
+SETUP_SDL_ENVIRONMENT # -- can this be removed?
 export XDG_DATA_HOME="$CONFDIR"
 
 # Launcher

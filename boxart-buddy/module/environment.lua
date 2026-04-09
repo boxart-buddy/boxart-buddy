@@ -10,6 +10,7 @@ local M = class({
         muosPaths = {
             ["sd1"] = "/mnt/mmc",
             ["sd2"] = "/mnt/sdcard",
+            ["usb"] = "/mnt/usb",
         },
     },
 })
@@ -119,7 +120,7 @@ function M:getPath(id, options)
         end
     elseif id == "catalog" then
         if self:isMuOs() then
-            return self:muosCatalogFolder(options.force)
+            return self:muosCatalogFolder()
         else
             return self.configManager:get("env_catalog_path")
         end
@@ -157,12 +158,9 @@ function M:getPath(id, options)
 end
 
 ---@return string absolute path to the catalog folder
-function M:muosCatalogFolder(force)
+function M:muosCatalogFolder()
     local paths = {
-        "/opt/muos/share/info/catalogue",
         "/run/muos/storage/info/catalogue",
-        path.join({ self.muosPaths.sd2, "MUOS", "info", "catalogue" }),
-        path.join({ self.muosPaths.sd1, "MUOS", "info", "catalogue" }),
     }
 
     -- cached
@@ -183,10 +181,7 @@ end
 
 function M:muosCatalogPackageFolder()
     local paths = {
-        -- "/opt/muos/share/package/catalogue",
-        -- "/run/muos/storage/package/catalogue",
-        path.join({ self.muosPaths.sd2, "MUOS", "package", "catalogue" }),
-        path.join({ self.muosPaths.sd1, "MUOS", "package", "catalogue" }),
+        "/run/muos/storage/package/catalogue/",
     }
 
     -- cached
@@ -223,10 +218,8 @@ end
 ---@return string absolute path to the core(info) folder
 function M:muosCoreInfoFolder()
     local coreFolderPaths = {
-        "/opt/muos/share/info/core",
-        "/run/muos/storage/info/core",
-        path.join({ self.muosPaths.sd2, "MUOS", "info", "core" }),
-        path.join({ self.muosPaths.sd1, "MUOS", "info", "core" }),
+        "/opt/muos/share/info/content", -- 2601+
+        "/opt/muos/share/info/core", -- 2508+
     }
 
     -- cached
@@ -246,11 +239,8 @@ function M:muosCoreInfoFolder()
 end
 
 function M:muosAssignPath()
-    -- >= canada goose path
+    -- 2601+ and 2508+
     local assignPath = "/opt/muos/share/info/assign/assign.json"
-
-    -- < canada goose paths
-    local legacyAssignPaths = { "MUOS/info/assign/assign.json", "MUOS/info/assign.json" }
 
     -- cached
     if self.assignPath then
@@ -262,29 +252,13 @@ function M:muosAssignPath()
         return self.assignPath
     end
 
-    for _, pth in ipairs(legacyAssignPaths) do
-        -- sd2
-        local sd2Path = path.join({ self.muosPaths.sd2, pth })
-        if filesystem.getInfo(sd2Path, "file") then
-            self.assignPath = sd2Path
-            return self.assignPath
-        end
-
-        -- sd1
-        local sd1Path = path.join({ self.muosPaths.sd1, pth })
-        if filesystem.getInfo(sd1Path, "file") then
-            self.assignPath = sd1Path
-            return self.assignPath
-        end
-    end
-
     -- if this fallback is ever triggered then it will lead to an error, as the file does not exist
     error("assign.json path could not be found. filesystem is corrupt or unsupported muos verson")
 end
 
 ---@return string
 function M:getVersion()
-    return "0.1.0"
+    return "0.2.0"
 end
 
 ---@param key string
