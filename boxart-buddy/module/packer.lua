@@ -35,6 +35,7 @@ function M:orchestrate(options)
             parameters = {
                 romUuid = row.uuid,
                 options = {
+                    target = self.environment:getConfig("pack_sd_card"),
                     archive = archive,
                 },
             },
@@ -61,14 +62,18 @@ end
 
 function M:packOne(romUuid, options)
     options = options or {}
+    local pathOptions = {}
+    if options.target ~= "auto" then
+        pathOptions.force = options.target
+    end
 
-    local catalogPath = self.environment:getPath("catalog")
+    local catalogPath = self.environment:getPath("catalog", pathOptions)
 
     if not filesystem.getInfo(catalogPath, "directory") then
         filesystem.createDirectory(catalogPath)
     end
     if not filesystem.getInfo(catalogPath, "directory") then
-        error("Could not create pack output directory on target")
+        error("Could not create pack output directory on target: " .. options.target)
     end
 
     local rom = self.romRepository:getRom(romUuid)

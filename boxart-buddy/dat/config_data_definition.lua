@@ -387,6 +387,17 @@ return {
         group = "mix",
         description = "6 Digit color hex to use when setting 'BG Color' to 'custom'",
     },
+    -- pack
+    {
+        key = "pack_sd_card",
+        type = "select",
+        default = "auto",
+        values = { "auto", "sd1", "sd2" },
+        label = "SD Target",
+        group = "pack",
+        description = "What SD Card to pack the artwork to. 'Auto' assumes that if you have an sd2 card in the device then you want to pack assets to that card",
+        order = 1,
+    },
     {
         key = "pack_archive",
         type = "boolean",

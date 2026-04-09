@@ -10,7 +10,7 @@ local M = class({
         muosPaths = {
             ["sd1"] = "/mnt/mmc",
             ["sd2"] = "/mnt/sdcard",
-            ["usb"] = "/mnt/usb",
+            ["usb"] = "/mnt/sdcard",
         },
     },
 })
@@ -120,7 +120,7 @@ function M:getPath(id, options)
         end
     elseif id == "catalog" then
         if self:isMuOs() then
-            return self:muosCatalogFolder()
+            return self:muosCatalogFolder(options.force)
         else
             return self.configManager:get("env_catalog_path")
         end
@@ -158,9 +158,10 @@ function M:getPath(id, options)
 end
 
 ---@return string absolute path to the catalog folder
-function M:muosCatalogFolder()
+function M:muosCatalogFolder(force)
     local paths = {
-        "/run/muos/storage/info/catalogue",
+        path.join({ self.muosPaths.sd2, "MUOS", "info", "catalogue" }),
+        path.join({ self.muosPaths.sd1, "MUOS", "info", "catalogue" }),
     }
 
     -- cached
@@ -181,7 +182,8 @@ end
 
 function M:muosCatalogPackageFolder()
     local paths = {
-        "/run/muos/storage/package/catalogue/",
+        path.join({ self.muosPaths.sd2, "MUOS", "package", "catalogue" }),
+        path.join({ self.muosPaths.sd1, "MUOS", "package", "catalogue" }),
     }
 
     -- cached
