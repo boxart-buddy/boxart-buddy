@@ -14,7 +14,8 @@ fi
 echo app >/tmp/act_go # -- can this be removed?
 
 # Define paths and commands
-LOVEDIR="$(GET_VAR "device" "storage/rom/mount")/MUOS/application/BoxartBuddy"
+APP_DIR="$(cd "$(dirname "$0")" && pwd)"
+LOVEDIR="$APP_DIR"
 GPTOKEYB="$(GET_VAR "device" "storage/rom/mount")/MUOS/emulator/gptokeyb/gptokeyb2.armhf"
 CONFDIR="$LOVEDIR/data/"
 LOGDIR="${CONFDIR}/log"
