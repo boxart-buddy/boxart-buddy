@@ -70,7 +70,7 @@ function M:getScraperSupportedTypes(id)
     local supported = {
         file = { "screenshot", "box2d", "box3d", "wheel", "grid1x1", "grid2x3" },
         libretro = { "screenshot", "box2d", "wheel" },
-        screenscraper = { "screenshot", "box2d", "box3d", "wheel" },
+        screenscraper = { "screenshot", "box2d", "box3d", "wheel", "video" },
         steamgriddb = { "wheel", "grid1x1", "grid2x3" },
         tgdb = { "screenshot", "box2d", "titlescreen", "wheel", "marquee" },
     }

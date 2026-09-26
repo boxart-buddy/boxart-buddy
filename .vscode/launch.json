@@ -6,7 +6,7 @@
             "type": "lua-local",
             "request": "launch",
             "program": {
-                "command": "love",
+                "command": "/Applications/love.app/Contents/MacOS/love",
             },
             "args": [
                 "boxart-buddy --project-root=${workspaceFolder}"

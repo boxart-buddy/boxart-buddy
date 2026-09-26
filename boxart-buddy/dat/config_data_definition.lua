@@ -346,6 +346,14 @@ return {
         group = "media",
         description = "Should scrape for 2x3 Grid?",
     },
+    {
+        key = "media_video_enabled",
+        type = "boolean",
+        default = false,
+        label = "Enable Video",
+        group = "media",
+        description = "Should scrape for video?",
+    },
     -- mix
     {
         key = "mix_overwrite",

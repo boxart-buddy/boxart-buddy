@@ -86,6 +86,7 @@ function M:_scrapeApiAndFormatResult(rom, types, returnFormat)
         screenshot = { "ss", "sstitle" },
         box3d = { "box-3D" },
         cart = { "support-2D" },
+        video = { "video" },
     }
     for _, typ in ipairs(types) do
         if typMap[typ] then
@@ -126,7 +127,9 @@ end
 
 function M:downloadMedia(remotePath, assetType, uuid)
     -- client.fetchGameInfo would have thrown if closed
-    local localFilename = uuid .. ".png"
+    local extension = assetType == "video" and ".mp4" or ".png"
+    local localFilename = uuid .. extension
+
     local code, body = self.https:request(remotePath, {})
     if code ~= 200 then
         self.logger:log("warn", "scraper", "Media download failed: " .. remotePath)

@@ -32,6 +32,9 @@ function M:getMediaTypes()
     if self.environment:getConfig("media_grid2x3_enabled") then
         table.insert(types, "grid2x3")
     end
+    if self.environment:getConfig("media_video_enabled") then
+        table.insert(types, "video")
+    end
     table.insert(types, "mix")
 
     return types
