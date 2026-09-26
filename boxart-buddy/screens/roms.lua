@@ -181,7 +181,10 @@ function M:new(
                     { message = "No Connection to Internet. Cannot scrape", typ = "error" }
                 )
             else
-                self.transitionTo = "ROMSCRAPE"
+                local currentType = self.mediaTypes[self.activeMediaRow]
+                if currentType ~= "video" then
+                    self.transitionTo = "ROMSCRAPE"
+                end
             end
         end,
         secondary = function()
@@ -193,7 +196,8 @@ function M:new(
                 local mediaUuid = self.mediaData[self.mediaTypes[self.activeMediaRow]]
                         and self.mediaData[self.mediaTypes[self.activeMediaRow]].uuid
                     or nil
-                if mediaUuid then
+                local currentType = self.mediaTypes[self.activeMediaRow]
+                if mediaUuid and currentType ~= "video" then
                     self.systemeventsubscriber:publish("media_preview_entered")
                     self.activePanel = "media_preview"
                     self.shouldRedraw = true
@@ -498,6 +502,11 @@ function M:update(dt)
                 string.format("i:%s (%sx%s)", stringUtil.formatBytes(currentImageData:getSize()), w, h)
         end
     end
+
+    if not currentImage and currentImageData then
+        currentImageMetadataPretty = string.format("i:%s", stringUtil.formatBytes(currentImageData:getSize()))
+    end
+
     -- end screenshot
 
     -- media table

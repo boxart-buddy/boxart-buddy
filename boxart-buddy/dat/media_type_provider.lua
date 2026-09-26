@@ -42,10 +42,18 @@ end
 
 ---Media types that can be scraped
 ---@return table
-function M:getScrapeMediaTypes()
+function M:getScrapeMediaTypes(excludeList)
     local types = self:getMediaTypes()
 
+    -- Always remove "mix"
     table.remove_value(types, "mix")
+
+    -- If a list of exclusions is provided, loop through and remove them
+    if excludeList then
+        for _, value in ipairs(excludeList) do
+            table.remove_value(types, value)
+        end
+    end
 
     return types
 end

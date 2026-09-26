@@ -109,14 +109,22 @@ function M:new(systemeventsubscriber)
     self.systemeventsubscriber:subscribe("rom_table_entered", function(event)
         self.buttons = romsTableButtons
     end)
-    self.systemeventsubscriber:subscribe("media_table_entered", function(event)
-        self.buttons = {
-            { images = { "start" }, text = "STATS" },
-            { images = { "confirm" }, text = "RESCRAPE" },
-            { images = { "secondary" }, text = "PREVIEW" },
-            { images = { "cancel" }, text = "DELETE" },
-            { images = { "tertiary" }, text = "FILTER" },
-        }
+    self.systemeventsubscriber:subscribe("rom_media_row_change", function(event)
+        if event.type and event.type == "video" then
+            self.buttons = {
+                { images = { "start" }, text = "STATS" },
+                { images = { "cancel" }, text = "DELETE" },
+                { images = { "tertiary" }, text = "FILTER" },
+            }
+        else
+            self.buttons = {
+                { images = { "start" }, text = "STATS" },
+                { images = { "confirm" }, text = "RESCRAPE" },
+                { images = { "secondary" }, text = "PREVIEW" },
+                { images = { "cancel" }, text = "DELETE" },
+                { images = { "tertiary" }, text = "FILTER" },
+            }
+        end
     end)
     self.systemeventsubscriber:subscribe("media_preview_entered", function(event)
         self.buttons = {

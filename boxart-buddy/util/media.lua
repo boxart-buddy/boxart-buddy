@@ -18,6 +18,11 @@ function M.loadImage(absolutePath)
         return nil, nil
     end
 
+    -- for videos just return the filedata as the video cannot be loaded
+    if string.lower(fileData:getFilename()):match("%.mp4$") then
+        return nil, fileData
+    end
+
     local success, imageData = pcall(function()
         return love.image.newImageData(fileData)
     end)

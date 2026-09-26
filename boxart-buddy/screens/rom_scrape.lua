@@ -39,7 +39,7 @@ function M:new(
     self.rom = nil
     self.romUuid = nil
     self.mediaType = nil
-    self.mediaTypes = self.mediaTypeProvider:getScrapeMediaTypes()
+    self.mediaTypes = self.mediaTypeProvider:getScrapeMediaTypes({ "video" })
 
     self.loadingResults = nil
 
