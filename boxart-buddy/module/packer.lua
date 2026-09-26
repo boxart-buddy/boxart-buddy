@@ -91,14 +91,16 @@ function M:packOne(romUuid, options)
     local targetMapping = {
         mix = "box",
         screenshot = "preview",
+        video = "video",
     }
 
-    for _, typ in ipairs({ "mix", "screenshot" }) do
+    for _, typ in ipairs({ "mix", "screenshot", "video" }) do
         if media[typ] then
             local p = self.platform:getPlatformByKey(rom.platform)
             local from = mediaUtil.mediaPath(self.environment:getPath("cache"), typ, media[typ].filename)
             local toDir = path.join(targetFolder, p.muos, targetMapping[typ])
-            local to = path.join(toDir, path.swapExtension(rom.filename, "png"))
+            local fileExtension = typ == "video" and "mp4" or "png"
+            local to = path.join(toDir, path.swapExtension(rom.filename, fileExtension))
             local cmd = string.format(
                 "mkdir -p %s && cp %s %s",
                 stringUtil.shellQuote(toDir),
@@ -108,9 +110,9 @@ function M:packOne(romUuid, options)
             os.execute(cmd)
 
             -- hackish - resize preview to 515px (max allowed by muos)
-            if typ == "screenshot" then
-                local r, err = image.rescale(to, 515)
-            end
+            -- if typ == "screenshot" then
+            --     local r, err = image.rescale(to, 515)
+            -- end
         end
     end
 end
